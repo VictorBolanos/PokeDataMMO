@@ -15,7 +15,7 @@ PokeDataMMO is a collection of custom tools and guides to manage and optimize th
 ## 🎯 Features
 
 <details>
-<summary><h3>1. 🏆 Leagues</h3></summary>
+<summary><h3>1. Leagues</h3></summary>
 
 <br>
 
@@ -28,7 +28,7 @@ Complete guides for conquering the game's leagues.
 </details>
 
 <details>
-<summary><h3>2. 🌱 Berry Farming</h3></summary>
+<summary><h3>2. Berry Farming</h3></summary>
 
 <br>
 
@@ -39,7 +39,7 @@ Management and optimization system for berry cultivation.
 </details>
 
 <details>
-<summary><h3>3. 🧬 Extreme Breeding Calculator</h3></summary>
+<summary><h3>3. Extreme Breeding Calculator</h3></summary>
 
 <br>
 
@@ -58,7 +58,7 @@ Advanced calculator to optimize the Pokémon breeding process.
 </details>
 
 <details>
-<summary><h3>4. ⚔️ PVP Teams</h3></summary>
+<summary><h3>4. PVP Teams</h3></summary>
 
 <br>
 
@@ -71,7 +71,7 @@ Competitive team management and analysis.
 </details>
 
 <details>
-<summary><h3>5. 🗺️ Region and Account Progression</h3></summary>
+<summary><h3>5. Region and Account Progression</h3></summary>
 
 <br>
 
