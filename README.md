@@ -1,64 +1,84 @@
 # PokeDataMMO
 
-**Wiki personal y utilidades para PokeMMO**
+**Personal Wiki and Utilities for PokeMMO**
 
-🔗 **[Acceder a la aplicación](https://victorbolanos.github.io/PokeDataMMO)**
-
----
-
-## 📖 Descripción
-
-PokeDataMMO es una colección de herramientas y guías personalizadas para gestionar y optimizar la experiencia de juego en PokeMMO. Incluye calculadoras, guías de progresión, gestión de equipos PVP y recursos para el cultivo de bayas y cría de Pokémon.
+🔗 **[Access the application](https://victorbolanos.github.io/PokeDataMMO)**
 
 ---
 
-## 🎯 Funcionalidades
+## 📖 Description
 
-### 1. 🏆 Ligas
-Guías completas para completar las ligas del juego.
-
-- **Posible traducción de guía china**: Traducción y adaptación de la guía de estrategias de las ligas (proyecto ambicioso en planificación)
-
-### 2. 🌱 Cultivado
-Sistema de gestión y optimización para el cultivo de bayas.
-
-### 3. 🧬 Calculador de Cría Extremo
-Calculadora avanzada para optimizar el proceso de cría de Pokémon.
-
-- **Entrada**: Selección de Pokémon objetivo
-- **Salida**: Ruta óptima de cría con los pasos necesarios
-- **Modos disponibles**:
-  - Modo con Natu (Sincronía habilitada)
-  - Modo sin Natu (sin Sincronía)
-
-### 4. ⚔️ Equipos PVP
-Gestión y análisis de equipos competitivos.
-
-- **Calculadora de Pokémon**: Herramienta para analizar estadísticas y matchups (proyecto ambicioso en planificación)
-
-### 5. 🗺️ Progresión de Regiones y Cuentas
-Sistema de seguimiento de progreso para múltiples personajes y cuentas.
-
-- **Configuración**: 3 personajes distribuidos en 2 cuentas
-- **Funcionalidades**:
-  - Calculador de progreso
-  - Guía punto por punto personalizada
+PokeDataMMO is a collection of custom tools and guides to manage and optimize the PokeMMO gameplay experience. It includes calculators, progression guides, PVP team management, and resources for berry farming and Pokémon breeding.
 
 ---
 
-## 🚀 Estado del Proyecto
+## 🎯 Features
 
-Este proyecto está en desarrollo activo. Algunas funcionalidades están siendo implementadas de forma gradual.
+<details>
+<summary><strong>1. 🏆 Leagues</strong></summary>
+
+Complete guides for conquering the game's leagues.
+
+- **Possible Chinese guide translation**: Translation and adaptation of league strategy guides (ambitious project in planning)
+
+</details>
+
+<details>
+<summary><strong>2. 🌱 Berry Farming</strong></summary>
+
+Management and optimization system for berry cultivation.
+
+</details>
+
+<details>
+<summary><strong>3. 🧬 Extreme Breeding Calculator</strong></summary>
+
+Advanced calculator to optimize the Pokémon breeding process.
+
+- **Input**: Selection of target Pokémon
+- **Output**: Optimal breeding path with necessary steps
+- **Available modes**:
+  - Mode with Natu (Synchronize enabled)
+  - Mode without Natu (no Synchronize)
+
+</details>
+
+<details>
+<summary><strong>4. ⚔️ PVP Teams</strong></summary>
+
+Competitive team management and analysis.
+
+- **Pokémon Calculator**: Tool to analyze stats and matchups (ambitious project in planning)
+
+</details>
+
+<details>
+<summary><strong>5. 🗺️ Region and Account Progression</strong></summary>
+
+Progress tracking system for multiple characters and accounts.
+
+- **Configuration**: 3 characters across 2 accounts
+- **Features**:
+  - Progress calculator
+  - Personalized point-by-point guide
+
+</details>
 
 ---
 
-## 💡 Tecnologías
+## 🚀 Project Status
 
-- GitHub Pages para hosting
-- Diseño orientado a utilidades para PokeMMO
+This project is under active development. Some features are being implemented gradually.
 
 ---
 
-## 📝 Notas
+## 💡 Technologies
 
-Proyecto personal creado para optimizar la gestión de recursos, progreso y estrategias en PokeMMO.
+- GitHub Pages for hosting
+- Utilities-focused design for PokeMMO
+
+---
+
+## 📝 Notes
+
+Personal project created to optimize resource management, progression, and strategies in PokeMMO.
