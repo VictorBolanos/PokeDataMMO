@@ -18,6 +18,7 @@ PokeDataMMO is a collection of custom tools and guides to manage and optimize th
 <summary><strong>1. 🏆 Leagues</strong></summary>
 
 <br>
+League farming cost and benefits calculator
 
 Complete guides for conquering the game's leagues.
 
