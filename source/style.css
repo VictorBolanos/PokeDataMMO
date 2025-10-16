@@ -28,7 +28,7 @@ body {
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(30, 30, 30, 0.85);
+    background: rgba(30, 30, 30, 0.6);
     border-radius: 0 0 15px 15px;
     padding: 10px 20px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
@@ -38,12 +38,179 @@ body {
     z-index: 1000;
     width: 93.5%;
     max-width: 1386px;
+    gap: 20px;
 }
 
 .title-logo {
     height: 60px;
     width: auto;
     max-width: 300px;
+}
+
+/* ===== WALLPAPER FEATURE ===== */
+.wallpaper-container {
+    position: relative;
+}
+
+.wallpaper-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+}
+
+.wallpaper-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: scale(1.05);
+}
+
+.wallpaper-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.wallpaper-btn:hover svg {
+    transform: scale(1.1);
+}
+
+.wallpaper-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    margin-top: 10px;
+    background: rgba(30, 30, 30, 0.95);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(15px);
+    padding: 20px;
+    width: 400px;
+    max-height: 500px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+.wallpaper-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.wallpaper-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.wallpaper-header h6 {
+    color: white;
+    font-weight: 600;
+    margin: 0;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.wallpaper-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 10px;
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.wallpaper-item {
+    aspect-ratio: 16/9;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    position: relative;
+}
+
+.wallpaper-item:hover {
+    transform: scale(1.05);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.wallpaper-item.selected {
+    border-color: #dc2626;
+    box-shadow: 0 0 15px rgba(220, 38, 38, 0.5);
+}
+
+.wallpaper-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.wallpaper-item:hover img {
+    transform: scale(1.1);
+}
+
+.wallpaper-item .pokemon-name {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: white;
+    font-size: 0.7rem;
+    padding: 5px;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.wallpaper-item:hover .pokemon-name {
+    opacity: 1;
+}
+
+/* Custom scrollbar for wallpaper grid */
+.wallpaper-grid::-webkit-scrollbar {
+    width: 6px;
+}
+
+.wallpaper-grid::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.wallpaper-grid::-webkit-scrollbar-thumb {
+    background: #dc2626;
+    border-radius: 3px;
+}
+
+.wallpaper-grid::-webkit-scrollbar-thumb:hover {
+    background: #991b1b;
 }
 
 /* ===== MAIN CONTENT CARD ===== */
@@ -58,7 +225,7 @@ body {
 
 /* ===== TAB SYSTEM ===== */
 .tab-system-container {
-    background: rgba(30, 30, 30, 0.95);
+    background: rgba(30, 30, 30, 0.6);
     border-radius: 15px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(10px);
@@ -67,7 +234,7 @@ body {
 }
 
 .nav-tabs-container {
-    background: rgba(60, 60, 60, 0.9);
+    background: rgba(60, 60, 60, 0.6);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -91,7 +258,7 @@ body {
 }
 
 .nav-tab.active {
-    background: rgba(30, 30, 30, 0.95);
+    background: rgba(30, 30, 30, 0.6);
     color: white;
 }
 
@@ -115,7 +282,7 @@ body {
 
 /* ===== TAB CONTENT ===== */
 .tab-content-area {
-    background: rgba(30, 30, 30, 0.95);
+    background: rgba(30, 30, 30, 0.6);
     min-height: calc(100vh - 300px);
     overflow-y: auto;
 }
@@ -194,7 +361,7 @@ body {
 
 /* ===== FOOTER ===== */
 footer.footer-custom {
-    background: rgba(30, 30, 30, 0.85);
+    background: rgba(30, 30, 30, 0.6);
     border-radius: 15px 15px 0 0;
     padding: 1rem 2rem;
     box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
@@ -254,6 +421,15 @@ footer.footer-custom {
     .title-logo {
         height: 50px;
     }
+    
+    .wallpaper-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .wallpaper-dropdown {
+        width: 350px;
+    }
 }
 
 @media (max-width: 768px) {
@@ -274,6 +450,21 @@ footer.footer-custom {
     
     .title-logo {
         height: 45px;
+    }
+    
+    .wallpaper-btn {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .wallpaper-dropdown {
+        width: 300px;
+        padding: 15px;
+    }
+    
+    .wallpaper-grid {
+        grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+        gap: 8px;
     }
     
     .tab-pane {
@@ -308,6 +499,21 @@ footer.footer-custom {
     
     .title-logo {
         height: 40px;
+    }
+    
+    .wallpaper-btn {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .wallpaper-dropdown {
+        width: 280px;
+        padding: 12px;
+    }
+    
+    .wallpaper-grid {
+        grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+        gap: 6px;
     }
     
     .tab-pane {

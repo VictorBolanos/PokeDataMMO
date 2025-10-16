@@ -17,6 +17,30 @@
         <!-- Header Card - Fixed -->
         <div class="header-card d-flex align-items-center justify-content-center">
             <img src="img/TitleLogo.png" alt="PokeDataMMO" class="title-logo">
+            
+            <!-- Wallpaper Button -->
+            <div class="wallpaper-container position-relative">
+                <button class="wallpaper-btn" id="wallpaperBtn">
+                    <svg width="20" height="20" viewBox="0 0 432 432" xmlns="http://www.w3.org/2000/svg">
+                        <path fill="white" d="M43 45v150H0V45q0-17 12.5-29.5T43 3h149v42H43zm128 192l63 79l43-57l64 85H85zm149-95.5q0 13.5-9.5 22.5t-22.5 9t-22.5-9t-9.5-22.5t9.5-23T288 109t22.5 9.5t9.5 23zM384 3q18 0 30.5 12.5T427 45v150h-43V45H235V3h149zm0 384V237h43v150q0 17-12.5 29.5T384 429H235v-42h149zM43 237v150h149v42H43q-18 0-30.5-12.5T0 387V237h43z"/>
+                    </svg>
+                </button>
+                
+                <!-- Wallpaper Dropdown -->
+                <div class="wallpaper-dropdown" id="wallpaperDropdown">
+                    <div class="wallpaper-header">
+                        <h6 class="mb-0">Select Wallpaper</h6>
+                        <button class="close-btn" id="closeWallpaper">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                <path d="M18 6L6 18M6 6L18 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="wallpaper-grid" id="wallpaperGrid">
+                        <!-- Wallpapers will be loaded dynamically -->
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Main Content Card -->
