@@ -1,54 +1,32 @@
-// PokeDataMMO - Main JavaScript file
+// PokeDataMMO - Clean & Optimized JavaScript
 
-// Wait for DOM to be fully loaded
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('PokeDataMMO loaded successfully!');
-    
-    // Initialize the application
-    initializeApp();
-});
+// ===== INITIALIZATION =====
+document.addEventListener('DOMContentLoaded', initializeApp);
 
 function initializeApp() {
-    // Initialize tab system
     initializeTabs();
-    
-    // Initialize any other features
     initializeFeatures();
 }
 
-// Tab System - Salesforce Style
+// ===== TAB SYSTEM =====
 function initializeTabs() {
     const tabs = document.querySelectorAll('.nav-tab');
-    const tabPanes = document.querySelectorAll('.tab-pane');
     
-    // Add click event listeners to all tabs
+    // Add click event listeners
     tabs.forEach(tab => {
         tab.addEventListener('click', function() {
-            const targetTab = this.getAttribute('data-tab');
-            switchTab(targetTab);
+            switchTab(this.getAttribute('data-tab'));
         });
     });
     
-    // Add keyboard navigation support
-    document.addEventListener('keydown', function(e) {
-        if (e.ctrlKey) {
-            const currentTab = document.querySelector('.nav-tab.active');
-            const currentIndex = Array.from(tabs).indexOf(currentTab);
-            
-            switch(e.key) {
-                case 'ArrowLeft':
-                    e.preventDefault();
-                    const prevIndex = currentIndex > 0 ? currentIndex - 1 : tabs.length - 1;
-                    tabs[prevIndex].click();
-                    break;
-                case 'ArrowRight':
-                    e.preventDefault();
-                    const nextIndex = currentIndex < tabs.length - 1 ? currentIndex + 1 : 0;
-                    tabs[nextIndex].click();
-                    break;
-            }
-        }
-    });
+    // Keyboard navigation (Ctrl + Arrow keys)
+    document.addEventListener('keydown', handleKeyboardNavigation);
+    
+    // Handle browser back/forward buttons
+    window.addEventListener('popstate', handlePopState);
+    
+    // Check for initial hash on page load
+    window.addEventListener('load', handleInitialHash);
 }
 
 function switchTab(targetTabId) {
@@ -74,7 +52,7 @@ function switchTab(targetTabId) {
         targetTab.setAttribute('aria-selected', 'true');
         targetPane.classList.add('active');
         
-        // Add smooth transition effect
+        // Smooth transition effect
         targetPane.style.opacity = '0';
         setTimeout(() => {
             targetPane.style.opacity = '1';
@@ -82,31 +60,48 @@ function switchTab(targetTabId) {
         
         // Update URL hash for bookmarking
         window.history.pushState(null, null, `#${targetTabId}`);
-        
-        // Log tab switch for analytics
-        console.log(`Switched to ${targetTabId} tab`);
     }
 }
 
-// Handle browser back/forward buttons
-window.addEventListener('popstate', function(e) {
+function handleKeyboardNavigation(e) {
+    if (!e.ctrlKey) return;
+    
+    const tabs = document.querySelectorAll('.nav-tab');
+    const currentTab = document.querySelector('.nav-tab.active');
+    const currentIndex = Array.from(tabs).indexOf(currentTab);
+    
+    if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        const prevIndex = currentIndex > 0 ? currentIndex - 1 : tabs.length - 1;
+        tabs[prevIndex].click();
+    } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        const nextIndex = currentIndex < tabs.length - 1 ? currentIndex + 1 : 0;
+        tabs[nextIndex].click();
+    }
+}
+
+function handlePopState() {
     const hash = window.location.hash.substring(1);
     if (hash && document.getElementById(hash)) {
         switchTab(hash);
     }
-});
+}
 
-// Check for initial hash on page load
-window.addEventListener('load', function() {
+function handleInitialHash() {
     const hash = window.location.hash.substring(1);
     if (hash && document.getElementById(hash)) {
         switchTab(hash);
     }
-});
+}
 
-// Initialize other features
+// ===== FEATURES =====
 function initializeFeatures() {
-    // Add hover effects to status cards
+    addStatusCardHoverEffects();
+    addFeatureListClickEffects();
+}
+
+function addStatusCardHoverEffects() {
     const statusCards = document.querySelectorAll('.status-card');
     statusCards.forEach(card => {
         card.addEventListener('mouseenter', function() {
@@ -119,8 +114,9 @@ function initializeFeatures() {
             this.style.boxShadow = 'none';
         });
     });
-    
-    // Add click animation to feature list items
+}
+
+function addFeatureListClickEffects() {
     const featureItems = document.querySelectorAll('.feature-list li');
     featureItems.forEach(item => {
         item.addEventListener('click', function() {
@@ -132,13 +128,11 @@ function initializeFeatures() {
     });
 }
 
-// Utility functions for future use
+// ===== UTILITY FUNCTIONS =====
 const PokeDataMMO = {
     // Tab management
     tabs: {
-        switchTo: function(tabId) {
-            switchTab(tabId);
-        },
+        switchTo: switchTab,
         
         getCurrentTab: function() {
             const activeTab = document.querySelector('.nav-tab.active');
@@ -148,13 +142,13 @@ const PokeDataMMO = {
         getAllTabs: function() {
             return Array.from(document.querySelectorAll('.nav-tab')).map(tab => ({
                 id: tab.getAttribute('data-tab'),
-                text: tab.querySelector('.tab-text').textContent,
-                icon: tab.querySelector('.tab-icon').textContent
+                text: tab.querySelector('.tab-text')?.textContent || '',
+                icon: tab.querySelector('.tab-icon')?.textContent || ''
             }));
         }
     },
     
-    // Future breeding calculator functions
+    // Future features (stubs for development)
     breedingCalculator: {
         calculateBreedingPath: function(targetPokemon) {
             console.log('Breeding calculator - Coming soon!');
@@ -162,7 +156,6 @@ const PokeDataMMO = {
         }
     },
     
-    // Future PVP team management
     pvpTeams: {
         analyzeTeam: function(team) {
             console.log('PVP team analyzer - Coming soon!');
@@ -170,7 +163,6 @@ const PokeDataMMO = {
         }
     },
     
-    // Future progression tracker
     progressionTracker: {
         trackProgress: function(character, region) {
             console.log('Progression tracker - Coming soon!');
@@ -178,7 +170,7 @@ const PokeDataMMO = {
         }
     },
     
-    // Utility function to fetch data from PokeAPI
+    // API utility
     fetchPokemonData: async function(pokemonName) {
         try {
             const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`);
@@ -192,7 +184,7 @@ const PokeDataMMO = {
         }
     },
     
-    // Theme management for future image backgrounds
+    // Theme management
     theme: {
         currentBackground: 'black',
         
@@ -212,10 +204,10 @@ const PokeDataMMO = {
     }
 };
 
-// Export for future modules (when we add module system)
+// Export for future modules
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = PokeDataMMO;
 }
 
-// Make PokeDataMMO available globally for debugging
+// Make available globally for debugging
 window.PokeDataMMO = PokeDataMMO;

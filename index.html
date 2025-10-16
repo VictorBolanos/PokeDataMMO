@@ -13,69 +13,69 @@
 </head>
 <body>
     <!-- Main Container -->
-    <div class="main-container">
+    <div class="main-container d-flex flex-column align-items-center">
         <!-- Header Card - Fixed -->
-        <div class="header-card">
+        <div class="header-card d-flex align-items-center justify-content-center">
             <img src="img/TitleLogo.png" alt="PokeDataMMO" class="title-logo">
         </div>
 
         <!-- Main Content Card -->
         <div class="main-card">
-            <!-- Navigation Tabs -->
-            <div class="nav-tabs-wrapper">
-                <div class="nav-tabs-container">
-                    <button class="nav-tab active" data-tab="leagues">
+            <!-- Unified Tab System -->
+            <div class="tab-system-container">
+                <!-- Navigation Tabs -->
+                <div class="nav-tabs-container d-flex">
+                    <button class="nav-tab active d-flex align-items-center justify-content-center flex-fill" data-tab="leagues">
                         <span class="tab-icon">🏆</span>
-                        <span class="tab-text">Leagues</span>
+                        <span class="tab-text d-none d-lg-inline ms-1">Leagues</span>
                     </button>
-                    <button class="nav-tab" data-tab="farming">
+                    <button class="nav-tab d-flex align-items-center justify-content-center flex-fill" data-tab="farming">
                         <span class="tab-icon">🌱</span>
-                        <span class="tab-text">Berry Farming</span>
+                        <span class="tab-text d-none d-lg-inline ms-1">Berry Farming</span>
                     </button>
-                    <button class="nav-tab" data-tab="breeding">
+                    <button class="nav-tab d-flex align-items-center justify-content-center flex-fill" data-tab="breeding">
                         <span class="tab-icon">🧬</span>
-                        <span class="tab-text">Breeding Calculator</span>
+                        <span class="tab-text d-none d-lg-inline ms-1">Breeding Calculator</span>
                     </button>
-                    <button class="nav-tab" data-tab="pvp">
+                    <button class="nav-tab d-flex align-items-center justify-content-center flex-fill" data-tab="pvp">
                         <span class="tab-icon">⚔️</span>
-                        <span class="tab-text">PVP Teams</span>
+                        <span class="tab-text d-none d-lg-inline ms-1">PVP Teams</span>
                     </button>
-                    <button class="nav-tab" data-tab="progression">
+                    <button class="nav-tab d-flex align-items-center justify-content-center flex-fill" data-tab="progression">
                         <span class="tab-icon">🗺️</span>
-                        <span class="tab-text">Progression</span>
+                        <span class="tab-text d-none d-lg-inline ms-1">Progression</span>
                     </button>
                 </div>
-            </div>
-            
-            <div class="container-fluid">
-                <!-- Tab Content -->
-                <div class="tab-content">
+                
+                <!-- Tab Content Area -->
+                <div class="tab-content-area">
+                    <div class="tab-content">
                     <!-- Leagues Tab -->
                     <div class="tab-pane active" id="leagues">
-                        <div class="content-header">
-                            <h2><span class="content-icon">🏆</span> Leagues</h2>
-                            <p class="lead">Complete guides for conquering the game's leagues</p>
+                        <div class="content-header mb-4 pb-3 border-bottom border-secondary">
+                            <h2 class="d-flex align-items-center gap-3 mb-3"><span class="content-icon">🏆</span> Leagues</h2>
+                            <p class="lead mb-0">Complete guides for conquering the game's leagues</p>
                         </div>
                         <div class="content-body">
                             <div class="row">
                                 <div class="col-md-8">
-                                    <h4>What's Coming</h4>
-                                    <p>This section will contain comprehensive guides for all the leagues in PokeMMO, including:</p>
-                                    <ul class="feature-list">
-                                        <li><strong>Strategy guides</strong> for each gym leader and Elite Four member</li>
-                                        <li><strong>Recommended team compositions</strong> for different regions</li>
-                                        <li><strong>Level recommendations</strong> and training tips</li>
-                                        <li><strong>Item usage strategies</strong> for optimal performance</li>
+                                    <h4 class="mb-3">What's Coming</h4>
+                                    <p class="mb-3">This section will contain comprehensive guides for all the leagues in PokeMMO, including:</p>
+                                    <ul class="feature-list list-unstyled">
+                                        <li class="mb-2"><strong>Strategy guides</strong> for each gym leader and Elite Four member</li>
+                                        <li class="mb-2"><strong>Recommended team compositions</strong> for different regions</li>
+                                        <li class="mb-2"><strong>Level recommendations</strong> and training tips</li>
+                                        <li class="mb-2"><strong>Item usage strategies</strong> for optimal performance</li>
                                     </ul>
-                                    <div class="alert alert-info">
+                                    <div class="alert alert-info mt-3">
                                         <strong>Ambitious Project:</strong> We're considering translating and adapting the comprehensive Chinese league strategy guides into properly written English guides.
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="status-card">
-                                        <h5>Development Status</h5>
+                                    <div class="status-card bg-light bg-opacity-10 border border-secondary rounded p-4 text-center">
+                                        <h5 class="text-white mb-3">Development Status</h5>
                                         <span class="badge bg-warning">In Planning</span>
-                                        <p class="mt-2">Research phase ongoing</p>
+                                        <p class="mt-2 mb-0">Research phase ongoing</p>
                                     </div>
                                 </div>
                             </div>
@@ -210,20 +210,21 @@
                             </div>
                         </div>
                     </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-    </div>
+        <!-- Footer -->
+        <footer class="footer-custom text-center">
+            <div class="container-fluid">
+                <p class="footer-text mb-0">
+                    2025 PokeDataMMO - Created by Victor Bolaños for managing strategies, farming and data for PokeMMO game
+                </p>
+            </div>
+        </footer>
 
-    <!-- Footer -->
-    <footer class="footer-custom">
-        <div class="container-fluid">
-            <p class="footer-text">
-                2025 PokeDataMMO - Created by Victor Bolaños for managing strategies, farming and data for PokeMMO game
-            </p>
-        </div>
-    </footer>
+    </div>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
