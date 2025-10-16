@@ -1038,6 +1038,402 @@ body.light-theme .control-btn svg path {
     fill: #000;
 }
 
+/* ===== TYPE CHART STYLES ===== */
+.type-selector-container {
+    margin-bottom: 1rem;
+}
+
+.type-selector {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.type-selector:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    outline: none;
+}
+
+.type-selector option {
+    background: #2a2a2a;
+    color: white;
+    padding: 8px;
+}
+
+/* Type Buttons Grid Styles */
+.type-buttons-grid {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 8px;
+    margin-bottom: 1rem;
+    justify-items: center;
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Center the second row (8 buttons) by positioning them in columns 1-8 */
+.type-buttons-grid .type-button:nth-child(10) {
+    grid-column: 1;
+}
+
+.type-buttons-grid .type-button:nth-child(11) {
+    grid-column: 2;
+}
+
+.type-buttons-grid .type-button:nth-child(12) {
+    grid-column: 3;
+}
+
+.type-buttons-grid .type-button:nth-child(13) {
+    grid-column: 4;
+}
+
+.type-buttons-grid .type-button:nth-child(14) {
+    grid-column: 5;
+}
+
+.type-buttons-grid .type-button:nth-child(15) {
+    grid-column: 6;
+}
+
+.type-buttons-grid .type-button:nth-child(16) {
+    grid-column: 7;
+}
+
+.type-buttons-grid .type-button:nth-child(17) {
+    grid-column: 8;
+}
+
+.type-button {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    padding: 0 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 96px;
+    height: 50px;
+}
+
+.type-button:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+}
+
+.type-button.selected {
+    background: rgba(76, 175, 80, 0.3);
+    border-color: #4CAF50;
+    box-shadow: 0 0 15px rgba(76, 175, 80, 0.3);
+}
+
+.type-button.selected.secondary {
+    background: rgba(156, 39, 176, 0.3);
+    border-color: #9c27b0;
+    box-shadow: 0 0 15px rgba(156, 39, 176, 0.3);
+}
+
+.type-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.3s ease;
+}
+
+.type-button:hover img {
+    transform: scale(1.05);
+}
+
+.selected-types-info {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.selected-types-info > div {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.effectiveness-results {
+    margin: 2rem 0;
+}
+
+.effectiveness-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.effectiveness-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+}
+
+.effectiveness-card h5 {
+    color: white;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.effectiveness-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+.effectiveness-type {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    margin: 2px;
+}
+
+.effectiveness-type:hover {
+    transform: scale(1.05);
+}
+
+.effectiveness-type img {
+    width: 80px;
+    height: 50px;
+    object-fit: contain;
+}
+
+/* Color the entire effectiveness cards */
+.no-effect {
+    background: rgba(255, 0, 0, 0.3) !important;
+    border: 1px solid rgba(255, 0, 0, 0.5) !important;
+}
+
+.not-very-effective {
+    background: rgba(255, 165, 0, 0.3) !important;
+    border: 1px solid rgba(255, 165, 0, 0.5) !important;
+}
+
+.super-effective {
+    background: rgba(76, 175, 80, 0.3) !important;
+    border: 1px solid rgba(76, 175, 80, 0.5) !important;
+}
+
+.ultra-effective {
+    background: rgba(156, 39, 176, 0.3) !important;
+    border: 1px solid rgba(156, 39, 176, 0.5) !important;
+}
+
+.type-chart-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow-x: auto;
+    text-align: center;
+}
+
+.type-chart-table {
+    display: inline-grid;
+    grid-template-columns: 50px repeat(17, 50px);
+    gap: 2px;
+    min-width: 1000px;
+    table-layout: fixed;
+}
+
+.type-chart-cell {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-weight: 900;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 50px;
+    max-height: 50px;
+    box-sizing: border-box;
+}
+
+.type-chart-cell:hover {
+    transform: none;
+    z-index: 10;
+}
+
+/* Hover highlight classes - ONLY border, NO background change */
+.hover-row {
+    border-left: 2px solid rgba(255, 255, 255, 0.8) !important;
+    border-right: 2px solid rgba(255, 255, 255, 0.8) !important;
+    z-index: 20;
+    /* NO background changes - preserve original colors */
+}
+
+.hover-col {
+    border-top: 2px solid rgba(255, 255, 255, 0.8) !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.8) !important;
+    z-index: 20;
+    /* NO background changes - preserve original colors */
+}
+
+.type-chart-header {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    padding: 8px;
+}
+
+.type-chart-header img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.type-chart-header span {
+    display: none;
+}
+
+.corner-cell {
+    background: transparent !important;
+    border: none !important;
+}
+
+.type-chart-cell.effectiveness-0 {
+    background: rgba(255, 0, 0, 0.3);
+    color: #ff6b6b;
+}
+
+.type-chart-cell.effectiveness-05 {
+    background: rgba(255, 165, 0, 0.3);
+    color: #ffa500;
+}
+
+.type-chart-cell.effectiveness-1 {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.type-chart-cell.effectiveness-2 {
+    background: rgba(76, 175, 80, 0.3);
+    color: #4CAF50;
+}
+
+.type-chart-cell.effectiveness-4 {
+    background: rgba(156, 39, 176, 0.3);
+    color: #9c27b0;
+}
+
+/* Light theme adjustments */
+body.light-theme .type-selector {
+    background: rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.2);
+    color: #333;
+}
+
+body.light-theme .type-selector:focus {
+    background: rgba(0, 0, 0, 0.15);
+    border-color: #4CAF50;
+}
+
+body.light-theme .type-selector option {
+    background: #f5f5f5;
+    color: #333;
+}
+
+body.light-theme .effectiveness-card {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .effectiveness-card h5 {
+    color: #333;
+}
+
+body.light-theme .effectiveness-type {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+body.light-theme .type-chart-container {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .type-chart-header {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+body.light-theme .type-chart-cell.effectiveness-1 {
+    background: rgba(0, 0, 0, 0.1);
+    color: #333;
+}
+
+body.light-theme .hover-row {
+    border-left: 2px solid rgba(0, 0, 0, 0.8) !important;
+    border-right: 2px solid rgba(0, 0, 0, 0.8) !important;
+}
+
+body.light-theme .hover-col {
+    border-top: 2px solid rgba(0, 0, 0, 0.8) !important;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.8) !important;
+}
+
+/* Force preserve original effectiveness colors on hover */
+.hover-row.effectiveness-0,
+.hover-col.effectiveness-0 {
+    background: rgba(255, 0, 0, 0.3) !important;
+    color: #ff6b6b !important;
+}
+
+.hover-row.effectiveness-05,
+.hover-col.effectiveness-05 {
+    background: rgba(255, 165, 0, 0.3) !important;
+    color: #ffa500 !important;
+}
+
+.hover-row.effectiveness-1,
+.hover-col.effectiveness-1 {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+}
+
+.hover-row.effectiveness-2,
+.hover-col.effectiveness-2 {
+    background: rgba(76, 175, 80, 0.3) !important;
+    color: #4CAF50 !important;
+}
+
+.hover-row.effectiveness-4,
+.hover-col.effectiveness-4 {
+    background: rgba(156, 39, 176, 0.3) !important;
+    color: #9c27b0 !important;
+}
+
 body.light-theme .play-pause-btn {
     background: rgba(220, 38, 38, 0.8);
     border-color: rgba(220, 38, 38, 0.6);

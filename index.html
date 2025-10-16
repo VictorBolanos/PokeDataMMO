@@ -342,24 +342,53 @@
                                 <h2 class="d-flex align-items-center gap-3 mb-3"><span class="content-icon">⚡</span> Type Chart</h2>
                                 <p class="lead mb-0">Interactive Pokémon type effectiveness system</p>
                             </div>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <h4 class="mb-3">What's Coming</h4>
-                                    <p class="mb-3">This section will contain a complete and interactive type chart with:</p>
-                                    <ul class="feature-list list-unstyled">
-                                        <li class="mb-2"><strong>Type effectiveness table</strong> - Complete matrix of all types</li>
-                                        <li class="mb-2"><strong>Damage calculator</strong> - Calculate effective damage between types</li>
-                                        <li class="mb-2"><strong>Type search</strong> - Find strengths and weaknesses</li>
-                                        <li class="mb-2"><strong>Detailed information</strong> - Descriptions and examples for each type</li>
-                                        <li class="mb-2"><strong>Dark/light mode</strong> - Adapted to your preferred theme</li>
-                                    </ul>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="status-card bg-light bg-opacity-10 border border-secondary rounded p-4 text-center">
-                                        <h5 class="text-white mb-3">Development Status</h5>
-                                        <span class="badge bg-warning">Coming Soon</span>
-                                        <p class="mt-2 mb-0">Interface design in progress</p>
+                            
+                            <!-- Type Selectors -->
+                            <div class="row mb-4">
+                                <div class="col-md-12">
+                                    <div class="type-selector-container">
+                                        <label class="form-label text-white mb-3">Select Types (Primary + Optional Secondary)</label>
+                                        <div class="type-buttons-grid" id="typeButtonsGrid">
+                                            <!-- Type buttons will be populated by JavaScript -->
+                                        </div>
                                     </div>
+                                </div>
+                            </div>
+
+                            <!-- Effectiveness Results -->
+                            <div class="effectiveness-results mb-4" id="effectivenessResults" style="display: none;">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="effectiveness-card no-effect">
+                                            <h5 class="text-center mb-3">No Effect (0x)</h5>
+                                            <div class="effectiveness-list" id="noEffectList"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="effectiveness-card not-very-effective">
+                                            <h5 class="text-center mb-3">Not Very Effective (0.5x)</h5>
+                                            <div class="effectiveness-list" id="notVeryEffectiveList"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="effectiveness-card super-effective">
+                                            <h5 class="text-center mb-3">Super Effective (2x)</h5>
+                                            <div class="effectiveness-list" id="superEffectiveList"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="effectiveness-card ultra-effective">
+                                            <h5 class="text-center mb-3">Ultra Effective (4x)</h5>
+                                            <div class="effectiveness-list" id="ultraEffectiveList"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Type Chart Table -->
+                            <div class="type-chart-container">
+                                <div class="type-chart-table" id="typeChartTable">
+                                    <!-- Table will be generated by JavaScript -->
                                 </div>
                             </div>
                         </div>
@@ -384,5 +413,7 @@
     <script src="source/script.js"></script>
     <!-- Music Player JS -->
     <script src="source/music-player.js"></script>
+    <!-- Type Chart JS -->
+    <script src="source/type-chart.js"></script>
 </body>
 </html>
