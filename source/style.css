@@ -693,6 +693,7 @@ footer.footer-custom {
 /* ===== LIGHT THEME ===== */
 body.light-theme {
     color: #000;
+    background-color: #ffffff;
 }
 
 body.light-theme::before {
