@@ -17,6 +17,9 @@ class MusicPlayer {
             closeBtn: document.getElementById('closeMusic'),
             songTitle: document.getElementById('songTitle'),
             songInfo: document.getElementById('songInfo'),
+            progressContainer: document.getElementById('progressContainer'),
+            progressBar: document.getElementById('progressBar'),
+            progressThumb: document.getElementById('progressThumb'),
             playPauseBtn: document.getElementById('playPauseBtn'),
             playIcon: document.getElementById('playIcon'),
             pauseIcon: document.getElementById('pauseIcon'),
@@ -101,6 +104,29 @@ class MusicPlayer {
         
         this.elements.volumeUpBtn.addEventListener('click', () => {
             this.changeVolume(0.1);
+        });
+        
+        // Progress bar interaction
+        this.elements.progressContainer.addEventListener('click', (e) => {
+            this.seekToPosition(e);
+        });
+        
+        // Progress bar dragging
+        let isDragging = false;
+        
+        this.elements.progressContainer.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            this.seekToPosition(e);
+        });
+        
+        document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+                this.seekToPosition(e);
+            }
+        });
+        
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
         });
     }
     
@@ -246,6 +272,7 @@ class MusicPlayer {
         this.currentIndex = 0;
         this.updateUI();
         this.updatePlaylistSelection();
+        this.updateProgressBar(0);
     }
     
     previousSong() {
@@ -288,8 +315,13 @@ class MusicPlayer {
             const current = this.formatTime(this.audio.currentTime);
             const total = this.formatTime(this.audio.duration);
             this.elements.songInfo.textContent = `${current} / ${total}`;
+            
+            // Update progress bar
+            const progress = (this.audio.currentTime / this.audio.duration) * 100;
+            this.updateProgressBar(progress);
         } else {
             this.elements.songInfo.textContent = '--:-- / --:--';
+            this.updateProgressBar(0);
         }
     }
     
@@ -302,6 +334,27 @@ class MusicPlayer {
     
     updateVolumeDisplay() {
         this.elements.volumeDisplay.textContent = `${Math.round(this.volume * 100)}%`;
+    }
+    
+    updateProgressBar(progress) {
+        // Clamp progress between 0 and 100
+        progress = Math.max(0, Math.min(100, progress));
+        
+        // Update CSS custom property
+        this.elements.progressBar.style.setProperty('--progress', `${progress}%`);
+        this.elements.progressThumb.style.setProperty('--progress', `${progress}%`);
+    }
+    
+    seekToPosition(e) {
+        if (!this.audio.duration || isNaN(this.audio.duration)) return;
+        
+        const rect = this.elements.progressContainer.getBoundingClientRect();
+        const offsetX = e.clientX - rect.left;
+        const width = rect.width;
+        const percentage = Math.max(0, Math.min(1, offsetX / width));
+        
+        this.audio.currentTime = percentage * this.audio.duration;
+        this.updateProgressBar(percentage * 100);
     }
     
     formatTime(seconds) {
