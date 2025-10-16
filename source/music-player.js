@@ -8,6 +8,7 @@ class MusicPlayer {
         this.currentIndex = 0;
         this.isPlaying = false;
         this.volume = 0.5;
+        this.previousVolume = 0.5;
         this.isInitialized = false;
         
         // DOM Elements
@@ -26,6 +27,7 @@ class MusicPlayer {
             prevBtn: document.getElementById('prevBtn'),
             nextBtn: document.getElementById('nextBtn'),
             stopBtn: document.getElementById('stopBtn'),
+            muteBtn: document.getElementById('muteBtn'),
             volumeDownBtn: document.getElementById('volumeDownBtn'),
             volumeUpBtn: document.getElementById('volumeUpBtn'),
             volumeDisplay: document.getElementById('volumeDisplay'),
@@ -96,6 +98,10 @@ class MusicPlayer {
         
         this.elements.stopBtn.addEventListener('click', () => {
             this.stop();
+        });
+        
+        this.elements.muteBtn.addEventListener('click', () => {
+            this.toggleMute();
         });
         
         this.elements.volumeDownBtn.addEventListener('click', () => {
@@ -265,13 +271,26 @@ class MusicPlayer {
     }
     
     stop() {
+        // Pausar y resetear tiempo
         this.audio.pause();
         this.audio.currentTime = 0;
+        
+        // Reset del estado del reproductor
         this.isPlaying = false;
         this.currentIndex = 0;
+        
+        // Cargar la primera canción pero sin reproducir
+        if (this.playlist.length > 0) {
+            const firstSong = this.playlist[0];
+            this.audio.src = `audio/music/${firstSong.file}`;
+            this.audio.load();
+        }
+        
+        // Actualizar UI
         this.updateUI();
         this.updatePlaylistSelection();
         this.updateProgressBar(0);
+        this.updateSongInfo();
     }
     
     previousSong() {
@@ -286,7 +305,30 @@ class MusicPlayer {
     
     changeVolume(delta) {
         this.volume = Math.max(0, Math.min(1, this.volume + delta));
+        
+        // Si baja por debajo del 10%, automáticamente mute (0%)
+        if (this.volume < 0.1 && this.volume > 0) {
+            this.volume = 0;
+        }
+        
         this.audio.volume = this.volume;
+        
+        this.updateVolumeDisplay();
+        this.saveSettings();
+    }
+    
+    toggleMute() {
+        if (this.volume === 0) {
+            // If muted (volume is 0), restore previous volume
+            this.volume = this.previousVolume > 0 ? this.previousVolume : 0.5;
+            this.audio.volume = this.volume;
+        } else {
+            // If not muted, save current volume and mute
+            this.previousVolume = this.volume;
+            this.volume = 0;
+            this.audio.volume = 0;
+        }
+        
         this.updateVolumeDisplay();
         this.saveSettings();
     }
@@ -332,7 +374,11 @@ class MusicPlayer {
     }
     
     updateVolumeDisplay() {
-        this.elements.volumeDisplay.textContent = `${Math.round(this.volume * 100)}%`;
+        if (this.volume === 0) {
+            this.elements.volumeDisplay.textContent = 'Mute';
+        } else {
+            this.elements.volumeDisplay.textContent = `${Math.round(this.volume * 100)}%`;
+        }
     }
     
     updateProgressBar(progress) {
@@ -372,10 +418,15 @@ class MusicPlayer {
     loadSettings() {
         const savedVolume = localStorage.getItem('musicPlayerVolume');
         const savedIndex = localStorage.getItem('musicPlayerIndex');
+        const savedPreviousVolume = localStorage.getItem('musicPlayerPreviousVolume');
         
         if (savedVolume !== null) {
             this.volume = parseFloat(savedVolume);
             this.audio.volume = this.volume;
+        }
+        
+        if (savedPreviousVolume !== null) {
+            this.previousVolume = parseFloat(savedPreviousVolume);
         }
         
         if (savedIndex !== null) {
@@ -387,6 +438,7 @@ class MusicPlayer {
     
     saveSettings() {
         localStorage.setItem('musicPlayerVolume', this.volume.toString());
+        localStorage.setItem('musicPlayerPreviousVolume', this.previousVolume.toString());
         localStorage.setItem('musicPlayerIndex', this.currentIndex.toString());
     }
 }
