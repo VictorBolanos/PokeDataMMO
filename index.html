@@ -15,29 +15,123 @@
     <!-- Main Container -->
     <div class="main-container d-flex flex-column align-items-center">
         <!-- Header Card - Fixed -->
-        <div class="header-card d-flex align-items-center justify-content-center">
+        <div class="header-card d-flex align-items-center justify-content-between">
             <img src="img/TitleLogo.png" alt="PokeDataMMO" class="title-logo">
             
-            <!-- Wallpaper Button -->
-            <div class="wallpaper-container position-relative">
-                <button class="wallpaper-btn" id="wallpaperBtn">
-                    <svg width="20" height="20" viewBox="0 0 432 432" xmlns="http://www.w3.org/2000/svg">
-                        <path fill="white" d="M43 45v150H0V45q0-17 12.5-29.5T43 3h149v42H43zm128 192l63 79l43-57l64 85H85zm149-95.5q0 13.5-9.5 22.5t-22.5 9t-22.5-9t-9.5-22.5t9.5-23T288 109t22.5 9.5t9.5 23zM384 3q18 0 30.5 12.5T427 45v150h-43V45H235V3h149zm0 384V237h43v150q0 17-12.5 29.5T384 429H235v-42h149zM43 237v150h149v42H43q-18 0-30.5-12.5T0 387V237h43z"/>
-                    </svg>
-                </button>
+            <!-- Menu Buttons Container -->
+            <div class="menu-buttons-container d-flex align-items-center gap-3">
+                <!-- Theme Button -->
+                <div class="theme-container position-relative">
+                    <button class="theme-btn" id="themeBtn">
+                        <svg width="20" height="20" viewBox="0 0 472 472" xmlns="http://www.w3.org/2000/svg" id="sunIcon">
+                            <path fill="white" d="m123 95l-30 30l-39-38l30-30zM64 216v43H0v-43h64zM256 4v63h-43V4h43zm159 83l-38 38l-30-30l38-38zm-69 292l30-29l39 38l-30 30zm59-163h64v43h-64v-43zM235 109q53 0 90.5 37.5T363 237t-37.5 90.5T235 365t-90.5-37.5T107 237t37.5-90.5T235 109zm-22 362v-63h43v63h-43zM54 388l39-39l30 30l-39 39z"/>
+                        </svg>
+                        <svg width="20" height="20" viewBox="0 0 1472 1536" xmlns="http://www.w3.org/2000/svg" id="moonIcon" style="display: none;">
+                            <path fill="white" d="M1464 1090q-94 203-283 323.5T768 1536q-157-1-299-62t-244.5-163.5T61 1066T0 768q0-205 97.5-378t267-276.5T738 2q43-2 62 38q17 42-16 72q-176 164-176 400q0 111 43 211.5t115 173t172.5 116T1151 1056q119 0 228-51q41-18 72 13t13 72z"/>
+                        </svg>
+                    </button>
+                </div>
                 
-                <!-- Wallpaper Dropdown -->
-                <div class="wallpaper-dropdown" id="wallpaperDropdown">
-                    <div class="wallpaper-header">
-                        <h6 class="mb-0">Select Wallpaper</h6>
-                        <button class="close-btn" id="closeWallpaper">
-                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                <path d="M18 6L6 18M6 6L18 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                            </svg>
-                        </button>
+                <!-- Wallpaper Button -->
+                <div class="wallpaper-container position-relative">
+                    <button class="wallpaper-btn" id="wallpaperBtn">
+                        <svg width="20" height="20" viewBox="0 0 432 432" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="white" d="M43 45v150H0V45q0-17 12.5-29.5T43 3h149v42H43zm128 192l63 79l43-57l64 85H85zm149-95.5q0 13.5-9.5 22.5t-22.5 9t-22.5-9t-9.5-22.5t9.5-23T288 109t22.5 9.5t9.5 23zM384 3q18 0 30.5 12.5T427 45v150h-43V45H235V3h149zm0 384V237h43v150q0 17-12.5 29.5T384 429H235v-42h149zM43 237v150h149v42H43q-18 0-30.5-12.5T0 387V237h43z"/>
+                        </svg>
+                    </button>
+                    
+                    <!-- Wallpaper Dropdown -->
+                    <div class="wallpaper-dropdown" id="wallpaperDropdown">
+                        <div class="wallpaper-header">
+                            <h6 class="mb-0">Select Background</h6>
+                            <button class="close-btn" id="closeWallpaper">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <path d="M18 6L6 18M6 6L18 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="wallpaper-grid" id="wallpaperGrid">
+                            <!-- Wallpapers will be loaded dynamically -->
+                        </div>
                     </div>
-                    <div class="wallpaper-grid" id="wallpaperGrid">
-                        <!-- Wallpapers will be loaded dynamically -->
+                </div>
+                
+                <!-- Music Player Button -->
+                <div class="music-container position-relative">
+                    <button class="music-btn" id="musicBtn">
+                        <svg width="20" height="20" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="white" d="M831.5 896Q752 896 696 858.5T640 768t56-90.5T832 640q31 0 64 8V269L384 371v525q0 53-56 90.5T192 1024T56 986.5T0 896t56-90.5T192 768q31 0 64 8V192q0-26 19-45t45-19L960 0q26 0 45 18.5t19 45.5v704q0 53-56.5 90.5t-136 37.5z"/>
+                        </svg>
+                    </button>
+                    
+                    <!-- Music Player Dropdown -->
+                    <div class="music-dropdown" id="musicDropdown">
+                        <div class="music-header">
+                            <h6 class="mb-0">Music Player</h6>
+                            <button class="close-btn" id="closeMusic">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <path d="M18 6L6 18M6 6L18 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="music-player">
+                            <!-- Song Display -->
+                            <div class="song-display">
+                                <div class="song-title" id="songTitle">Select a song</div>
+                                <div class="song-info" id="songInfo">--:-- / --:--</div>
+                            </div>
+                            
+                            <!-- Main Controls -->
+                            <div class="main-controls">
+                                <button class="control-btn" id="prevBtn">
+                                    <svg width="12" height="12" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill="white" d="M10.137 9.318a1 1 0 0 0 0 1.364l4.632 4.963c.62.664 1.731.226 1.731-.682V5.037c0-.908-1.112-1.346-1.731-.682l-4.632 4.963Z"/>
+                                        <path fill="white" d="M5.137 9.318a1 1 0 0 0 0 1.364l4.632 4.963c.62.664 1.731.226 1.731-.682V5.037c0-.908-1.112-1.346-1.731-.682L5.137 9.318Z"/>
+                                        <path fill="white" d="M4.5 4a1 1 0 0 0-1 1v10a1 1 0 1 0 2 0V5a1 1 0 0 0-1-1Z"/>
+                                    </svg>
+                                </button>
+                                <button class="control-btn play-pause-btn" id="playPauseBtn">
+                                    <svg width="12" height="12" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" id="playIcon">
+                                        <path fill="white" d="m4 4l12 6l-12 6z"/>
+                                    </svg>
+                                    <svg width="12" height="12" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" id="pauseIcon" style="display: none;">
+                                        <path fill="white" d="M5 4h3v12H5V4zm7 0h3v12h-3V4z"/>
+                                    </svg>
+                                </button>
+                                <button class="control-btn" id="nextBtn">
+                                    <svg width="12" height="12" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill="white" d="M9.863 9.318a1 1 0 0 1 0 1.364l-4.632 4.963c-.62.664-1.731.226-1.731-.682V5.037c0-.908 1.112-1.346 1.731-.682l4.632 4.963Z"/>
+                                        <path fill="white" d="M14.863 9.318a1 1 0 0 1 0 1.364l-4.632 4.963c-.62.664-1.731.226-1.731-.682V5.037c0-.908 1.112-1.346 1.731-.682l4.632 4.963Z"/>
+                                        <path fill="white" d="M15.5 4a1 1 0 0 1 1 1v10a1 1 0 1 1-2 0V5a1 1 0 0 1 1-1Z"/>
+                                    </svg>
+                                </button>
+                                <button class="control-btn" id="stopBtn">
+                                    <svg width="12" height="12" viewBox="0 0 256 384" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill="white" d="M0 64h256v256H0V64z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <!-- Volume Controls -->
+                            <div class="volume-controls">
+                                <button class="control-btn" id="volumeDownBtn">
+                                    <svg width="12" height="12" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill="white" d="M8 7h8v2H8V7zm-1.5 8a.504.504 0 0 1-.354-.146L2.292 11H.499a.5.5 0 0 1-.5-.5v-5a.5.5 0 0 1 .5-.5h1.793l3.854-3.854A.499.499 0 0 1 7 1.5v13a.5.5 0 0 1-.5.5z"/>
+                                    </svg>
+                                </button>
+                                <div class="volume-display" id="volumeDisplay">50%</div>
+                                <button class="control-btn" id="volumeUpBtn">
+                                    <svg width="12" height="12" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill="white" d="M16 9h-3v3h-2V9H8V7h3V4h2v3h3v2zm-9.5 6a.504.504 0 0 1-.354-.146L2.292 11H.499a.5.5 0 0 1-.5-.5v-5a.5.5 0 0 1 .5-.5h1.793l3.854-3.854A.499.499 0 0 1 7 1.5v13a.5.5 0 0 1-.5.5z"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <!-- Playlist -->
+                            <div class="playlist" id="playlist">
+                                <!-- Songs will be loaded dynamically -->
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -243,5 +337,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
     <script src="source/script.js"></script>
+    <!-- Music Player JS -->
+    <script src="source/music-player.js"></script>
 </body>
 </html>

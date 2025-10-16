@@ -7,7 +7,9 @@ function initializeApp() {
     initializeTabs();
     initializeFeatures();
     initializeWallpaper();
+    initializeTheme();
     loadSavedWallpaper();
+    loadSavedTheme();
 }
 
 // ===== TAB SYSTEM =====
@@ -117,7 +119,7 @@ function addStatusCardHoverEffects() {
         });
     });
 }
-
+    
 function addFeatureListClickEffects() {
     const featureItems = document.querySelectorAll('.feature-list li');
     featureItems.forEach(item => {
@@ -143,6 +145,11 @@ function initializeWallpaper() {
     // Toggle dropdown
     wallpaperBtn.addEventListener('click', function(e) {
         e.stopPropagation();
+        // Close music player if open
+        const musicDropdown = document.getElementById('musicDropdown');
+        if (musicDropdown) {
+            musicDropdown.classList.remove('show');
+        }
         wallpaperDropdown.classList.toggle('show');
     });
     
@@ -161,6 +168,32 @@ function initializeWallpaper() {
 
 function loadWallpapers() {
     const wallpaperGrid = document.getElementById('wallpaperGrid');
+    
+    // Add "Without Background" option first
+    const noBackgroundItem = document.createElement('div');
+    noBackgroundItem.className = 'wallpaper-item no-background-item';
+    noBackgroundItem.dataset.wallpaper = 'none';
+    
+    noBackgroundItem.innerHTML = `
+        <div class="no-background-preview">
+            <svg width="40" height="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path fill="rgba(255,255,255,0.5)" d="M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h10v10H7V7zm2 2v6h6V9H9z"/>
+            </svg>
+            <span>No BG</span>
+        </div>
+        <div class="pokemon-name">Without Background</div>
+    `;
+    
+    noBackgroundItem.addEventListener('click', function() {
+        setWallpaper('none');
+        document.querySelectorAll('.wallpaper-item').forEach(item => {
+            item.classList.remove('selected');
+        });
+        this.classList.add('selected');
+    });
+    
+    wallpaperGrid.appendChild(noBackgroundItem);
+    
     const wallpapers = [
         '3 venusaur', '6 charizard', '9 blastoise', '17 pidgeotto', '25 pikachu', '39 jigglypuff',
         '59 arcanine', '65 alakazam', '68 machamp', '76 golem', '78 rapidash', '80 slowbro',
@@ -175,8 +208,7 @@ function loadWallpapers() {
         '392 infernape', '395 empoleon', '445 garchomp', '448 lucario', '468 togekiss', '470 leafeon',
         '471 glaceon', '472 gliscor', '483 dialga', '484 palkia', '487 giratina-origin', '493 arceus',
         '497 serperior', '500 emboar', '503 samurott', '530 excadrill', '553 krookodile', '571 zoroark',
-        '609 chandelure', '612 haxorus', '637 volcarona', '643 reshiram', '644 zekrom', '646 kyurem',
-        '646 kyurem-white'
+        '609 chandelure', '612 haxorus', '637 volcarona', '643 reshiram', '644 zekrom', '646 kyurem'
     ];
     
     wallpapers.forEach((wallpaper, index) => {
@@ -203,11 +235,16 @@ function loadWallpapers() {
 }
 
 function setWallpaper(wallpaperName) {
-    const wallpaperPath = `img/bg/${wallpaperName}.jpg`;
-    document.body.style.backgroundImage = `url('${wallpaperPath}')`;
-    document.body.style.backgroundSize = 'cover';
-    document.body.style.backgroundPosition = 'center';
-    document.body.style.backgroundAttachment = 'fixed';
+    if (wallpaperName === 'none') {
+        // Remove background
+        document.body.style.backgroundImage = 'none';
+    } else {
+        const wallpaperPath = `img/bg/${wallpaperName}.jpg`;
+        document.body.style.backgroundImage = `url('${wallpaperPath}')`;
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center';
+        document.body.style.backgroundAttachment = 'fixed';
+    }
     
     // Save to localStorage
     localStorage.setItem('selectedWallpaper', wallpaperName);
@@ -227,6 +264,63 @@ function loadSavedWallpaper() {
                 selectedItem.classList.add('selected');
             }
         }, 100);
+    } else {
+        // Default: no background
+        setTimeout(() => {
+            const noBackgroundItem = document.querySelector('[data-wallpaper="none"]');
+            if (noBackgroundItem) {
+                noBackgroundItem.classList.add('selected');
+            }
+        }, 100);
+    }
+}
+
+// ===== THEME SYSTEM =====
+function initializeTheme() {
+    const themeBtn = document.getElementById('themeBtn');
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+    
+    themeBtn.addEventListener('click', function() {
+        toggleTheme();
+    });
+}
+
+function toggleTheme() {
+    const body = document.body;
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+    
+    if (body.classList.contains('light-theme')) {
+        // Switch to dark theme
+        body.classList.remove('light-theme');
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
+        localStorage.setItem('theme', 'dark');
+    } else {
+        // Switch to light theme
+        body.classList.add('light-theme');
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+        localStorage.setItem('theme', 'light');
+    }
+}
+
+function loadSavedTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const body = document.body;
+    const sunIcon = document.getElementById('sunIcon');
+    const moonIcon = document.getElementById('moonIcon');
+    
+    if (savedTheme === 'light') {
+        body.classList.add('light-theme');
+        sunIcon.style.display = 'none';
+        moonIcon.style.display = 'block';
+    } else {
+        // Default to dark theme
+        body.classList.remove('light-theme');
+        sunIcon.style.display = 'block';
+        moonIcon.style.display = 'none';
     }
 }
 
