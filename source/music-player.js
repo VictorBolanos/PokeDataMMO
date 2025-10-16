@@ -107,8 +107,8 @@ class MusicPlayer {
     loadPlaylist() {
         this.playlist = [
             // Pokémon Crystal
-            { title: 'Title Screen (Gold & Silver)', file: 'crystal01. Title Screen (Gold & Silver).mp3' },
-            { title: 'Title Screen (Crystal)', file: 'crystal02. Title Screen (Crystal).mp3' },
+            { title: 'Title Theme (Gold & Silver)', file: 'crystal01. Title Screen (Gold & Silver).mp3' },
+            { title: 'Title Theme (Crystal)', file: 'crystal02. Title Screen (Crystal).mp3' },
             { title: 'New Bark Town', file: 'crystal03. New Bark Town.mp3' },
             { title: 'Pokémon League', file: 'crystal04. Pokémon League.mp3' },
             { title: 'Battle! (Champion)', file: 'crystal05. Battle! (Champion).mp3' },
@@ -131,7 +131,7 @@ class MusicPlayer {
             { title: 'Surf', file: 'crystal22. Surf.mp3' },
             
             // Pokémon Emerald
-            { title: 'Title Theme', file: 'emerald03. Title Theme.mp3' },
+            { title: 'Title Theme (Emerald)', file: 'emerald03. Title Theme.mp3' },
             { title: 'Littleroot Town', file: 'emerald05. Littleroot Town.mp3' },
             { title: 'Oldale Town ~ Lavaridge Town', file: 'emerald12. Oldale Town ~ Lavaridge Town.mp3' },
             { title: 'Petalburg City', file: 'emerald19. Petalburg City.mp3' },
