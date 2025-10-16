@@ -204,8 +204,8 @@ const PokeDataMMO = {
         getBackgroundStyle: function(type) {
             const backgrounds = {
                 'black': '#000',
-                'gradient': 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                'pokemon': 'url("../img/pokemon-bg.jpg") center/cover'
+                'gradient': 'linear-gradient(135deg, #dc2626 0%, #16a34a 100%)',
+                'pokemon': 'url("img/pokemon-bg.jpg") center/cover'
             };
             return backgrounds[type] || backgrounds['black'];
         }
