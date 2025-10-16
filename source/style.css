@@ -19,7 +19,7 @@ body {
 .main-container {
     min-height: 100vh;
     padding: 20px 0 0 0;
-    gap: 0;
+    gap: 20px;
 }
 
 /* ===== HEADER CARD ===== */
@@ -146,24 +146,8 @@ body {
 }
 
 /* ===== CONTENT STYLING ===== */
-.content-header h2 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #dc2626;
-}
-
 .content-icon {
     font-size: 2.5rem;
-}
-
-.content-header .lead {
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.8);
-    font-weight: 400;
-}
-
-.content-body {
-    line-height: 1.7;
 }
 
 .feature-list li {
@@ -219,7 +203,7 @@ footer.footer-custom {
     border-bottom: none;
     width: 93.5%;
     max-width: 1386px;
-    margin: -5px auto 0 auto;
+    margin: 20px auto 0 auto;
 }
 
 .footer-text {
@@ -259,7 +243,7 @@ footer.footer-custom {
     }
     
     footer.footer-custom {
-        margin: -4px auto 0 auto;
+        margin: 20px auto 0 auto;
     }
     
     .nav-tab {
@@ -285,7 +269,7 @@ footer.footer-custom {
     
     footer.footer-custom {
         padding: 0.8rem 1.5rem;
-        margin: -3px auto 0 auto;
+        margin: 20px auto 0 auto;
     }
     
     .title-logo {
@@ -294,10 +278,6 @@ footer.footer-custom {
     
     .tab-pane {
         padding: 1.5rem;
-    }
-    
-    .content-header h2 {
-        font-size: 2rem;
     }
     
     .nav-tab {
@@ -323,7 +303,7 @@ footer.footer-custom {
     
     footer.footer-custom {
         padding: 0.6rem 1rem;
-        margin: -2px auto 0 auto;
+        margin: 20px auto 0 auto;
     }
     
     .title-logo {
@@ -332,10 +312,6 @@ footer.footer-custom {
     
     .tab-pane {
         padding: 1rem;
-    }
-    
-    .content-header h2 {
-        font-size: 1.5rem;
     }
     
     .nav-tab {

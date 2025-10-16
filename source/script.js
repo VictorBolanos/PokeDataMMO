@@ -1,4 +1,4 @@
-// PokeDataMMO - Clean & Optimized JavaScript
+// PokeDataMMO - Ultra Optimized JavaScript
 
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', initializeApp);
@@ -148,28 +148,6 @@ const PokeDataMMO = {
         }
     },
     
-    // Future features (stubs for development)
-    breedingCalculator: {
-        calculateBreedingPath: function(targetPokemon) {
-            console.log('Breeding calculator - Coming soon!');
-            return null;
-        }
-    },
-    
-    pvpTeams: {
-        analyzeTeam: function(team) {
-            console.log('PVP team analyzer - Coming soon!');
-            return null;
-        }
-    },
-    
-    progressionTracker: {
-        trackProgress: function(character, region) {
-            console.log('Progression tracker - Coming soon!');
-            return null;
-        }
-    },
-    
     // API utility
     fetchPokemonData: async function(pokemonName) {
         try {
@@ -181,25 +159,6 @@ const PokeDataMMO = {
         } catch (error) {
             console.error('Error fetching Pokémon data:', error);
             return null;
-        }
-    },
-    
-    // Theme management
-    theme: {
-        currentBackground: 'black',
-        
-        setBackground: function(backgroundType) {
-            this.currentBackground = backgroundType;
-            document.body.style.background = this.getBackgroundStyle(backgroundType);
-        },
-        
-        getBackgroundStyle: function(type) {
-            const backgrounds = {
-                'black': '#000',
-                'gradient': 'linear-gradient(135deg, #dc2626 0%, #16a34a 100%)',
-                'pokemon': 'url("img/pokemon-bg.jpg") center/cover'
-            };
-            return backgrounds[type] || backgrounds['black'];
         }
     }
 };
