@@ -133,7 +133,6 @@ class MusicPlayer {
     loadPlaylist() {
         this.playlist = [
             // Pokémon Crystal
-            { title: 'Title Theme (Gold & Silver)', file: 'crystal01. Title Screen (Gold & Silver).mp3' },
             { title: 'Title Theme (Crystal)', file: 'crystal02. Title Screen (Crystal).mp3' },
             { title: 'New Bark Town', file: 'crystal03. New Bark Town.mp3' },
             { title: 'Pokémon League', file: 'crystal04. Pokémon League.mp3' },
