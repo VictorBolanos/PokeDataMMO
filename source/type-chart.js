@@ -74,23 +74,23 @@ const typeEffectiveness = {
 
 // ===== TYPE NAMES AND ICONS =====
 const typeData = {
-    normal: { name: 'Normal', icon: 'type-normal-box-icon.png', longIcon: 'type-normal-long-icon.png' },
-    fire: { name: 'Fire', icon: 'type-fire-box-icon.png', longIcon: 'type-fire-long-icon.png' },
-    water: { name: 'Water', icon: 'type-water-box-icon.png', longIcon: 'type-water-long-icon.png' },
-    electric: { name: 'Electric', icon: 'type-electric-box-icon.png', longIcon: 'type-electric-long-icon.png' },
-    grass: { name: 'Grass', icon: 'type-grass-box-icon.png', longIcon: 'type-grass-long-icon.png' },
-    ice: { name: 'Ice', icon: 'type-ice-box-icon.png', longIcon: 'type-ice-long-icon.png' },
-    fighting: { name: 'Fighting', icon: 'type-fighting-box-icon.png', longIcon: 'type-fighting-long-icon.png' },
-    poison: { name: 'Poison', icon: 'type-poison-box-icon.png', longIcon: 'type-poison-long-icon.png' },
-    ground: { name: 'Ground', icon: 'type-ground-box-icon.png', longIcon: 'type-ground-long-icon.png' },
-    flying: { name: 'Flying', icon: 'type-flying-box-icon.png', longIcon: 'type-flying-long-icon.png' },
-    psychic: { name: 'Psychic', icon: 'type-psychic-box-icon.png', longIcon: 'type-psychic-long.icon.png' },
-    bug: { name: 'Bug', icon: 'type-bug-box-icon.png', longIcon: 'type-bug-long-icon.png' },
-    rock: { name: 'Rock', icon: 'type-rock-box-icon.png', longIcon: 'type-rock-long-icon.png' },
-    ghost: { name: 'Ghost', icon: 'type-ghost-box-icon.png', longIcon: 'type-ghost-long-icon.png' },
-    dragon: { name: 'Dragon', icon: 'type-dragon-box-icon.png', longIcon: 'type-dragon-long-icon.png' },
-    dark: { name: 'Dark', icon: 'type-dark-box-icon.png', longIcon: 'type-dark-long-icon.png' },
-    steel: { name: 'Steel', icon: 'type-steel-box-icon.png', longIcon: 'type-steel-long-icon.png' }
+    normal: { name: 'Normal', icon: 'type-normal-box-icon.png', longIcon: 'type-normal-box-icon.png' },
+    fire: { name: 'Fire', icon: 'type-fire-box-icon.png', longIcon: 'type-fire-box-icon.png' },
+    water: { name: 'Water', icon: 'type-water-box-icon.png', longIcon: 'type-water-box-icon.png' },
+    electric: { name: 'Electric', icon: 'type-electric-box-icon.png', longIcon: 'type-electric-box-icon.png' },
+    grass: { name: 'Grass', icon: 'type-grass-box-icon.png', longIcon: 'type-grass-box-icon.png' },
+    ice: { name: 'Ice', icon: 'type-ice-box-icon.png', longIcon: 'type-ice-box-icon.png' },
+    fighting: { name: 'Fighting', icon: 'type-fighting-box-icon.png', longIcon: 'type-fighting-box-icon.png' },
+    poison: { name: 'Poison', icon: 'type-poison-box-icon.png', longIcon: 'type-poison-box-icon.png' },
+    ground: { name: 'Ground', icon: 'type-ground-box-icon.png', longIcon: 'type-ground-box-icon.png' },
+    flying: { name: 'Flying', icon: 'type-flying-box-icon.png', longIcon: 'type-flying-box-icon.png' },
+    psychic: { name: 'Psychic', icon: 'type-psychic-box-icon.png', longIcon: 'type-psychic-box-icon.png' },
+    bug: { name: 'Bug', icon: 'type-bug-box-icon.png', longIcon: 'type-bug-box-icon.png' },
+    rock: { name: 'Rock', icon: 'type-rock-box-icon.png', longIcon: 'type-rock-box-icon.png' },
+    ghost: { name: 'Ghost', icon: 'type-ghost-box-icon.png', longIcon: 'type-ghost-box-icon.png' },
+    dragon: { name: 'Dragon', icon: 'type-dragon-box-icon.png', longIcon: 'type-dragon-box-icon.png' },
+    dark: { name: 'Dark', icon: 'type-dark-box-icon.png', longIcon: 'type-dark-box-icon.png' },
+    steel: { name: 'Steel', icon: 'type-steel-box-icon.png', longIcon: 'type-steel-box-icon.png' }
 };
 
 // ===== TYPE CHART CLASS =====
@@ -116,28 +116,34 @@ class TypeChart {
     populateSelectors() {
         const typeButtonsGrid = document.getElementById('typeButtonsGrid');
         
-        // Create first row (9 types)
+        // Create first row (9 buttons)
         const firstRow = document.createElement('div');
-        firstRow.className = 'type-buttons-row first-row';
+        firstRow.className = 'type-buttons-row';
         
-        // Create second row (8 types)
+        // Create second row (8 buttons)
         const secondRow = document.createElement('div');
-        secondRow.className = 'type-buttons-row second-row';
+        secondRow.className = 'type-buttons-row';
         
-        // Add types to rows
-        this.types.forEach((type, index) => {
+        // Add buttons to first row (first 9 types)
+        this.types.slice(0, 9).forEach(type => {
             const button = document.createElement('div');
             button.className = 'type-button';
             button.dataset.type = type;
             button.innerHTML = `
-                <img src="img/res/poke-types/long/${typeData[type].longIcon}" alt="${typeData[type].name}">
+                <img src="img/res/poke-types/box/${typeData[type].longIcon}" alt="${typeData[type].name}">
             `;
-            
-            if (index < 9) {
-                firstRow.appendChild(button);
-            } else {
-                secondRow.appendChild(button);
-            }
+            firstRow.appendChild(button);
+        });
+        
+        // Add buttons to second row (remaining 8 types)
+        this.types.slice(9, 17).forEach(type => {
+            const button = document.createElement('div');
+            button.className = 'type-button';
+            button.dataset.type = type;
+            button.innerHTML = `
+                <img src="img/res/poke-types/box/${typeData[type].longIcon}" alt="${typeData[type].name}">
+            `;
+            secondRow.appendChild(button);
         });
         
         // Add rows to grid
@@ -312,6 +318,7 @@ class TypeChart {
         const effectiveness = {
             noEffect: [],
             notVeryEffective: [],
+            superResistant: [],
             superEffective: [],
             ultraEffective: []
         };
@@ -337,8 +344,12 @@ class TypeChart {
     categorizeEffectiveness(type, multiplier, effectiveness) {
         if (multiplier === 0) {
             effectiveness.noEffect.push(type);
-        } else if (multiplier <= 0.5) {
+        } else if (multiplier === 0.25) {
+            effectiveness.superResistant.push(type);
+        } else if (multiplier === 0.5) {
             effectiveness.notVeryEffective.push(type);
+        } else if (multiplier === 1) {
+            // Neutral damage - no need to display
         } else if (multiplier === 2) {
             effectiveness.superEffective.push(type);
         } else if (multiplier >= 4) {
@@ -347,10 +358,11 @@ class TypeChart {
     }
     
     displayEffectiveness(effectiveness) {
-        this.displayEffectivenessList('noEffectList', effectiveness.noEffect);
-        this.displayEffectivenessList('notVeryEffectiveList', effectiveness.notVeryEffective);
-        this.displayEffectivenessList('superEffectiveList', effectiveness.superEffective);
         this.displayEffectivenessList('ultraEffectiveList', effectiveness.ultraEffective);
+        this.displayEffectivenessList('superEffectiveList', effectiveness.superEffective);
+        this.displayEffectivenessList('notVeryEffectiveList', effectiveness.notVeryEffective);
+        this.displayEffectivenessList('superResistantList', effectiveness.superResistant);
+        this.displayEffectivenessList('noEffectList', effectiveness.noEffect);
     }
     
     displayEffectivenessList(listId, types) {
@@ -366,7 +378,7 @@ class TypeChart {
             const typeElement = document.createElement('div');
             typeElement.className = 'effectiveness-type';
             typeElement.innerHTML = `
-                <img src="img/res/poke-types/long/${typeData[type].longIcon}" alt="${typeData[type].name}">
+                <img src="img/res/poke-types/box/${typeData[type].longIcon}" alt="${typeData[type].name}">
             `;
             list.appendChild(typeElement);
         });

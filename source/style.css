@@ -574,7 +574,7 @@ body::before {
     flex: 1;
     width: 88%;
     max-width: 1320px;
-    margin-top: 85px;
+    margin-top: 100px;
     position: relative;
     z-index: 5;
 }
@@ -1038,42 +1038,34 @@ body.light-theme .control-btn svg path {
 .type-buttons-grid {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
     margin-bottom: 1rem;
+    align-items: center;
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
 }
 
 .type-buttons-row {
-    display: grid;
-    gap: 8px;
-    justify-items: center;
-}
-
-.type-buttons-row.first-row {
-    grid-template-columns: repeat(9, 1fr);
-}
-
-.type-buttons-row.second-row {
     display: flex;
+    gap: 10px;
     justify-content: center;
-    gap: 8px;
-    padding-left: 30px; /* Offset to center the 8 buttons under the 9 buttons above */
+    align-items: center;
 }
+
 
 .type-button {
     background: rgba(255, 255, 255, 0.1);
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 6px;
-    padding: 0 8px;
+    padding: 0;
     cursor: pointer;
     transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 96px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
 }
 
 .type-button:hover {
@@ -1118,16 +1110,21 @@ body.light-theme .control-btn svg path {
     gap: 8px;
 }
 
+/* ===== TYPE EFFECTIVENESS SYSTEM (UNIFIED) ===== */
 .effectiveness-results {
     margin: 2rem 0;
 }
 
+/* ===== TYPE CHART EFFECTIVENESS CARDS ===== */
 .effectiveness-card {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 12px;
     padding: 1.5rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    height: 100%;
+    flex: 1;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
     transition: all 0.3s ease;
 }
 
@@ -1140,23 +1137,38 @@ body.light-theme .control-btn svg path {
     color: white;
     font-weight: 600;
     margin-bottom: 1rem;
+    flex-shrink: 0;
+    text-align: center;
 }
 
-.effectiveness-list {
+/* ===== TYPE CHART GRID ===== */
+.effectiveness-grid {
     display: flex;
-    flex-wrap: wrap;
+    gap: 15px;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: stretch;
+}
+
+/* ===== TYPE CHART TYPE CONTAINERS ===== */
+.effectiveness-list,
+.pokedex-effectiveness-types-grid {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 8px;
     justify-content: center;
+    align-items: flex-start;
 }
 
+/* ===== TYPE CHART TYPE ICONS ===== */
 .effectiveness-type {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8px;
-    border-radius: 8px;
+    padding: 5px;
     transition: all 0.3s ease;
-    margin: 2px;
+    margin: 0px;
 }
 
 .effectiveness-type:hover {
@@ -1169,24 +1181,64 @@ body.light-theme .control-btn svg path {
     object-fit: contain;
 }
 
-.no-effect {
-    background: rgba(255, 0, 0, 0.3) !important;
-    border: 1px solid rgba(255, 0, 0, 0.5) !important;
+/* ===== TYPE CHART EFFECTIVENESS COLORS ===== */
+/* 0x - No Effect (Black) */
+.no-effect,
+.effectiveness-card.no-effect,
+.effectiveness-category[data-multiplier="0x"] {
+    background: rgba(54, 54, 54, 0.6) !important;
+    border-color: rgba(124, 124, 124, 0.8) !important;
 }
 
-.not-very-effective {
+/* 0.5x - Not Very Effective (Orange) */
+.not-very-effective,
+.effectiveness-card.not-very-effective,
+.effectiveness-category[data-multiplier="0.5x"] {
     background: rgba(255, 165, 0, 0.3) !important;
-    border: 1px solid rgba(255, 165, 0, 0.5) !important;
+    border-color: rgba(255, 165, 0, 0.5) !important;
 }
 
-.super-effective {
+/* 0.25x - Super Resistant (Red) */
+.super-resistant,
+.effectiveness-card.super-resistant,
+.effectiveness-category[data-multiplier="0.25x"] {
+    background: rgba(189, 0, 0, 0.3) !important;
+    border-color: rgba(255, 0, 0, 0.664) !important;
+}
+
+/* 2x - Super Effective (Green) */
+.super-effective,
+.effectiveness-card.super-effective,
+.effectiveness-category[data-multiplier="2x"] {
     background: rgba(76, 175, 80, 0.3) !important;
-    border: 1px solid rgba(76, 175, 80, 0.5) !important;
+    border-color: rgba(76, 175, 80, 0.5) !important;
 }
 
-.ultra-effective {
+/* 4x - Ultra Effective (Purple) */
+.ultra-effective,
+.effectiveness-card.ultra-effective,
+.effectiveness-category[data-multiplier="4x"] {
     background: rgba(156, 39, 176, 0.3) !important;
-    border: 1px solid rgba(156, 39, 176, 0.5) !important;
+    border-color: rgba(156, 39, 176, 0.5) !important;
+}
+
+/* ===== FORCE POKEDEX LAYOUT (DEBUGGING) ===== */
+#typeEffectiveness {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 15px !important;
+    justify-content: space-between !important;
+    align-items: stretch !important;
+}
+
+#typeEffectiveness > .pokedex-effectiveness-category {
+    display: flex !important;
+    flex-direction: column !important;
+    flex: 1 !important;
+    min-width: 0 !important;
+    max-width: none !important;
+    width: auto !important;
 }
 
 .type-chart-container {
@@ -1200,9 +1252,9 @@ body.light-theme .control-btn svg path {
 
 .type-chart-table {
     display: inline-grid;
-    grid-template-columns: 50px repeat(17, 50px);
+    grid-template-columns: 42.5px repeat(17, 42.5px);
     gap: 2px;
-    min-width: 1000px;
+    min-width: 850px;
     table-layout: fixed;
 }
 
@@ -1213,16 +1265,16 @@ body.light-theme .control-btn svg path {
     justify-content: center;
     border-radius: 6px;
     font-weight: 900;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     transition: all 0.3s ease;
     cursor: pointer;
     position: relative;
-    width: 50px;
-    height: 50px;
-    min-width: 50px;
-    min-height: 50px;
-    max-width: 50px;
-    max-height: 50px;
+    width: 42.5px;
+    height: 42.5px;
+    min-width: 42.5px;
+    min-height: 42.5px;
+    max-width: 42.5px;
+    max-height: 42.5px;
     box-sizing: border-box;
 }
 
@@ -1255,8 +1307,8 @@ body.light-theme .control-btn svg path {
 }
 
 .type-chart-header img {
-    width: 40px;
-    height: 40px;
+    width: 34px;
+    height: 34px;
     object-fit: contain;
 }
 
@@ -1383,7 +1435,7 @@ body.light-theme .playlist-item.active {
     
     .main-card {
         width: 96.8%;
-        margin-top: 83px;
+        margin-top: 95px;
     }
     
     footer.footer-custom {
@@ -2048,45 +2100,53 @@ body.light-theme .playlist-item.active {
     font-style: italic;
 }
 
-/* Type Effectiveness Card */
-.effectiveness-container {
+/* ===== POKEDEX EFFECTIVENESS SYSTEM ===== */
+.pokedex-effectiveness-container {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 15px;
     padding: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.effectiveness-grid {
+.pokedex-effectiveness-grid {
+    display: flex !important;
+    gap: 15px !important;
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+    align-items: stretch !important;
+    flex-direction: row !important;
+}
+
+/* Each effectiveness category is its own card */
+.pokedex-effectiveness-category {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 12px !important;
+    padding: 1.5rem !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    flex: 1 !important;
+    min-height: 200px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    transition: all 0.3s ease !important;
+    margin: 0 !important;
+    width: auto !important;
+}
+
+.pokedex-effectiveness-category:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+}
+
+.pokedex-effectiveness-header {
     display: flex;
-    gap: 20px;
-    flex-wrap: nowrap;
-}
-
-.effectiveness-category {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    padding: 18px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
-    flex: 1;
-    min-width: 0;
-}
-
-.effectiveness-category:hover {
-    background: rgba(255, 255, 255, 0.05);
-    transform: none;
-}
-
-.effectiveness-header {
-    display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    gap: 8px;
+    margin-bottom: 1rem;
+    flex-shrink: 0;
 }
 
-.effectiveness-multiplier {
+.pokedex-effectiveness-multiplier {
     background: rgba(220, 38, 38, 0.2);
     border: 1px solid rgba(220, 38, 38, 0.4);
     color: #dc2626;
@@ -2098,97 +2158,46 @@ body.light-theme .playlist-item.active {
     text-align: center;
 }
 
-.effectiveness-label {
+.pokedex-effectiveness-label {
     color: white;
     font-weight: 600;
     font-size: 0.9rem;
+    text-align: center;
 }
 
-.effectiveness-count {
+.pokedex-effectiveness-count {
     color: rgba(255, 255, 255, 0.6);
     font-size: 0.8rem;
     font-weight: 500;
-}
-
-.effectiveness-types-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 8px;
-}
-
-.effectiveness-type-box {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    padding: 8px;
     text-align: center;
-    transition: all 0.3s ease;
-    cursor: help;
-    position: relative;
 }
 
-.effectiveness-type-box:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.4);
+.pokedex-effectiveness-type-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    transition: all 0.3s ease;
+    margin: 0;
+}
+
+.pokedex-effectiveness-type-box:hover {
     transform: scale(1.05);
 }
 
-.effectiveness-type-box img {
-    width: 24px;
-    height: 24px;
+.pokedex-effectiveness-type-box img {
+    width: 80px;
+    height: 50px;
     object-fit: contain;
-    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
-/* Specific colors for different multipliers - EXACT colors from type chart */
-.effectiveness-category[data-multiplier="4x"] {
-    background: rgba(156, 39, 176, 0.3);
-    border-color: rgba(156, 39, 176, 0.5);
-}
-.effectiveness-category[data-multiplier="4x"] .effectiveness-multiplier {
-    background: rgba(156, 39, 176, 0.5);
-    border-color: rgba(156, 39, 176, 0.7);
-    color: #9c27b0;
-}
-
-.effectiveness-category[data-multiplier="2x"] {
-    background: rgba(76, 175, 80, 0.3);
-    border-color: rgba(76, 175, 80, 0.5);
-}
-.effectiveness-category[data-multiplier="2x"] .effectiveness-multiplier {
-    background: rgba(76, 175, 80, 0.5);
-    border-color: rgba(76, 175, 80, 0.7);
-    color: #4CAF50;
-}
-
-.effectiveness-category[data-multiplier="0.5x"] {
-    background: rgba(255, 165, 0, 0.3);
-    border-color: rgba(255, 165, 0, 0.5);
-}
-.effectiveness-category[data-multiplier="0.5x"] .effectiveness-multiplier {
-    background: rgba(255, 165, 0, 0.5);
-    border-color: rgba(255, 165, 0, 0.7);
-    color: #ffa500;
-}
-
-.effectiveness-category[data-multiplier="0.25x"] {
-    background: rgba(255, 0, 0, 0.3);
-    border-color: rgba(255, 0, 0, 0.5);
-}
-.effectiveness-category[data-multiplier="0.25x"] .effectiveness-multiplier {
-    background: rgba(255, 0, 0, 0.5);
-    border-color: rgba(255, 0, 0, 0.7);
-    color: #ff4444;
-}
-
-.effectiveness-category[data-multiplier="0x"] {
-    background: rgba(0, 0, 0, 0.6);
-    border-color: rgba(0, 0, 0, 0.8);
-}
-.effectiveness-category[data-multiplier="0x"] .effectiveness-multiplier {
-    background: rgba(0, 0, 0, 0.8);
-    border-color: rgba(0, 0, 0, 1);
-    color: #ffffff;
+/* Empty state for Pokédex */
+.no-types {
+    color: rgba(255, 255, 255, 0.5);
+    font-style: italic;
+    text-align: center;
+    padding: 1rem;
+    font-size: 0.9rem;
 }
 
 /* Loading States */
@@ -2256,13 +2265,34 @@ body.light-theme .playlist-item.active {
         gap: 15px;
     }
     
+    /* Type Chart responsive */
     .effectiveness-grid {
-        flex-direction: column;
-        gap: 15px;
+        flex-wrap: wrap;
+        gap: 10px;
     }
     
-    .effectiveness-types-grid {
-        grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+    .effectiveness-card {
+        flex: 1 1 calc(50% - 5px);
+        min-height: 150px;
+    }
+    
+    /* Pokédex responsive */
+    .pokedex-effectiveness-grid {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    
+    .pokedex-effectiveness-category {
+        flex: 1 1 calc(50% - 5px);
+        min-height: 150px;
+    }
+    
+    /* On very small screens, stack vertically */
+    @media (max-width: 480px) {
+        .effectiveness-card,
+        .pokedex-effectiveness-category {
+            flex: 1 1 100%;
+        }
     }
     
     .moves-list {
@@ -2307,7 +2337,7 @@ body.light-theme .playlist-item.active {
     
     .main-card {
         width: 98.8%;
-        margin-top: 85px;
+        margin-top: 95px;
     }
     
     footer.footer-custom {
@@ -2367,7 +2397,7 @@ body.light-theme .playlist-item.active {
     
     .main-card {
         width: 99.5%;
-        margin-top: 75px;
+        margin-top: 85px;
     }
     
     footer.footer-custom {
