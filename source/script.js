@@ -86,13 +86,14 @@ function handleKeyboardNavigation(e) {
 }
 
 function handlePopState() {
-    const hash = window.location.hash.substring(1);
-    if (hash && document.getElementById(hash)) {
-        switchTab(hash);
-    }
+    handleHashNavigation();
 }
 
 function handleInitialHash() {
+    handleHashNavigation();
+}
+
+function handleHashNavigation() {
     const hash = window.location.hash.substring(1);
     if (hash && document.getElementById(hash)) {
         switchTab(hash);
@@ -137,7 +138,6 @@ function initializeWallpaper() {
     const wallpaperBtn = document.getElementById('wallpaperBtn');
     const wallpaperDropdown = document.getElementById('wallpaperDropdown');
     const closeBtn = document.getElementById('closeWallpaper');
-    const wallpaperGrid = document.getElementById('wallpaperGrid');
     
     // Load wallpapers
     loadWallpapers();
@@ -145,25 +145,15 @@ function initializeWallpaper() {
     // Toggle dropdown
     wallpaperBtn.addEventListener('click', function(e) {
         e.stopPropagation();
-        // Close music player if open
-        const musicDropdown = document.getElementById('musicDropdown');
-        if (musicDropdown) {
-            musicDropdown.classList.remove('show');
-        }
+        closeDropdown('musicDropdown');
         wallpaperDropdown.classList.toggle('show');
     });
     
     // Close dropdown
-    closeBtn.addEventListener('click', function() {
-        wallpaperDropdown.classList.remove('show');
-    });
+    closeBtn.addEventListener('click', () => wallpaperDropdown.classList.remove('show'));
     
     // Close on outside click
-    document.addEventListener('click', function(e) {
-        if (!wallpaperDropdown.contains(e.target) && !wallpaperBtn.contains(e.target)) {
-            wallpaperDropdown.classList.remove('show');
-        }
-    });
+    setupOutsideClickHandler(wallpaperDropdown, wallpaperBtn);
 }
 
 function loadWallpapers() {
@@ -185,11 +175,7 @@ function loadWallpapers() {
     `;
     
     noBackgroundItem.addEventListener('click', function() {
-        setWallpaper('none');
-        document.querySelectorAll('.wallpaper-item').forEach(item => {
-            item.classList.remove('selected');
-        });
-        this.classList.add('selected');
+        selectWallpaper('none', this);
     });
     
     wallpaperGrid.appendChild(noBackgroundItem);
@@ -211,7 +197,7 @@ function loadWallpapers() {
         '609 chandelure', '612 haxorus', '637 volcarona', '643 reshiram', '644 zekrom', '646 kyurem'
     ];
     
-    wallpapers.forEach((wallpaper, index) => {
+    wallpapers.forEach(wallpaper => {
         const wallpaperItem = document.createElement('div');
         wallpaperItem.className = 'wallpaper-item';
         wallpaperItem.dataset.wallpaper = wallpaper;
@@ -222,16 +208,16 @@ function loadWallpapers() {
         `;
         
         wallpaperItem.addEventListener('click', function() {
-            setWallpaper(wallpaper);
-            // Update selection
-            document.querySelectorAll('.wallpaper-item').forEach(item => {
-                item.classList.remove('selected');
-            });
-            this.classList.add('selected');
+            selectWallpaper(wallpaper, this);
         });
         
         wallpaperGrid.appendChild(wallpaperItem);
     });
+}
+
+function selectWallpaper(wallpaperName, element) {
+    setWallpaper(wallpaperName);
+    updateSelection('.wallpaper-item', element);
 }
 
 function setWallpaper(wallpaperName) {
@@ -278,91 +264,52 @@ function loadSavedWallpaper() {
 // ===== THEME SYSTEM =====
 function initializeTheme() {
     const themeBtn = document.getElementById('themeBtn');
-    const sunIcon = document.getElementById('sunIcon');
-    const moonIcon = document.getElementById('moonIcon');
-    
-    themeBtn.addEventListener('click', function() {
-        toggleTheme();
-    });
+    themeBtn.addEventListener('click', toggleTheme);
 }
 
 function toggleTheme() {
-    const body = document.body;
-    const sunIcon = document.getElementById('sunIcon');
-    const moonIcon = document.getElementById('moonIcon');
-    
-    if (body.classList.contains('light-theme')) {
-        // Switch to dark theme
-        body.classList.remove('light-theme');
-        sunIcon.style.display = 'block';
-        moonIcon.style.display = 'none';
-        localStorage.setItem('theme', 'dark');
-    } else {
-        // Switch to light theme
-        body.classList.add('light-theme');
-        sunIcon.style.display = 'none';
-        moonIcon.style.display = 'block';
-        localStorage.setItem('theme', 'light');
-    }
+    const isLight = document.body.classList.toggle('light-theme');
+    updateThemeIcons(isLight);
+    localStorage.setItem('theme', isLight ? 'light' : 'dark');
 }
 
 function loadSavedTheme() {
     const savedTheme = localStorage.getItem('theme');
-    const body = document.body;
+    const isLight = savedTheme === 'light';
+    
+    if (isLight) {
+        document.body.classList.add('light-theme');
+    }
+    updateThemeIcons(isLight);
+}
+
+function updateThemeIcons(isLight) {
     const sunIcon = document.getElementById('sunIcon');
     const moonIcon = document.getElementById('moonIcon');
     
-    if (savedTheme === 'light') {
-        body.classList.add('light-theme');
-        sunIcon.style.display = 'none';
-        moonIcon.style.display = 'block';
-    } else {
-        // Default to dark theme
-        body.classList.remove('light-theme');
-        sunIcon.style.display = 'block';
-        moonIcon.style.display = 'none';
+    sunIcon.style.display = isLight ? 'none' : 'block';
+    moonIcon.style.display = isLight ? 'block' : 'none';
+}
+
+// ===== HELPER FUNCTIONS =====
+function closeDropdown(dropdownId) {
+    const dropdown = document.getElementById(dropdownId);
+    if (dropdown) {
+        dropdown.classList.remove('show');
     }
 }
 
-// ===== UTILITY FUNCTIONS =====
-const PokeDataMMO = {
-    // Tab management
-    tabs: {
-        switchTo: switchTab,
-        
-        getCurrentTab: function() {
-            const activeTab = document.querySelector('.nav-tab.active');
-            return activeTab ? activeTab.getAttribute('data-tab') : null;
-        },
-        
-        getAllTabs: function() {
-            return Array.from(document.querySelectorAll('.nav-tab')).map(tab => ({
-                id: tab.getAttribute('data-tab'),
-                text: tab.querySelector('.tab-text')?.textContent || '',
-                icon: tab.querySelector('.tab-icon')?.textContent || ''
-            }));
+function setupOutsideClickHandler(dropdown, button) {
+    document.addEventListener('click', function(e) {
+        if (!dropdown.contains(e.target) && !button.contains(e.target)) {
+            dropdown.classList.remove('show');
         }
-    },
-    
-    // API utility
-    fetchPokemonData: async function(pokemonName) {
-        try {
-            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`);
-            if (!response.ok) {
-                throw new Error('Pokémon not found');
-            }
-            return await response.json();
-        } catch (error) {
-            console.error('Error fetching Pokémon data:', error);
-            return null;
-        }
-    }
-};
-
-// Export for future modules
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = PokeDataMMO;
+    });
 }
 
-// Make available globally for debugging
-window.PokeDataMMO = PokeDataMMO;
+function updateSelection(selector, selectedElement) {
+    document.querySelectorAll(selector).forEach(item => {
+        item.classList.remove('selected');
+    });
+    selectedElement.classList.add('selected');
+}

@@ -882,24 +882,12 @@ body.light-theme .no-background-item:hover {
     border-color: rgba(0, 0, 0, 0.5);
 }
 
-body.light-theme .content-header h2 {
-    color: #dc2626;
-}
-
-body.light-theme .content-header .lead {
-    color: rgba(0, 0, 0, 0.8);
-}
-
 body.light-theme h4 {
     color: #000;
 }
 
 body.light-theme p {
     color: rgba(0, 0, 0, 0.9);
-}
-
-body.light-theme .content-icon {
-    color: #dc2626;
 }
 
 body.light-theme .feature-list li {
@@ -955,28 +943,8 @@ body.light-theme strong {
     color: #000;
 }
 
-body.light-theme .pokemon-name {
-    color: #fff;
-}
-
 body.light-theme .text-white {
     color: #000 !important;
-}
-
-body.light-theme .bg-light {
-    background-color: rgba(255, 255, 255, 0.8) !important;
-}
-
-body.light-theme .bg-opacity-10 {
-    background-color: rgba(255, 255, 255, 0.1) !important;
-}
-
-body.light-theme .border-secondary {
-    border-color: rgba(0, 0, 0, 0.1) !important;
-}
-
-body.light-theme .border-bottom {
-    border-bottom-color: rgba(0, 0, 0, 0.1) !important;
 }
 
 /* ===== LIGHT THEME - MUSIC PLAYER ===== */
@@ -1218,7 +1186,6 @@ body.light-theme .control-btn svg path {
     object-fit: contain;
 }
 
-/* Color the entire effectiveness cards */
 .no-effect {
     background: rgba(255, 0, 0, 0.3) !important;
     border: 1px solid rgba(255, 0, 0, 0.5) !important;
@@ -1281,19 +1248,16 @@ body.light-theme .control-btn svg path {
     z-index: 10;
 }
 
-/* Hover highlight classes - ONLY border, NO background change */
 .hover-row {
     border-left: 2px solid rgba(255, 255, 255, 0.8) !important;
     border-right: 2px solid rgba(255, 255, 255, 0.8) !important;
     z-index: 20;
-    /* NO background changes - preserve original colors */
 }
 
 .hover-col {
     border-top: 2px solid rgba(255, 255, 255, 0.8) !important;
     border-bottom: 2px solid rgba(255, 255, 255, 0.8) !important;
     z-index: 20;
-    /* NO background changes - preserve original colors */
 }
 
 .type-chart-header {
@@ -1311,10 +1275,6 @@ body.light-theme .control-btn svg path {
     width: 40px;
     height: 40px;
     object-fit: contain;
-}
-
-.type-chart-header span {
-    display: none;
 }
 
 .corner-cell {
@@ -1364,17 +1324,7 @@ body.light-theme .type-selector option {
     color: #333;
 }
 
-body.light-theme .effectiveness-card {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.1);
-}
-
 body.light-theme .effectiveness-card h5 {
-    color: #333;
-}
-
-body.light-theme .effectiveness-type {
-    background: rgba(0, 0, 0, 0.1);
     color: #333;
 }
 
@@ -1401,37 +1351,6 @@ body.light-theme .hover-row {
 body.light-theme .hover-col {
     border-top: 2px solid rgba(0, 0, 0, 0.8) !important;
     border-bottom: 2px solid rgba(0, 0, 0, 0.8) !important;
-}
-
-/* Force preserve original effectiveness colors on hover */
-.hover-row.effectiveness-0,
-.hover-col.effectiveness-0 {
-    background: rgba(255, 0, 0, 0.3) !important;
-    color: #ff6b6b !important;
-}
-
-.hover-row.effectiveness-05,
-.hover-col.effectiveness-05 {
-    background: rgba(255, 165, 0, 0.3) !important;
-    color: #ffa500 !important;
-}
-
-.hover-row.effectiveness-1,
-.hover-col.effectiveness-1 {
-    background: rgba(255, 255, 255, 0.1) !important;
-    color: white !important;
-}
-
-.hover-row.effectiveness-2,
-.hover-col.effectiveness-2 {
-    background: rgba(76, 175, 80, 0.3) !important;
-    color: #4CAF50 !important;
-}
-
-.hover-row.effectiveness-4,
-.hover-col.effectiveness-4 {
-    background: rgba(156, 39, 176, 0.3) !important;
-    color: #9c27b0 !important;
 }
 
 body.light-theme .play-pause-btn {

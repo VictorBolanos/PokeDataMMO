@@ -35,7 +35,7 @@ const typeEffectiveness = {
         ground: 0.5, flying: 1, psychic: 1, bug: 1, rock: 0.5, ghost: 0.5, dragon: 1, dark: 1, steel: 0
     },
     ground: {
-        normal: 1, fire: 2, water: 1, electric: 2, electric: 2, grass: 0.5, ice: 1, fighting: 1, poison: 2,
+        normal: 1, fire: 2, water: 1, electric: 2, grass: 0.5, ice: 1, fighting: 1, poison: 2,
         ground: 1, flying: 0, psychic: 1, bug: 0.5, rock: 2, ghost: 1, dragon: 1, dark: 1, steel: 2
     },
     flying: {
@@ -138,36 +138,9 @@ class TypeChart {
                 const type = button.dataset.type;
                 
                 if (button.classList.contains('selected')) {
-                    // Deselect if already selected
-                    if (button.classList.contains('secondary')) {
-                        // Deselect secondary
-                        this.secondaryType = null;
-                        button.classList.remove('selected', 'secondary');
-                    } else {
-                        // Deselect primary
-                        this.primaryType = null;
-                        button.classList.remove('selected');
-                        
-                        // Also deselect secondary if exists
-                        if (this.secondaryType) {
-                            const secondaryButton = document.querySelector(`[data-type="${this.secondaryType}"]`);
-                            if (secondaryButton) {
-                                secondaryButton.classList.remove('selected', 'secondary');
-                            }
-                            this.secondaryType = null;
-                        }
-                    }
+                    this.handleDeselectType(button);
                 } else {
-                    // Select new type
-                    if (!this.primaryType) {
-                        // Select as primary
-                        this.primaryType = type;
-                        button.classList.add('selected');
-                    } else if (!this.secondaryType && type !== this.primaryType) {
-                        // Select as secondary
-                        this.secondaryType = type;
-                        button.classList.add('selected', 'secondary');
-                    }
+                    this.handleSelectType(type, button);
                 }
                 
                 this.updateEffectiveness();
@@ -175,101 +148,135 @@ class TypeChart {
         });
     }
     
+    handleDeselectType(button) {
+        if (button.classList.contains('secondary')) {
+            this.secondaryType = null;
+            button.classList.remove('selected', 'secondary');
+        } else {
+            this.primaryType = null;
+            button.classList.remove('selected');
+            
+            // Also deselect secondary if exists
+            if (this.secondaryType) {
+                const secondaryButton = document.querySelector(`[data-type="${this.secondaryType}"]`);
+                if (secondaryButton) {
+                    secondaryButton.classList.remove('selected', 'secondary');
+                }
+                this.secondaryType = null;
+            }
+        }
+    }
+    
+    handleSelectType(type, button) {
+        if (!this.primaryType) {
+            this.primaryType = type;
+            button.classList.add('selected');
+        } else if (!this.secondaryType && type !== this.primaryType) {
+            this.secondaryType = type;
+            button.classList.add('selected', 'secondary');
+        }
+    }
+    
     createTypeChart() {
         const table = document.getElementById('typeChartTable');
         table.innerHTML = '';
         
         // Create header row
+        table.appendChild(this.createHeaderRow());
+        
+        // Create data rows
+        this.types.forEach(attackingType => {
+            table.appendChild(this.createDataRow(attackingType));
+        });
+        
+        this.setupHoverEffects();
+    }
+    
+    createHeaderRow() {
         const headerRow = document.createElement('div');
         headerRow.className = 'type-chart-row';
         
-        // Empty corner cell - make it invisible
+        // Empty corner cell
         const cornerCell = document.createElement('div');
         cornerCell.className = 'type-chart-cell type-chart-header corner-cell';
         headerRow.appendChild(cornerCell);
         
-            // Type headers
-            this.types.forEach(type => {
-                const headerCell = document.createElement('div');
-                headerCell.className = 'type-chart-cell type-chart-header';
-                headerCell.innerHTML = `
-                    <img src="img/res/poke-types/box/${typeData[type].icon}" alt="${typeData[type].name}">
-                `;
-                headerRow.appendChild(headerCell);
-            });
-        
-        table.appendChild(headerRow);
-        
-        // Create data rows
-        this.types.forEach(attackingType => {
-            const row = document.createElement('div');
-            row.className = 'type-chart-row';
-            
-            // Type name cell
-            const typeCell = document.createElement('div');
-            typeCell.className = 'type-chart-cell type-chart-header';
-            typeCell.innerHTML = `
-                <img src="img/res/poke-types/box/${typeData[attackingType].icon}" alt="${typeData[attackingType].name}">
-            `;
-            row.appendChild(typeCell);
-            
-            // Effectiveness cells
-            this.types.forEach((defendingType, colIndex) => {
-                const effectiveness = typeEffectiveness[attackingType][defendingType];
-                const cell = document.createElement('div');
-                cell.className = `type-chart-cell effectiveness-${effectiveness === 0 ? '0' : effectiveness === 0.5 ? '05' : effectiveness}`;
-                cell.textContent = effectiveness === 0 ? '0' : effectiveness === 0.5 ? '0.5' : effectiveness;
-                cell.title = `${typeData[attackingType].name} vs ${typeData[defendingType].name}: ${effectiveness}x`;
-                cell.dataset.row = this.types.indexOf(attackingType);
-                cell.dataset.col = colIndex;
-                row.appendChild(cell);
-            });
-            
-            table.appendChild(row);
+        // Type headers
+        this.types.forEach(type => {
+            const headerCell = document.createElement('div');
+            headerCell.className = 'type-chart-cell type-chart-header';
+            headerCell.innerHTML = `<img src="img/res/poke-types/box/${typeData[type].icon}" alt="${typeData[type].name}">`;
+            headerRow.appendChild(headerCell);
         });
         
-        // Add hover effects for row/column highlighting
-        this.setupHoverEffects();
+        return headerRow;
+    }
+    
+    createDataRow(attackingType) {
+        const row = document.createElement('div');
+        row.className = 'type-chart-row';
+        
+        // Type name cell
+        const typeCell = document.createElement('div');
+        typeCell.className = 'type-chart-cell type-chart-header';
+        typeCell.innerHTML = `<img src="img/res/poke-types/box/${typeData[attackingType].icon}" alt="${typeData[attackingType].name}">`;
+        row.appendChild(typeCell);
+        
+        // Effectiveness cells
+        this.types.forEach((defendingType, colIndex) => {
+            const cell = this.createEffectivenessCell(attackingType, defendingType, colIndex);
+            row.appendChild(cell);
+        });
+        
+        return row;
+    }
+    
+    createEffectivenessCell(attackingType, defendingType, colIndex) {
+        const effectiveness = typeEffectiveness[attackingType][defendingType];
+        const effectivenessClass = effectiveness === 0 ? '0' : effectiveness === 0.5 ? '05' : effectiveness;
+        const displayValue = effectiveness === 0 ? '0' : effectiveness === 0.5 ? '0.5' : effectiveness;
+        
+        const cell = document.createElement('div');
+        cell.className = `type-chart-cell effectiveness-${effectivenessClass}`;
+        cell.textContent = displayValue;
+        cell.title = `${typeData[attackingType].name} vs ${typeData[defendingType].name}: ${effectiveness}x`;
+        cell.dataset.row = this.types.indexOf(attackingType);
+        cell.dataset.col = colIndex;
+        
+        return cell;
     }
     
     setupHoverEffects() {
         const cells = document.querySelectorAll('.type-chart-cell');
         
         cells.forEach(cell => {
-            cell.addEventListener('mouseenter', () => {
-                const row = cell.dataset.row;
-                const col = cell.dataset.col;
-                
-                // Check if we're in the first column (row headers)
-                if (col === '0') {
-                    // Only highlight the row when hovering over row headers
-                    document.querySelectorAll(`[data-row="${row}"]`).forEach(c => {
-                        c.classList.add('hover-row');
-                    });
-                } else {
-                    // Normal behavior: highlight both row and column
-                    document.querySelectorAll(`[data-row="${row}"]`).forEach(c => {
-                        c.classList.add('hover-row');
-                    });
-                    
-                    document.querySelectorAll(`[data-col="${col}"]`).forEach(c => {
-                        c.classList.add('hover-col');
-                    });
-                }
-            });
-            
-            cell.addEventListener('mouseleave', () => {
-                // Remove all highlights
-                document.querySelectorAll('.hover-row, .hover-col').forEach(c => {
-                    c.classList.remove('hover-row', 'hover-col');
-                });
-            });
+            cell.addEventListener('mouseenter', () => this.highlightCells(cell));
+            cell.addEventListener('mouseleave', () => this.removeHighlights());
         });
     }
     
-    setupEventListeners() {
-        // Event listeners are now handled in setupCustomSelects()
+    highlightCells(cell) {
+        const { row, col } = cell.dataset;
+        
+        if (row !== undefined) {
+            document.querySelectorAll(`[data-row="${row}"]`).forEach(c => {
+                c.classList.add('hover-row');
+            });
+        }
+        
+        if (col && col !== '0') {
+            document.querySelectorAll(`[data-col="${col}"]`).forEach(c => {
+                c.classList.add('hover-col');
+            });
+        }
     }
+    
+    removeHighlights() {
+        document.querySelectorAll('.hover-row, .hover-col').forEach(c => {
+            c.classList.remove('hover-row', 'hover-col');
+        });
+    }
+    
     
     updateEffectiveness() {
         const resultsContainer = document.getElementById('effectivenessResults');
@@ -293,25 +300,33 @@ class TypeChart {
         };
         
         this.types.forEach(type => {
-            let multiplier = typeEffectiveness[type][this.primaryType];
-            
-            // Apply secondary type if present
-            if (this.secondaryType && this.secondaryType !== this.primaryType) {
-                multiplier *= typeEffectiveness[type][this.secondaryType];
-            }
-            
-            if (multiplier === 0) {
-                effectiveness.noEffect.push(type);
-            } else if (multiplier === 0.5) {
-                effectiveness.notVeryEffective.push(type);
-            } else if (multiplier === 2) {
-                effectiveness.superEffective.push(type);
-            } else if (multiplier === 4) {
-                effectiveness.ultraEffective.push(type);
-            }
+            const multiplier = this.getTypeMultiplier(type);
+            this.categorizeEffectiveness(type, multiplier, effectiveness);
         });
         
         return effectiveness;
+    }
+    
+    getTypeMultiplier(attackingType) {
+        let multiplier = typeEffectiveness[attackingType][this.primaryType];
+        
+        if (this.secondaryType && this.secondaryType !== this.primaryType) {
+            multiplier *= typeEffectiveness[attackingType][this.secondaryType];
+        }
+        
+        return multiplier;
+    }
+    
+    categorizeEffectiveness(type, multiplier, effectiveness) {
+        if (multiplier === 0) {
+            effectiveness.noEffect.push(type);
+        } else if (multiplier <= 0.5) {
+            effectiveness.notVeryEffective.push(type);
+        } else if (multiplier === 2) {
+            effectiveness.superEffective.push(type);
+        } else if (multiplier >= 4) {
+            effectiveness.ultraEffective.push(type);
+        }
     }
     
     displayEffectiveness(effectiveness) {
