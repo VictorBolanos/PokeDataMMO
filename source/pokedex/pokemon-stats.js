@@ -95,7 +95,6 @@ class PokemonStats {
             return `
                 <div class="effectiveness-category">
                     <div class="effectiveness-title">
-                        <span class="effectiveness-multiplier">${multiplier}</span>
                         <span class="effectiveness-label">${this.getEffectivenessLabel(multiplier)}</span>
                     </div>
                     <div class="effectiveness-types">${typesHTML}</div>

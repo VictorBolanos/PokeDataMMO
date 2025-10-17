@@ -1,5 +1,117 @@
 /* PokeDataMMO - Ultra Optimized CSS (Bootstrap-First) */
 
+/* ===== COLOR THEME VARIABLES ===== */
+:root {
+    /* Standard Theme */
+    --primary-color-dark: #dc2626;
+    --primary-color-light: #dc2626;
+    --primary-hover-dark: #b91c1c;
+    --primary-hover-light: #b91c1c;
+    --primary-bg-dark: rgba(220, 38, 38, 0.2);
+    --primary-bg-light: rgba(220, 38, 38, 0.15);
+    --primary-border-dark: rgba(220, 38, 38, 0.4);
+    --primary-border-light: rgba(220, 38, 38, 0.3);
+}
+
+/* Red Theme */
+[data-color-theme="red"] {
+    --primary-color-dark: #dc2626;
+    --primary-color-light: #dc2626;
+    --primary-hover-dark: #b91c1c;
+    --primary-hover-light: #b91c1c;
+    --primary-bg-dark: rgba(220, 38, 38, 0.2);
+    --primary-bg-light: rgba(220, 38, 38, 0.15);
+    --primary-border-dark: rgba(220, 38, 38, 0.4);
+    --primary-border-light: rgba(220, 38, 38, 0.3);
+}
+
+/* Green Theme */
+[data-color-theme="green"] {
+    --primary-color-dark: #16a34a;
+    --primary-color-light: #16a34a;
+    --primary-hover-dark: #15803d;
+    --primary-hover-light: #15803d;
+    --primary-bg-dark: rgba(22, 163, 74, 0.2);
+    --primary-bg-light: rgba(22, 163, 74, 0.15);
+    --primary-border-dark: rgba(22, 163, 74, 0.4);
+    --primary-border-light: rgba(22, 163, 74, 0.3);
+}
+
+/* Blue Theme */
+[data-color-theme="blue"] {
+    --primary-color-dark: #2563eb;
+    --primary-color-light: #2563eb;
+    --primary-hover-dark: #1d4ed8;
+    --primary-hover-light: #1d4ed8;
+    --primary-bg-dark: rgba(37, 99, 235, 0.2);
+    --primary-bg-light: rgba(37, 99, 235, 0.15);
+    --primary-border-dark: rgba(37, 99, 235, 0.4);
+    --primary-border-light: rgba(37, 99, 235, 0.3);
+}
+
+/* Yellow Theme */
+[data-color-theme="yellow"] {
+    --primary-color-dark: #eab308;
+    --primary-color-light: #ca8a04;
+    --primary-hover-dark: #ca8a04;
+    --primary-hover-light: #a16207;
+    --primary-bg-dark: rgba(234, 179, 8, 0.2);
+    --primary-bg-light: rgba(202, 138, 4, 0.15);
+    --primary-border-dark: rgba(234, 179, 8, 0.4);
+    --primary-border-light: rgba(202, 138, 4, 0.3);
+}
+
+/* Purple Theme */
+[data-color-theme="purple"] {
+    --primary-color-dark: #9333ea;
+    --primary-color-light: #9333ea;
+    --primary-hover-dark: #7c3aed;
+    --primary-hover-light: #7c3aed;
+    --primary-bg-dark: rgba(147, 51, 234, 0.2);
+    --primary-bg-light: rgba(147, 51, 234, 0.15);
+    --primary-border-dark: rgba(147, 51, 234, 0.4);
+    --primary-border-light: rgba(147, 51, 234, 0.3);
+}
+
+/* Pink Theme */
+[data-color-theme="pink"] {
+    --primary-color-dark: #ec4899;
+    --primary-color-light: #ec4899;
+    --primary-hover-dark: #db2777;
+    --primary-hover-light: #db2777;
+    --primary-bg-dark: rgba(236, 72, 153, 0.2);
+    --primary-bg-light: rgba(236, 72, 153, 0.15);
+    --primary-border-dark: rgba(236, 72, 153, 0.4);
+    --primary-border-light: rgba(236, 72, 153, 0.3);
+}
+
+/* Orange Theme */
+[data-color-theme="orange"] {
+    --primary-color-dark: #ea580c;
+    --primary-color-light: #ea580c;
+    --primary-hover-dark: #c2410c;
+    --primary-hover-light: #c2410c;
+    --primary-bg-dark: rgba(234, 88, 12, 0.2);
+    --primary-bg-light: rgba(234, 88, 12, 0.15);
+    --primary-border-dark: rgba(234, 88, 12, 0.4);
+    --primary-border-light: rgba(234, 88, 12, 0.3);
+}
+
+/* ===== DYNAMIC COLOR FUNCTIONS ===== */
+body:not(.light-theme) {
+    --primary-color: var(--primary-color-dark);
+    --primary-hover: var(--primary-hover-dark);
+    --primary-bg: var(--primary-bg-dark);
+    --primary-border: var(--primary-border-dark);
+}
+
+body.light-theme {
+    --primary-color: var(--primary-color-light);
+    --primary-hover: var(--primary-hover-light);
+    --primary-bg: var(--primary-bg-light);
+    --primary-border: var(--primary-border-light);
+}
+
 /* ===== GLOBAL STYLES ===== */
 * {
     margin: 0;
@@ -340,13 +452,13 @@ body::before {
 .play-pause-btn {
     width: 35px;
     height: 35px;
-    background: rgba(220, 38, 38, 0.8);
-    border-color: rgba(220, 38, 38, 0.6);
+    background: var(--primary-bg);
+    border-color: var(--primary-border);
 }
 
 .play-pause-btn:hover {
-    background: rgba(220, 38, 38, 0.9);
-    border-color: rgba(220, 38, 38, 0.8);
+    background: var(--primary-hover);
+    border-color: var(--primary-color);
 }
 
 .volume-controls {
@@ -387,9 +499,9 @@ body::before {
 }
 
 .playlist-item.active {
-    background: rgba(220, 38, 38, 0.2);
+    background: var(--primary-bg);
     color: white;
-    border-left: 3px solid #dc2626;
+    border-left: 3px solid var(--primary-color);
 }
 
 .playlist-item:last-child {
@@ -407,12 +519,12 @@ body::before {
 }
 
 .playlist::-webkit-scrollbar-thumb {
-    background: #dc2626;
+    background: var(--primary-color);
     border-radius: 3px;
 }
 
 .playlist::-webkit-scrollbar-thumb:hover {
-    background: #991b1b;
+    background: var(--primary-hover);
 }
 
 /* ===== WALLPAPER FEATURE ===== */
@@ -665,7 +777,7 @@ body::before {
     left: 0;
     right: 0;
     height: 3px;
-    background: #dc2626;
+    background: var(--primary-color);
 }
 
 .tab-icon {
@@ -769,10 +881,101 @@ footer.footer-custom {
     margin: 20px auto 0 auto;
 }
 
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
 .footer-text {
     color: rgba(255, 255, 255, 0.7);
     font-size: 0.9rem;
     font-weight: 300;
+}
+
+.selector-container {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.font-selector-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.font-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.color-selector-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.color-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin: 0;
+}
+
+.font-selector {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    min-width: 200px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.font-selector:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-bg);
+    outline: none;
+}
+
+.font-selector option {
+    background: #2a2a2a;
+    color: white;
+    padding: 8px;
+}
+
+.color-selector {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    color: white;
+    padding: 6px 12px;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    min-width: 120px;
+}
+
+.color-selector:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-bg);
+    outline: none;
+}
+
+.color-selector option {
+    background: #2a2a2a;
+    color: white;
+    padding: 8px;
 }
 
 /* ===== CUSTOM SCROLLBAR ===== */
@@ -852,6 +1055,48 @@ body.light-theme footer.footer-custom {
 
 body.light-theme .footer-text {
     color: rgba(0, 0, 0, 0.7);
+}
+
+body.light-theme .font-label {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+body.light-theme .color-label {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+body.light-theme .font-selector {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.2);
+    color: #1a1a1a;
+}
+
+body.light-theme .color-selector {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.2);
+    color: #1a1a1a;
+}
+
+body.light-theme .font-selector:focus {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-bg);
+}
+
+body.light-theme .color-selector:focus {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-bg);
+}
+
+body.light-theme .font-selector option {
+    background: #f5f5f5;
+    color: #1a1a1a;
+}
+
+body.light-theme .color-selector option {
+    background: #f5f5f5;
+    color: #1a1a1a;
 }
 
 body.light-theme .theme-btn {
@@ -1073,8 +1318,8 @@ body.light-theme .control-btn svg path {
 
 .type-selector:focus {
     background: rgba(255, 255, 255, 0.15);
-    border-color: #4CAF50;
-    box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-bg);
     outline: none;
 }
 
@@ -1545,8 +1790,8 @@ body.light-theme .playlist-item.active {
 
 .pokemon-search-input:focus {
     background: rgba(255, 255, 255, 0.15);
-    border-color: #dc2626;
-    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-bg);
     outline: none;
 }
 
@@ -1593,7 +1838,7 @@ body.light-theme .playlist-item.active {
 
 .suggestion-item:hover,
 .suggestion-item.selected {
-    background: rgba(220, 38, 38, 0.2);
+    background: var(--primary-bg);
 }
 
 .suggestion-content {
@@ -1745,9 +1990,9 @@ body.light-theme .playlist-item.active {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: white;
+    background: var(--primary-bg);
+    border: 1px solid var(--primary-border);
+    color: var(--primary-color);
     padding: 8px 15px;
     border-radius: 20px;
     font-weight: 600;
@@ -1886,7 +2131,7 @@ body.light-theme .playlist-item.active {
     padding: 15px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
-    border-left: 4px solid rgba(220, 38, 38, 0.5);
+    border-left: 4px solid var(--primary-border);
 }
 
 /* Evolution Row */
@@ -2033,6 +2278,7 @@ body.light-theme .playlist-item.active {
 
 .stat-bar-fill {
     height: 100%;
+    background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-hover) 100%);
     border-radius: 4px;
     transition: width 0.5s ease;
 }
@@ -2082,15 +2328,15 @@ body.light-theme .playlist-item.active {
 }
 
 .move-tab.active {
-    background: rgba(220, 38, 38, 0.3);
-    border-color: #dc2626;
+    background: var(--primary-bg);
+    border-color: var(--primary-color);
 }
 
 .moves-list {
     display: grid;
     grid-template-columns: 1fr;
     gap: 12px;
-    max-height: 400px;
+    max-height: 550px;
     overflow-y: auto;
     padding: 10px;
 }
@@ -2180,11 +2426,11 @@ body.light-theme .playlist-item.active {
     color: #ffffff;
     font-size: 0.8rem;
     font-weight: 600;
-    background: linear-gradient(135deg, rgba(220, 38, 38, 0.8) 0%, rgba(185, 28, 28, 0.9) 100%);
-    border: 1px solid rgba(220, 38, 38, 0.5);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+    border: 1px solid var(--primary-border);
     padding: 3px 8px;
     border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
+    box-shadow: 0 2px 4px var(--primary-bg);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     min-width: 35px;
     text-align: center;
@@ -2261,9 +2507,9 @@ body.light-theme .playlist-item.active {
 }
 
 .pokedex-effectiveness-multiplier {
-    background: rgba(220, 38, 38, 0.2);
-    border: 1px solid rgba(220, 38, 38, 0.4);
-    color: #dc2626;
+    background: var(--primary-bg);
+    border: 1px solid var(--primary-border);
+    color: var(--primary-color);
     padding: 4px 8px;
     border-radius: 8px;
     font-weight: 700;
@@ -2276,6 +2522,14 @@ body.light-theme .playlist-item.active {
     color: white;
     font-weight: 700;
     font-size: 0.9rem;
+    text-align: center;
+}
+
+.effectiveness-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: white;
+    margin: 0;
     text-align: center;
 }
 
@@ -2837,9 +3091,9 @@ body.light-theme .move-pp {
 
 body.light-theme .move-level {
     color: #ffffff;
-    background: linear-gradient(135deg, rgba(220, 38, 38, 0.9) 0%, rgba(185, 28, 28, 1) 100%);
-    border-color: rgba(220, 38, 38, 0.6);
-    box-shadow: 0 2px 4px rgba(220, 38, 38, 0.3);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+    border-color: var(--primary-border);
+    box-shadow: 0 2px 4px var(--primary-bg);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
@@ -2868,6 +3122,10 @@ body.light-theme .effectiveness-header {
 body.light-theme .effectiveness-label {
     color: #1a1a1a;
     font-weight: 700;
+}
+
+body.light-theme .effectiveness-title {
+    color: #1a1a1a;
 }
 
 body.light-theme .effectiveness-count {

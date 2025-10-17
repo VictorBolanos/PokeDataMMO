@@ -21,11 +21,45 @@ class PokemonCard {
     }
     
     // Get ability name in current language
-    getAbilityName(abilityUrl) {
-        // For now, return the English name capitalized
-        // In future, could fetch ability details from API
-        const abilityName = abilityUrl.split('/').slice(-2, -1)[0];
-        return this.capitalizeFirst(abilityName.replace('-', ' '));
+    async getAbilityName(abilityUrl) {
+        try {
+            const abilityName = abilityUrl.split('/').slice(-2, -1)[0];
+            const abilityData = await PokemonAPI.getAbility(abilityName);
+            
+            // Check if ability is from Gen V or earlier (Gen I-V = 1-5)
+            const abilityGenId = parseInt(abilityData.generation.url.split('/').slice(-2, -1)[0]);
+            if (abilityGenId > 5) {
+                console.warn(`Ability ${abilityName} is from Gen ${abilityGenId}, skipping`);
+                return null;
+            }
+            
+            const lang = this.lm.getApiLanguage();
+            const nameEntry = abilityData.names.find(entry => entry.language.name === lang);
+            return nameEntry ? nameEntry.name : this.capitalizeFirst(abilityName.replace('-', ' '));
+        } catch (error) {
+            console.error('Error fetching ability name:', error);
+            const abilityName = abilityUrl.split('/').slice(-2, -1)[0];
+            return this.capitalizeFirst(abilityName.replace('-', ' '));
+        }
+    }
+    
+    // Get item name in current language
+    async getItemName(itemUrl) {
+        try {
+            const itemName = itemUrl.split('/').slice(-2, -1)[0];
+            const itemData = await PokemonAPI.getItem(itemName);
+            
+            // Items don't have generation info directly, so we'll allow all items
+            // PokeMMO handles item availability internally
+            
+            const lang = this.lm.getApiLanguage();
+            const nameEntry = itemData.names.find(entry => entry.language.name === lang);
+            return nameEntry ? nameEntry.name : this.capitalizeFirst(itemName.replace('-', ' '));
+        } catch (error) {
+            console.error('Error fetching item name:', error);
+            const itemName = itemUrl.split('/').slice(-2, -1)[0];
+            return this.capitalizeFirst(itemName.replace('-', ' '));
+        }
     }
     
     // Get egg group name in current language
@@ -60,18 +94,18 @@ class PokemonCard {
         return genusEntry ? genusEntry.genus : '';
     }
     
-    render() {
+    async render() {
         try {
             this.container.innerHTML = `
                 <div class="pokemon-main-card">
                     <!-- First Card: Basic Info + Description + Stats -->
-                    ${this.renderBasicInfoCard()}
+                    ${await this.renderBasicInfoCard()}
                     
                     <!-- Second Card: Base Stats with Visual Bars -->
                     ${this.renderStatsCard()}
                     
                     <!-- Third Card: Moves (Generation V) -->
-                    ${this.renderMovesCard()}
+                    ${await this.renderMovesCard()}
                     
                     <!-- Fourth Card: Type Effectiveness -->
                     ${this.renderTypeEffectivenessCard()}
@@ -90,7 +124,7 @@ class PokemonCard {
         }
     }
     
-    renderBasicInfoCard() {
+    async renderBasicInfoCard() {
         
         const types = this.pokemon.types
             .filter(type => type.type.name !== 'fairy') // Filter out Fairy type for Gen V
@@ -103,25 +137,32 @@ class PokemonCard {
         const generation = PokemonAPI.getGenerationFromId(this.pokemon.id);
         const genName = PokemonAPI.getGenerationName(generation);
         
-        const abilities = this.pokemon.abilities.map(ability => `
-            <div class="ability-item">
-                <span class="ability-name">${this.capitalizeFirst(ability.ability.name.replace('-', ' '))}</span>
-                ${ability.is_hidden ? '<span class="hidden-badge">💎</span>' : ''}
-            </div>
-        `).join('');
+        const abilities = await Promise.all(this.pokemon.abilities.map(async ability => {
+            const abilityName = await this.getAbilityName(ability.ability.url);
+            if (!abilityName) return null; // Skip abilities from Gen VI+
+            return `
+                <div class="ability-item">
+                    <span class="ability-name">${abilityName}</span>
+                    ${ability.is_hidden ? '<span class="hidden-badge">💎</span>' : ''}
+                </div>
+            `;
+        }));
         
         const eggGroups = this.species.egg_groups.map(group => `
             <span class="egg-group-badge">${this.getEggGroupName(group.name)}</span>
         `).join('');
         
-        const heldItems = this.pokemon.held_items.map(item => `
-            <span class="held-item-badge">
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${item.item.name}.png" 
-                     alt="${item.item.name}" 
-                     class="item-sprite">
-                ${this.capitalizeFirst(item.item.name.replace('-', ' '))}
-            </span>
-        `).join('');
+        const heldItems = await Promise.all(this.pokemon.held_items.map(async item => {
+            const itemName = await this.getItemName(item.item.url);
+            return `
+                <span class="held-item-badge">
+                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${item.item.name}.png" 
+                         alt="${itemName}" 
+                         class="item-sprite">
+                    ${itemName}
+                </span>
+            `;
+        }));
         
         const noHeldItems = this.t('noMoves').replace('movimientos', 'objetos').replace('moves', 'held items');
         
@@ -155,12 +196,12 @@ class PokemonCard {
                         
                         <div class="info-section">
                             <h4>${this.t('abilities')}</h4>
-                            <div class="abilities-list">${abilities}</div>
+                            <div class="abilities-list">${abilities.filter(a => a !== null).join('')}</div>
                         </div>
                         
                         <div class="info-section">
                             <h4>${this.lm.getCurrentLanguage() === 'es' ? 'Objetos Equipados' : 'Held Items'}</h4>
-                            <div class="held-items">${heldItems || `<span class="no-held-items">${this.lm.getCurrentLanguage() === 'es' ? 'Sin objetos equipados' : 'No held items'}</span>`}</div>
+                            <div class="held-items">${heldItems.length > 0 ? heldItems.join('') : `<span class="no-held-items">${this.lm.getCurrentLanguage() === 'es' ? 'Sin objetos equipados' : 'No held items'}</span>`}</div>
                         </div>
                         
                         <div class="info-section">
@@ -281,14 +322,14 @@ class PokemonCard {
                 <div class="stats-container">
                     <div class="stats-grid">${stats}</div>
                     <div class="stats-note">
-                        <small>${this.t('totalBaseStats')}: <strong>${totalStats}</strong></small>
+                        <div>${this.t('totalBaseStats')}: <strong>${totalStats}</strong></div>
                     </div>
                 </div>
             </div>
         `;
     }
     
-    renderMovesCard() {
+    async renderMovesCard() {
         const loadingText = this.lm.getCurrentLanguage() === 'es' ? 'Cargando movimientos...' : 'Loading moves...';
         
         return `
@@ -361,7 +402,6 @@ class PokemonCard {
             return `
                 <div class="pokedex-effectiveness-category" data-multiplier="${multiplier}">
                     <div class="pokedex-effectiveness-header">
-                        <span class="pokedex-effectiveness-multiplier">${multiplier}</span>
                         <span class="pokedex-effectiveness-label">${this.getEffectivenessLabel(multiplier)}</span>
                         <span class="pokedex-effectiveness-count">(${types.length})</span>
                     </div>
@@ -407,19 +447,36 @@ class PokemonCard {
             const moves = await this.getMovesByType(type);
             this.renderMovesList(moves, type);
         } catch (error) {
+            const errorMsg = this.lm.getCurrentLanguage() === 'es' 
+                ? `Error cargando movimientos ${type}` 
+                : `Error loading ${type} moves`;
             movesContent.innerHTML = `
                 <div class="error">
-                    Error loading ${type} moves
+                    ${errorMsg}
                 </div>
             `;
         }
     }
     
     async getMovesByType(type) {
-        // Filter moves based on type
+        // Gen V version groups for PokeMMO
+        const genVVersionGroups = ['black-white', 'black-2-white-2'];
+        
+        // Filter moves based on type AND Gen V availability
         const filteredMoves = this.pokemon.moves.filter(move => {
             const versionDetails = move.version_group_details;
+            
+            // Must be available in Gen V
+            const availableInGenV = versionDetails.some(detail => 
+                genVVersionGroups.includes(detail.version_group.name)
+            );
+            
+            if (!availableInGenV) return false;
+            
+            // Must match the learn method type
             return versionDetails.some(detail => {
+                if (!genVVersionGroups.includes(detail.version_group.name)) return false;
+                
                 switch (type) {
                     case 'level-up':
                         return detail.move_learn_method.name === 'level-up';
@@ -435,19 +492,25 @@ class PokemonCard {
             });
         });
         
-        // Get move details for Generation V (black-white, excluding Fairy type moves)
-        const movePromises = filteredMoves.slice(0, 50).map(async moveData => {
+        // Get move details for Generation V
+        const movePromises = filteredMoves.slice(0, 100).map(async moveData => {
             try {
                 const move = await PokemonAPI.getMove(moveData.move.name);
                 
                 // Skip Fairy type moves (Gen V doesn't have Fairy type)
                 if (move.type.name === 'fairy') return null;
                 
+                // Filter to only Gen V learn details
+                const genVLearnDetails = moveData.version_group_details.filter(
+                    detail => genVVersionGroups.includes(detail.version_group.name)
+                );
+                
+                // If no Gen V learn details, skip
+                if (genVLearnDetails.length === 0) return null;
+                
                 return {
                     ...move,
-                    learnDetails: moveData.version_group_details.filter(
-                        detail => detail.version_group.name === 'black-white'
-                    )
+                    learnDetails: genVLearnDetails
                 };
             } catch (error) {
                 return null;
@@ -491,10 +554,12 @@ class PokemonCard {
                 }
             }
             
+            const moveName = this.getMoveName(move);
+            
             return `
                 <div class="move-item">
                     <div class="move-row-1">
-                        <span class="move-name">${this.capitalizeFirst(move.name.replace('-', ' '))}</span>
+                        <span class="move-name">${moveName}</span>
                         <div class="move-type">
                             <img src="img/res/poke-types/long/type-${move.type.name}-long-icon.png" alt="${move.type.name}">
                         </div>
@@ -511,10 +576,10 @@ class PokemonCard {
                     </div>
                 </div>
             `;
-        }).join('');
+        });
         
         movesContent.innerHTML = `
-            <div class="moves-list">${movesHTML}</div>
+            <div class="moves-list">${movesHTML.join('')}</div>
         `;
     }
     
@@ -657,7 +722,6 @@ class PokemonCard {
             return `
                 <div class="effectiveness-card effectiveness-category" data-multiplier="${multiplier}">
                     <div class="effectiveness-title">
-                        <span>${multiplier}</span>
                         <span>${this.getEffectivenessLabel(multiplier)}</span>
                     </div>
                     <div class="pokedex-effectiveness-types-grid">${typesHTML}</div>
@@ -721,9 +785,29 @@ class PokemonCard {
         return entry ? entry.flavor_text.replace(/\f/g, ' ') : noDescText;
     }
     
+    // Get move name in current language (move object already has all data)
+    getMoveName(move) {
+        try {
+            const lang = this.lm.getApiLanguage();
+            const nameEntry = move.names.find(entry => entry.language.name === lang);
+            return nameEntry ? nameEntry.name : this.capitalizeFirst(move.name.replace('-', ' '));
+        } catch (error) {
+            console.error('Error fetching move name:', error, move);
+            return this.capitalizeFirst(move.name.replace('-', ' '));
+        }
+    }
+    
     getMoveDescription(move) {
         const lang = window.languageManager.getApiLanguage();
-        const effect = move.effect_entries.find(entry => entry.language.name === lang);
+        
+        // Try to get description in preferred language
+        let effect = move.effect_entries.find(entry => entry.language.name === lang);
+        
+        // Fallback to English if not available in preferred language
+        if (!effect && lang !== 'en') {
+            effect = move.effect_entries.find(entry => entry.language.name === 'en');
+        }
+        
         const noDescText = lang === 'es' ? 'Sin descripción disponible' : 'No description available';
         return effect ? effect.short_effect : noDescText;
     }

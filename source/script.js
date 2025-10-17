@@ -270,14 +270,14 @@ function initializeLanguage() {
     updateLanguageIcon();
 }
 
-function toggleLanguage() {
+async function toggleLanguage() {
     window.languageManager.toggleLanguage();
     updateLanguageIcon();
     translateUI();
     
     // Refresh current Pokémon if in Pokédex tab
     if (window.pokedex && window.pokedex.currentPokemon) {
-        window.pokedex.renderPokemonCard();
+        await window.pokedex.renderPokemonCard();
     }
 }
 
@@ -539,3 +539,55 @@ function updateSelection(selector, selectedElement) {
     });
     selectedElement.classList.add('selected');
 }
+
+// ===== FONT SYSTEM =====
+function initializeFont() {
+    const fontSelector = document.getElementById('fontSelector');
+    if (fontSelector) {
+        // Load saved font
+        const savedFont = localStorage.getItem('selectedFont');
+        if (savedFont) {
+            fontSelector.value = savedFont;
+            applyFont(savedFont);
+        }
+        
+        // Add event listener
+        fontSelector.addEventListener('change', function() {
+            const selectedFont = this.value;
+            applyFont(selectedFont);
+            localStorage.setItem('selectedFont', selectedFont);
+        });
+    }
+}
+
+function applyFont(fontFamily) {
+    document.body.style.fontFamily = fontFamily;
+}
+
+// ===== COLOR SYSTEM =====
+function initializeColor() {
+    const colorSelector = document.getElementById('colorSelector');
+    if (colorSelector) {
+        // Load saved color
+        const savedColor = localStorage.getItem('colorTheme') || 'standard';
+        colorSelector.value = savedColor;
+        applyColorTheme(savedColor);
+        
+        // Add event listener
+        colorSelector.addEventListener('change', function() {
+            const selectedColor = this.value;
+            applyColorTheme(selectedColor);
+            localStorage.setItem('colorTheme', selectedColor);
+        });
+    }
+}
+
+function applyColorTheme(colorTheme) {
+    document.body.setAttribute('data-color-theme', colorTheme);
+}
+
+// Initialize font and color systems
+document.addEventListener('DOMContentLoaded', function() {
+    initializeFont();
+    initializeColor();
+});

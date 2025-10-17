@@ -54,7 +54,7 @@ class Pokedex {
             this.currentSpecies = speciesData;
             
             // Render the Pokemon card
-            this.renderPokemonCard();
+            await this.renderPokemonCard();
             
         } catch (error) {
             console.error('Error loading Pokémon:', error);
@@ -87,7 +87,7 @@ class Pokedex {
         `;
     }
     
-    renderPokemonCard() {
+    async renderPokemonCard() {
         if (!this.currentPokemon || !this.currentSpecies) {
             this.showError('No Pokémon data available');
             return;
@@ -95,7 +95,7 @@ class Pokedex {
         
         try {
             const pokemonCard = new PokemonCard(this.currentPokemon, this.currentSpecies);
-            pokemonCard.render();
+            await pokemonCard.render();
             
             // Initialize async components after render
             setTimeout(() => {

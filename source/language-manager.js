@@ -159,10 +159,10 @@ class LanguageManager {
                     noEvolutions: 'No evolutions',
                     effectiveness: '⚡ Type Effectiveness',
                     effectivenessAgainst: 'Against this Pokémon',
-                    weak4x: 'Weak (4x)',
+                    weak4x: 'Weak plus (4x)',
                     weak2x: 'Weak (2x)',
-                    resistant05x: 'Resistant (0.5x)',
-                    resistant025x: 'Resistant (0.25x)',
+                    resistant05x: 'Resist (0.5x)',
+                    resistant025x: 'Resist plus (0.25x)',
                     immune: 'Immune (0x)'
                 },
                 
@@ -368,10 +368,10 @@ class LanguageManager {
                     noEvolutions: 'Sin evoluciones',
                     effectiveness: '⚡ Efectividad de Tipos',
                     effectivenessAgainst: 'Contra este Pokémon',
-                    weak4x: 'Débil (4x)',
+                    weak4x: 'Muy Débil (4x)',
                     weak2x: 'Débil (2x)',
-                    resistant05x: 'Resistente (0.5x)',
-                    resistant025x: 'Resistente (0.25x)',
+                    resistant05x: 'Resist (0.5x)',
+                    resistant025x: 'Muy Resist (0.25x)',
                     immune: 'Inmune (0x)'
                 },
                 
@@ -383,7 +383,7 @@ class LanguageManager {
                     ultraEffective: 'Ultra Efectivo (4x)',
                     superEffective: 'Súper Efectivo (2x)',
                     resistant: 'Resistente (0.5x)',
-                    superResistant: 'Súper Resistente (0.25x)',
+                    superResistant: 'Súper Resist (0.25x)',
                     noEffect: 'Sin Efecto (0x)'
                 },
                 
