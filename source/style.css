@@ -1036,47 +1036,30 @@ body.light-theme .control-btn svg path {
 
 /* Type Buttons Grid Styles */
 .type-buttons-grid {
-    display: grid;
-    grid-template-columns: repeat(9, 1fr);
+    display: flex;
+    flex-direction: column;
     gap: 8px;
     margin-bottom: 1rem;
-    justify-items: center;
     max-width: 900px;
     margin-left: auto;
     margin-right: auto;
 }
 
-/* Center the second row (8 buttons) by positioning them in columns 1-8 */
-.type-buttons-grid .type-button:nth-child(10) {
-    grid-column: 1;
+.type-buttons-row {
+    display: grid;
+    gap: 8px;
+    justify-items: center;
 }
 
-.type-buttons-grid .type-button:nth-child(11) {
-    grid-column: 2;
+.type-buttons-row.first-row {
+    grid-template-columns: repeat(9, 1fr);
 }
 
-.type-buttons-grid .type-button:nth-child(12) {
-    grid-column: 3;
-}
-
-.type-buttons-grid .type-button:nth-child(13) {
-    grid-column: 4;
-}
-
-.type-buttons-grid .type-button:nth-child(14) {
-    grid-column: 5;
-}
-
-.type-buttons-grid .type-button:nth-child(15) {
-    grid-column: 6;
-}
-
-.type-buttons-grid .type-button:nth-child(16) {
-    grid-column: 7;
-}
-
-.type-buttons-grid .type-button:nth-child(17) {
-    grid-column: 8;
+.type-buttons-row.second-row {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding-left: 30px; /* Offset to center the 8 buttons under the 9 buttons above */
 }
 
 .type-button {

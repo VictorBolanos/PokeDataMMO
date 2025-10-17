@@ -116,16 +116,33 @@ class TypeChart {
     populateSelectors() {
         const typeButtonsGrid = document.getElementById('typeButtonsGrid');
         
-        // Create type buttons
-        this.types.forEach(type => {
+        // Create first row (9 types)
+        const firstRow = document.createElement('div');
+        firstRow.className = 'type-buttons-row first-row';
+        
+        // Create second row (8 types)
+        const secondRow = document.createElement('div');
+        secondRow.className = 'type-buttons-row second-row';
+        
+        // Add types to rows
+        this.types.forEach((type, index) => {
             const button = document.createElement('div');
             button.className = 'type-button';
             button.dataset.type = type;
             button.innerHTML = `
                 <img src="img/res/poke-types/long/${typeData[type].longIcon}" alt="${typeData[type].name}">
             `;
-            typeButtonsGrid.appendChild(button);
+            
+            if (index < 9) {
+                firstRow.appendChild(button);
+            } else {
+                secondRow.appendChild(button);
+            }
         });
+        
+        // Add rows to grid
+        typeButtonsGrid.appendChild(firstRow);
+        typeButtonsGrid.appendChild(secondRow);
         
         this.setupTypeButtons();
     }
