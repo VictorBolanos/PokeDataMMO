@@ -209,13 +209,16 @@ class PokemonCard {
             `;
         }).join('');
         
+        // Calcular el total de estadísticas base
+        const totalStats = this.pokemon.stats.reduce((sum, stat) => sum + stat.base_stat, 0);
+        
         return `
             <div class="pokemon-card-section">
                 <h3 class="section-title">📊 Base Stats</h3>
                 <div class="stats-container">
                     <div class="stats-grid">${stats}</div>
                     <div class="stats-note">
-                        <small>Base stats out of 255 maximum</small>
+                        <small>Total Base Stats: <strong>${totalStats}</strong></small>
                     </div>
                 </div>
             </div>
@@ -410,7 +413,8 @@ class PokemonCard {
                     <img src="img/res/atack-class-icons/${this.getDamageClassFileName(move.damage_class.name)}-class.gif" 
                          alt="${move.damage_class.name}" 
                          class="move-class">
-                    <span class="move-power">${move.power || '-'}</span>
+                    <span class="move-power">Power: ${move.power || '-'}</span>
+                    <span class="move-accuracy">Accuracy: ${move.accuracy ? `${move.accuracy}%` : '-'}</span>
                     <span class="move-pp">PP: ${move.pp}</span>
                 </div>
                 <div class="move-row-2">
