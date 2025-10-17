@@ -70,6 +70,46 @@ body::before {
     gap: 12px;
 }
 
+/* ===== LANGUAGE FEATURE ===== */
+.language-container {
+    position: relative;
+}
+
+.language-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(2px);
+    padding: 0;
+    overflow: hidden;
+}
+
+.language-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: scale(1.05);
+}
+
+.language-icon {
+    width: 26px;
+    height: 26px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    border-radius: 50%;
+}
+
+.language-btn:hover .language-icon {
+    transform: scale(1.1);
+}
+
 /* ===== THEME FEATURE ===== */
 .theme-container {
     position: relative;
@@ -826,6 +866,16 @@ body.light-theme .theme-btn:hover {
 
 body.light-theme .theme-btn svg path {
     fill: #000;
+}
+
+body.light-theme .language-btn {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(0, 0, 0, 0.3);
+}
+
+body.light-theme .language-btn:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(0, 0, 0, 0.6);
 }
 
 body.light-theme .wallpaper-btn {
@@ -1607,7 +1657,7 @@ body.light-theme .playlist-item.active {
 /* Section Titles */
 .section-title {
     font-size: 1.5rem;
-    font-weight: 600;
+    font-weight: 680;
     color: white;
     margin-bottom: 20px;
     display: flex;
@@ -1631,10 +1681,10 @@ body.light-theme .playlist-item.active {
 }
 
 .pokemon-main-sprite {
-    width: 500px;
-    height: 500px;
+    width: 540px;
+    height: 540px;
     object-fit: contain;
-    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.5));
     transition: transform 0.3s ease;
 }
 
@@ -1759,6 +1809,23 @@ body.light-theme .playlist-item.active {
     text-transform: capitalize;
 }
 
+.physical-stats {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.physical-stat-badge {
+    background: rgba(139, 92, 246, 0.2);
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    color: #8b5cf6;
+    padding: 6px 12px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
 .held-items {
     display: flex;
     gap: 8px;
@@ -1769,14 +1836,14 @@ body.light-theme .playlist-item.active {
     background: rgba(59, 130, 246, 0.2);
     border: 1px solid rgba(59, 130, 246, 0.4);
     color: #3b82f6;
-    padding: 6px 12px;
-    border-radius: 15px;
+    padding: 0px 3px;
+    border-radius: 8px;
     font-size: 0.8rem;
     font-weight: 500;
     text-transform: capitalize;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 2px;
 }
 
 .item-sprite {
@@ -1786,9 +1853,14 @@ body.light-theme .playlist-item.active {
 }
 
 .no-held-items {
-    color: rgba(255, 255, 255, 0.5);
-    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
     font-style: italic;
+    font-weight: 500;
+    padding: 8px 12px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
 }
 
 /* Description Row */
@@ -1851,10 +1923,10 @@ body.light-theme .playlist-item.active {
 }
 
 .evolution-sprite {
-    width: 80px;
-    height: 80px;
+    width: 120px;
+    height: 120px;
     object-fit: contain;
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.5));
     margin-bottom: 10px;
 }
 
@@ -2104,6 +2176,37 @@ body.light-theme .playlist-item.active {
     border-radius: 4px;
 }
 
+.move-level {
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.8) 0%, rgba(185, 28, 28, 0.9) 100%);
+    border: 1px solid rgba(220, 38, 38, 0.5);
+    padding: 3px 8px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    min-width: 35px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.move-level::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.move-level:hover::before {
+    left: 100%;
+}
+
 .move-description {
     color: rgba(255, 255, 255, 0.8);
     font-size: 0.8rem;
@@ -2171,7 +2274,7 @@ body.light-theme .playlist-item.active {
 
 .pokedex-effectiveness-label {
     color: white;
-    font-weight: 600;
+    font-weight: 700;
     font-size: 0.9rem;
     text-align: center;
 }
@@ -2608,6 +2711,18 @@ body.light-theme .egg-group-badge {
     color: #22c55e;
 }
 
+body.light-theme .physical-stat-badge {
+    background: rgba(139, 92, 246, 0.15);
+    border-color: rgba(139, 92, 246, 0.3);
+    color: #7c3aed;
+}
+
+body.light-theme .no-held-items {
+    color: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.2);
+}
+
 body.light-theme .pokemon-description {
     color: rgba(0, 0, 0, 0.9);
     background: rgba(0, 0, 0, 0.03);
@@ -2720,6 +2835,14 @@ body.light-theme .move-pp {
     background: rgba(0, 0, 0, 0.05);
 }
 
+body.light-theme .move-level {
+    color: #ffffff;
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.9) 0%, rgba(185, 28, 28, 1) 100%);
+    border-color: rgba(220, 38, 38, 0.6);
+    box-shadow: 0 2px 4px rgba(220, 38, 38, 0.3);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
 body.light-theme .move-description {
     color: rgba(0, 0, 0, 0.8);
 }
@@ -2744,6 +2867,7 @@ body.light-theme .effectiveness-header {
 
 body.light-theme .effectiveness-label {
     color: #1a1a1a;
+    font-weight: 700;
 }
 
 body.light-theme .effectiveness-count {

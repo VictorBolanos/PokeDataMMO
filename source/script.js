@@ -8,8 +8,10 @@ function initializeApp() {
     initializeFeatures();
     initializeWallpaper();
     initializeTheme();
+    initializeLanguage();
     loadSavedWallpaper();
     loadSavedTheme();
+    translateUI(); // Initial translation
 }
 
 // ===== TAB SYSTEM =====
@@ -258,6 +260,230 @@ function loadSavedWallpaper() {
                 noBackgroundItem.classList.add('selected');
             }
         }, 100);
+    }
+}
+
+// ===== LANGUAGE SYSTEM =====
+function initializeLanguage() {
+    const languageBtn = document.getElementById('languageBtn');
+    languageBtn.addEventListener('click', toggleLanguage);
+    updateLanguageIcon();
+}
+
+function toggleLanguage() {
+    window.languageManager.toggleLanguage();
+    updateLanguageIcon();
+    translateUI();
+    
+    // Refresh current Pokémon if in Pokédex tab
+    if (window.pokedex && window.pokedex.currentPokemon) {
+        window.pokedex.renderPokemonCard();
+    }
+}
+
+function updateLanguageIcon() {
+    const languageIcon = document.getElementById('languageIcon');
+    const currentLang = window.languageManager.getCurrentLanguage();
+    
+    if (currentLang === 'es') {
+        languageIcon.src = 'img/res/language-icons/spain.png';
+        languageIcon.alt = 'Español';
+    } else {
+        languageIcon.src = 'img/res/language-icons/united-kingdom.png';
+        languageIcon.alt = 'English';
+    }
+}
+
+function translateUI() {
+    const lm = window.languageManager;
+    
+    // Update page title
+    document.title = lm.t('title');
+    
+    // Update tab names
+    document.querySelector('[data-tab="leagues"] .tab-text').textContent = lm.t('tabs.leagues');
+    document.querySelector('[data-tab="farming"] .tab-text').textContent = lm.t('tabs.farming');
+    document.querySelector('[data-tab="breeding"] .tab-text').textContent = lm.t('tabs.breeding');
+    document.querySelector('[data-tab="pvp"] .tab-text').textContent = lm.t('tabs.pvp');
+    document.querySelector('[data-tab="progression"] .tab-text').textContent = lm.t('tabs.progression');
+    document.querySelector('[data-tab="pokedex"] .tab-text').textContent = lm.t('tabs.pokedex');
+    document.querySelector('[data-tab="typechart"] .tab-text').textContent = lm.t('tabs.typechart');
+    
+    // Update footer
+    document.querySelector('.footer-text').textContent = lm.t('footer');
+    
+    // Update Music Player header
+    const musicHeaderTitle = document.querySelector('#musicDropdown .music-header h6');
+    if (musicHeaderTitle) {
+        musicHeaderTitle.textContent = lm.t('musicPlayer.title');
+    }
+    
+    // Update Wallpaper header
+    const wallpaperHeaderTitle = document.querySelector('#wallpaperDropdown .wallpaper-header h6');
+    if (wallpaperHeaderTitle) {
+        wallpaperHeaderTitle.textContent = lm.t('wallpaper.title');
+    }
+    
+    // Translate all tabs content
+    translateLeaguesTab();
+    translateFarmingTab();
+    translateBreedingTab();
+    translatePVPTab();
+    translateProgressionTab();
+    translatePokedexTab();
+    translateTypeChartTab();
+}
+
+function translateLeaguesTab() {
+    const lm = window.languageManager;
+    const tab = document.getElementById('leagues');
+    
+    tab.querySelector('h2').innerHTML = lm.t('leagues.title');
+    tab.querySelector('.lead').textContent = lm.t('leagues.subtitle');
+    tab.querySelector('h4').textContent = lm.t('leagues.whatsComingTitle');
+    tab.querySelectorAll('p')[0].textContent = lm.t('leagues.description');
+    
+    const featureItems = tab.querySelectorAll('.feature-list li');
+    featureItems[0].innerHTML = `<strong>${lm.t('leagues.features.strategies').split(' ')[0]}</strong> ${lm.t('leagues.features.strategies').split(' ').slice(1).join(' ')}`;
+    featureItems[1].innerHTML = `<strong>${lm.t('leagues.features.teams').split(' ')[0]}</strong> ${lm.t('leagues.features.teams').split(' ').slice(1).join(' ')}`;
+    featureItems[2].innerHTML = `<strong>${lm.t('leagues.features.levels').split(' ')[0]}</strong> ${lm.t('leagues.features.levels').split(' ').slice(1).join(' ')}`;
+    featureItems[3].innerHTML = `<strong>${lm.t('leagues.features.items').split(' ')[0]}</strong> ${lm.t('leagues.features.items').split(' ').slice(1).join(' ')}`;
+    
+    tab.querySelector('.alert strong').textContent = lm.t('leagues.ambitiousProject');
+    tab.querySelector('.alert').innerHTML = `<strong>${lm.t('leagues.ambitiousProject')}</strong> ${lm.t('leagues.ambitiousDescription')}`;
+    
+    tab.querySelector('.status-card h5').textContent = lm.t('leagues.developmentStatus');
+    tab.querySelector('.status-card .badge').textContent = lm.t('leagues.statusPlanning');
+    tab.querySelector('.status-card p').textContent = lm.t('leagues.researchPhase');
+}
+
+function translateFarmingTab() {
+    const lm = window.languageManager;
+    const tab = document.getElementById('farming');
+    
+    tab.querySelector('h2').innerHTML = lm.t('farming.title');
+    tab.querySelector('.lead').textContent = lm.t('farming.subtitle');
+    tab.querySelector('h4').textContent = lm.t('farming.whatsComingTitle');
+    tab.querySelectorAll('p')[0].textContent = lm.t('farming.description');
+    
+    const featureItems = tab.querySelectorAll('.feature-list li');
+    featureItems[0].innerHTML = `<strong>${lm.t('farming.features.tracking').split(' ').slice(0, 3).join(' ')}</strong> ${lm.t('farming.features.tracking').split(' ').slice(3).join(' ')}`;
+    featureItems[1].innerHTML = `<strong>${lm.t('farming.features.schedules').split(' ').slice(0, 3).join(' ')}</strong> ${lm.t('farming.features.schedules').split(' ').slice(3).join(' ')}`;
+    featureItems[2].innerHTML = `<strong>${lm.t('farming.features.soil').split(' ').slice(0, 3).join(' ')}</strong> ${lm.t('farming.features.soil').split(' ').slice(3).join(' ')}`;
+    featureItems[3].innerHTML = `<strong>${lm.t('farming.features.profit').split(' ').slice(0, 2).join(' ')}</strong> ${lm.t('farming.features.profit').split(' ').slice(2).join(' ')}`;
+    featureItems[4].innerHTML = `<strong>${lm.t('farming.features.harvest').split(' ').slice(0, 2).join(' ')}</strong> ${lm.t('farming.features.harvest').split(' ').slice(2).join(' ')}`;
+    
+    tab.querySelector('.status-card h5').textContent = lm.t('farming.developmentStatus');
+    tab.querySelector('.status-card .badge').textContent = lm.t('farming.statusDevelopment');
+    tab.querySelector('.status-card p').textContent = lm.t('farming.coreFeatures');
+}
+
+function translateBreedingTab() {
+    const lm = window.languageManager;
+    const tab = document.getElementById('breeding');
+    
+    tab.querySelector('h2').innerHTML = lm.t('breeding.title');
+    tab.querySelector('.lead').textContent = lm.t('breeding.subtitle');
+    tab.querySelector('h4').textContent = lm.t('breeding.whatsComingTitle');
+    tab.querySelectorAll('p')[0].textContent = lm.t('breeding.description');
+    
+    const featureItems = tab.querySelectorAll('.feature-list li');
+    featureItems[0].innerHTML = `<strong>${lm.t('breeding.features.target').split(' - ')[0]}</strong> - ${lm.t('breeding.features.target').split(' - ')[1]}`;
+    featureItems[1].innerHTML = `<strong>${lm.t('breeding.features.path').split(' - ')[0]}</strong> - ${lm.t('breeding.features.path').split(' - ')[1]}`;
+    featureItems[2].innerHTML = `<strong>${lm.t('breeding.features.dualMode')}</strong>`;
+    featureItems[3].textContent = lm.t('breeding.features.withNatu');
+    featureItems[4].textContent = lm.t('breeding.features.withoutNatu');
+    featureItems[5].innerHTML = `<strong>${lm.t('breeding.features.ivNature').split(' ')[0]}</strong> ${lm.t('breeding.features.ivNature').split(' ').slice(1).join(' ')}`;
+    featureItems[6].innerHTML = `<strong>${lm.t('breeding.features.eggMoves').split(' ').slice(0, 3).join(' ')}</strong> ${lm.t('breeding.features.eggMoves').split(' ').slice(3).join(' ')}`;
+    
+    tab.querySelector('.status-card h5').textContent = lm.t('breeding.developmentStatus');
+    tab.querySelector('.status-card .badge').textContent = lm.t('breeding.statusPriority');
+    tab.querySelector('.status-card p').textContent = lm.t('breeding.algorithmProgress');
+}
+
+function translatePVPTab() {
+    const lm = window.languageManager;
+    const tab = document.getElementById('pvp');
+    
+    tab.querySelector('h2').innerHTML = lm.t('pvp.title');
+    tab.querySelector('.lead').textContent = lm.t('pvp.subtitle');
+    tab.querySelector('h4').textContent = lm.t('pvp.whatsComingTitle');
+    tab.querySelectorAll('p')[0].textContent = lm.t('pvp.description');
+    
+    const featureItems = tab.querySelectorAll('.feature-list li');
+    featureItems[0].innerHTML = `<strong>${lm.t('pvp.features.builder').split(' ')[0]} ${lm.t('pvp.features.builder').split(' ')[1]}</strong> ${lm.t('pvp.features.builder').split(' ').slice(2).join(' ')}`;
+    featureItems[1].innerHTML = `<strong>${lm.t('pvp.features.coverage').split(' ').slice(0, 3).join(' ')}</strong> ${lm.t('pvp.features.coverage').split(' ').slice(3).join(' ')}`;
+    featureItems[2].innerHTML = `<strong>${lm.t('pvp.features.moveset').split(' ').slice(0, 3).join(' ')}</strong> ${lm.t('pvp.features.moveset').split(' ').slice(3).join(' ')}`;
+    featureItems[3].innerHTML = `<strong>${lm.t('pvp.features.meta').split(' ').slice(0, 2).join(' ')}</strong> ${lm.t('pvp.features.meta').split(' ').slice(2).join(' ')}`;
+    featureItems[4].innerHTML = `<strong>${lm.t('pvp.features.simulation').split(' ').slice(0, 2).join(' ')}</strong> ${lm.t('pvp.features.simulation').split(' ').slice(2).join(' ')}`;
+    
+    tab.querySelector('.alert strong').textContent = lm.t('pvp.ambitiousProject');
+    tab.querySelector('.alert').innerHTML = `<strong>${lm.t('pvp.ambitiousProject')}</strong> ${lm.t('pvp.ambitiousDescription')}`;
+    
+    tab.querySelector('.status-card h5').textContent = lm.t('pvp.developmentStatus');
+    tab.querySelector('.status-card .badge').textContent = lm.t('pvp.statusPlanning');
+    tab.querySelector('.status-card p').textContent = lm.t('pvp.researchPhase');
+}
+
+function translateProgressionTab() {
+    const lm = window.languageManager;
+    const tab = document.getElementById('progression');
+    
+    tab.querySelector('h2').innerHTML = lm.t('progression.title');
+    tab.querySelector('.lead').textContent = lm.t('progression.subtitle');
+    tab.querySelector('h4').textContent = lm.t('progression.whatsComingTitle');
+    tab.querySelectorAll('p')[0].textContent = lm.t('progression.description');
+    
+    const featureItems = tab.querySelectorAll('.feature-list li');
+    featureItems[0].innerHTML = `<strong>${lm.t('progression.features.multiChar').split(' - ')[0]}</strong> - ${lm.t('progression.features.multiChar').split(' - ')[1]}`;
+    featureItems[1].innerHTML = `<strong>${lm.t('progression.features.regionProg').split(' - ')[0]}</strong> - ${lm.t('progression.features.regionProg').split(' - ')[1]}`;
+    featureItems[2].innerHTML = `<strong>${lm.t('progression.features.calculator').split(' - ')[0]}</strong> - ${lm.t('progression.features.calculator').split(' - ')[1]}`;
+    featureItems[3].innerHTML = `<strong>${lm.t('progression.features.goals').split(' - ')[0]}</strong> - ${lm.t('progression.features.goals').split(' - ')[1]}`;
+    featureItems[4].innerHTML = `<strong>${lm.t('progression.features.time').split(' - ')[0]}</strong> - ${lm.t('progression.features.time').split(' - ')[1]}`;
+    featureItems[5].innerHTML = `<strong>${lm.t('progression.features.resources').split(' - ')[0]}</strong> - ${lm.t('progression.features.resources').split(' - ')[1]}`;
+    
+    tab.querySelector('.status-card h5').textContent = lm.t('progression.developmentStatus');
+    tab.querySelector('.status-card .badge').textContent = lm.t('progression.statusDevelopment');
+    tab.querySelector('.status-card p').textContent = lm.t('progression.databaseProgress');
+}
+
+function translatePokedexTab() {
+    const lm = window.languageManager;
+    const tab = document.getElementById('pokedex');
+    
+    tab.querySelector('h2').innerHTML = lm.t('pokedex.title');
+    tab.querySelector('.lead').textContent = lm.t('pokedex.subtitle');
+    
+    // Update search placeholder
+    const searchInput = document.getElementById('pokemonSearch');
+    if (searchInput) {
+        searchInput.placeholder = lm.t('pokedex.searchPlaceholder');
+    }
+    
+    // Update empty state if present
+    const emptyState = tab.querySelector('.text-center.text-muted');
+    if (emptyState && !window.pokedex?.currentPokemon) {
+        emptyState.querySelector('h4').textContent = lm.t('pokedex.emptyStateTitle');
+        emptyState.querySelector('p').textContent = lm.t('pokedex.emptyStateSubtitle');
+    }
+}
+
+function translateTypeChartTab() {
+    const lm = window.languageManager;
+    const tab = document.getElementById('typechart');
+    
+    tab.querySelector('h2').innerHTML = lm.t('typeChart.title');
+    tab.querySelector('.lead').textContent = lm.t('typeChart.subtitle');
+    tab.querySelector('.form-label').textContent = lm.t('typeChart.selectTypes');
+    
+    // Update effectiveness result headers
+    const effectivenessHeaders = tab.querySelectorAll('.effectiveness-card h5');
+    if (effectivenessHeaders.length >= 5) {
+        effectivenessHeaders[0].textContent = lm.t('typeChart.ultraEffective');
+        effectivenessHeaders[1].textContent = lm.t('typeChart.superEffective');
+        effectivenessHeaders[2].textContent = lm.t('typeChart.resistant');
+        effectivenessHeaders[3].textContent = lm.t('typeChart.superResistant');
+        effectivenessHeaders[4].textContent = lm.t('typeChart.noEffect');
     }
 }
 

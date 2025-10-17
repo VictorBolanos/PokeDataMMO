@@ -4,10 +4,63 @@ class PokemonCard {
         this.pokemon = pokemonData;
         this.species = speciesData;
         this.container = document.getElementById('pokemonCardContainer');
+        this.lm = window.languageManager; // Language manager reference
+    }
+    
+    // Get translated label
+    t(key) {
+        return this.lm.t(`pokedex.${key}`);
+    }
+    
+    // Get Pokemon name in current language
+    getPokemonName() {
+        const lang = this.lm.getApiLanguage();
+        const names = this.species.names;
+        const nameEntry = names.find(entry => entry.language.name === lang);
+        return nameEntry ? nameEntry.name : this.capitalizeFirst(this.pokemon.name);
+    }
+    
+    // Get ability name in current language
+    getAbilityName(abilityUrl) {
+        // For now, return the English name capitalized
+        // In future, could fetch ability details from API
+        const abilityName = abilityUrl.split('/').slice(-2, -1)[0];
+        return this.capitalizeFirst(abilityName.replace('-', ' '));
+    }
+    
+    // Get egg group name in current language
+    getEggGroupName(groupName) {
+        const lang = this.lm.getCurrentLanguage();
+        const translations = {
+            'monster': { es: 'Monstruo', en: 'Monster' },
+            'water1': { es: 'Agua 1', en: 'Water 1' },
+            'water2': { es: 'Agua 2', en: 'Water 2' },
+            'water3': { es: 'Agua 3', en: 'Water 3' },
+            'bug': { es: 'Bicho', en: 'Bug' },
+            'flying': { es: 'Volador', en: 'Flying' },
+            'field': { es: 'Campo', en: 'Field' },
+            'fairy': { es: 'Hada', en: 'Fairy' },
+            'grass': { es: 'Planta', en: 'Grass' },
+            'human-like': { es: 'Humanoide', en: 'Human-Like' },
+            'mineral': { es: 'Mineral', en: 'Mineral' },
+            'amorphous': { es: 'Amorfo', en: 'Amorphous' },
+            'ditto': { es: 'Ditto', en: 'Ditto' },
+            'dragon': { es: 'Dragón', en: 'Dragon' },
+            'undiscovered': { es: 'Desconocido', en: 'Undiscovered' },
+            'no-eggs': { es: 'Sin Huevos', en: 'No Eggs' }
+        };
+        return translations[groupName]?.[lang] || this.capitalizeFirst(groupName.replace('-', ' '));
+    }
+    
+    // Get genus (category) in current language
+    getGenus() {
+        const lang = this.lm.getApiLanguage();
+        const genera = this.species.genera;
+        const genusEntry = genera.find(entry => entry.language.name === lang);
+        return genusEntry ? genusEntry.genus : '';
     }
     
     render() {
-        
         try {
             this.container.innerHTML = `
                 <div class="pokemon-main-card">
@@ -58,7 +111,7 @@ class PokemonCard {
         `).join('');
         
         const eggGroups = this.species.egg_groups.map(group => `
-            <span class="egg-group-badge">${this.capitalizeFirst(group.name.replace('-', ' '))}</span>
+            <span class="egg-group-badge">${this.getEggGroupName(group.name)}</span>
         `).join('');
         
         const heldItems = this.pokemon.held_items.map(item => `
@@ -70,9 +123,11 @@ class PokemonCard {
             </span>
         `).join('');
         
+        const noHeldItems = this.t('noMoves').replace('movimientos', 'objetos').replace('moves', 'held items');
+        
         return `
             <div class="pokemon-card-section">
-                <h3 class="section-title">📋 Basic Information</h3>
+                <h3 class="section-title">${this.t('basicInfo')}</h3>
                 
                 <!-- Row 1: Image + Info -->
                 <div class="basic-info-row">
@@ -82,16 +137,16 @@ class PokemonCard {
                              class="pokemon-main-sprite">
                     </div>
                     <div class="pokemon-info-column">
-                        <h1 class="pokemon-name">${this.capitalizeFirst(this.pokemon.name)}</h1>
+                        <h1 class="pokemon-name">${this.getPokemonName()}</h1>
                         <div class="pokemon-id">#${this.pokemon.id.toString().padStart(3, '0')}</div>
                         
                         <div class="info-section">
-                            <h4>Types</h4>
+                            <h4>${this.t('types')}</h4>
                             <div class="pokemon-types">${types}</div>
                         </div>
                         
                         <div class="info-section">
-                            <h4>Generation</h4>
+                            <h4>${this.t('generation')}</h4>
                             <div class="generation-badge">
                                 <img src="img/res/gen-icons/${this.getGenerationIcon(generation)}" alt="${genName}">
                                 <span>Gen ${generation} - ${genName}</span>
@@ -99,35 +154,43 @@ class PokemonCard {
                         </div>
                         
                         <div class="info-section">
-                            <h4>Abilities</h4>
+                            <h4>${this.t('abilities')}</h4>
                             <div class="abilities-list">${abilities}</div>
                         </div>
                         
                         <div class="info-section">
-                            <h4>Egg Groups</h4>
+                            <h4>${this.lm.getCurrentLanguage() === 'es' ? 'Objetos Equipados' : 'Held Items'}</h4>
+                            <div class="held-items">${heldItems || `<span class="no-held-items">${this.lm.getCurrentLanguage() === 'es' ? 'Sin objetos equipados' : 'No held items'}</span>`}</div>
+                        </div>
+                        
+                        <div class="info-section">
+                            <h4>${this.t('eggGroups')}</h4>
                             <div class="egg-groups">${eggGroups}</div>
                         </div>
                         
                         <div class="info-section">
-                            <h4>Held Items</h4>
-                            <div class="held-items">${heldItems || '<span class="no-held-items">No held items</span>'}</div>
+                            <h4>${this.t('height')} / ${this.t('weight')}</h4>
+                            <div class="physical-stats">
+                                <span class="physical-stat-badge">${this.pokemon.height / 10}m</span>
+                                <span class="physical-stat-badge">${this.pokemon.weight / 10}kg</span>
+                            </div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Row 2: Description -->
                 <div class="description-row">
-                    <h4>Pokédex Entry</h4>
-                    <p class="pokemon-description">${this.getEnglishDescription()}</p>
+                    <h4>${this.t('description')}</h4>
+                    <p class="pokemon-description">${this.getDescription()}</p>
                 </div>
                 
                 <!-- Row 3: Evolution Chain -->
                 <div class="evolution-row">
-                    <h4>Evolution Chain</h4>
+                    <h4>${this.t('evolution')}</h4>
                     <div class="evolution-chain" id="evolutionChain">
                         <div class="loading">
                             <div class="loading-spinner"></div>
-                            Loading evolution chain...
+                            ${this.lm.getCurrentLanguage() === 'es' ? 'Cargando cadena evolutiva...' : 'Loading evolution chain...'}
                         </div>
                     </div>
                 </div>
@@ -157,7 +220,7 @@ class PokemonCard {
     }
     
     renderDescription() {
-        const description = this.getEnglishDescription();
+        const description = this.getDescription();
         
         return `
             <div class="pokemon-section">
@@ -214,11 +277,11 @@ class PokemonCard {
         
         return `
             <div class="pokemon-card-section">
-                <h3 class="section-title">📊 Base Stats</h3>
+                <h3 class="section-title">${this.t('baseStats')}</h3>
                 <div class="stats-container">
                     <div class="stats-grid">${stats}</div>
                     <div class="stats-note">
-                        <small>Total Base Stats: <strong>${totalStats}</strong></small>
+                        <small>${this.t('totalBaseStats')}: <strong>${totalStats}</strong></small>
                     </div>
                 </div>
             </div>
@@ -226,20 +289,22 @@ class PokemonCard {
     }
     
     renderMovesCard() {
+        const loadingText = this.lm.getCurrentLanguage() === 'es' ? 'Cargando movimientos...' : 'Loading moves...';
+        
         return `
             <div class="pokemon-card-section">
-                <h3 class="section-title">⚔️ Moves (Generation V)</h3>
+                <h3 class="section-title">${this.t('moves')}</h3>
                 <div class="moves-container">
                     <div class="moves-tabs">
-                        <button class="move-tab active" data-move-type="level-up">Level Up</button>
-                        <button class="move-tab" data-move-type="tm-hm">TM/HM</button>
-                        <button class="move-tab" data-move-type="tutor">Tutor</button>
-                        <button class="move-tab" data-move-type="egg">Egg Moves</button>
+                        <button class="move-tab active" data-move-type="level-up">${this.t('movesLevelUp')}</button>
+                        <button class="move-tab" data-move-type="tm-hm">${this.t('movesMachine')}</button>
+                        <button class="move-tab" data-move-type="tutor">${this.t('movesTutor')}</button>
+                        <button class="move-tab" data-move-type="egg">${this.t('movesEgg')}</button>
                     </div>
                     <div class="moves-content" id="movesContent">
                         <div class="loading">
                             <div class="loading-spinner"></div>
-                            Loading moves...
+                            ${loadingText}
                         </div>
                     </div>
                 </div>
@@ -248,14 +313,16 @@ class PokemonCard {
     }
     
     renderTypeEffectivenessCard() {
+        const loadingText = this.lm.getCurrentLanguage() === 'es' ? 'Cargando efectividad de tipos...' : 'Loading type effectiveness...';
+        
         return `
             <div class="pokemon-card-section">
-                <h3 class="section-title">🛡️ Type Effectiveness</h3>
+                <h3 class="section-title">${this.t('effectiveness')}</h3>
                 <div class="pokedex-effectiveness-container">
                     <div class="pokedex-effectiveness-grid" id="typeEffectiveness">
                         <div class="loading">
                             <div class="loading-spinner"></div>
-                            Loading type effectiveness...
+                            ${loadingText}
                         </div>
                     </div>
                 </div>
@@ -388,7 +455,18 @@ class PokemonCard {
         });
         
         const moves = await Promise.all(movePromises);
-        return moves.filter(move => move !== null);
+        const validMoves = moves.filter(move => move !== null);
+        
+        // Ordenar movimientos aprendidos por nivel en orden ascendente
+        if (type === 'level-up') {
+            validMoves.sort((a, b) => {
+                const levelA = a.learnDetails.find(detail => detail.move_learn_method.name === 'level-up')?.level_learned_at || 0;
+                const levelB = b.learnDetails.find(detail => detail.move_learn_method.name === 'level-up')?.level_learned_at || 0;
+                return levelA - levelB;
+            });
+        }
+        
+        return validMoves;
     }
     
     renderMovesList(moves, type) {
@@ -397,31 +475,43 @@ class PokemonCard {
         if (moves.length === 0) {
             movesContent.innerHTML = `
                 <div class="text-center text-muted">
-                    No ${type} moves found for this Pokémon.
+                    ${this.t('noMoves')}
                 </div>
             `;
             return;
         }
         
-        const movesHTML = moves.map(move => `
-            <div class="move-item">
-                <div class="move-row-1">
-                    <span class="move-name">${this.capitalizeFirst(move.name.replace('-', ' '))}</span>
-                    <div class="move-type">
-                        <img src="img/res/poke-types/long/type-${move.type.name}-long-icon.png" alt="${move.type.name}">
+        const movesHTML = moves.map(move => {
+            // Obtener información del nivel para movimientos aprendidos por nivel
+            let levelInfo = '';
+            if (type === 'level-up' && move.learnDetails && move.learnDetails.length > 0) {
+                const levelUpDetail = move.learnDetails.find(detail => detail.move_learn_method.name === 'level-up');
+                if (levelUpDetail && levelUpDetail.level_learned_at) {
+                    levelInfo = `<span class="move-level">${this.t('level')}: ${levelUpDetail.level_learned_at}</span>`;
+                }
+            }
+            
+            return `
+                <div class="move-item">
+                    <div class="move-row-1">
+                        <span class="move-name">${this.capitalizeFirst(move.name.replace('-', ' '))}</span>
+                        <div class="move-type">
+                            <img src="img/res/poke-types/long/type-${move.type.name}-long-icon.png" alt="${move.type.name}">
+                        </div>
+                        <img src="img/res/atack-class-icons/${this.getDamageClassFileName(move.damage_class.name)}-class.gif" 
+                             alt="${move.damage_class.name}" 
+                             class="move-class">
+                        ${levelInfo}
+                        <span class="move-power">${this.t('power')}: ${move.power || '-'}</span>
+                        <span class="move-accuracy">${this.t('accuracy')}: ${move.accuracy ? `${move.accuracy}%` : '-'}</span>
+                        <span class="move-pp">${this.t('pp')}: ${move.pp}</span>
                     </div>
-                    <img src="img/res/atack-class-icons/${this.getDamageClassFileName(move.damage_class.name)}-class.gif" 
-                         alt="${move.damage_class.name}" 
-                         class="move-class">
-                    <span class="move-power">Power: ${move.power || '-'}</span>
-                    <span class="move-accuracy">Accuracy: ${move.accuracy ? `${move.accuracy}%` : '-'}</span>
-                    <span class="move-pp">PP: ${move.pp}</span>
+                    <div class="move-row-2">
+                        <span class="move-description">${this.getMoveDescription(move)}</span>
+                    </div>
                 </div>
-                <div class="move-row-2">
-                    <span class="move-description">${this.getMoveDescription(move)}</span>
-                </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
         
         movesContent.innerHTML = `
             <div class="moves-list">${movesHTML}</div>
@@ -599,15 +689,16 @@ class PokemonCard {
     }
     
     getStatName(statName) {
-        const names = {
-            'hp': 'PS',
-            'attack': 'Attack',
-            'defense': 'Defense',
-            'special-attack': 'Special Attack',
-            'special-defense': 'Special Defense',
-            'speed': 'Speed'
+        const mapping = {
+            'hp': 'hp',
+            'attack': 'attack',
+            'defense': 'defense',
+            'special-attack': 'spAttack',
+            'special-defense': 'spDefense',
+            'speed': 'speed'
         };
-        return names[statName] || statName.toUpperCase();
+        const key = mapping[statName];
+        return key ? this.t(key) : statName.toUpperCase();
     }
     
     getStatColor(statName) {
@@ -622,15 +713,19 @@ class PokemonCard {
         return colors[statName] || '#95a5a6';
     }
     
-    getEnglishDescription() {
+    getDescription() {
+        const lang = window.languageManager.getApiLanguage();
         const flavorTexts = this.species.flavor_text_entries;
-        const englishEntry = flavorTexts.find(entry => entry.language.name === 'en');
-        return englishEntry ? englishEntry.flavor_text.replace(/\f/g, ' ') : 'No description available';
+        const entry = flavorTexts.find(entry => entry.language.name === lang);
+        const noDescText = lang === 'es' ? 'Sin descripción disponible' : 'No description available';
+        return entry ? entry.flavor_text.replace(/\f/g, ' ') : noDescText;
     }
     
     getMoveDescription(move) {
-        const englishEffect = move.effect_entries.find(entry => entry.language.name === 'en');
-        return englishEffect ? englishEffect.short_effect : 'No description available';
+        const lang = window.languageManager.getApiLanguage();
+        const effect = move.effect_entries.find(entry => entry.language.name === lang);
+        const noDescText = lang === 'es' ? 'Sin descripción disponible' : 'No description available';
+        return effect ? effect.short_effect : noDescText;
     }
     
     extractPokemonId(url) {
@@ -639,15 +734,16 @@ class PokemonCard {
     }
     
     getEffectivenessLabel(multiplier) {
-        const labels = {
-            '4x': 'Super Weak To',
-            '2x': 'Weak To',
-            '1x': 'Normal Damage',
-            '0.5x': 'Resistant To',
-            '0.25x': 'Super Resistant To',
-            '0x': 'Immune To'
+        const mapping = {
+            '4x': 'weak4x',
+            '2x': 'weak2x',
+            '1x': '',
+            '0.5x': 'resistant05x',
+            '0.25x': 'resistant025x',
+            '0x': 'immune'
         };
-        return labels[multiplier] || multiplier;
+        const key = mapping[multiplier];
+        return key ? this.t(key) : multiplier;
     }
 
     getDamageClassFileName(damageClassName) {

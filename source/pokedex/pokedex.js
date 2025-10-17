@@ -88,34 +88,23 @@ class Pokedex {
     }
     
     renderPokemonCard() {
-        console.log('🔍 renderPokemonCard called');
-        console.log('🔍 currentPokemon:', this.currentPokemon);
-        console.log('🔍 currentSpecies:', this.currentSpecies);
-        
         if (!this.currentPokemon || !this.currentSpecies) {
-            console.error('❌ Missing Pokemon or Species data');
             this.showError('No Pokémon data available');
             return;
         }
         
         try {
-            console.log('🔍 Creating PokemonCard instance');
             const pokemonCard = new PokemonCard(this.currentPokemon, this.currentSpecies);
-            
-            console.log('🔍 Calling pokemonCard.render()');
             pokemonCard.render();
             
-            console.log('🔍 Setting up async components');
             // Initialize async components after render
             setTimeout(() => {
-                console.log('🔍 Initializing evolution');
                 pokemonCard.initializeEvolution();
                 // Type effectiveness is already initialized in PokemonCard.render()
             }, 100);
             
         } catch (error) {
-            console.error('❌ Error rendering Pokémon card:', error);
-            console.error('❌ Error stack:', error.stack);
+            console.error('Error rendering Pokémon card:', error);
             this.showError('Error rendering Pokémon card');
         }
     }
