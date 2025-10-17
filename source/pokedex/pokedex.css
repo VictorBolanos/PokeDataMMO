@@ -703,7 +703,7 @@
 
 .effectiveness-types-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 8px;
 }
 
@@ -838,7 +838,7 @@
     }
     
     .effectiveness-types-grid {
-        grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
     }
     
     .moves-list {
