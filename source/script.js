@@ -291,6 +291,13 @@ function updateThemeIcons(isLight) {
     moonIcon.style.display = isLight ? 'block' : 'none';
 }
 
+// ===== POKEDEX INITIALIZATION =====
+function initializePokedex() {
+    // Pokédex is initialized automatically when DOM is loaded
+    // The Pokedex class handles its own initialization
+    console.log('Pokédex initialization delegated to Pokedex class');
+}
+
 // ===== HELPER FUNCTIONS =====
 function closeDropdown(dropdownId) {
     const dropdown = document.getElementById(dropdownId);
