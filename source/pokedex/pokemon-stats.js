@@ -25,8 +25,8 @@ class PokemonStats {
             const typePromises = types.map(typeName => PokemonAPI.getType(typeName));
             const typeData = await Promise.all(typePromises);
             
-            // Calculate effectiveness for each attacking type
-            const allTypes = ['normal', 'fire', 'water', 'electric', 'grass', 'ice', 'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug', 'rock', 'ghost', 'dragon', 'dark', 'steel', 'fairy'];
+            // Calculate effectiveness for each attacking type (Gen V - no Fairy type)
+            const allTypes = ['normal', 'fire', 'water', 'electric', 'grass', 'ice', 'fighting', 'poison', 'ground', 'flying', 'psychic', 'bug', 'rock', 'ghost', 'dragon', 'dark', 'steel'];
             
             for (const attackingType of allTypes) {
                 let multiplier = 1;

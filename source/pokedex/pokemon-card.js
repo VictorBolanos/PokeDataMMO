@@ -50,11 +50,13 @@ class PokemonCard {
         console.log('🔍 Pokemon abilities:', this.pokemon.abilities);
         console.log('🔍 Species egg groups:', this.species.egg_groups);
         
-        const types = this.pokemon.types.map(type => `
-            <div class="type-badge">
-                <img src="img/res/poke-types/long/type-${type.type.name}-long-icon.png" alt="${type.type.name}">
-            </div>
-        `).join('');
+        const types = this.pokemon.types
+            .filter(type => type.type.name !== 'fairy') // Filter out Fairy type for Gen V
+            .map(type => `
+                <div class="type-badge">
+                    <img src="img/res/poke-types/long/type-${type.type.name}-long-icon.png" alt="${type.type.name}">
+                </div>
+            `).join('');
         
         const generation = PokemonAPI.getGenerationFromId(this.pokemon.id);
         const genName = PokemonAPI.getGenerationName(generation);
@@ -68,6 +70,15 @@ class PokemonCard {
         
         const eggGroups = this.species.egg_groups.map(group => `
             <span class="egg-group-badge">${this.capitalizeFirst(group.name.replace('-', ' '))}</span>
+        `).join('');
+        
+        const heldItems = this.pokemon.held_items.map(item => `
+            <span class="held-item-badge">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${item.item.name}.png" 
+                     alt="${item.item.name}" 
+                     class="item-sprite">
+                ${this.capitalizeFirst(item.item.name.replace('-', ' '))}
+            </span>
         `).join('');
         
         return `
@@ -106,6 +117,11 @@ class PokemonCard {
                         <div class="info-section">
                             <h4>Egg Groups</h4>
                             <div class="egg-groups">${eggGroups}</div>
+                        </div>
+                        
+                        <div class="info-section">
+                            <h4>Held Items</h4>
+                            <div class="held-items">${heldItems || '<span class="no-held-items">No held items</span>'}</div>
                         </div>
                     </div>
                 </div>
@@ -371,10 +387,14 @@ class PokemonCard {
             });
         });
         
-        // Get move details for Generation V (black-white)
+        // Get move details for Generation V (black-white, excluding Fairy type moves)
         const movePromises = filteredMoves.slice(0, 50).map(async moveData => {
             try {
                 const move = await PokemonAPI.getMove(moveData.move.name);
+                
+                // Skip Fairy type moves (Gen V doesn't have Fairy type)
+                if (move.type.name === 'fairy') return null;
+                
                 return {
                     ...move,
                     learnDetails: moveData.version_group_details.filter(
@@ -409,7 +429,7 @@ class PokemonCard {
                     <div class="move-type">
                         <img src="img/res/poke-types/long/type-${move.type.name}-long-icon.png" alt="${move.type.name}">
                     </div>
-                    <img src="img/res/atack-class-icons/${move.damage_class.name}-class-mini.png" 
+                    <img src="img/res/atack-class-icons/${this.getDamageClassFileName(move.damage_class.name)}-class.gif" 
                          alt="${move.damage_class.name}" 
                          class="move-class">
                     <span class="move-power">${move.power || '-'}</span>
@@ -485,6 +505,9 @@ class PokemonCard {
     }
     
     buildEvolutionChainRecursive(chain) {
+        console.log('🔍 Building evolution for:', chain.species.name);
+        console.log('🔍 Chain data:', chain);
+        
         let html = `
             <div class="evolution-item">
                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.extractPokemonId(chain.species.url)}.png" 
@@ -495,8 +518,17 @@ class PokemonCard {
         `;
         
         if (chain.evolves_to.length > 0) {
-            html += '<div class="evolution-arrow">→</div>';
-            html += this.buildEvolutionChainRecursive(chain.evolves_to[0]);
+            // Los evolution_details están en el Pokémon que evoluciona HACIA, no en el actual
+            const nextEvolution = chain.evolves_to[0];
+            console.log('🔍 Next evolution:', nextEvolution.species.name);
+            console.log('🔍 Evolution details:', nextEvolution.evolution_details);
+            
+            const evolutionDetail = nextEvolution.evolution_details && nextEvolution.evolution_details.length > 0 ? nextEvolution.evolution_details[0] : null;
+            
+            html += `<div class="evolution-arrow">
+                <div class="evolution-condition">${this.formatEvolutionCondition(evolutionDetail)}</div>
+            </div>`;
+            html += this.buildEvolutionChainRecursive(nextEvolution);
         }
         
         return html;
@@ -559,12 +591,11 @@ class PokemonCard {
         }
         
         const effectivenessHTML = Object.entries(effectiveness).map(([multiplier, types]) => {
-            if (types.length === 0) return '';
+            if (types.length === 0 || multiplier === '1x') return ''; // Skip empty and 1x
             
             const typesHTML = types.map(type => `
-                <div class="effectiveness-type">
+                <div class="effectiveness-type" title="${this.capitalizeFirst(type.replace('-', ' '))}">
                     <img src="img/res/poke-types/box/type-${type}-box-icon.png" alt="${type}">
-                    <span>${type}</span>
                 </div>
             `).join('');
             
@@ -652,5 +683,105 @@ class PokemonCard {
             '0x': 'Immune To'
         };
         return labels[multiplier] || multiplier;
+    }
+
+    getDamageClassFileName(damageClassName) {
+        const mapping = {
+            'physical': 'physic',
+            'special': 'special',
+            'status': 'status'
+        };
+        return mapping[damageClassName] || damageClassName;
+    }
+
+    formatEvolutionCondition(detail) {
+        if (!detail) {
+            return 'No evolutions';
+        }
+        
+        const conditions = [];
+        
+        // Trigger type
+        const trigger = detail.trigger.name;
+        
+        switch (trigger) {
+            case 'level-up':
+                if (detail.min_level) {
+                    conditions.push(`Level ${detail.min_level}`);
+                } else {
+                    conditions.push('Level up');
+                }
+                break;
+                
+            case 'use-item':
+                if (detail.item) {
+                    conditions.push(`<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${detail.item.name}.png" alt="${detail.item.name}" class="evolution-item-sprite"> Use ${this.capitalizeFirst(detail.item.name.replace('-', ' '))}`);
+                } else {
+                    conditions.push('Use item');
+                }
+                break;
+                
+            case 'trade':
+                if (detail.trade_species) {
+                    conditions.push(`Trade with ${this.capitalizeFirst(detail.trade_species.name)}`);
+                } else {
+                    conditions.push('Trade');
+                }
+                break;
+                
+            case 'friendship':
+                if (detail.min_happiness) {
+                    conditions.push(`Friendship ${detail.min_happiness}+`);
+                } else {
+                    conditions.push('High friendship');
+                }
+                break;
+                
+            case 'shed':
+                conditions.push('Shed (Nincada → Shedinja)');
+                break;
+                
+            default:
+                conditions.push(this.capitalizeFirst(trigger.replace('-', ' ')));
+        }
+        
+        // Additional conditions
+        if (detail.held_item) {
+            conditions.push(`<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${detail.held_item.name}.png" alt="${detail.held_item.name}" class="evolution-item-sprite"> Holding ${this.capitalizeFirst(detail.held_item.name.replace('-', ' '))}`);
+        }
+        
+        if (detail.time_of_day && detail.time_of_day !== '') {
+            conditions.push(`During ${detail.time_of_day}`);
+        }
+        
+        if (detail.known_move) {
+            conditions.push(`Knows ${this.capitalizeFirst(detail.known_move.name.replace('-', ' '))}`);
+        }
+        
+        if (detail.location) {
+            conditions.push(`At ${this.capitalizeFirst(detail.location.name.replace('-', ' '))}`);
+        }
+        
+        if (detail.needs_overworld_rain) {
+            conditions.push('While raining');
+        }
+        
+        if (detail.min_beauty) {
+            conditions.push(`Beauty ${detail.min_beauty}+`);
+        }
+        
+        if (detail.relative_physical_stats !== null) {
+            const statRelation = detail.relative_physical_stats === 1 ? 'Attack > Defense' : 
+                                detail.relative_physical_stats === 0 ? 'Attack = Defense' : 
+                                'Attack < Defense';
+            conditions.push(statRelation);
+        }
+        
+        // Si no hay condiciones, significa que no evoluciona
+        if (conditions.length === 0) {
+            return 'No evolutions';
+        }
+        
+        return conditions.join(' + ');
     }
 }
