@@ -239,56 +239,6 @@ class PokemonCard {
         `;
     }
     
-    renderAbilities() {
-        const abilities = this.pokemon.abilities.map(ability => `
-            <div class="ability-item">
-                <div class="ability-name">
-                    ${this.capitalizeFirst(ability.ability.name.replace('-', ' '))}
-                    ${ability.is_hidden ? '<span style="color: #dc2626; margin-left: 5px;">💎</span>' : ''}
-                </div>
-                <div class="ability-type">${ability.is_hidden ? 'Hidden Ability' : 'Normal Ability'}</div>
-            </div>
-        `).join('');
-        
-        return `
-            <div class="pokemon-section">
-                <h3 class="section-title">🔮 Abilities</h3>
-                <div class="section-content">
-                    <div class="abilities-list">${abilities}</div>
-                </div>
-            </div>
-        `;
-    }
-    
-    renderDescription() {
-        const description = this.getDescription();
-        
-        return `
-            <div class="pokemon-section">
-                <h3 class="section-title">📖 Pokédex Entry</h3>
-                <div class="section-content">
-                    <p class="pokemon-description">${description}</p>
-                </div>
-            </div>
-        `;
-    }
-    
-    renderEvolution() {
-        return `
-            <div class="pokemon-section">
-                <h3 class="section-title">🔄 Evolution Chain</h3>
-                <div class="section-content">
-                    <div class="evolution-chain" id="evolutionChain">
-                        <div class="loading">
-                            <div class="loading-spinner"></div>
-                            Loading evolution chain...
-                        </div>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-    
     renderStatsCard() {
         
         const stats = this.pokemon.stats.map(stat => {
@@ -681,59 +631,6 @@ class PokemonCard {
                 `;
             }
         }
-    }
-    
-    calculateTypeEffectiveness() {
-        // This method is now handled by PokemonStats class
-        // Keeping for backward compatibility
-        return {
-            '4x': [],
-            '2x': [],
-            '1x': [],
-            '0.5x': [],
-            '0.25x': [],
-            '0x': []
-        };
-    }
-    
-    renderTypeEffectiveness(effectiveness) {
-        
-        const effectivenessContainer = document.getElementById('typeEffectiveness');
-        
-        if (!effectiveness || typeof effectiveness !== 'object') {
-            console.error('❌ effectiveness is not a valid object:', effectiveness);
-            effectivenessContainer.innerHTML = `
-                <div class="error">
-                    Error: Type effectiveness data is invalid
-                </div>
-            `;
-            return;
-        }
-        
-        const effectivenessHTML = Object.entries(effectiveness).map(([multiplier, types]) => {
-            if (types.length === 0 || multiplier === '1x') return ''; // Skip empty and 1x
-            
-            const typesHTML = types.map(type => `
-                <div class="effectiveness-type" title="${this.capitalizeFirst(type.replace('-', ' '))}">
-                    <img src="img/res/poke-types/box/type-${type}-box-icon.png" alt="${type}">
-                </div>
-            `).join('');
-            
-            return `
-                <div class="effectiveness-card effectiveness-category" data-multiplier="${multiplier}">
-                    <div class="effectiveness-title">
-                        <span>${this.getEffectivenessLabel(multiplier)}</span>
-                    </div>
-                    <div class="pokedex-effectiveness-types-grid">${typesHTML}</div>
-                </div>
-            `;
-        }).filter(html => html !== '').join('');
-        
-        effectivenessContainer.innerHTML = effectivenessHTML || `
-            <div class="text-center text-muted">
-                Type effectiveness calculation not available
-            </div>
-        `;
     }
     
     // Helper methods

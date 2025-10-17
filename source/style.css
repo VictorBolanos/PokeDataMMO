@@ -163,6 +163,7 @@ body::before {
     backdrop-filter: blur(2px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-top: none;
+    border-bottom: 4px solid var(--primary-color);
     z-index: 1000;
     width: 93.5%;
     max-width: 1386px;
@@ -737,7 +738,7 @@ body::before {
     border-radius: 15px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 3px solid var(--primary-color);
     overflow: hidden;
 }
 
@@ -829,6 +830,12 @@ body::before {
     padding-left: 1.5rem;
     position: relative;
     color: rgba(255, 255, 255, 0.9);
+    cursor: pointer;
+    transition: transform 0.15s ease;
+}
+
+.feature-list li:active {
+    transform: scale(0.98);
 }
 
 .feature-list li::before {
@@ -848,6 +855,15 @@ body::before {
 .feature-list ul li::before {
     content: '→';
     color: rgba(255, 255, 255, 0.6);
+}
+
+.status-card {
+    transition: all 0.3s ease;
+}
+
+.status-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .status-card h5 {
@@ -876,6 +892,7 @@ footer.footer-custom {
     backdrop-filter: blur(2px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom: none;
+    border-top: 4px solid var(--primary-color);
     width: 93.5%;
     max-width: 1386px;
     margin: 20px auto 0 auto;
@@ -896,86 +913,219 @@ footer.footer-custom {
 
 .selector-container {
     display: flex;
-    gap: 20px;
+    gap: 15px;
     align-items: center;
-    flex-wrap: wrap;
     justify-content: center;
 }
 
-.font-selector-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.font-label {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 0.9rem;
-    font-weight: 500;
-    margin: 0;
-}
-
+.font-selector-container,
 .color-selector-container {
-    display: flex;
-    align-items: center;
-    gap: 10px;
+    position: relative;
 }
 
-.color-label {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 0.9rem;
-    font-weight: 500;
+/* Selector Buttons */
+.selector-btn {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.8);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(2px);
+}
+
+.selector-btn:hover {
+    background: rgba(0, 0, 0, 0.9);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: scale(1.05);
+}
+
+.selector-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.selector-btn:hover svg {
+    transform: scale(1.1);
+}
+
+/* Color Preview Button */
+.color-btn {
+    padding: 0;
+    overflow: hidden;
+}
+
+.color-preview {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+/* Font Dropdown */
+.font-dropdown {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 10px;
+    background: rgba(30, 30, 30, 0.95);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    padding: 20px;
+    width: 300px;
+    max-height: 400px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+.font-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.dropdown-header h6 {
+    color: white;
+    font-weight: 600;
     margin: 0;
 }
 
-.font-selector {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 8px;
-    color: white;
-    padding: 6px 12px;
-    font-size: 0.85rem;
-    transition: all 0.3s ease;
-    min-width: 200px;
-    max-height: 200px;
+.font-list {
+    max-height: 300px;
     overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.font-selector:focus {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px var(--primary-bg);
-    outline: none;
-}
-
-.font-selector option {
-    background: #2a2a2a;
-    color: white;
-    padding: 8px;
-}
-
-.color-selector {
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+.font-item {
+    padding: 10px 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     color: white;
-    padding: 6px 12px;
-    font-size: 0.85rem;
+    cursor: pointer;
     transition: all 0.3s ease;
-    min-width: 120px;
+    font-size: 0.9rem;
 }
 
-.color-selector:focus {
-    background: rgba(255, 255, 255, 0.15);
+.font-item:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateX(5px);
+}
+
+.font-item.selected {
+    background: var(--primary-bg);
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px var(--primary-bg);
-    outline: none;
 }
 
-.color-selector option {
-    background: #2a2a2a;
-    color: white;
-    padding: 8px;
+/* Color Dropdown */
+.color-dropdown {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 10px;
+    background: rgba(30, 30, 30, 0.95);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    padding: 20px;
+    width: 280px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+.color-dropdown.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+}
+
+.color-item {
+    aspect-ratio: 1;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+    position: relative;
+}
+
+.color-item:hover {
+    transform: scale(1.1);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.color-item.selected {
+    border-color: white;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+.color-item::after {
+    content: attr(data-name);
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.7);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.color-item:hover::after {
+    opacity: 1;
+}
+
+/* Scrollbar for font list */
+.font-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.font-list::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.font-list::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 3px;
+}
+
+.font-list::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-hover);
 }
 
 /* ===== CUSTOM SCROLLBAR ===== */
@@ -1010,11 +1160,12 @@ body.light-theme::before {
 body.light-theme .header-card {
     background: rgba(255, 255, 255, 0.6);
     border-color: rgba(0, 0, 0, 0.1);
+    border-bottom: 4px solid var(--primary-color);
 }
 
 body.light-theme .tab-system-container {
     background: rgba(255, 255, 255, 0.6);
-    border-color: rgba(0, 0, 0, 0.1);
+    border: 3px solid var(--primary-color);
 }
 
 body.light-theme .nav-tabs-container {
@@ -1051,52 +1202,66 @@ body.light-theme .tab-content-area {
 body.light-theme footer.footer-custom {
     background: rgba(255, 255, 255, 0.6);
     border-color: rgba(0, 0, 0, 0.1);
+    border-top: 4px solid var(--primary-color);
 }
 
 body.light-theme .footer-text {
     color: rgba(0, 0, 0, 0.7);
 }
 
-body.light-theme .font-label {
-    color: rgba(0, 0, 0, 0.8);
+/* Light Theme - Selectors */
+body.light-theme .selector-btn {
+    background: rgba(255, 255, 255, 0.8);
+    border-color: rgba(0, 0, 0, 0.3);
 }
 
-body.light-theme .color-label {
-    color: rgba(0, 0, 0, 0.8);
+body.light-theme .selector-btn:hover {
+    background: rgba(255, 255, 255, 0.9);
+    border-color: rgba(0, 0, 0, 0.6);
 }
 
-body.light-theme .font-selector {
+body.light-theme .selector-btn svg path {
+    fill: #000;
+}
+
+body.light-theme .font-dropdown,
+body.light-theme .color-dropdown {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .dropdown-header h6 {
+    color: #000;
+}
+
+body.light-theme .font-item {
     background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.2);
+    border-color: rgba(0, 0, 0, 0.1);
     color: #1a1a1a;
 }
 
-body.light-theme .color-selector {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.2);
-    color: #1a1a1a;
+body.light-theme .font-item:hover {
+    background: rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.3);
 }
 
-body.light-theme .font-selector:focus {
-    background: rgba(0, 0, 0, 0.08);
+body.light-theme .font-item.selected {
+    background: var(--primary-bg);
     border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px var(--primary-bg);
+    color: var(--primary-color);
 }
 
-body.light-theme .color-selector:focus {
-    background: rgba(0, 0, 0, 0.08);
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px var(--primary-bg);
+body.light-theme .color-item:hover {
+    border-color: rgba(0, 0, 0, 0.3);
 }
 
-body.light-theme .font-selector option {
-    background: #f5f5f5;
-    color: #1a1a1a;
+body.light-theme .color-item.selected {
+    border-color: #000;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
 }
 
-body.light-theme .color-selector option {
-    background: #f5f5f5;
-    color: #1a1a1a;
+body.light-theme .color-item::after {
+    color: rgba(0, 0, 0, 0.7);
 }
 
 body.light-theme .theme-btn {
@@ -1742,17 +1907,7 @@ body.light-theme .playlist-item.active {
         font-size: 0.8rem;
     }
     
-    .theme-btn {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .wallpaper-btn {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .music-btn {
+    .theme-btn, .wallpaper-btn, .music-btn, .language-btn {
         width: 40px;
         height: 40px;
     }
@@ -1766,15 +1921,11 @@ body.light-theme .playlist-item.active {
     }
 }
 
-/* Pokédex Styles */
-/* ===== SEARCH SECTION ===== */
+/* ===== POKÉDEX STYLES ===== */
+/* Pokemon Search */
 .pokemon-search-container {
     position: relative;
     margin-bottom: 2rem;
-}
-
-.search-input-wrapper {
-    position: relative;
 }
 
 .pokemon-search-input {
@@ -1799,7 +1950,6 @@ body.light-theme .playlist-item.active {
     color: rgba(255, 255, 255, 0.6);
 }
 
-/* Search Suggestions */
 .search-suggestions {
     position: absolute;
     top: 100%;
@@ -1828,7 +1978,7 @@ body.light-theme .playlist-item.active {
 .suggestion-item {
     padding: 12px 20px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background 0.3s ease;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -1861,7 +2011,7 @@ body.light-theme .playlist-item.active {
     text-transform: capitalize;
 }
 
-/* ===== POKEMON CARD ===== */
+/* Pokemon Card */
 .pokemon-card-container {
     min-height: 400px;
 }
@@ -1878,28 +2028,23 @@ body.light-theme .playlist-item.active {
     border-radius: 20px;
     padding: 25px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 3px solid var(--primary-color);
     backdrop-filter: blur(10px);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .pokemon-card-section:hover {
     transform: translateY(-2px);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    border-color: var(--primary-hover);
 }
 
 @keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* Section Titles */
+/* Card Sections */
 .section-title {
     font-size: 1.5rem;
     font-weight: 680;
@@ -1912,7 +2057,6 @@ body.light-theme .playlist-item.active {
     border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Basic Info Card */
 .basic-info-row {
     display: grid;
     grid-template-columns: 530px 1fr;
@@ -1975,9 +2119,6 @@ body.light-theme .playlist-item.active {
 .type-badge {
     display: flex;
     align-items: center;
-    padding: 0;
-    background: transparent;
-    border: none;
 }
 
 .type-badge img {
@@ -1990,9 +2131,9 @@ body.light-theme .playlist-item.active {
     display: flex;
     align-items: center;
     gap: 8px;
-    background: var(--primary-bg);
-    border: 1px solid var(--primary-border);
-    color: var(--primary-color);
+    background: rgba(220, 38, 38, 0.2);
+    border: 1px solid rgba(220, 38, 38, 0.4);
+    color: #dc2626;
     padding: 8px 15px;
     border-radius: 20px;
     font-weight: 600;
@@ -2016,12 +2157,6 @@ body.light-theme .playlist-item.active {
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     padding: 8px 12px;
-    transition: none;
-}
-
-.ability-item:hover {
-    background: rgba(255, 255, 255, 0.1);
-    transform: none;
 }
 
 .ability-name {
@@ -2131,7 +2266,7 @@ body.light-theme .playlist-item.active {
     padding: 15px;
     background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
-    border-left: 4px solid var(--primary-border);
+    border-left: 4px solid rgba(255, 255, 255, 0.2);
 }
 
 /* Evolution Row */
@@ -2231,19 +2366,12 @@ body.light-theme .playlist-item.active {
     border-radius: 12px;
     padding: 12px 15px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: none;
-}
-
-.stat-item:hover {
-    background: rgba(255, 255, 255, 0.05);
-    transform: none;
 }
 
 .stat-header {
     display: flex;
     align-items: center;
     gap: 15px;
-    margin-bottom: 0;
 }
 
 .stat-name {
@@ -2278,9 +2406,9 @@ body.light-theme .playlist-item.active {
 
 .stat-bar-fill {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary-color) 0%, var(--primary-hover) 100%);
     border-radius: 4px;
     transition: width 0.5s ease;
+    /* Color set inline per stat */
 }
 
 .stat-percentage {
@@ -2328,8 +2456,9 @@ body.light-theme .playlist-item.active {
 }
 
 .move-tab.active {
-    background: var(--primary-bg);
-    border-color: var(--primary-color);
+    background: rgba(220, 38, 38, 0.2);
+    border-color: #dc2626;
+    color: #dc2626;
 }
 
 .moves-list {
@@ -2346,13 +2475,6 @@ body.light-theme .playlist-item.active {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     padding: 12px 15px;
-    transition: none;
-}
-
-.move-item:hover {
-    background: rgba(255, 255, 255, 0.05);
-    transform: none;
-    box-shadow: none;
 }
 
 .move-row-1 {
@@ -2361,10 +2483,6 @@ body.light-theme .playlist-item.active {
     align-items: center;
     margin-bottom: 6px;
     flex-wrap: wrap;
-}
-
-.move-row-2 {
-    margin-top: 4px;
 }
 
 .move-name {
@@ -2393,7 +2511,7 @@ body.light-theme .playlist-item.active {
     object-fit: contain;
 }
 
-.move-power {
+.move-power, .move-pp {
     color: rgba(255, 255, 255, 0.7);
     font-size: 0.8rem;
     background: rgba(255, 255, 255, 0.1);
@@ -2414,43 +2532,18 @@ body.light-theme .playlist-item.active {
     text-align: center;
 }
 
-.move-pp {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.8rem;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 2px 6px;
-    border-radius: 4px;
-}
-
 .move-level {
     color: #ffffff;
     font-size: 0.8rem;
     font-weight: 600;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
-    border: 1px solid var(--primary-border);
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    border: 1px solid rgba(220, 38, 38, 0.4);
     padding: 3px 8px;
     border-radius: 6px;
-    box-shadow: 0 2px 4px var(--primary-bg);
+    box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     min-width: 35px;
     text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.move-level::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s ease;
-}
-
-.move-level:hover::before {
-    left: 100%;
 }
 
 .move-description {
@@ -2460,7 +2553,7 @@ body.light-theme .playlist-item.active {
     font-style: italic;
 }
 
-/* ===== POKEDEX EFFECTIVENESS SYSTEM ===== */
+/* Pokédex Effectiveness */
 .pokedex-effectiveness-container {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 15px;
@@ -2477,7 +2570,6 @@ body.light-theme .playlist-item.active {
     flex-direction: row !important;
 }
 
-/* Each effectiveness category is its own card */
 .pokedex-effectiveness-category {
     background: rgba(255, 255, 255, 0.05) !important;
     border-radius: 12px !important;
@@ -2488,13 +2580,37 @@ body.light-theme .playlist-item.active {
     display: flex !important;
     flex-direction: column !important;
     transition: all 0.3s ease !important;
-    margin: 0 !important;
-    width: auto !important;
 }
 
 .pokedex-effectiveness-category:hover {
-    background: rgba(255, 255, 255, 0.08);
     transform: translateY(-2px);
+    filter: brightness(1.1);
+}
+
+/* Pokédex Effectiveness Colors - Same as Type Chart */
+.pokedex-effectiveness-category[data-multiplier="0x"] {
+    background: rgba(54, 54, 54, 0.6) !important;
+    border-color: rgba(124, 124, 124, 0.8) !important;
+}
+
+.pokedex-effectiveness-category[data-multiplier="0.5x"] {
+    background: rgba(255, 165, 0, 0.3) !important;
+    border-color: rgba(255, 165, 0, 0.5) !important;
+}
+
+.pokedex-effectiveness-category[data-multiplier="0.25x"] {
+    background: rgba(189, 0, 0, 0.3) !important;
+    border-color: rgba(255, 0, 0, 0.664) !important;
+}
+
+.pokedex-effectiveness-category[data-multiplier="2x"] {
+    background: rgba(76, 175, 80, 0.3) !important;
+    border-color: rgba(76, 175, 80, 0.5) !important;
+}
+
+.pokedex-effectiveness-category[data-multiplier="4x"] {
+    background: rgba(156, 39, 176, 0.3) !important;
+    border-color: rgba(156, 39, 176, 0.5) !important;
 }
 
 .pokedex-effectiveness-header {
@@ -2503,39 +2619,18 @@ body.light-theme .playlist-item.active {
     align-items: center;
     gap: 8px;
     margin-bottom: 1rem;
-    flex-shrink: 0;
-}
-
-.pokedex-effectiveness-multiplier {
-    background: var(--primary-bg);
-    border: 1px solid var(--primary-border);
-    color: var(--primary-color);
-    padding: 4px 8px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 0.9rem;
-    min-width: 30px;
-    text-align: center;
 }
 
 .pokedex-effectiveness-label {
     color: white;
     font-weight: 700;
-    font-size: 0.9rem;
-    text-align: center;
-}
-
-.effectiveness-title {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: white;
-    margin: 0;
+    font-size: 1.1rem;
     text-align: center;
 }
 
 .pokedex-effectiveness-count {
     color: rgba(255, 255, 255, 0.6);
-    font-size: 0.8rem;
+    font-size: 0.9rem;
     font-weight: 500;
     text-align: center;
 }
@@ -2544,9 +2639,7 @@ body.light-theme .playlist-item.active {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0;
-    transition: all 0.3s ease;
-    margin: 0;
+    transition: transform 0.3s ease;
 }
 
 .pokedex-effectiveness-type-box:hover {
@@ -2559,16 +2652,7 @@ body.light-theme .playlist-item.active {
     object-fit: contain;
 }
 
-/* Empty state for Pokédex */
-.no-types {
-    color: rgba(255, 255, 255, 0.5);
-    font-style: italic;
-    text-align: center;
-    padding: 1rem;
-    font-size: 0.9rem;
-}
-
-/* Loading States */
+/* Loading & Error States */
 .loading {
     display: flex;
     align-items: center;
@@ -2592,7 +2676,6 @@ body.light-theme .playlist-item.active {
     100% { transform: rotate(360deg); }
 }
 
-/* Error States */
 .error {
     background: rgba(220, 38, 38, 0.2);
     border: 1px solid rgba(220, 38, 38, 0.4);
@@ -2755,6 +2838,16 @@ body.light-theme .playlist-item.active {
     .footer-text {
         font-size: 0.8rem;
     }
+    
+    .selector-btn {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .font-dropdown,
+    .color-dropdown {
+        width: 280px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -2815,10 +2908,30 @@ body.light-theme .playlist-item.active {
     .footer-text {
         font-size: 0.75rem;
     }
+    
+    .selector-btn {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .selector-btn svg {
+        width: 16px;
+        height: 16px;
+    }
+    
+    .font-dropdown,
+    .color-dropdown {
+        width: 250px;
+        padding: 15px;
+    }
+    
+    .color-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
 }
 
-/* ===== CUSTOM SCROLLBAR STYLES ===== */
-/* Webkit browsers (Chrome, Safari, Edge) */
+/* ===== CUSTOM SCROLLBARS ===== */
 ::-webkit-scrollbar {
     width: 12px;
     height: 12px;
@@ -2831,91 +2944,53 @@ body.light-theme .playlist-item.active {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, rgba(220, 38, 38, 0.8) 0%, rgba(180, 30, 30, 0.9) 100%);
+    background: linear-gradient(180deg, var(--primary-color) 0%, var(--primary-hover) 100%);
     border-radius: 6px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     transition: all 0.3s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, rgba(220, 38, 38, 1) 0%, rgba(180, 30, 30, 1) 100%);
-    border-color: rgba(255, 255, 255, 0.3);
-    box-shadow: 0 0 8px rgba(220, 38, 38, 0.4);
-}
-
-::-webkit-scrollbar-thumb:active {
-    background: linear-gradient(180deg, rgba(180, 30, 30, 1) 0%, rgba(150, 25, 25, 1) 100%);
+    box-shadow: 0 0 8px var(--primary-bg);
 }
 
 ::-webkit-scrollbar-corner {
     background: rgba(30, 30, 30, 0.8);
 }
 
-/* Firefox */
 * {
     scrollbar-width: thin;
-    scrollbar-color: rgba(220, 38, 38, 0.8) rgba(30, 30, 30, 0.8);
+    scrollbar-color: var(--primary-color) rgba(30, 30, 30, 0.8);
 }
 
-/* Smooth scrolling for all scrollable elements */
-.moves-list,
-.search-suggestions,
-.effectiveness-grid,
-.stats-grid,
-.evolution-chain {
+.moves-list, .search-suggestions {
     scroll-behavior: smooth;
 }
 
-/* Custom scrollbar for specific containers */
-.moves-list::-webkit-scrollbar {
-    width: 10px;
-}
-
-.moves-list::-webkit-scrollbar-track {
-    background: rgba(20, 20, 20, 0.9);
-    border-radius: 5px;
-}
-
-.moves-list::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, rgba(220, 38, 38, 0.7) 0%, rgba(180, 30, 30, 0.8) 100%);
-    border-radius: 5px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.moves-list::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, rgba(220, 38, 38, 0.9) 0%, rgba(180, 30, 30, 1) 100%);
-    box-shadow: 0 0 6px rgba(220, 38, 38, 0.3);
-}
-
-/* Search suggestions scrollbar */
-.search-suggestions::-webkit-scrollbar {
+.moves-list::-webkit-scrollbar, .search-suggestions::-webkit-scrollbar {
     width: 8px;
 }
 
-.search-suggestions::-webkit-scrollbar-track {
+.moves-list::-webkit-scrollbar-track, .search-suggestions::-webkit-scrollbar-track {
     background: rgba(20, 20, 20, 0.9);
-    border-radius: 4px;
+    border-radius: 5px;
 }
 
-.search-suggestions::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, rgba(220, 38, 38, 0.6) 0%, rgba(180, 30, 30, 0.7) 100%);
-    border-radius: 4px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.search-suggestions::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, rgba(220, 38, 38, 0.8) 0%, rgba(180, 30, 30, 0.9) 100%);
+.moves-list::-webkit-scrollbar-thumb, .search-suggestions::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+    border-radius: 5px;
 }
 
 /* ===== LIGHT THEME - POKEDEX OPTIMIZATION ===== */
 body.light-theme .pokemon-card-section {
     background: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: 3px solid var(--primary-color);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
 body.light-theme .pokemon-card-section:hover {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+    border-color: var(--primary-hover);
 }
 
 body.light-theme .section-title {
@@ -2923,21 +2998,21 @@ body.light-theme .section-title {
     border-bottom-color: rgba(0, 0, 0, 0.1);
 }
 
-body.light-theme .pokemon-name {
+body.light-theme .pokemon-name,
+body.light-theme .evolution-name,
+body.light-theme .suggestion-name,
+body.light-theme .ability-name,
+body.light-theme .move-name {
     color: #1a1a1a;
 }
 
-body.light-theme .pokemon-id {
+body.light-theme .pokemon-id,
+body.light-theme .suggestion-id {
     color: rgba(0, 0, 0, 0.7);
 }
 
 body.light-theme .info-section h4 {
     color: rgba(0, 0, 0, 0.8);
-}
-
-body.light-theme .type-badge {
-    background: rgba(0, 0, 0, 0.1);
-    border-color: rgba(0, 0, 0, 0.2);
 }
 
 body.light-theme .generation-badge {
@@ -2946,17 +3021,17 @@ body.light-theme .generation-badge {
     color: #dc2626;
 }
 
-body.light-theme .ability-item {
-    background: rgba(0, 0, 0, 0.05);
+body.light-theme .ability-item,
+body.light-theme .stat-item,
+body.light-theme .move-item {
+    background: rgba(0, 0, 0, 0.03);
     border-color: rgba(0, 0, 0, 0.1);
 }
 
-body.light-theme .ability-item:hover {
-    background: rgba(0, 0, 0, 0.1);
-}
-
-body.light-theme .ability-name {
-    color: #1a1a1a;
+body.light-theme .ability-item:hover,
+body.light-theme .stat-item:hover,
+body.light-theme .move-item:hover {
+    background: rgba(0, 0, 0, 0.05);
 }
 
 body.light-theme .egg-group-badge {
@@ -2980,7 +3055,7 @@ body.light-theme .no-held-items {
 body.light-theme .pokemon-description {
     color: rgba(0, 0, 0, 0.9);
     background: rgba(0, 0, 0, 0.03);
-    border-left-color: rgba(220, 38, 38, 0.4);
+    border-left: 4px solid rgba(0, 0, 0, 0.2);
 }
 
 body.light-theme .evolution-item {
@@ -3000,18 +3075,19 @@ body.light-theme .evolution-condition {
     color: rgba(0, 0, 0, 0.7);
 }
 
-body.light-theme .stats-container {
+body.light-theme .stats-container,
+body.light-theme .moves-container,
+body.light-theme .pokedex-effectiveness-container {
     background: rgba(0, 0, 0, 0.03);
     border-color: rgba(0, 0, 0, 0.1);
 }
 
-body.light-theme .stat-item {
-    background: rgba(0, 0, 0, 0.03);
-    border-color: rgba(0, 0, 0, 0.1);
+body.light-theme .pokedex-effectiveness-label {
+    color: #1a1a1a;
 }
 
-body.light-theme .stat-item:hover {
-    background: rgba(0, 0, 0, 0.05);
+body.light-theme .pokedex-effectiveness-count {
+    color: rgba(0, 0, 0, 0.6);
 }
 
 body.light-theme .stat-name {
@@ -3034,10 +3110,6 @@ body.light-theme .stats-note {
     color: rgba(0, 0, 0, 0.5);
 }
 
-body.light-theme .moves-container {
-    background: rgba(0, 0, 0, 0.03);
-    border-color: rgba(0, 0, 0, 0.1);
-}
 
 body.light-theme .move-tab {
     background: rgba(0, 0, 0, 0.05);
@@ -3049,25 +3121,6 @@ body.light-theme .move-tab:hover {
     background: rgba(0, 0, 0, 0.1);
 }
 
-body.light-theme .move-tab.active {
-    background: rgba(220, 38, 38, 0.2);
-    border-color: #dc2626;
-    color: #dc2626;
-}
-
-body.light-theme .move-item {
-    background: rgba(0, 0, 0, 0.03);
-    border-color: rgba(0, 0, 0, 0.1);
-}
-
-body.light-theme .move-item:hover {
-    background: rgba(0, 0, 0, 0.05);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-body.light-theme .move-name {
-    color: #1a1a1a;
-}
 
 body.light-theme .move-type span {
     color: rgba(0, 0, 0, 0.8);
@@ -3091,9 +3144,9 @@ body.light-theme .move-pp {
 
 body.light-theme .move-level {
     color: #ffffff;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-hover) 100%);
-    border-color: var(--primary-border);
-    box-shadow: 0 2px 4px var(--primary-bg);
+    background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+    border: 1px solid rgba(220, 38, 38, 0.4);
+    box-shadow: 0 2px 4px rgba(220, 38, 38, 0.2);
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
 }
 
@@ -3101,46 +3154,6 @@ body.light-theme .move-description {
     color: rgba(0, 0, 0, 0.8);
 }
 
-body.light-theme .effectiveness-container {
-    background: rgba(0, 0, 0, 0.03);
-    border-color: rgba(0, 0, 0, 0.1);
-}
-
-body.light-theme .effectiveness-category {
-    background: rgba(0, 0, 0, 0.03);
-    border-color: rgba(0, 0, 0, 0.1);
-}
-
-body.light-theme .effectiveness-category:hover {
-    background: rgba(0, 0, 0, 0.05);
-}
-
-body.light-theme .effectiveness-header {
-    border-bottom-color: rgba(0, 0, 0, 0.1);
-}
-
-body.light-theme .effectiveness-label {
-    color: #1a1a1a;
-    font-weight: 700;
-}
-
-body.light-theme .effectiveness-title {
-    color: #1a1a1a;
-}
-
-body.light-theme .effectiveness-count {
-    color: rgba(0, 0, 0, 0.6);
-}
-
-body.light-theme .effectiveness-type-box {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.1);
-}
-
-body.light-theme .effectiveness-type-box:hover {
-    background: rgba(0, 0, 0, 0.1);
-    border-color: rgba(0, 0, 0, 0.2);
-}
 
 body.light-theme .loading {
     color: rgba(0, 0, 0, 0.7);
@@ -3152,40 +3165,28 @@ body.light-theme .error {
     color: #dc2626;
 }
 
-/* Light theme scrollbars */
+/* Light Theme Scrollbars */
 body.light-theme ::-webkit-scrollbar-track {
     background: rgba(240, 240, 240, 0.8);
     border-color: rgba(0, 0, 0, 0.1);
 }
 
 body.light-theme ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, rgba(220, 38, 38, 0.6) 0%, rgba(180, 30, 30, 0.7) 100%);
-    border-color: rgba(0, 0, 0, 0.1);
+    background: linear-gradient(180deg, var(--primary-color) 0%, var(--primary-hover) 100%);
+    opacity: 0.7;
 }
 
-body.light-theme ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(180deg, rgba(220, 38, 38, 0.8) 0%, rgba(180, 30, 30, 0.9) 100%);
-    box-shadow: 0 0 8px rgba(220, 38, 38, 0.3);
-}
-
-body.light-theme ::-webkit-scrollbar-corner {
-    background: rgba(240, 240, 240, 0.8);
-}
-
-body.light-theme .moves-list::-webkit-scrollbar-track {
-    background: rgba(240, 240, 240, 0.9);
-}
-
+body.light-theme ::-webkit-scrollbar-corner,
+body.light-theme .moves-list::-webkit-scrollbar-track,
 body.light-theme .search-suggestions::-webkit-scrollbar-track {
     background: rgba(240, 240, 240, 0.9);
 }
 
-/* Firefox light theme scrollbars */
 body.light-theme * {
-    scrollbar-color: rgba(220, 38, 38, 0.6) rgba(240, 240, 240, 0.8);
+    scrollbar-color: var(--primary-color) rgba(240, 240, 240, 0.8);
 }
 
-/* Light theme - Pokemon Search */
+/* Light Theme - Search */
 body.light-theme .pokemon-search-input {
     background: rgba(0, 0, 0, 0.05);
     border-color: rgba(0, 0, 0, 0.2);
@@ -3194,8 +3195,8 @@ body.light-theme .pokemon-search-input {
 
 body.light-theme .pokemon-search-input:focus {
     background: rgba(0, 0, 0, 0.08);
-    border-color: #dc2626;
-    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-bg);
 }
 
 body.light-theme .pokemon-search-input::placeholder {
@@ -3213,7 +3214,7 @@ body.light-theme .suggestion-item {
 
 body.light-theme .suggestion-item:hover,
 body.light-theme .suggestion-item.selected {
-    background: rgba(220, 38, 38, 0.15);
+    background: var(--primary-bg);
 }
 
 body.light-theme .suggestion-id {

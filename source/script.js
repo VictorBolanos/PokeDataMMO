@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', initializeApp);
 
 function initializeApp() {
     initializeTabs();
-    initializeFeatures();
     initializeWallpaper();
     initializeTheme();
     initializeLanguage();
@@ -103,37 +102,7 @@ function handleHashNavigation() {
 }
 
 // ===== FEATURES =====
-function initializeFeatures() {
-    addStatusCardHoverEffects();
-    addFeatureListClickEffects();
-}
-
-function addStatusCardHoverEffects() {
-    const statusCards = document.querySelectorAll('.status-card');
-    statusCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-2px)';
-            this.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.1)';
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
-            this.style.boxShadow = 'none';
-        });
-    });
-}
-    
-function addFeatureListClickEffects() {
-    const featureItems = document.querySelectorAll('.feature-list li');
-    featureItems.forEach(item => {
-        item.addEventListener('click', function() {
-            this.style.transform = 'scale(0.98)';
-            setTimeout(() => {
-                this.style.transform = 'scale(1)';
-            }, 150);
-        });
-    });
-}
+// (Effects removed - now handled by pure CSS)
 
 // ===== WALLPAPER SYSTEM =====
 function initializeWallpaper() {
@@ -542,48 +511,174 @@ function updateSelection(selector, selectedElement) {
 
 // ===== FONT SYSTEM =====
 function initializeFont() {
-    const fontSelector = document.getElementById('fontSelector');
-    if (fontSelector) {
-        // Load saved font
-        const savedFont = localStorage.getItem('selectedFont');
-        if (savedFont) {
-            fontSelector.value = savedFont;
-            applyFont(savedFont);
-        }
+    const fontBtn = document.getElementById('fontSelectorBtn');
+    const fontDropdown = document.getElementById('fontDropdown');
+    const closeBtn = document.getElementById('closeFontDropdown');
+    const fontList = document.getElementById('fontList');
+    
+    const fonts = [
+        { name: 'Segoe UI', value: 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif' },
+        { name: 'Arial', value: 'Arial, sans-serif' },
+        { name: 'Helvetica', value: 'Helvetica, sans-serif' },
+        { name: 'Georgia', value: 'Georgia, serif' },
+        { name: 'Times New Roman', value: 'Times New Roman, serif' },
+        { name: 'Courier New', value: 'Courier New, monospace' },
+        { name: 'Verdana', value: 'Verdana, sans-serif' },
+        { name: 'Trebuchet MS', value: 'Trebuchet MS, sans-serif' },
+        { name: 'Impact', value: 'Impact, sans-serif' },
+        { name: 'Roboto', value: 'Roboto, sans-serif' },
+        { name: 'Open Sans', value: 'Open Sans, sans-serif' },
+        { name: 'Lato', value: 'Lato, sans-serif' },
+        { name: 'Montserrat', value: 'Montserrat, sans-serif' },
+        { name: 'Poppins', value: 'Poppins, sans-serif' },
+        { name: 'Inter', value: 'Inter, sans-serif' },
+        { name: 'Ubuntu', value: 'Ubuntu, sans-serif' },
+        { name: 'Fira Code', value: 'Fira Code, monospace' },
+        { name: 'JetBrains Mono', value: 'JetBrains Mono, monospace' },
+        { name: 'Consolas', value: 'Consolas, monospace' },
+        { name: 'System UI', value: 'system-ui, sans-serif' }
+    ];
+    
+    // Render font list
+    fonts.forEach(font => {
+        const fontItem = document.createElement('div');
+        fontItem.className = 'font-item';
+        fontItem.textContent = font.name;
+        fontItem.style.fontFamily = font.value;
+        fontItem.dataset.font = font.value;
         
-        // Add event listener
-        fontSelector.addEventListener('change', function() {
-            const selectedFont = this.value;
-            applyFont(selectedFont);
-            localStorage.setItem('selectedFont', selectedFont);
+        fontItem.addEventListener('click', () => {
+            applyFont(font.value);
+            updateFontSelection(fontItem);
+            fontDropdown.classList.remove('show');
         });
-    }
+        
+        fontList.appendChild(fontItem);
+    });
+    
+    // Toggle dropdown
+    fontBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeDropdown('colorDropdown');
+        fontDropdown.classList.toggle('show');
+    });
+    
+    // Close dropdown
+    closeBtn.addEventListener('click', () => fontDropdown.classList.remove('show'));
+    
+    // Close on outside click
+    setupOutsideClickHandler(fontDropdown, fontBtn);
+    
+    // Load saved font
+    const savedFont = localStorage.getItem('selectedFont') || 'Segoe UI, Tahoma, Geneva, Verdana, sans-serif';
+    applyFont(savedFont);
+    updateFontSelectionByValue(savedFont);
 }
 
 function applyFont(fontFamily) {
     document.body.style.fontFamily = fontFamily;
+    localStorage.setItem('selectedFont', fontFamily);
+}
+
+function updateFontSelection(selectedItem) {
+    document.querySelectorAll('.font-item').forEach(item => {
+        item.classList.remove('selected');
+    });
+    selectedItem.classList.add('selected');
+}
+
+function updateFontSelectionByValue(fontValue) {
+    const fontItem = document.querySelector(`[data-font="${fontValue}"]`);
+    if (fontItem) {
+        updateFontSelection(fontItem);
+    }
 }
 
 // ===== COLOR SYSTEM =====
 function initializeColor() {
-    const colorSelector = document.getElementById('colorSelector');
-    if (colorSelector) {
-        // Load saved color
-        const savedColor = localStorage.getItem('colorTheme') || 'standard';
-        colorSelector.value = savedColor;
-        applyColorTheme(savedColor);
+    const colorBtn = document.getElementById('colorSelectorBtn');
+    const colorDropdown = document.getElementById('colorDropdown');
+    const closeBtn = document.getElementById('closeColorDropdown');
+    const colorGrid = document.getElementById('colorGrid');
+    const colorPreview = document.getElementById('colorPreview');
+    
+    const colors = [
+        { name: 'Red', value: 'red', color: '#dc2626' },
+        { name: 'Green', value: 'green', color: '#16a34a' },
+        { name: 'Blue', value: 'blue', color: '#2563eb' },
+        { name: 'Yellow', value: 'yellow', color: '#eab308' },
+        { name: 'Purple', value: 'purple', color: '#9333ea' },
+        { name: 'Pink', value: 'pink', color: '#ec4899' },
+        { name: 'Orange', value: 'orange', color: '#ea580c' },
+        { name: 'Standard', value: 'standard', color: '#dc2626' }
+    ];
+    
+    // Render color grid
+    colors.forEach(color => {
+        const colorItem = document.createElement('div');
+        colorItem.className = 'color-item';
+        colorItem.style.background = color.color;
+        colorItem.dataset.color = color.value;
+        colorItem.dataset.name = color.name;
         
-        // Add event listener
-        colorSelector.addEventListener('change', function() {
-            const selectedColor = this.value;
-            applyColorTheme(selectedColor);
-            localStorage.setItem('colorTheme', selectedColor);
+        colorItem.addEventListener('click', () => {
+            applyColorTheme(color.value);
+            updateColorSelection(colorItem);
+            updateColorPreview(color.color);
+            colorDropdown.classList.remove('show');
         });
+        
+        colorGrid.appendChild(colorItem);
+    });
+    
+    // Toggle dropdown
+    colorBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeDropdown('fontDropdown');
+        colorDropdown.classList.toggle('show');
+    });
+    
+    // Close dropdown
+    closeBtn.addEventListener('click', () => colorDropdown.classList.remove('show'));
+    
+    // Close on outside click
+    setupOutsideClickHandler(colorDropdown, colorBtn);
+    
+    // Load saved color
+    const savedColor = localStorage.getItem('colorTheme') || 'standard';
+    applyColorTheme(savedColor);
+    updateColorSelectionByValue(savedColor);
+    
+    const savedColorData = colors.find(c => c.value === savedColor);
+    if (savedColorData) {
+        updateColorPreview(savedColorData.color);
     }
 }
 
 function applyColorTheme(colorTheme) {
     document.body.setAttribute('data-color-theme', colorTheme);
+    localStorage.setItem('colorTheme', colorTheme);
+}
+
+function updateColorSelection(selectedItem) {
+    document.querySelectorAll('.color-item').forEach(item => {
+        item.classList.remove('selected');
+    });
+    selectedItem.classList.add('selected');
+}
+
+function updateColorSelectionByValue(colorValue) {
+    const colorItem = document.querySelector(`[data-color="${colorValue}"]`);
+    if (colorItem) {
+        updateColorSelection(colorItem);
+    }
+}
+
+function updateColorPreview(color) {
+    const colorPreview = document.getElementById('colorPreview');
+    if (colorPreview) {
+        colorPreview.style.background = color;
+    }
 }
 
 // Initialize font and color systems
