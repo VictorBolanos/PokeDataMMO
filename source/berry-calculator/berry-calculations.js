@@ -86,13 +86,13 @@ class BerryCalculations {
         Object.keys(sellableSeeds).forEach(seedType => {
             const sellable = sellableSeeds[seedType] || 0;
             const price = seedPrices[seedType] || 0;
-            const profit = sellable * price;
+            const profit = Math.round(sellable * price);
             
             profits[seedType] = profit;
             totalProfits += profit;
         });
 
-        return { profits, totalProfits };
+        return { profits, totalProfits: Math.round(totalProfits) };
     }
 
     // Calcular gastos de extracción
@@ -101,14 +101,16 @@ class BerryCalculations {
         let totalCost = 0;
 
         Object.keys(berryHarvests).forEach(berryType => {
-            const harvest = berryHarvests[berryType] || 0;
-            const cost = harvest * this.extractorCost;
-            
-            costs[berryType] = cost;
-            totalCost += cost;
+            if (berryType !== 'leppa-berry') { // Excluir Zanamas
+                const harvest = berryHarvests[berryType] || 0;
+                const cost = Math.round(harvest * this.extractorCost);
+                
+                costs[berryType] = cost;
+                totalCost += cost;
+            }
         });
 
-        return { costs, totalCost };
+        return { costs, totalCost: Math.round(totalCost) };
     }
 
     // Calcular gastos de gestión (comisiones GTL)
@@ -118,12 +120,12 @@ class BerryCalculations {
 
     // Calcular ganancias finales de zanamas
     calculateZanamasProfits(zanamasHarvest, zanamasPrice) {
-        return zanamasHarvest * zanamasPrice;
+        return Math.round(zanamasHarvest * zanamasPrice);
     }
 
     // Calcular total final
     calculateFinalTotal(totalSales, extractionCosts, purchaseCosts, managementCosts) {
-        return totalSales - extractionCosts - purchaseCosts - managementCosts;
+        return Math.round(totalSales - extractionCosts - purchaseCosts - managementCosts);
     }
 
     // Calcular horarios de riego

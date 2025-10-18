@@ -3282,6 +3282,8 @@ body.light-theme .pokemon-card-container .text-muted p {
 .berry-calculator-header {
     text-align: center;
     margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--primary-color);
 }
 
 .berry-calculator-header h2 {
@@ -3731,68 +3733,194 @@ body.light-theme .berry-calculator-controls .form-label {
     color: #1a1a1a;
 }
 
-body.light-theme .berry-calculator-controls .form-select,
-body.light-theme .berry-calculator-controls .form-control {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.2);
-    color: #1a1a1a;
-}
-
-body.light-theme .berry-calculator-controls .form-select:focus,
-body.light-theme .berry-calculator-controls .form-control:focus {
-    background: rgba(0, 0, 0, 0.08);
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px var(--primary-bg);
-}
+/* Los estilos de controles ahora se manejan en la sección consolidada */
 
 body.light-theme .section-title {
     color: #1a1a1a;
     border-bottom-color: var(--primary-color);
 }
 
+/* ===== TABLAS BOOTSTRAP DINÁMICAS - SIN CONFLICTOS ===== */
+/* Solo estilos base para contenedores, sin tocar Bootstrap */
+.irrigation-schedule-table,
+.seeds-profits-table {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 2rem;
+}
+
+/* Tema claro para contenedores */
 body.light-theme .irrigation-schedule-table,
 body.light-theme .seeds-profits-table {
-    background: rgba(0, 0, 0, 0.03);
+    background: rgba(255, 255, 255, 0.9);
     border-color: rgba(0, 0, 0, 0.1);
 }
 
-body.light-theme .irrigation-schedule-table .table th,
-body.light-theme .seeds-profits-table .table th {
-    background: rgba(0, 0, 0, 0.05);
-    color: #1a1a1a;
+/* Elementos específicos dentro de las tablas */
+.berry-info,
+.seed-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
 
-body.light-theme .irrigation-schedule-table .table td,
-body.light-theme .seeds-profits-table .table td {
-    border-bottom-color: rgba(0, 0, 0, 0.1);
+.berry-sprite,
+.seed-sprite {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px;
 }
 
-body.light-theme .irrigation-schedule-table .table tbody tr:hover,
-body.light-theme .seeds-profits-table .table tbody tr:hover {
-    background: rgba(0, 0, 0, 0.05);
+.berry-info span,
+.seed-info span {
+    font-weight: 600;
+    color: white;
 }
 
+/* Tema claro para elementos específicos */
 body.light-theme .berry-info span,
 body.light-theme .seed-info span {
+    color: #212529 !important;
+}
+
+body.light-theme .berry-sprite,
+body.light-theme .seed-sprite {
+    filter: none !important;
+}
+
+
+body.light-theme .irrigation-schedule-table .berry-info,
+body.light-theme .seeds-profits-table .seed-info {
+    color: #212529 !important;
+}
+
+/* ===== TYPE CALCULATOR CONTAINER - MISMO ESTILO QUE BERRY CALCULATOR ===== */
+.type-calculator-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 4px solid var(--primary-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    margin-bottom: 2rem;
+}
+
+.type-calculator-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.type-calculator-header h2 {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.type-calculator-header .lead {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    margin-bottom: 0;
+}
+
+/* Tema claro para Type Calculator */
+body.light-theme .type-calculator-container {
+    background: rgba(255, 255, 255, 0.9);
+    border: 4px solid var(--primary-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .type-calculator-header h2 {
     color: #1a1a1a;
 }
 
-body.light-theme .irrigation-schedule-table .form-control-sm,
-body.light-theme .seeds-profits-table .form-control-sm {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.2);
+body.light-theme .type-calculator-header .lead {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+/* ===== POKEDEX CONTAINER - MISMO ESTILO QUE BERRY CALCULATOR ===== */
+.pokedex-container {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 4px solid var(--primary-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    margin-bottom: 2rem;
+}
+
+.pokedex-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.pokedex-header h2 {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.pokedex-header .lead {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    margin-bottom: 0;
+}
+
+/* Tema claro para Pokedex */
+body.light-theme .pokedex-container {
+    background: rgba(255, 255, 255, 0.9);
+    border: 4px solid var(--primary-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .pokedex-header h2 {
     color: #1a1a1a;
 }
 
-body.light-theme .irrigation-schedule-table .form-control-sm:focus,
-body.light-theme .seeds-profits-table .form-control-sm:focus {
-    background: rgba(0, 0, 0, 0.08);
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px var(--primary-bg);
+body.light-theme .pokedex-header .lead {
+    color: rgba(0, 0, 0, 0.8);
 }
 
+body.light-theme .irrigation-schedule-table .berry-sprite,
+body.light-theme .seeds-profits-table .seed-sprite {
+    filter: none !important;
+}
+
+/* Los estilos de tablas ahora se manejan en la sección consolidada */
+
+/* Campos especiales */
 body.light-theme .loss-time {
-    color: #dc2626;
+    color: #dc2626 !important;
+}
+
+body.light-theme .irrigation-schedule-table .loss-time,
+body.light-theme .seeds-profits-table .loss-time {
+    color: #dc2626 !important;
+}
+
+/* Asegurar que todos los elementos de texto en las tablas sean visibles */
+body.light-theme .irrigation-schedule-table *,
+body.light-theme .seeds-profits-table * {
+    color: inherit !important;
+}
+
+body.light-theme .irrigation-schedule-table .table th,
+body.light-theme .irrigation-schedule-table .table td,
+body.light-theme .seeds-profits-table .table th,
+body.light-theme .seeds-profits-table .table td {
+    color: #212529 !important;
 }
 
 body.light-theme .calculated-time {
@@ -3871,38 +3999,12 @@ body.light-theme .summary-item span:first-child {
     color: rgba(0, 0, 0, 0.8);
 }
 
-/* ===== ESTILOS DE TABLAS PARA TEMA CLARO ===== */
-body.light-theme .table-dark {
-    background-color: #f8f9fa !important;
-    color: #212529 !important;
-}
-
-body.light-theme .table-dark thead th {
-    background-color: #e9ecef !important;
-    color: #495057 !important;
-    border-color: #dee2e6 !important;
-}
-
-body.light-theme .table-dark tbody tr {
-    background-color: #ffffff !important;
-    color: #212529 !important;
-    border-color: #dee2e6 !important;
-}
-
-body.light-theme .table-dark tbody tr:hover {
-    background-color: #f8f9fa !important;
-}
-
-body.light-theme .table-dark td {
-    border-color: #dee2e6 !important;
-    color: #212529 !important;
-}
-
-/* Estilos específicos para Berry Calculator */
+/* ===== BERRY CALCULATOR - ESTILOS OPTIMIZADOS PARA TEMA CLARO ===== */
 body.light-theme .berry-calculator-container .table-dark {
     background-color: transparent !important;
 }
 
+/* Headers de tabla */
 body.light-theme .berry-calculator-container .table-dark thead th {
     background-color: #e9ecef !important;
     color: #495057 !important;
@@ -3910,29 +4012,52 @@ body.light-theme .berry-calculator-container .table-dark thead th {
     font-weight: 600;
 }
 
-body.light-theme .berry-calculator-container .table-dark tbody tr {
+/* Filas de tabla - alternadas */
+body.light-theme .berry-calculator-container .table-dark tbody tr:nth-of-type(odd) {
+    background-color: #f8f9fa !important;
+    color: #212529 !important;
+}
+
+body.light-theme .berry-calculator-container .table-dark tbody tr:nth-of-type(even) {
     background-color: #ffffff !important;
     color: #212529 !important;
-    border-color: #dee2e6 !important;
 }
 
+/* Hover effect */
 body.light-theme .berry-calculator-container .table-dark tbody tr:hover {
-    background-color: #f8f9fa !important;
+    background-color: #e2e6ea !important;
 }
 
+/* Celdas */
 body.light-theme .berry-calculator-container .table-dark td {
     border-color: #dee2e6 !important;
     color: #212529 !important;
 }
 
-/* Inputs en tema claro */
-body.light-theme .berry-calculator-container .form-control {
+/* ===== FORM CONTROLS CONSOLIDADOS PARA TEMA CLARO ===== */
+body.light-theme .berry-calculator-container .form-control,
+body.light-theme .berry-calculator-container .form-select,
+body.light-theme .berry-calculator-container .table-dark .form-control,
+body.light-theme .berry-calculator-container .table-dark .form-select,
+body.light-theme .berry-calculator-controls .form-control,
+body.light-theme .berry-calculator-controls .form-select,
+body.light-theme .irrigation-schedule-table .form-control-sm,
+body.light-theme .seeds-profits-table .form-control-sm,
+body.light-theme .cost-input-group .form-control {
     background-color: #ffffff !important;
     border-color: #ced4da !important;
     color: #212529 !important;
 }
 
-body.light-theme .berry-calculator-container .form-control:focus {
+body.light-theme .berry-calculator-container .form-control:focus,
+body.light-theme .berry-calculator-container .form-select:focus,
+body.light-theme .berry-calculator-container .table-dark .form-control:focus,
+body.light-theme .berry-calculator-container .table-dark .form-select:focus,
+body.light-theme .berry-calculator-controls .form-control:focus,
+body.light-theme .berry-calculator-controls .form-select:focus,
+body.light-theme .irrigation-schedule-table .form-control-sm:focus,
+body.light-theme .seeds-profits-table .form-control-sm:focus,
+body.light-theme .cost-input-group .form-control:focus {
     background-color: #ffffff !important;
     border-color: var(--primary-color) !important;
     color: #212529 !important;
@@ -4046,17 +4171,7 @@ body.light-theme .summary-item.total {
 }
 
 /* Light Theme Adjustments */
-body.light-theme .cost-input-group .form-control {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.2);
-    color: #1a1a1a;
-}
-
-body.light-theme .cost-input-group .form-control:focus {
-    background: rgba(0, 0, 0, 0.08);
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 2px var(--primary-bg);
-}
+/* Los estilos de cost-input-group ahora se manejan en la sección consolidada */
 
 body.light-theme .add-cost-btn {
     background: rgba(21, 128, 61, 0.2);

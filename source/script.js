@@ -419,12 +419,12 @@ async function translatePokedexTab() {
     const lm = window.languageManager;
     const tab = document.getElementById('pokedex');
     
-    // Actualizar elementos estáticos
-    const h2 = tab.querySelector('h2');
-    const lead = tab.querySelector('.lead');
+    // Actualizar título y subtítulo usando los nuevos IDs
+    const title = document.getElementById('pokedexTitle');
+    const subtitle = document.getElementById('pokedexSubtitle');
     
-    if (h2) h2.innerHTML = lm.t('pokedex.title');
-    if (lead) lead.textContent = lm.t('pokedex.subtitle');
+    if (title) title.innerHTML = lm.t('pokedex.title');
+    if (subtitle) subtitle.textContent = lm.t('pokedex.subtitle');
     
     // Actualizar placeholder de búsqueda
     const searchInput = document.getElementById('pokemonSearch');
@@ -451,13 +451,13 @@ function translateTypeChartTab() {
     const lm = window.languageManager;
     const tab = document.getElementById('typechart');
     
-    // Actualizar elementos estáticos
-    const h2 = tab.querySelector('h2');
-    const lead = tab.querySelector('.lead');
+    // Actualizar título y subtítulo usando los nuevos IDs
+    const title = document.getElementById('typeTableTitle');
+    const subtitle = document.getElementById('typeTableSubtitle');
     const formLabel = tab.querySelector('.form-label');
     
-    if (h2) h2.innerHTML = lm.t('typeChart.title');
-    if (lead) lead.textContent = lm.t('typeChart.subtitle');
+    if (title) title.innerHTML = lm.t('typeChart.title');
+    if (subtitle) subtitle.textContent = lm.t('typeChart.subtitle');
     if (formLabel) formLabel.textContent = lm.t('typeChart.selectTypes');
     
     // Actualizar headers de efectividad si están presentes
@@ -487,6 +487,7 @@ function initializeTheme() {
 function toggleTheme() {
     const isLight = document.body.classList.toggle('light-theme');
     updateThemeIcons(isLight);
+    updateTableClasses(isLight);
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
 }
 
@@ -498,6 +499,21 @@ function loadSavedTheme() {
         document.body.classList.add('light-theme');
     }
     updateThemeIcons(isLight);
+    updateTableClasses(isLight);
+}
+
+function updateTableClasses(isLight) {
+    const tables = document.querySelectorAll('.irrigation-schedule-table .table, .seeds-profits-table .table');
+    
+    tables.forEach(table => {
+        if (isLight) {
+            // Tema claro: usar Bootstrap table-light
+            table.className = 'table table-light table-striped';
+        } else {
+            // Tema oscuro: usar Bootstrap table-dark
+            table.className = 'table table-dark table-striped';
+        }
+    });
 }
 
 function updateThemeIcons(isLight) {

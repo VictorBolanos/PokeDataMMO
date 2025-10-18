@@ -360,85 +360,89 @@
                         
                         <!-- Pokédex Tab -->
                         <div class="tab-pane" id="pokedex">
-                            <div class="mb-4 pb-3 border-bottom border-secondary">
-                                <h2 class="d-flex align-items-center gap-3 mb-3">📱 Pokédex</h2>
-                                <p class="lead mb-0">Complete Pokémon database for PokeMMO (Generations I-V)</p>
-                            </div>
-                            
-                            <!-- Search Section -->
-                            <div class="row mb-4">
-                                <div class="col-md-8 mx-auto">
-                                    <div class="pokemon-search-container">
-                                        <div class="search-input-wrapper">
-                                            <input type="text" 
-                                                   class="form-control pokemon-search-input" 
-                                                   id="pokemonSearch"
-                                                   placeholder="Search Pokémon by name or ID (e.g., 'pikachu' or '25')"
-                                                   autocomplete="off">
-                                            <div class="search-suggestions" id="searchSuggestions"></div>
+                            <div class="pokedex-container">
+                                <div class="pokedex-header">
+                                    <h2 class="d-flex align-items-center justify-content-center gap-3 mb-3" id="pokedexTitle">📱 Pokédex</h2>
+                                    <p class="lead mb-0" id="pokedexSubtitle">Complete Pokémon database for PokeMMO (Generations I-V)</p>
+                                </div>
+                                
+                                <!-- Search Section -->
+                                <div class="row mb-4">
+                                    <div class="col-md-8 mx-auto">
+                                        <div class="pokemon-search-container">
+                                            <div class="search-input-wrapper">
+                                                <input type="text" 
+                                                       class="form-control pokemon-search-input" 
+                                                       id="pokemonSearch"
+                                                       placeholder="Search Pokémon by name or ID (e.g., 'pikachu' or '25')"
+                                                       autocomplete="off">
+                                                <div class="search-suggestions" id="searchSuggestions"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            
-                            <!-- Pokemon Card Container -->
-                            <div class="pokemon-card-container" id="pokemonCardContainer">
-                                <div class="text-center text-muted">
-                                    <h4>Search for a Pokémon to see its details</h4>
-                                    <p>Try searching for "pikachu", "charizard", or "25"</p>
+                                
+                                <!-- Pokemon Card Container -->
+                                <div class="pokemon-card-container" id="pokemonCardContainer">
+                                    <div class="text-center text-muted">
+                                        <h4>Search for a Pokémon to see its details</h4>
+                                        <p>Try searching for "pikachu", "charizard", or "25"</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Type Table Tab -->
                         <div class="tab-pane" id="typechart">
-                            <div class="mb-4 pb-3 border-bottom border-secondary">
-                                <h2 class="d-flex align-items-center gap-3 mb-3">⚡ Type Table</h2>
-                                <p class="lead mb-0">Interactive Pokémon type effectiveness system</p>
-                            </div>
-                            
-                            <!-- Type Selectors -->
-                            <div class="row mb-4">
-                                <div class="col-md-12">
-                                    <div class="type-selector-container">
-                                        <label class="form-label text-white mb-3">Select Types (Primary + Optional Secondary)</label>
-                                        <div class="type-buttons-grid" id="typeButtonsGrid">
-                                            <!-- Type buttons will be populated by JavaScript -->
+                            <div class="type-calculator-container">
+                                <div class="type-calculator-header">
+                                    <h2 class="d-flex align-items-center justify-content-center gap-3 mb-3" id="typeTableTitle">⚡ Type Table</h2>
+                                    <p class="lead mb-0" id="typeTableSubtitle">Interactive Pokémon type effectiveness system</p>
+                                </div>
+                                
+                                <!-- Type Selectors -->
+                                <div class="row mb-4">
+                                    <div class="col-md-12">
+                                        <div class="type-selector-container">
+                                            <label class="form-label text-white mb-3">Select Types (Primary + Optional Secondary)</label>
+                                            <div class="type-buttons-grid" id="typeButtonsGrid">
+                                                <!-- Type buttons will be populated by JavaScript -->
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Effectiveness Results -->
-                            <div class="effectiveness-results mb-4" id="effectivenessResults" style="display: none;">
-                                <div class="effectiveness-grid">
-                                    <div class="effectiveness-card ultra-effective">
-                                        <h5 class="text-center mb-3">Ultra Effective (4x)</h5>
-                                        <div class="effectiveness-list" id="ultraEffectiveList"></div>
-                                    </div>
-                                    <div class="effectiveness-card super-effective">
-                                        <h5 class="text-center mb-3">Super Effective (2x)</h5>
-                                        <div class="effectiveness-list" id="superEffectiveList"></div>
-                                    </div>
-                                    <div class="effectiveness-card not-very-effective">
-                                        <h5 class="text-center mb-3">Resistant (0.5x)</h5>
-                                        <div class="effectiveness-list" id="notVeryEffectiveList"></div>
-                                    </div>
-                                    <div class="effectiveness-card super-resistant">
-                                        <h5 class="text-center mb-3">Super Resist (0.25x)</h5>
-                                        <div class="effectiveness-list" id="superResistantList"></div>
-                                    </div>
-                                    <div class="effectiveness-card no-effect">
-                                        <h5 class="text-center mb-3">No Effect (0x)</h5>
-                                        <div class="effectiveness-list" id="noEffectList"></div>
+                                <!-- Effectiveness Results -->
+                                <div class="effectiveness-results mb-4" id="effectivenessResults" style="display: none;">
+                                    <div class="effectiveness-grid">
+                                        <div class="effectiveness-card ultra-effective">
+                                            <h5 class="text-center mb-3">Ultra Effective (4x)</h5>
+                                            <div class="effectiveness-list" id="ultraEffectiveList"></div>
+                                        </div>
+                                        <div class="effectiveness-card super-effective">
+                                            <h5 class="text-center mb-3">Super Effective (2x)</h5>
+                                            <div class="effectiveness-list" id="superEffectiveList"></div>
+                                        </div>
+                                        <div class="effectiveness-card not-very-effective">
+                                            <h5 class="text-center mb-3">Resistant (0.5x)</h5>
+                                            <div class="effectiveness-list" id="notVeryEffectiveList"></div>
+                                        </div>
+                                        <div class="effectiveness-card super-resistant">
+                                            <h5 class="text-center mb-3">Super Resist (0.25x)</h5>
+                                            <div class="effectiveness-list" id="superResistantList"></div>
+                                        </div>
+                                        <div class="effectiveness-card no-effect">
+                                            <h5 class="text-center mb-3">No Effect (0x)</h5>
+                                            <div class="effectiveness-list" id="noEffectList"></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Type Chart Table -->
-                            <div class="type-chart-container">
-                                <div class="type-chart-table" id="typeChartTable">
-                                    <!-- Table will be generated by JavaScript -->
+                                <!-- Type Chart Table -->
+                                <div class="type-chart-container">
+                                    <div class="type-chart-table" id="typeChartTable">
+                                        <!-- Table will be generated by JavaScript -->
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -3,10 +3,6 @@ class BerryUI {
     constructor() {
         this.container = null;
         this.currentBerry = null;
-        this.plantCount = 0;
-        this.characterCount = 0;
-        this.schedule = [];
-        this.calculations = {};
     }
 
     // Renderizar interfaz principal
@@ -19,7 +15,7 @@ class BerryUI {
         farmingTab.innerHTML = `
             <div class="berry-calculator-container">
                 <div class="berry-calculator-header">
-                    <h2 class="d-flex align-items-center gap-3 mb-3" id="calculatorTitle">
+                    <h2 class="d-flex align-items-center justify-content-center gap-3 mb-3" id="calculatorTitle">
                         ${lm.t('farming.calculator.title')}
                     </h2>
                     <p class="lead mb-4" id="calculatorSubtitle">${lm.t('farming.calculator.subtitle')}</p>
@@ -164,10 +160,12 @@ class BerryUI {
     renderIrrigationSchedule(phases) {
         const lm = window.languageManager;
         const table = document.getElementById('irrigationScheduleTable');
+        const isLightTheme = document.body.classList.contains('light-theme');
+        const tableClass = isLightTheme ? 'table table-light table-striped' : 'table table-dark table-striped';
         
         table.innerHTML = `
             <div class="table-responsive">
-                <table class="table table-dark table-striped">
+                <table class="${tableClass}">
                     <thead>
                         <tr>
                             <th id="thBerry">${lm.t('farming.calculator.berry')}</th>
@@ -230,10 +228,12 @@ class BerryUI {
     renderSeedsTable() {
         const lm = window.languageManager;
         const table = document.getElementById('seedsProfitsTable');
+        const isLightTheme = document.body.classList.contains('light-theme');
+        const tableClass = isLightTheme ? 'table table-light table-striped' : 'table table-dark table-striped';
         
         table.innerHTML = `
             <div class="table-responsive">
-                <table class="table table-dark table-striped">
+                <table class="${tableClass}">
                     <thead>
                         <tr>
                             <th id="thSeed">${lm.t('farming.calculator.seed')}</th>
@@ -294,7 +294,7 @@ class BerryUI {
                     <div class="currency-input-group">
                         <span class="currency-symbol">₽</span>
                         <input type="number" class="form-control form-control-sm price-input currency-input" 
-                               id="price_${seedType.id}" placeholder="0" min="0" step="0.01">
+                               id="price_${seedType.id}" placeholder="0" min="0" step="1">
                     </div>
                 </td>
                 <td>
@@ -329,7 +329,7 @@ class BerryUI {
                     <div class="currency-input-group">
                         <span class="currency-symbol">₽</span>
                         <input type="number" class="form-control form-control-sm price-input currency-input" 
-                               id="price_zanamas" placeholder="0" min="0" step="0.01">
+                               id="price_zanamas" placeholder="0" min="0" step="1">
                     </div>
                 </td>
                 <td>
@@ -386,7 +386,7 @@ class BerryUI {
                                 <div class="currency-input-group">
                                     <span class="currency-symbol">₽</span>
                                     <input type="number" class="form-control form-control-sm purchase-cost-input currency-input" 
-                                           placeholder="0" min="0" step="0.01">
+                                           placeholder="0" min="0" step="1">
                                 </div>
                                 <button class="btn btn-sm btn-outline-primary add-cost-btn" 
                                         onclick="window.berryUI.addPurchaseCostInput()">+</button>
@@ -406,7 +406,7 @@ class BerryUI {
                                 <div class="currency-input-group">
                                     <span class="currency-symbol">₽</span>
                                     <input type="number" class="form-control form-control-sm management-cost-input currency-input" 
-                                           placeholder="0" min="0" step="0.01">
+                                           placeholder="0" min="0" step="1">
                                 </div>
                                 <button class="btn btn-sm btn-outline-primary add-cost-btn" 
                                         onclick="window.berryUI.addManagementCostInput()">+</button>
@@ -789,7 +789,7 @@ class BerryUI {
         // Recopilar precios
         document.querySelectorAll('.price-input').forEach(input => {
             const seedType = input.id.replace('price_', '');
-            prices[seedType] = parseFloat(input.value) || 0;
+            prices[seedType] = parseInt(input.value) || 0;
         });
 
         const { profits, totalProfits } = window.berryCalculations.calculateSeedProfits(
@@ -799,12 +799,12 @@ class BerryUI {
         Object.keys(profits).forEach(seedType => {
             const element = document.getElementById(`profit_${seedType}`);
             if (element) {
-                element.textContent = `₽${profits[seedType].toLocaleString()}`;
+                element.textContent = `₽${Math.round(profits[seedType]).toLocaleString('es-ES', {maximumFractionDigits: 0})}`;
             }
         });
 
         // Actualizar total de ventas
-        document.getElementById('totalSales').textContent = `₽${totalProfits.toLocaleString()}`;
+        document.getElementById('totalSales').textContent = `₽${Math.round(totalProfits).toLocaleString('es-ES', {maximumFractionDigits: 0})}`;
     }
 
     // Calcular gastos
@@ -829,29 +829,29 @@ class BerryUI {
                     <img src="" alt="${berryType}" class="berry-sprite-small" data-berry="${berryType}">
                     <span class="berry-name">${this.getBerryDisplayName(berryType)}</span>
                 </div>
-                <span>₽${costs[berryType].toLocaleString()}</span>
+                <span>₽${Math.round(costs[berryType]).toLocaleString('es-ES', {maximumFractionDigits: 0})}</span>
             </div>
         `).join('');
 
         // Cargar sprites de bayas en gastos de extracción
         this.loadExtractionBerrySprites();
 
-        document.getElementById('totalExtraction').textContent = `₽${totalCost.toLocaleString()}`;
+        document.getElementById('totalExtraction').textContent = `₽${Math.round(totalCost).toLocaleString('es-ES', {maximumFractionDigits: 0})}`;
 
         // Calcular totales de gastos manuales
         const purchaseCosts = this.calculateTotalPurchaseCosts();
         const managementCostsTotal = this.calculateTotalManagementCosts();
         
         // Actualizar totales en UI
-        document.getElementById('purchaseCosts').textContent = `₽${purchaseCosts.toLocaleString()}`;
-        document.getElementById('managementCosts').textContent = `₽${managementCostsTotal.toLocaleString()}`;
+        document.getElementById('purchaseCosts').textContent = `₽${Math.round(purchaseCosts).toLocaleString('es-ES', {maximumFractionDigits: 0})}`;
+        document.getElementById('managementCosts').textContent = `₽${Math.round(managementCostsTotal).toLocaleString('es-ES', {maximumFractionDigits: 0})}`;
 
         // Calcular total final (Total Ventas - Total Extracción - Total Compras - Total Gestión)
-        const totalSales = parseFloat(document.getElementById('totalSales').textContent.replace(/[₽,]/g, '')) || 0;
-        const totalExtraction = parseFloat(document.getElementById('totalExtraction').textContent.replace(/[₽,]/g, '')) || 0;
+        const totalSales = parseInt(document.getElementById('totalSales').textContent.replace(/[₽,.]/g, '')) || 0;
+        const totalExtraction = parseInt(document.getElementById('totalExtraction').textContent.replace(/[₽,.]/g, '')) || 0;
         const finalTotal = totalSales - totalExtraction - purchaseCosts - managementCostsTotal;
         
-        document.getElementById('finalTotal').textContent = `₽${finalTotal.toLocaleString()}`;
+        document.getElementById('finalTotal').textContent = `₽${Math.round(finalTotal).toLocaleString('es-ES', {maximumFractionDigits: 0})}`;
     }
 
     // Obtener nombre de baya para mostrar
@@ -888,7 +888,7 @@ class BerryUI {
         const purchaseInputs = document.querySelectorAll('.purchase-cost-input');
         let total = 0;
         purchaseInputs.forEach(input => {
-            total += parseFloat(input.value) || 0;
+            total += parseInt(input.value) || 0;
         });
         return total;
     }
@@ -898,7 +898,7 @@ class BerryUI {
         const managementInputs = document.querySelectorAll('.management-cost-input');
         let total = 0;
         managementInputs.forEach(input => {
-            total += parseFloat(input.value) || 0;
+            total += parseInt(input.value) || 0;
         });
         return total;
     }
@@ -931,7 +931,7 @@ class BerryUI {
             <div class="currency-input-group">
                 <span class="currency-symbol">₽</span>
                 <input type="number" class="form-control form-control-sm purchase-cost-input currency-input" 
-                       placeholder="0" min="0" step="0.01">
+                       placeholder="0" min="0" step="1">
             </div>
             <button class="btn btn-sm btn-outline-danger remove-cost-btn" 
                     onclick="this.parentElement.remove(); window.berryUI.updatePurchaseCostsTotal();">-</button>
@@ -955,7 +955,7 @@ class BerryUI {
             <div class="currency-input-group">
                 <span class="currency-symbol">₽</span>
                 <input type="number" class="form-control form-control-sm management-cost-input currency-input" 
-                       placeholder="0" min="0" step="0.01">
+                       placeholder="0" min="0" step="1">
             </div>
             <button class="btn btn-sm btn-outline-danger remove-cost-btn" 
                     onclick="this.parentElement.remove(); window.berryUI.updateManagementCostsTotal();">-</button>
@@ -973,13 +973,13 @@ class BerryUI {
     // Actualizar total de gastos de compra
     updatePurchaseCostsTotal() {
         const total = this.calculateTotalPurchaseCosts();
-        document.getElementById('purchaseCosts').textContent = `₽${total.toLocaleString()}`;
+        document.getElementById('purchaseCosts').textContent = `₽${Math.round(total).toLocaleString('es-ES', {maximumFractionDigits: 0})}`;
     }
 
     // Actualizar total de gastos de gestión
     updateManagementCostsTotal() {
         const total = this.calculateTotalManagementCosts();
-        document.getElementById('managementCosts').textContent = `₽${total.toLocaleString()}`;
+        document.getElementById('managementCosts').textContent = `₽${Math.round(total).toLocaleString('es-ES', {maximumFractionDigits: 0})}`;
     }
 
     // Actualizar UI
