@@ -180,3 +180,4 @@ class BerryCalculations {
 
 // Exportar instancia global
 window.berryCalculations = new BerryCalculations();
+

@@ -82,11 +82,32 @@ class LanguageManager {
                         profits: 'Profits',
                         totalSales: 'Total Sales',
                         extractionCosts: 'Extraction Costs',
+                        totalExtraction: 'Total Extraction',
                         purchaseCosts: 'Purchase Costs',
+                        totalPurchases: 'Total Purchases',
                         managementCosts: 'Management Costs',
+                        totalManagement: 'Total Management',
+                        finalTotal: 'Final Total',
                         netProfit: 'Net Profit',
                         addExpense: 'Add Expense',
-                        removeExpense: 'Remove Expense'
+                        removeExpense: 'Remove Expense',
+                        meloc: 'Pecha',
+                        safre: 'Rawst',
+                        zreza: 'Cheri',
+                        leppa: 'Leppa',
+                        // Nombres de semillas
+                        seeds: {
+                            dulce: 'Sweet',
+                            'muy-dulce': 'Very Sweet',
+                            amarga: 'Bitter',
+                            'muy-amarga': 'Very Bitter',
+                            picante: 'Spicy',
+                            'muy-picante': 'Very Spicy',
+                            seca: 'Dry',
+                            'muy-seca': 'Very Dry',
+                            acida: 'Sour',
+                            'muy-acida': 'Very Sour'
+                        }
                     }
                 },
                 
@@ -305,11 +326,32 @@ class LanguageManager {
                         profits: 'Ganancias',
                         totalSales: 'Total Ventas',
                         extractionCosts: 'Gastos de Extracción',
+                        totalExtraction: 'Total Extracción',
                         purchaseCosts: 'Gastos de Compra',
+                        totalPurchases: 'Total Compras',
                         managementCosts: 'Gastos de Gestión',
+                        totalManagement: 'Total Gestión',
+                        finalTotal: 'Total Final',
                         netProfit: 'Ganancia Neta',
                         addExpense: 'Agregar Gasto',
-                        removeExpense: 'Quitar Gasto'
+                        removeExpense: 'Quitar Gasto',
+                        meloc: 'Meloc',
+                        safre: 'Safre',
+                        zreza: 'Zreza',
+                        leppa: 'Zanamas',
+                        // Nombres de semillas
+                        seeds: {
+                            dulce: 'Dulce',
+                            'muy-dulce': 'Muy Dulce',
+                            amarga: 'Amarga',
+                            'muy-amarga': 'Muy Amarga',
+                            picante: 'Picante',
+                            'muy-picante': 'Muy Picante',
+                            seca: 'Seca',
+                            'muy-seca': 'Muy Seca',
+                            acida: 'Ácida',
+                            'muy-acida': 'Muy Ácida'
+                        }
                     }
                 },
                 

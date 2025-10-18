@@ -3637,8 +3637,10 @@ body.light-theme .pokemon-card-container .text-muted p {
 
 .summary-card.final-total .summary-item span:last-child {
     color: var(--primary-color);
-    font-size: 1.2rem;
-    font-weight: 700;
+    font-size: 2rem;
+    font-weight: 800;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.5px;
 }
 
 /* Extraction Costs */
@@ -3869,8 +3871,85 @@ body.light-theme .summary-item span:first-child {
     color: rgba(0, 0, 0, 0.8);
 }
 
+/* ===== ESTILOS DE TABLAS PARA TEMA CLARO ===== */
+body.light-theme .table-dark {
+    background-color: #f8f9fa !important;
+    color: #212529 !important;
+}
+
+body.light-theme .table-dark thead th {
+    background-color: #e9ecef !important;
+    color: #495057 !important;
+    border-color: #dee2e6 !important;
+}
+
+body.light-theme .table-dark tbody tr {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+    border-color: #dee2e6 !important;
+}
+
+body.light-theme .table-dark tbody tr:hover {
+    background-color: #f8f9fa !important;
+}
+
+body.light-theme .table-dark td {
+    border-color: #dee2e6 !important;
+    color: #212529 !important;
+}
+
+/* Estilos específicos para Berry Calculator */
+body.light-theme .berry-calculator-container .table-dark {
+    background-color: transparent !important;
+}
+
+body.light-theme .berry-calculator-container .table-dark thead th {
+    background-color: #e9ecef !important;
+    color: #495057 !important;
+    border-color: #dee2e6 !important;
+    font-weight: 600;
+}
+
+body.light-theme .berry-calculator-container .table-dark tbody tr {
+    background-color: #ffffff !important;
+    color: #212529 !important;
+    border-color: #dee2e6 !important;
+}
+
+body.light-theme .berry-calculator-container .table-dark tbody tr:hover {
+    background-color: #f8f9fa !important;
+}
+
+body.light-theme .berry-calculator-container .table-dark td {
+    border-color: #dee2e6 !important;
+    color: #212529 !important;
+}
+
+/* Inputs en tema claro */
+body.light-theme .berry-calculator-container .form-control {
+    background-color: #ffffff !important;
+    border-color: #ced4da !important;
+    color: #212529 !important;
+}
+
+body.light-theme .berry-calculator-container .form-control:focus {
+    background-color: #ffffff !important;
+    border-color: var(--primary-color) !important;
+    color: #212529 !important;
+    box-shadow: 0 0 0 0.2rem rgba(34, 197, 94, 0.25) !important;
+}
+
 body.light-theme .summary-item span:last-child {
     color: #1a1a1a;
+}
+
+/* Net Profit más prominente en tema claro */
+body.light-theme .summary-card.final-total .summary-item span:last-child {
+    color: var(--primary-color);
+    font-size: 2rem;
+    font-weight: 800;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.5px;
 }
 
 body.light-theme .summary-item.total {
@@ -4049,6 +4128,7 @@ input[type="number"]::-webkit-inner-spin-button {
 
 input[type="number"] {
     -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 /* Custom spinner buttons */
@@ -4097,6 +4177,7 @@ input[type="time"]::-webkit-outer-spin-button {
 
 input[type="time"] {
     -moz-appearance: textfield;
+    appearance: textfield;
 }
 
 /* Light Theme Adjustments */

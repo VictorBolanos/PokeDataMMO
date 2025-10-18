@@ -128,6 +128,12 @@ class BerryData {
         return this.seedTypes[seedType];
     }
 
+    // Obtener nombre traducido de semilla
+    getTranslatedSeedName(seedType) {
+        const lm = window.languageManager;
+        return lm.t(`farming.calculator.seeds.${seedType}`);
+    }
+
     getAllBerries() {
         return Object.keys(this.berries).map(key => ({
             id: key,
