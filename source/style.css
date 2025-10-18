@@ -3339,6 +3339,160 @@ body.light-theme .pokemon-card-container .text-muted p {
     cursor: not-allowed;
 }
 
+/* Placeholders para Berry Calculator */
+.berry-calculator-controls .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+body.light-theme .berry-calculator-controls .form-control::placeholder {
+    color: rgba(0, 0, 0, 0.6) !important;
+}
+
+/* ===== DROPDOWN CUSTOM PARA BERRY CALCULATOR ===== */
+.custom-dropdown {
+    position: relative;
+    width: 100%;
+}
+
+.custom-dropdown-selected {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    min-height: 48px;
+}
+
+.custom-dropdown-selected:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.custom-dropdown-selected:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-bg);
+    outline: none;
+}
+
+.custom-dropdown-selected.open {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-bg);
+}
+
+.dropdown-text {
+    color: white;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.dropdown-arrow {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.custom-dropdown.open .dropdown-arrow {
+    transform: rotate(180deg);
+}
+
+.custom-dropdown-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: rgba(30, 30, 30, 0.95);
+    border: 2px solid var(--primary-color);
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    display: none;
+    backdrop-filter: blur(10px);
+}
+
+.custom-dropdown.open .custom-dropdown-options {
+    display: block;
+}
+
+.custom-dropdown-option {
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.custom-dropdown-option:last-child {
+    border-bottom: none;
+}
+
+.custom-dropdown-option:hover {
+    background: rgba(168, 85, 247, 0.2);
+}
+
+.dropdown-sprite {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.dropdown-option-text {
+    color: white;
+    font-weight: 500;
+}
+
+/* Tema claro para dropdown custom */
+body.light-theme .custom-dropdown-selected {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.2);
+    color: #212529;
+}
+
+body.light-theme .custom-dropdown-selected:hover {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: rgba(0, 0, 0, 0.3);
+}
+
+body.light-theme .custom-dropdown-selected:focus,
+body.light-theme .custom-dropdown-selected.open {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+}
+
+body.light-theme .dropdown-text {
+    color: #212529;
+}
+
+body.light-theme .dropdown-arrow {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+body.light-theme .custom-dropdown-options {
+    background: rgba(255, 255, 255, 0.95);
+    border-color: var(--primary-color);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+body.light-theme .custom-dropdown-option {
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .custom-dropdown-option:hover {
+    background: rgba(168, 85, 247, 0.15);
+}
+
+body.light-theme .dropdown-option-text {
+    color: #212529;
+}
+
 /* Section Titles */
 .section-title {
     color: white;
@@ -3543,11 +3697,11 @@ body.light-theme .pokemon-card-container .text-muted p {
 }
 
 .conservation-amount {
-    color: #f59e0b;
+    color: #fbbf24;
 }
 
 .zanamas-amount {
-    color: #8b5cf6;
+    color: #a78bfa;
 }
 
 .sellable-amount {
@@ -3561,12 +3715,12 @@ body.light-theme .pokemon-card-container .text-muted p {
 
 /* Zanamas Row */
 .zanamas-row {
-    background: rgba(255, 215, 0, 0.1);
-    border-left: 4px solid #ffd700;
+    background: rgba(168, 85, 247, 0.1);
+    border-left: 4px solid var(--primary-color);
 }
 
 .zanamas-row:hover {
-    background: rgba(255, 215, 0, 0.15);
+    background: rgba(168, 85, 247, 0.15);
 }
 
 /* Expenses Summary */
@@ -3629,8 +3783,9 @@ body.light-theme .pokemon-card-container .text-muted p {
 }
 
 .summary-card.final-total {
-    background: linear-gradient(135deg, var(--primary-bg) 0%, rgba(34, 197, 94, 0.2) 100%);
-    border-color: var(--primary-color);
+    background: rgba(168, 85, 247, 0.08);
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 8px 25px rgba(168, 85, 247, 0.15);
 }
 
 .summary-card.final-total h5 {
@@ -4075,6 +4230,47 @@ body.light-theme .summary-card.final-total .summary-item span:last-child {
     font-weight: 800;
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     letter-spacing: 0.5px;
+}
+
+/* ===== ESTILOS DE VALORES PARA TEMA CLARO ===== */
+body.light-theme .harvest-amount {
+    color: #15803d !important;
+}
+
+body.light-theme .conservation-amount {
+    color: #b45309 !important;
+}
+
+body.light-theme .zanamas-amount {
+    color: #6d28d9 !important;
+}
+
+body.light-theme .sellable-amount {
+    color: #0891b2 !important;
+}
+
+body.light-theme .profit-amount {
+    color: #059669 !important;
+    font-size: 1rem;
+}
+
+/* ===== ESTILO MEJORADO DEL TOTAL FINAL EN TEMA CLARO ===== */
+body.light-theme .summary-card.final-total {
+    background: rgba(168, 85, 247, 0.08);
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 8px 25px rgba(168, 85, 247, 0.2);
+}
+
+body.light-theme .summary-card.final-total h5 {
+    color: var(--primary-color);
+}
+
+body.light-theme .summary-card.final-total .summary-item span:last-child {
+    color: var(--primary-color);
+    font-size: 2.2rem;
+    font-weight: 900;
+    text-shadow: 0 3px 6px rgba(168, 85, 247, 0.3);
+    letter-spacing: 1px;
 }
 
 body.light-theme .summary-item.total {

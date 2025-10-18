@@ -25,10 +25,18 @@ class BerryUI {
                     <div class="row mb-4">
                         <div class="col-md-4">
                             <label class="form-label text-white mb-2" id="labelCultivationType">${lm.t('farming.calculator.cultivationType')}</label>
-                            <select class="form-select berry-type-selector" id="berryTypeSelector">
-                                <option value="" id="optionSelectCultivation">${lm.t('farming.calculator.selectCultivation')}</option>
-                                <option value="zanamas" data-icon="leppa-berry" id="optionZanamas">${lm.t('farming.calculator.zanamas')} (Leppa Berry)</option>
-                            </select>
+                            <div class="custom-dropdown" id="berryTypeDropdown">
+                                <div class="custom-dropdown-selected" id="berryTypeSelected">
+                                    <span class="dropdown-text" id="dropdownText">${lm.t('farming.calculator.selectCultivation')}</span>
+                                    <span class="dropdown-arrow">▼</span>
+                                </div>
+                                <div class="custom-dropdown-options" id="berryTypeOptions">
+                                    <div class="custom-dropdown-option" data-value="zanamas" data-icon="leppa-berry">
+                                        <img src="" alt="" class="dropdown-sprite" style="display: none;">
+                                        <span class="dropdown-option-text">Zanama (Leppa Berry)</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-md-4">
                             <label class="form-label text-white mb-2" id="labelPlantsPerCharacter">${lm.t('farming.calculator.plantsPerCharacter')}</label>
@@ -73,17 +81,14 @@ class BerryUI {
 
         this.container = document.getElementById('berryCalculatorContent');
         this.setupEventListeners();
+        this.setupCustomDropdown();
     }
 
     // Configurar event listeners
     setupEventListeners() {
-        const berrySelector = document.getElementById('berryTypeSelector');
         const plantCountInput = document.getElementById('plantCountInput');
         const characterCountInput = document.getElementById('characterCountInput');
 
-        berrySelector.addEventListener('change', (e) => {
-            this.handleBerrySelection(e.target.value);
-        });
 
         plantCountInput.addEventListener('input', () => {
             this.handleInputChange();
@@ -222,6 +227,78 @@ class BerryUI {
         
         // Configurar event listeners para horarios
         this.setupScheduleEventListeners();
+    }
+
+    // Configurar dropdown custom
+    setupCustomDropdown() {
+        const dropdown = document.getElementById('berryTypeDropdown');
+        const selected = document.getElementById('berryTypeSelected');
+        const options = document.getElementById('berryTypeOptions');
+        const optionsList = options.querySelectorAll('.custom-dropdown-option');
+
+        // Cargar sprites para las opciones
+        this.loadDropdownSprites();
+
+        // Toggle dropdown
+        selected.addEventListener('click', () => {
+            dropdown.classList.toggle('open');
+        });
+
+        // Seleccionar opción
+        optionsList.forEach(option => {
+            option.addEventListener('click', () => {
+                const value = option.dataset.value;
+                const text = option.querySelector('.dropdown-option-text').textContent;
+                const sprite = option.querySelector('.dropdown-sprite');
+                
+                // Actualizar texto seleccionado
+                const dropdownText = document.getElementById('dropdownText');
+                dropdownText.innerHTML = '';
+                
+                if (sprite.src) {
+                    const newSprite = sprite.cloneNode(true);
+                    newSprite.style.display = 'block';
+                    dropdownText.appendChild(newSprite);
+                }
+                
+                dropdownText.appendChild(document.createTextNode(text));
+                
+                // Cerrar dropdown
+                dropdown.classList.remove('open');
+                
+                // Manejar selección
+                this.handleBerrySelection(value);
+            });
+        });
+
+        // Cerrar dropdown al hacer click fuera
+        document.addEventListener('click', (e) => {
+            if (!dropdown.contains(e.target)) {
+                dropdown.classList.remove('open');
+            }
+        });
+    }
+
+    // Cargar sprites para el dropdown
+    async loadDropdownSprites() {
+        const options = document.querySelectorAll('.custom-dropdown-option');
+        
+        for (const option of options) {
+            const icon = option.dataset.icon;
+            const sprite = option.querySelector('.dropdown-sprite');
+            
+            if (icon && sprite) {
+                try {
+                    const response = await fetch(`https://pokeapi.co/api/v2/item/${icon}/`);
+                    const data = await response.json();
+                    sprite.src = data.sprites.default;
+                    sprite.alt = data.name;
+                    sprite.style.display = 'block';
+                } catch (error) {
+                    console.error('Error loading berry sprite:', error);
+                }
+            }
+        }
     }
 
     // Renderizar tabla de semillas
@@ -1009,11 +1086,30 @@ class BerryUI {
         if (labelPlantsPerCharacter) labelPlantsPerCharacter.textContent = lm.t('farming.calculator.plantsPerCharacter');
         if (labelNumberOfCharacters) labelNumberOfCharacters.textContent = lm.t('farming.calculator.numberOfCharacters');
         
-        // 3. Actualizar selector y placeholders
-        const optionSelectCultivation = document.getElementById('optionSelectCultivation');
-        const optionZanamas = document.getElementById('optionZanamas');
-        if (optionSelectCultivation) optionSelectCultivation.textContent = lm.t('farming.calculator.selectCultivation');
-        if (optionZanamas) optionZanamas.textContent = `${lm.t('farming.calculator.zanamas')} (Leppa Berry)`;
+        // 3. Actualizar dropdown custom y placeholders
+        const dropdownText = document.getElementById('dropdownText');
+        const optionText = document.querySelector('.dropdown-option-text');
+        
+        if (dropdownText && !dropdownText.querySelector('img')) {
+            dropdownText.textContent = lm.t('farming.calculator.selectCultivation');
+        }
+        
+        if (optionText) {
+            const zanamasText = lm.t('farming.calculator.zanamas');
+            optionText.textContent = `${zanamasText} (Leppa Berry)`;
+        }
+        
+        // Actualizar texto seleccionado si ya hay una selección
+        if (dropdownText && dropdownText.querySelector('img')) {
+            const currentText = dropdownText.textContent;
+            if (currentText.includes('(Leppa Berry)')) {
+                const zanamasText = lm.t('farming.calculator.zanamas');
+                const sprite = dropdownText.querySelector('img');
+                dropdownText.innerHTML = '';
+                dropdownText.appendChild(sprite);
+                dropdownText.appendChild(document.createTextNode(`${zanamasText} (Leppa Berry)`));
+            }
+        }
         
         const plantInput = document.getElementById('plantCountInput');
         const charInput = document.getElementById('characterCountInput');
