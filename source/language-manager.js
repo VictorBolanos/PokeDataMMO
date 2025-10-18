@@ -15,7 +15,6 @@ class LanguageManager {
                     farming: 'Berry Farming',
                     breeding: 'Breeding Calculator',
                     pvp: 'PVP Teams',
-                    progression: 'Progression',
                     pokedex: 'Pokédex',
                     typechart: 'Types Table'
                 },
@@ -95,25 +94,6 @@ class LanguageManager {
                     developmentStatus: 'Development Status',
                     statusPlanning: 'In Planning',
                     researchPhase: 'Research phase ongoing'
-                },
-                
-                // ===== PROGRESSION TAB =====
-                progression: {
-                    title: '🗺️ Region and Account Progression',
-                    subtitle: 'Progress tracking system for multiple characters and accounts',
-                    whatsComingTitle: "What's Coming",
-                    description: 'This comprehensive progression tracker will help you manage multiple characters across different accounts:',
-                    features: {
-                        multiChar: 'Multi-Character Support - Track 3 characters across 2 accounts',
-                        regionProg: 'Region Progression - Point-by-point guide for each region',
-                        calculator: 'Progress Calculator - See completion percentages and next steps',
-                        goals: 'Goal Setting - Set and track personal objectives',
-                        time: 'Time Estimation - Calculate time needed for completion',
-                        resources: 'Resource Planning - Track items, money, and Pokémon needed'
-                    },
-                    developmentStatus: 'Development Status',
-                    statusDevelopment: 'In Development',
-                    databaseProgress: 'Database design in progress'
                 },
                 
                 // ===== POKÉDEX TAB =====
@@ -224,7 +204,6 @@ class LanguageManager {
                     farming: 'Cultivo de Bayas',
                     breeding: 'Calculadora de Cría',
                     pvp: 'Equipos PVP',
-                    progression: 'Progresión',
                     pokedex: 'Pokédex',
                     typechart: 'Tabla de Tipos'
                 },
@@ -304,25 +283,6 @@ class LanguageManager {
                     developmentStatus: 'Estado de Desarrollo',
                     statusPlanning: 'En Planificación',
                     researchPhase: 'Fase de investigación en curso'
-                },
-                
-                // ===== PESTAÑA PROGRESIÓN =====
-                progression: {
-                    title: '🗺️ Progresión de Región y Cuenta',
-                    subtitle: 'Sistema de seguimiento de progreso para múltiples personajes y cuentas',
-                    whatsComingTitle: 'Próximamente',
-                    description: 'Este completo rastreador de progresión te ayudará a gestionar múltiples personajes en diferentes cuentas:',
-                    features: {
-                        multiChar: 'Soporte Multi-Personaje - Rastrea 3 personajes en 2 cuentas',
-                        regionProg: 'Progresión de Región - Guía punto por punto para cada región',
-                        calculator: 'Calculadora de Progreso - Ve porcentajes de completado y próximos pasos',
-                        goals: 'Establecimiento de Objetivos - Establece y rastrea objetivos personales',
-                        time: 'Estimación de Tiempo - Calcula el tiempo necesario para completar',
-                        resources: 'Planificación de Recursos - Rastrea objetos, dinero y Pokémon necesarios'
-                    },
-                    developmentStatus: 'Estado de Desarrollo',
-                    statusDevelopment: 'En Desarrollo',
-                    databaseProgress: 'Diseño de base de datos en progreso'
                 },
                 
                 // ===== PESTAÑA POKÉDEX =====

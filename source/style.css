@@ -97,6 +97,30 @@
     --primary-border-light: rgba(234, 88, 12, 0.3);
 }
 
+/* Cyan Theme */
+[data-color-theme="cyan"] {
+    --primary-color-dark: #06b6d4;
+    --primary-color-light: #06b6d4;
+    --primary-hover-dark: #0891b2;
+    --primary-hover-light: #0891b2;
+    --primary-bg-dark: rgba(6, 182, 212, 0.2);
+    --primary-bg-light: rgba(6, 182, 212, 0.15);
+    --primary-border-dark: rgba(6, 182, 212, 0.4);
+    --primary-border-light: rgba(6, 182, 212, 0.3);
+}
+
+/* Aquamarine Theme */
+[data-color-theme="aquamarine"] {
+    --primary-color-dark: #14b8a6;
+    --primary-color-light: #14b8a6;
+    --primary-hover-dark: #0d9488;
+    --primary-hover-light: #0d9488;
+    --primary-bg-dark: rgba(20, 184, 166, 0.2);
+    --primary-bg-light: rgba(20, 184, 166, 0.15);
+    --primary-border-dark: rgba(20, 184, 166, 0.4);
+    --primary-border-light: rgba(20, 184, 166, 0.3);
+}
+
 /* ===== DYNAMIC COLOR FUNCTIONS ===== */
 body:not(.light-theme) {
     --primary-color: var(--primary-color-dark);
@@ -1014,6 +1038,7 @@ footer.footer-custom {
 .font-list {
     max-height: 300px;
     overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -1033,7 +1058,6 @@ footer.footer-custom {
 .font-item:hover {
     background: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.3);
-    transform: translateX(5px);
 }
 
 .font-item.selected {
@@ -1052,8 +1076,8 @@ footer.footer-custom {
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(2px);
-    padding: 20px;
-    width: 280px;
+    padding: 15px;
+    width: 180px;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
@@ -1069,16 +1093,17 @@ footer.footer-custom {
 
 .color-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
 }
 
 .color-item {
-    aspect-ratio: 1;
-    border-radius: 12px;
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s ease;
-    border: 3px solid transparent;
+    border: 2px solid transparent;
     position: relative;
 }
 
@@ -1090,23 +1115,6 @@ footer.footer-custom {
 .color-item.selected {
     border-color: white;
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
-}
-
-.color-item::after {
-    content: attr(data-name);
-    position: absolute;
-    bottom: -20px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.7rem;
-    color: rgba(255, 255, 255, 0.7);
-    white-space: nowrap;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.color-item:hover::after {
-    opacity: 1;
 }
 
 /* Scrollbar for font list */
@@ -1262,10 +1270,6 @@ body.light-theme .color-item:hover {
 body.light-theme .color-item.selected {
     border-color: #000;
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
-}
-
-body.light-theme .color-item::after {
-    color: rgba(0, 0, 0, 0.7);
 }
 
 body.light-theme .theme-btn {
@@ -2869,7 +2873,7 @@ body.light-theme .playlist-item.active {
     }
     
     .color-dropdown {
-        width: 240px;
+        width: 160px;
     }
 }
 
@@ -2948,8 +2952,8 @@ body.light-theme .playlist-item.active {
     }
     
     .color-dropdown {
-        width: 200px;
-        padding: 15px;
+        width: 150px;
+        padding: 12px;
     }
     
     .color-grid {

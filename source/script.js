@@ -283,7 +283,6 @@ function translateUI() {
     document.querySelector('[data-tab="farming"] .tab-text').textContent = lm.t('tabs.farming');
     document.querySelector('[data-tab="breeding"] .tab-text').textContent = lm.t('tabs.breeding');
     document.querySelector('[data-tab="pvp"] .tab-text').textContent = lm.t('tabs.pvp');
-    document.querySelector('[data-tab="progression"] .tab-text').textContent = lm.t('tabs.progression');
     document.querySelector('[data-tab="pokedex"] .tab-text').textContent = lm.t('tabs.pokedex');
     document.querySelector('[data-tab="typechart"] .tab-text').textContent = lm.t('tabs.typechart');
     
@@ -307,7 +306,6 @@ function translateUI() {
     translateFarmingTab();
     translateBreedingTab();
     translatePVPTab();
-    translateProgressionTab();
     translatePokedexTab();
     translateTypeChartTab();
 }
@@ -401,28 +399,6 @@ function translatePVPTab() {
     tab.querySelector('.status-card h5').textContent = lm.t('pvp.developmentStatus');
     tab.querySelector('.status-card .badge').textContent = lm.t('pvp.statusPlanning');
     tab.querySelector('.status-card p').textContent = lm.t('pvp.researchPhase');
-}
-
-function translateProgressionTab() {
-    const lm = window.languageManager;
-    const tab = document.getElementById('progression');
-    
-    tab.querySelector('h2').innerHTML = lm.t('progression.title');
-    tab.querySelector('.lead').textContent = lm.t('progression.subtitle');
-    tab.querySelector('h4').textContent = lm.t('progression.whatsComingTitle');
-    tab.querySelectorAll('p')[0].textContent = lm.t('progression.description');
-    
-    const featureItems = tab.querySelectorAll('.feature-list li');
-    featureItems[0].innerHTML = `<strong>${lm.t('progression.features.multiChar').split(' - ')[0]}</strong> - ${lm.t('progression.features.multiChar').split(' - ')[1]}`;
-    featureItems[1].innerHTML = `<strong>${lm.t('progression.features.regionProg').split(' - ')[0]}</strong> - ${lm.t('progression.features.regionProg').split(' - ')[1]}`;
-    featureItems[2].innerHTML = `<strong>${lm.t('progression.features.calculator').split(' - ')[0]}</strong> - ${lm.t('progression.features.calculator').split(' - ')[1]}`;
-    featureItems[3].innerHTML = `<strong>${lm.t('progression.features.goals').split(' - ')[0]}</strong> - ${lm.t('progression.features.goals').split(' - ')[1]}`;
-    featureItems[4].innerHTML = `<strong>${lm.t('progression.features.time').split(' - ')[0]}</strong> - ${lm.t('progression.features.time').split(' - ')[1]}`;
-    featureItems[5].innerHTML = `<strong>${lm.t('progression.features.resources').split(' - ')[0]}</strong> - ${lm.t('progression.features.resources').split(' - ')[1]}`;
-    
-    tab.querySelector('.status-card h5').textContent = lm.t('progression.developmentStatus');
-    tab.querySelector('.status-card .badge').textContent = lm.t('progression.statusDevelopment');
-    tab.querySelector('.status-card p').textContent = lm.t('progression.databaseProgress');
 }
 
 function translatePokedexTab() {
@@ -620,15 +596,17 @@ function initializeColor() {
     const colorGrid = document.getElementById('colorGrid');
     const colorPreview = document.getElementById('colorPreview');
     
+    // Colors in chromatic order (rainbow spectrum)
     const colors = [
         { name: 'Red', value: 'red', color: '#dc2626' },
-        { name: 'Green', value: 'green', color: '#16a34a' },
-        { name: 'Blue', value: 'blue', color: '#2563eb' },
-        { name: 'Yellow', value: 'yellow', color: '#eab308' },
-        { name: 'Purple', value: 'purple', color: '#9333ea' },
-        { name: 'Pink', value: 'pink', color: '#ec4899' },
         { name: 'Orange', value: 'orange', color: '#ea580c' },
-        { name: 'Standard', value: 'standard', color: '#dc2626' }
+        { name: 'Yellow', value: 'yellow', color: '#eab308' },
+        { name: 'Green', value: 'green', color: '#16a34a' },
+        { name: 'Aquamarine', value: 'aquamarine', color: '#14b8a6' },
+        { name: 'Cyan', value: 'cyan', color: '#06b6d4' },
+        { name: 'Blue', value: 'blue', color: '#2563eb' },
+        { name: 'Purple', value: 'purple', color: '#9333ea' },
+        { name: 'Pink', value: 'pink', color: '#ec4899' }
     ];
     
     // Render color grid
@@ -665,7 +643,7 @@ function initializeColor() {
     setupOutsideClickHandler(colorDropdown, colorBtn);
     
     // Load saved color
-    const savedColor = localStorage.getItem('colorTheme') || 'standard';
+    const savedColor = localStorage.getItem('colorTheme') || 'red';
     applyColorTheme(savedColor);
     updateColorSelectionByValue(savedColor);
     
