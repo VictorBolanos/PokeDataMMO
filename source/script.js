@@ -8,9 +8,12 @@ function initializeApp() {
     initializeWallpaper();
     initializeTheme();
     initializeLanguage();
+    initializeFont();
+    initializeColor();
     loadSavedWallpaper();
     loadSavedTheme();
     translateUI(); // Initial translation
+    initializeBerryCalculator();
 }
 
 // ===== TAB SYSTEM =====
@@ -100,9 +103,6 @@ function handleHashNavigation() {
         switchTab(hash);
     }
 }
-
-// ===== FEATURES =====
-// (Effects removed - now handled by pure CSS)
 
 // ===== WALLPAPER SYSTEM =====
 function initializeWallpaper() {
@@ -340,8 +340,6 @@ function translateLeaguesTab() {
 }
 
 function translateFarmingTab() {
-    const lm = window.languageManager;
-    
     // Actualizar calculadora de bayas si está activa
     if (window.berryUI && window.berryUI.updateTranslations) {
         window.berryUI.updateTranslations();
@@ -487,7 +485,6 @@ function initializeTheme() {
 function toggleTheme() {
     const isLight = document.body.classList.toggle('light-theme');
     updateThemeIcons(isLight);
-    updateTableClasses(isLight);
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
 }
 
@@ -499,21 +496,6 @@ function loadSavedTheme() {
         document.body.classList.add('light-theme');
     }
     updateThemeIcons(isLight);
-    updateTableClasses(isLight);
-}
-
-function updateTableClasses(isLight) {
-    const tables = document.querySelectorAll('.irrigation-schedule-table .table, .seeds-profits-table .table');
-    
-    tables.forEach(table => {
-        if (isLight) {
-            // Tema claro: usar Bootstrap table-light
-            table.className = 'table table-light table-striped';
-        } else {
-            // Tema oscuro: usar Bootstrap table-dark
-            table.className = 'table table-dark table-striped';
-        }
-    });
 }
 
 function updateThemeIcons(isLight) {
@@ -724,13 +706,6 @@ function updateColorPreview(color) {
         colorPreview.style.background = color;
     }
 }
-
-// Initialize font and color systems
-document.addEventListener('DOMContentLoaded', function() {
-    initializeFont();
-    initializeColor();
-    initializeBerryCalculator();
-});
 
 // Berry Calculator Integration
 async function initializeBerryCalculator() {

@@ -66,66 +66,49 @@ class BerryData {
         this.seedTypes = {
             'dulce': {
                 name: 'Dulce',
-                image: 'sweet.png',
-                color: '#ff69b4'
+                image: 'sweet.png'
             },
             'muy-dulce': {
                 name: 'Muy Dulce',
-                image: 'very-sweet.png',
-                color: '#ffb6c1'
+                image: 'very-sweet.png'
             },
             'amarga': {
                 name: 'Amarga',
-                image: 'bitter.png',
-                color: '#90ee90'
+                image: 'bitter.png'
             },
             'muy-amarga': {
                 name: 'Muy Amarga',
-                image: 'very-bitter.png',
-                color: '#32cd32'
+                image: 'very-bitter.png'
             },
             'picante': {
                 name: 'Picante',
-                image: 'spicy.png',
-                color: '#ffa500'
+                image: 'spicy.png'
             },
             'muy-picante': {
                 name: 'Muy Picante',
-                image: 'very-spicy.png',
-                color: '#ff4500'
+                image: 'very-spicy.png'
             },
             'seca': {
                 name: 'Seca',
-                image: 'dry.png',
-                color: '#daa520'
+                image: 'dry.png'
             },
             'muy-seca': {
                 name: 'Muy Seca',
-                image: 'very-dry.png',
-                color: '#b8860b'
+                image: 'very-dry.png'
             },
             'acida': {
                 name: 'Ácida',
-                image: 'sour.png',
-                color: '#9370db'
+                image: 'sour.png'
             },
             'muy-acida': {
                 name: 'Muy Ácida',
-                image: 'very-sour.png',
-                color: '#8b2be2'
+                image: 'very-sour.png'
             }
         };
-
-        this.extractorCost = 350;
-        this.gtlCommission = 0.05; // 5% comisión GTL
     }
 
     getBerryConfig(berryType) {
         return this.berries[berryType];
-    }
-
-    getSeedConfig(seedType) {
-        return this.seedTypes[seedType];
     }
 
     // Obtener nombre traducido de semilla
@@ -134,19 +117,11 @@ class BerryData {
         return lm.t(`farming.calculator.seeds.${seedType}`);
     }
 
-    getAllBerries() {
-        return Object.keys(this.berries).map(key => ({
-            id: key,
-            name: this.berries[key].name
-        }));
-    }
-
     getAllSeedTypes() {
         return Object.keys(this.seedTypes).map(key => ({
             id: key,
             name: this.seedTypes[key].name,
-            image: this.seedTypes[key].image,
-            color: this.seedTypes[key].color
+            image: this.seedTypes[key].image
         }));
     }
 

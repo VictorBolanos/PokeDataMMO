@@ -131,18 +131,6 @@ class PokemonAPI {
         }
     }
     
-    // Get generation data
-    static async getGeneration(genId) {
-        try {
-            const response = await fetch(`${this.baseURL}/generation/${genId}`);
-            if (!response.ok) throw new Error('Generation not found');
-            return await response.json();
-        } catch (error) {
-            console.error('Error fetching generation:', error);
-            throw error;
-        }
-    }
-    
     // Helper to get generation from Pokemon ID
     static getGenerationFromId(id) {
         if (id <= 151) return 1; // Kanto

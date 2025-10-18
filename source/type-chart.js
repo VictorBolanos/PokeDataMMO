@@ -74,23 +74,23 @@ const typeEffectiveness = {
 
 // ===== TYPE NAMES AND ICONS =====
 const typeData = {
-    normal: { name: 'Normal', icon: 'type-normal-box-icon.png', longIcon: 'type-normal-box-icon.png' },
-    fire: { name: 'Fire', icon: 'type-fire-box-icon.png', longIcon: 'type-fire-box-icon.png' },
-    water: { name: 'Water', icon: 'type-water-box-icon.png', longIcon: 'type-water-box-icon.png' },
-    electric: { name: 'Electric', icon: 'type-electric-box-icon.png', longIcon: 'type-electric-box-icon.png' },
-    grass: { name: 'Grass', icon: 'type-grass-box-icon.png', longIcon: 'type-grass-box-icon.png' },
-    ice: { name: 'Ice', icon: 'type-ice-box-icon.png', longIcon: 'type-ice-box-icon.png' },
-    fighting: { name: 'Fighting', icon: 'type-fighting-box-icon.png', longIcon: 'type-fighting-box-icon.png' },
-    poison: { name: 'Poison', icon: 'type-poison-box-icon.png', longIcon: 'type-poison-box-icon.png' },
-    ground: { name: 'Ground', icon: 'type-ground-box-icon.png', longIcon: 'type-ground-box-icon.png' },
-    flying: { name: 'Flying', icon: 'type-flying-box-icon.png', longIcon: 'type-flying-box-icon.png' },
-    psychic: { name: 'Psychic', icon: 'type-psychic-box-icon.png', longIcon: 'type-psychic-box-icon.png' },
-    bug: { name: 'Bug', icon: 'type-bug-box-icon.png', longIcon: 'type-bug-box-icon.png' },
-    rock: { name: 'Rock', icon: 'type-rock-box-icon.png', longIcon: 'type-rock-box-icon.png' },
-    ghost: { name: 'Ghost', icon: 'type-ghost-box-icon.png', longIcon: 'type-ghost-box-icon.png' },
-    dragon: { name: 'Dragon', icon: 'type-dragon-box-icon.png', longIcon: 'type-dragon-box-icon.png' },
-    dark: { name: 'Dark', icon: 'type-dark-box-icon.png', longIcon: 'type-dark-box-icon.png' },
-    steel: { name: 'Steel', icon: 'type-steel-box-icon.png', longIcon: 'type-steel-box-icon.png' }
+    normal: { name: 'Normal', icon: 'type-normal-box-icon.png' },
+    fire: { name: 'Fire', icon: 'type-fire-box-icon.png' },
+    water: { name: 'Water', icon: 'type-water-box-icon.png' },
+    electric: { name: 'Electric', icon: 'type-electric-box-icon.png' },
+    grass: { name: 'Grass', icon: 'type-grass-box-icon.png' },
+    ice: { name: 'Ice', icon: 'type-ice-box-icon.png' },
+    fighting: { name: 'Fighting', icon: 'type-fighting-box-icon.png' },
+    poison: { name: 'Poison', icon: 'type-poison-box-icon.png' },
+    ground: { name: 'Ground', icon: 'type-ground-box-icon.png' },
+    flying: { name: 'Flying', icon: 'type-flying-box-icon.png' },
+    psychic: { name: 'Psychic', icon: 'type-psychic-box-icon.png' },
+    bug: { name: 'Bug', icon: 'type-bug-box-icon.png' },
+    rock: { name: 'Rock', icon: 'type-rock-box-icon.png' },
+    ghost: { name: 'Ghost', icon: 'type-ghost-box-icon.png' },
+    dragon: { name: 'Dragon', icon: 'type-dragon-box-icon.png' },
+    dark: { name: 'Dark', icon: 'type-dark-box-icon.png' },
+    steel: { name: 'Steel', icon: 'type-steel-box-icon.png' }
 };
 
 // ===== TYPE CHART CLASS =====
@@ -130,7 +130,7 @@ class TypeChart {
             button.className = 'type-button';
             button.dataset.type = type;
             button.innerHTML = `
-                <img src="img/res/poke-types/box/${typeData[type].longIcon}" alt="${typeData[type].name}">
+                <img src="img/res/poke-types/box/${typeData[type].icon}" alt="${typeData[type].name}">
             `;
             firstRow.appendChild(button);
         });
@@ -141,7 +141,7 @@ class TypeChart {
             button.className = 'type-button';
             button.dataset.type = type;
             button.innerHTML = `
-                <img src="img/res/poke-types/box/${typeData[type].longIcon}" alt="${typeData[type].name}">
+                <img src="img/res/poke-types/box/${typeData[type].icon}" alt="${typeData[type].name}">
             `;
             secondRow.appendChild(button);
         });
@@ -378,7 +378,7 @@ class TypeChart {
             const typeElement = document.createElement('div');
             typeElement.className = 'effectiveness-type';
             typeElement.innerHTML = `
-                <img src="img/res/poke-types/box/${typeData[type].longIcon}" alt="${typeData[type].name}">
+                <img src="img/res/poke-types/box/${typeData[type].icon}" alt="${typeData[type].name}">
             `;
             list.appendChild(typeElement);
         });

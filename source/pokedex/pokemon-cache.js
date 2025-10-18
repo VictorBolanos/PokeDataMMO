@@ -47,15 +47,6 @@ class PokemonCache {
     normalizeKey(idOrName) {
         return String(idOrName).toLowerCase();
     }
-    
-    // Get cache statistics
-    getStats() {
-        return {
-            size: this.cache.size,
-            maxSize: this.maxSize,
-            keys: Array.from(this.cache.keys())
-        };
-    }
 }
 
 // Global cache instance

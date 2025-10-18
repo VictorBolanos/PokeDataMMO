@@ -635,7 +635,7 @@ class PokemonCard {
     
     // Helper methods
     capitalizeFirst(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
+        return window.PokeUtils.capitalizeFirst(str);
     }
     
     getGenerationIcon(generation) {

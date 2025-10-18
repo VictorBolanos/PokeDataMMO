@@ -108,28 +108,6 @@ class Pokedex {
             this.showError('Error rendering Pokémon card');
         }
     }
-    
-    // Public methods for external access
-    getCurrentPokemon() {
-        return this.currentPokemon;
-    }
-    
-    getCurrentSpecies() {
-        return this.currentSpecies;
-    }
-    
-    clearCurrentPokemon() {
-        this.currentPokemon = null;
-        this.currentSpecies = null;
-        
-        const container = document.getElementById('pokemonCardContainer');
-        container.innerHTML = `
-            <div class="text-center text-muted">
-                <h4>Search for a Pokémon to see its details</h4>
-                <p>Try searching for "pikachu", "charizard", or "25"</p>
-            </div>
-        `;
-    }
 }
 
 // Initialize Pokédex when DOM is loaded

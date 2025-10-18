@@ -533,24 +533,6 @@ body::before {
     border-bottom: none;
 }
 
-/* Custom scrollbar for playlist */
-.playlist::-webkit-scrollbar {
-    width: 6px;
-}
-
-.playlist::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-}
-
-.playlist::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 3px;
-}
-
-.playlist::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-hover);
-}
 
 /* ===== WALLPAPER FEATURE ===== */
 .wallpaper-container {
@@ -727,24 +709,6 @@ body::before {
     opacity: 1;
 }
 
-/* Custom scrollbar for wallpaper grid */
-.wallpaper-grid::-webkit-scrollbar {
-    width: 6px;
-}
-
-.wallpaper-grid::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-}
-
-.wallpaper-grid::-webkit-scrollbar-thumb {
-    background: #dc2626;
-    border-radius: 3px;
-}
-
-.wallpaper-grid::-webkit-scrollbar-thumb:hover {
-    background: #991b1b;
-}
 
 /* ===== MAIN CONTENT CARD ===== */
 .main-card {
@@ -846,10 +810,6 @@ body::before {
 }
 
 /* ===== CONTENT STYLING ===== */
-.content-icon {
-    font-size: 2.5rem;
-}
-
 .feature-list li {
     padding-left: 1.5rem;
     position: relative;
@@ -1117,43 +1077,7 @@ footer.footer-custom {
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
 }
 
-/* Scrollbar for font list */
-.font-list::-webkit-scrollbar {
-    width: 6px;
-}
 
-.font-list::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-}
-
-.font-list::-webkit-scrollbar-thumb {
-    background: var(--primary-color);
-    border-radius: 3px;
-}
-
-.font-list::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-hover);
-}
-
-/* ===== CUSTOM SCROLLBAR ===== */
-.tab-content-area::-webkit-scrollbar {
-    width: 8px;
-}
-
-.tab-content-area::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-}
-
-.tab-content-area::-webkit-scrollbar-thumb {
-    background: #dc2626;
-    border-radius: 4px;
-}
-
-.tab-content-area::-webkit-scrollbar-thumb:hover {
-    background: #991b1b;
-}
 
 /* ===== LIGHT THEME ===== */
 body.light-theme {
@@ -1649,11 +1573,12 @@ body.light-theme .control-btn svg path {
     object-fit: contain;
 }
 
-/* ===== TYPE CHART EFFECTIVENESS COLORS ===== */
+/* ===== TYPE CHART EFFECTIVENESS COLORS (UNIFIED) ===== */
 /* 0x - No Effect (Black) */
 .no-effect,
 .effectiveness-card.no-effect,
-.effectiveness-category[data-multiplier="0x"] {
+.effectiveness-category[data-multiplier="0x"],
+.pokedex-effectiveness-category[data-multiplier="0x"] {
     background: rgba(54, 54, 54, 0.6) !important;
     border-color: rgba(124, 124, 124, 0.8) !important;
 }
@@ -1661,7 +1586,8 @@ body.light-theme .control-btn svg path {
 /* 0.5x - Not Very Effective (Orange) */
 .not-very-effective,
 .effectiveness-card.not-very-effective,
-.effectiveness-category[data-multiplier="0.5x"] {
+.effectiveness-category[data-multiplier="0.5x"],
+.pokedex-effectiveness-category[data-multiplier="0.5x"] {
     background: rgba(255, 165, 0, 0.3) !important;
     border-color: rgba(255, 165, 0, 0.5) !important;
 }
@@ -1669,7 +1595,8 @@ body.light-theme .control-btn svg path {
 /* 0.25x - Super Resistant (Red) */
 .super-resistant,
 .effectiveness-card.super-resistant,
-.effectiveness-category[data-multiplier="0.25x"] {
+.effectiveness-category[data-multiplier="0.25x"],
+.pokedex-effectiveness-category[data-multiplier="0.25x"] {
     background: rgba(189, 0, 0, 0.3) !important;
     border-color: rgba(255, 0, 0, 0.664) !important;
 }
@@ -1677,7 +1604,8 @@ body.light-theme .control-btn svg path {
 /* 2x - Super Effective (Green) */
 .super-effective,
 .effectiveness-card.super-effective,
-.effectiveness-category[data-multiplier="2x"] {
+.effectiveness-category[data-multiplier="2x"],
+.pokedex-effectiveness-category[data-multiplier="2x"] {
     background: rgba(76, 175, 80, 0.3) !important;
     border-color: rgba(76, 175, 80, 0.5) !important;
 }
@@ -1685,7 +1613,8 @@ body.light-theme .control-btn svg path {
 /* 4x - Ultra Effective (Purple) */
 .ultra-effective,
 .effectiveness-card.ultra-effective,
-.effectiveness-category[data-multiplier="4x"] {
+.effectiveness-category[data-multiplier="4x"],
+.pokedex-effectiveness-category[data-multiplier="4x"] {
     background: rgba(156, 39, 176, 0.3) !important;
     border-color: rgba(156, 39, 176, 0.5) !important;
 }
@@ -2611,32 +2540,6 @@ body.light-theme .playlist-item.active {
     filter: brightness(1.1);
 }
 
-/* Pokédex Effectiveness Colors - Same as Type Chart */
-.pokedex-effectiveness-category[data-multiplier="0x"] {
-    background: rgba(54, 54, 54, 0.6) !important;
-    border-color: rgba(124, 124, 124, 0.8) !important;
-}
-
-.pokedex-effectiveness-category[data-multiplier="0.5x"] {
-    background: rgba(255, 165, 0, 0.3) !important;
-    border-color: rgba(255, 165, 0, 0.5) !important;
-}
-
-.pokedex-effectiveness-category[data-multiplier="0.25x"] {
-    background: rgba(189, 0, 0, 0.3) !important;
-    border-color: rgba(255, 0, 0, 0.664) !important;
-}
-
-.pokedex-effectiveness-category[data-multiplier="2x"] {
-    background: rgba(76, 175, 80, 0.3) !important;
-    border-color: rgba(76, 175, 80, 0.5) !important;
-}
-
-.pokedex-effectiveness-category[data-multiplier="4x"] {
-    background: rgba(156, 39, 176, 0.3) !important;
-    border-color: rgba(156, 39, 176, 0.5) !important;
-}
-
 .pokedex-effectiveness-header {
     display: flex;
     flex-direction: column;
@@ -2962,7 +2865,7 @@ body.light-theme .playlist-item.active {
     }
 }
 
-/* ===== CUSTOM SCROLLBARS ===== */
+/* ===== CUSTOM SCROLLBARS (UNIFIED) ===== */
 ::-webkit-scrollbar {
     width: 12px;
     height: 12px;
@@ -2994,22 +2897,47 @@ body.light-theme .playlist-item.active {
     scrollbar-color: var(--primary-color) rgba(30, 30, 30, 0.8);
 }
 
-.moves-list, .search-suggestions {
+/* Scrollbars más pequeños para elementos específicos */
+.playlist, .wallpaper-grid, .font-list, .moves-list, .search-suggestions {
     scroll-behavior: smooth;
 }
 
-.moves-list::-webkit-scrollbar, .search-suggestions::-webkit-scrollbar {
-    width: 8px;
+.playlist::-webkit-scrollbar,
+.wallpaper-grid::-webkit-scrollbar,
+.font-list::-webkit-scrollbar,
+.moves-list::-webkit-scrollbar,
+.search-suggestions::-webkit-scrollbar {
+    width: 6px;
 }
 
-.moves-list::-webkit-scrollbar-track, .search-suggestions::-webkit-scrollbar-track {
-    background: rgba(20, 20, 20, 0.9);
-    border-radius: 5px;
+.playlist::-webkit-scrollbar-track,
+.wallpaper-grid::-webkit-scrollbar-track,
+.font-list::-webkit-scrollbar-track,
+.moves-list::-webkit-scrollbar-track,
+.search-suggestions::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
 }
 
-.moves-list::-webkit-scrollbar-thumb, .search-suggestions::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, var(--primary-color) 0%, var(--primary-hover) 100%);
-    border-radius: 5px;
+.playlist::-webkit-scrollbar-thumb,
+.font-list::-webkit-scrollbar-thumb,
+.moves-list::-webkit-scrollbar-thumb,
+.search-suggestions::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 3px;
+}
+
+.wallpaper-grid::-webkit-scrollbar-thumb {
+    background: var(--primary-color);
+    border-radius: 3px;
+}
+
+.playlist::-webkit-scrollbar-thumb:hover,
+.wallpaper-grid::-webkit-scrollbar-thumb:hover,
+.font-list::-webkit-scrollbar-thumb:hover,
+.moves-list::-webkit-scrollbar-thumb:hover,
+.search-suggestions::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-hover);
 }
 
 /* ===== LIGHT THEME - POKEDEX OPTIMIZATION ===== */
@@ -3205,12 +3133,6 @@ body.light-theme ::-webkit-scrollbar-track {
 body.light-theme ::-webkit-scrollbar-thumb {
     background: linear-gradient(180deg, var(--primary-color) 0%, var(--primary-hover) 100%);
     opacity: 0.7;
-}
-
-body.light-theme ::-webkit-scrollbar-corner,
-body.light-theme .moves-list::-webkit-scrollbar-track,
-body.light-theme .search-suggestions::-webkit-scrollbar-track {
-    background: rgba(240, 240, 240, 0.9);
 }
 
 body.light-theme * {
@@ -3888,71 +3810,11 @@ body.light-theme .berry-calculator-controls .form-label {
     color: #1a1a1a;
 }
 
-/* Los estilos de controles ahora se manejan en la sección consolidada */
-
 body.light-theme .section-title {
     color: #1a1a1a;
     border-bottom-color: var(--primary-color);
 }
 
-/* ===== TABLAS BOOTSTRAP DINÁMICAS - SIN CONFLICTOS ===== */
-/* Solo estilos base para contenedores, sin tocar Bootstrap */
-.irrigation-schedule-table,
-.seeds-profits-table {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    padding: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: 2rem;
-}
-
-/* Tema claro para contenedores */
-body.light-theme .irrigation-schedule-table,
-body.light-theme .seeds-profits-table {
-    background: rgba(255, 255, 255, 0.9);
-    border-color: rgba(0, 0, 0, 0.1);
-}
-
-/* Elementos específicos dentro de las tablas */
-.berry-info,
-.seed-info {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.berry-sprite,
-.seed-sprite {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-    border-radius: 6px;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 4px;
-}
-
-.berry-info span,
-.seed-info span {
-    font-weight: 600;
-    color: white;
-}
-
-/* Tema claro para elementos específicos */
-body.light-theme .berry-info span,
-body.light-theme .seed-info span {
-    color: #212529 !important;
-}
-
-body.light-theme .berry-sprite,
-body.light-theme .seed-sprite {
-    filter: none !important;
-}
-
-
-body.light-theme .irrigation-schedule-table .berry-info,
-body.light-theme .seeds-profits-table .seed-info {
-    color: #212529 !important;
-}
 
 /* ===== TYPE CALCULATOR CONTAINER - MISMO ESTILO QUE BERRY CALCULATOR ===== */
 .type-calculator-container {
@@ -4052,8 +3914,6 @@ body.light-theme .irrigation-schedule-table .berry-sprite,
 body.light-theme .seeds-profits-table .seed-sprite {
     filter: none !important;
 }
-
-/* Los estilos de tablas ahora se manejan en la sección consolidada */
 
 /* Campos especiales */
 body.light-theme .loss-time {
@@ -4367,8 +4227,6 @@ body.light-theme .summary-item.total {
 }
 
 /* Light Theme Adjustments */
-/* Los estilos de cost-input-group ahora se manejan en la sección consolidada */
-
 body.light-theme .add-cost-btn {
     background: rgba(21, 128, 61, 0.2);
     border-color: rgba(21, 128, 61, 0.3);
@@ -4451,30 +4309,6 @@ input[type="number"]::-webkit-inner-spin-button {
     cursor: pointer;
 }
 
-/* Estilos para selectores */
-.berry-type-selector {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    color: white;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    padding-right: 50px; /* Espacio para el sprite */
-}
-
-.berry-type-selector:focus {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px var(--primary-bg);
-    outline: none;
-}
-
-.berry-type-selector option {
-    background: #1a1a1a;
-    color: white;
-    padding: 8px;
-}
-
 /* Eliminar controles de tiempo (spinners y dropdowns) */
 input[type="time"]::-webkit-calendar-picker-indicator {
     display: none !important;
@@ -4494,22 +4328,4 @@ input[type="time"] {
 /* Light Theme Adjustments */
 body.light-theme .currency-symbol {
     color: rgba(0, 0, 0, 0.7);
-}
-
-body.light-theme .berry-type-selector {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.2);
-    color: #1a1a1a;
-    padding-right: 50px; /* Espacio para el sprite */
-}
-
-body.light-theme .berry-type-selector:focus {
-    background: rgba(0, 0, 0, 0.08);
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px var(--primary-bg);
-}
-
-body.light-theme .berry-type-selector option {
-    background: white;
-    color: #1a1a1a;
 }

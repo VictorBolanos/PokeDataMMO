@@ -33,7 +33,7 @@ class BerryUI {
                                 <div class="custom-dropdown-options" id="berryTypeOptions">
                                     <div class="custom-dropdown-option" data-value="zanamas" data-icon="leppa-berry">
                                         <img src="" alt="" class="dropdown-sprite" style="display: none;">
-                                        <span class="dropdown-option-text">Zanama (Leppa Berry)</span>
+                                        <span class="dropdown-option-text">${lm.t('farming.calculator.leppa')}</span>
                                     </div>
                                 </div>
                             </div>
@@ -187,8 +187,8 @@ class BerryUI {
                             <tr data-phase="${phase.apiName}">
                                 <td>
                                     <div class="berry-info">
-                                        <img src="" alt="${phase.name}" class="berry-sprite" data-berry="${phase.apiName}">
-                                        <span>${phase.name}</span>
+                                        <img src="" alt="${this.getBerryDisplayName(phase.apiName)}" class="berry-sprite" data-berry="${phase.apiName}">
+                                        <span>${this.getBerryDisplayName(phase.apiName)}</span>
                                     </div>
                                 </td>
                                 <td>
@@ -381,12 +381,14 @@ class BerryUI {
         `).join('');
 
         // Fila de Zanamas
+        const lm = window.languageManager;
+        const zanamasName = lm.getCurrentLanguage() === 'es' ? 'Baya Zanamas' : 'Leppa Berry';
         tbody.innerHTML += `
             <tr class="zanamas-row">
                 <td>
                     <div class="berry-info">
-                        <img src="" alt="Zanamas" class="berry-sprite" data-berry="leppa-berry" id="zanamasBerrySprite">
-                        <span>Baya Zanamas</span>
+                        <img src="" alt="${zanamasName}" class="berry-sprite" data-berry="leppa-berry" id="zanamasBerrySprite">
+                        <span>${zanamasName}</span>
                     </div>
                 </td>
                 <td>
@@ -420,9 +422,6 @@ class BerryUI {
         
         // Cargar sprite de Zanamas en tabla de semillas
         this.loadZanamasBerrySprite();
-        
-        // Cargar sprite de baya en selector
-        this.loadSelectorBerrySprite();
     }
 
     // Renderizar resumen de gastos
@@ -545,48 +544,6 @@ class BerryUI {
         }
     }
 
-    // Cargar sprite de baya en selector
-    async loadSelectorBerrySprite() {
-        const selector = document.getElementById('berryTypeSelector');
-        if (!selector) return;
-
-        // Crear elemento para mostrar el sprite
-        const spriteContainer = document.createElement('div');
-        spriteContainer.className = 'selector-berry-sprite';
-        spriteContainer.style.cssText = `
-            position: absolute;
-            right: 30px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            pointer-events: none;
-            z-index: 3;
-        `;
-
-        // Insertar el contenedor del sprite
-        selector.parentElement.style.position = 'relative';
-        selector.parentElement.appendChild(spriteContainer);
-
-        // Cargar sprite cuando se selecciona una opción
-        selector.addEventListener('change', async () => {
-            const selectedOption = selector.options[selector.selectedIndex];
-            const berryIcon = selectedOption.dataset.icon;
-            
-            if (berryIcon) {
-                try {
-                    const response = await fetch(`https://pokeapi.co/api/v2/item/${berryIcon}/`);
-                    const data = await response.json();
-                    spriteContainer.innerHTML = `<img src="${data.sprites.default}" alt="${data.name}" style="width: 100%; height: 100%; object-fit: contain;">`;
-                } catch (error) {
-                    console.error('Error loading selector berry sprite:', error);
-                    spriteContainer.innerHTML = '';
-                }
-            } else {
-                spriteContainer.innerHTML = '';
-            }
-        });
-    }
 
     // Configurar event listeners para horarios
     setupScheduleEventListeners() {
@@ -786,7 +743,6 @@ class BerryUI {
         this.calculateSellable();
         this.calculateProfits();
         this.calculateExpenses();
-        this.updateUI();
     }
 
 
@@ -1059,12 +1015,6 @@ class BerryUI {
         document.getElementById('managementCosts').textContent = `₽${Math.round(total).toLocaleString('es-ES', {maximumFractionDigits: 0})}`;
     }
 
-    // Actualizar UI
-    updateUI() {
-        // Esta función se llama después de todos los cálculos
-        // para actualizar cualquier elemento visual adicional
-    }
-
     // Actualizar traducciones cuando se cambia el idioma
     updateTranslations() {
         const lm = window.languageManager;
@@ -1095,20 +1045,17 @@ class BerryUI {
         }
         
         if (optionText) {
-            const zanamasText = lm.t('farming.calculator.zanamas');
-            optionText.textContent = `${zanamasText} (Leppa Berry)`;
+            const leppaText = lm.t('farming.calculator.leppa');
+            optionText.textContent = leppaText;
         }
         
         // Actualizar texto seleccionado si ya hay una selección
         if (dropdownText && dropdownText.querySelector('img')) {
-            const currentText = dropdownText.textContent;
-            if (currentText.includes('(Leppa Berry)')) {
-                const zanamasText = lm.t('farming.calculator.zanamas');
-                const sprite = dropdownText.querySelector('img');
-                dropdownText.innerHTML = '';
-                dropdownText.appendChild(sprite);
-                dropdownText.appendChild(document.createTextNode(`${zanamasText} (Leppa Berry)`));
-            }
+            const leppaText = lm.t('farming.calculator.leppa');
+            const sprite = dropdownText.querySelector('img');
+            dropdownText.innerHTML = '';
+            dropdownText.appendChild(sprite);
+            dropdownText.appendChild(document.createTextNode(leppaText));
         }
         
         const plantInput = document.getElementById('plantCountInput');
