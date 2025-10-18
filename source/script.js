@@ -683,4 +683,15 @@ function updateColorPreview(color) {
 document.addEventListener('DOMContentLoaded', function() {
     initializeFont();
     initializeColor();
+    initializeBerryCalculator();
 });
+
+// Berry Calculator Integration
+async function initializeBerryCalculator() {
+    try {
+        await window.berryCalculator.init();
+        console.log('✅ Berry Calculator integrated successfully');
+    } catch (error) {
+        console.error('❌ Error integrating Berry Calculator:', error);
+    }
+}

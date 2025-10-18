@@ -53,7 +53,41 @@ class LanguageManager {
                     },
                     developmentStatus: 'Development Status',
                     statusDevelopment: 'In Development',
-                    coreFeatures: 'Core functionality being built'
+                    coreFeatures: 'Core functionality being built',
+                    
+                    // ===== BERRY CALCULATOR =====
+                    calculator: {
+                        title: '🌱 Berry Farming Calculator',
+                        subtitle: 'Advanced calculation system to optimize berry cultivation in PokeMMO',
+                        cultivationType: 'Cultivation Type',
+                        selectCultivation: 'Select a cultivation type',
+                        plantsPerCharacter: 'Plants per Character',
+                        numberOfCharacters: 'Number of Characters',
+                        irrigationSchedule: '⏰ Irrigation Schedule',
+                        seedsAnalysis: '💰 Seeds and Profits Analysis',
+                        expensesSummary: '📊 Expenses and Profits Summary',
+                        berry: 'Berry',
+                        plantingTime: 'Planting Time',
+                        firstIrrigation: 'First Irrigation',
+                        secondIrrigation: 'Second Irrigation',
+                        harvestTime: 'Harvest Time',
+                        harvestLossTime: 'Harvest Loss Time',
+                        harvestUnits: 'Harvest Units',
+                        seed: 'Seed',
+                        harvest: 'Harvest',
+                        toConserve: 'To Conserve',
+                        forZanamas: 'For Zanamas',
+                        sellable: 'Sellable',
+                        sellingPrice: 'Selling Price',
+                        profits: 'Profits',
+                        totalSales: 'Total Sales',
+                        extractionCosts: 'Extraction Costs',
+                        purchaseCosts: 'Purchase Costs',
+                        managementCosts: 'Management Costs',
+                        netProfit: 'Net Profit',
+                        addExpense: 'Add Expense',
+                        removeExpense: 'Remove Expense'
+                    }
                 },
                 
                 // ===== BREEDING TAB =====
@@ -242,7 +276,41 @@ class LanguageManager {
                     },
                     developmentStatus: 'Estado de Desarrollo',
                     statusDevelopment: 'En Desarrollo',
-                    coreFeatures: 'Funcionalidad principal en construcción'
+                    coreFeatures: 'Funcionalidad principal en construcción',
+                    
+                    // ===== CALCULADORA DE BAYAS =====
+                    calculator: {
+                        title: '🌱 Calculadora de Cultivo de Bayas',
+                        subtitle: 'Sistema avanzado de cálculo para optimizar el cultivo de bayas en PokeMMO',
+                        cultivationType: 'Tipo de Cultivo',
+                        selectCultivation: 'Selecciona un tipo de cultivo',
+                        plantsPerCharacter: 'Plantas por Personaje',
+                        numberOfCharacters: 'Número de Personajes',
+                        irrigationSchedule: '⏰ Horarios de Riego',
+                        seedsAnalysis: '💰 Análisis de Semillas y Ganancias',
+                        expensesSummary: '📊 Resumen de Gastos y Ganancias',
+                        berry: 'Baya',
+                        plantingTime: 'Hora Plantado',
+                        firstIrrigation: 'Primer Riego',
+                        secondIrrigation: 'Segundo Riego',
+                        harvestTime: 'Cosechado',
+                        harvestLossTime: 'Hora Pérdida Cosecha',
+                        harvestUnits: 'Unidades Cosecha',
+                        seed: 'Semilla',
+                        harvest: 'Cosecha',
+                        toConserve: 'A Conservar',
+                        forZanamas: 'Para Zanamas',
+                        sellable: 'Vendibles',
+                        sellingPrice: 'Precio al Vender',
+                        profits: 'Ganancias',
+                        totalSales: 'Total Ventas',
+                        extractionCosts: 'Gastos de Extracción',
+                        purchaseCosts: 'Gastos de Compra',
+                        managementCosts: 'Gastos de Gestión',
+                        netProfit: 'Ganancia Neta',
+                        addExpense: 'Agregar Gasto',
+                        removeExpense: 'Quitar Gasto'
+                    }
                 },
                 
                 // ===== PESTAÑA CRÍA =====

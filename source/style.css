@@ -3268,3 +3268,856 @@ body.light-theme .pokemon-card-container .text-muted h4 {
 body.light-theme .pokemon-card-container .text-muted p {
     color: rgba(0, 0, 0, 0.6);
 }
+
+/* ===== BERRY CALCULATOR STYLES ===== */
+.berry-calculator-container {
+    padding: 2rem;
+    background: rgba(30, 30, 30, 0.6);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: 4px solid var(--primary-color);
+    backdrop-filter: blur(10px);
+}
+
+.berry-calculator-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.berry-calculator-header h2 {
+    color: white;
+    font-weight: 700;
+    font-size: 2.2rem;
+}
+
+.berry-calculator-header .lead {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+}
+
+.berry-calculator-controls {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 2rem;
+}
+
+.berry-calculator-controls .form-label {
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.berry-calculator-controls .form-select,
+.berry-calculator-controls .form-control {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: white;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.berry-calculator-controls .form-select:focus,
+.berry-calculator-controls .form-control:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-bg);
+    outline: none;
+}
+
+.berry-calculator-controls .form-select:disabled,
+.berry-calculator-controls .form-control:disabled {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.5);
+    cursor: not-allowed;
+}
+
+/* Section Titles */
+.section-title {
+    color: white;
+    font-weight: 700;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Tables */
+.irrigation-schedule-table,
+.seeds-profits-table {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    overflow: hidden;
+}
+
+.irrigation-schedule-table .table,
+.seeds-profits-table .table {
+    margin-bottom: 0;
+    color: white;
+}
+
+.irrigation-schedule-table .table th,
+.seeds-profits-table .table th {
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    color: white;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    padding: 1rem 0.75rem;
+}
+
+.irrigation-schedule-table .table td,
+.seeds-profits-table .table td {
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0.75rem;
+    vertical-align: middle;
+}
+
+.irrigation-schedule-table .table tbody tr:hover,
+.seeds-profits-table .table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Berry and Seed Info */
+.berry-info,
+.seed-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.berry-sprite,
+.seed-sprite {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 4px;
+}
+
+.berry-info span,
+.seed-info span {
+    font-weight: 600;
+    color: white;
+}
+
+/* Form Controls in Tables */
+.irrigation-schedule-table .form-control-sm,
+.seeds-profits-table .form-control-sm {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: white;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+    transition: all 0.3s ease;
+}
+
+.irrigation-schedule-table .form-control-sm:focus,
+.seeds-profits-table .form-control-sm:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-bg);
+    outline: none;
+}
+
+/* Loss Time Display */
+.loss-time {
+    color: #ff6b6b;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Calculated Time Display */
+.calculated-time {
+    color: #3b82f6;
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: rgba(59, 130, 246, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* Plant Time Inputs */
+.plant-time-input {
+    background: rgba(168, 85, 247, 0.2);
+    border-color: rgba(168, 85, 247, 0.3);
+}
+
+.plant-time-input:focus {
+    background: rgba(168, 85, 247, 0.3);
+    border-color: #a855f7;
+    box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.2);
+}
+
+/* Irrigation Inputs */
+.irrigation-input {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.irrigation-input:focus {
+    background: rgba(59, 130, 246, 0.3);
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* Harvest Time Inputs */
+.harvest-input {
+    background: rgba(34, 197, 94, 0.2);
+    border-color: rgba(34, 197, 94, 0.3);
+}
+
+.harvest-input:focus {
+    background: rgba(34, 197, 94, 0.3);
+    border-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+}
+
+/* Loss Time Display (read-only) */
+.loss-time-display {
+    color: #ff6b6b;
+    font-weight: 600;
+    font-size: 0.9rem;
+    background: rgba(239, 68, 68, 0.1);
+    padding: 0.4rem 0.6rem;
+    border-radius: 6px;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    display: block;
+    min-height: 1.5rem;
+}
+
+/* Harvest Units */
+.harvest-units {
+    background: rgba(34, 197, 94, 0.2);
+    border-color: rgba(34, 197, 94, 0.3);
+}
+
+.harvest-units:focus {
+    background: rgba(34, 197, 94, 0.3);
+    border-color: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+}
+
+/* Price Inputs */
+.price-input {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.price-input:focus {
+    background: rgba(59, 130, 246, 0.3);
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+/* Amount Displays */
+.harvest-amount,
+.conservation-amount,
+.zanamas-amount,
+.sellable-amount,
+.profit-amount {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.harvest-amount {
+    color: #22c55e;
+}
+
+.conservation-amount {
+    color: #f59e0b;
+}
+
+.zanamas-amount {
+    color: #8b5cf6;
+}
+
+.sellable-amount {
+    color: #06b6d4;
+}
+
+.profit-amount {
+    color: #10b981;
+    font-size: 1rem;
+}
+
+/* Zanamas Row */
+.zanamas-row {
+    background: rgba(255, 215, 0, 0.1);
+    border-left: 4px solid #ffd700;
+}
+
+.zanamas-row:hover {
+    background: rgba(255, 215, 0, 0.15);
+}
+
+/* Expenses Summary */
+.expenses-summary-section {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.summary-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    height: 100%;
+    transition: all 0.3s ease;
+}
+
+.summary-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px);
+}
+
+.summary-card h5 {
+    color: white;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+.summary-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.summary-item:last-child {
+    border-bottom: none;
+}
+
+.summary-item span:first-child {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 500;
+}
+
+.summary-item span:last-child {
+    color: white;
+    font-weight: 600;
+}
+
+.summary-item.total {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin-top: 0.5rem;
+    border-bottom: none;
+}
+
+.summary-card.final-total {
+    background: linear-gradient(135deg, var(--primary-bg) 0%, rgba(34, 197, 94, 0.2) 100%);
+    border-color: var(--primary-color);
+}
+
+.summary-card.final-total h5 {
+    color: var(--primary-color);
+}
+
+.summary-card.final-total .summary-item span:last-child {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+/* Extraction Costs */
+.extraction-costs {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.extraction-costs .summary-item {
+    padding: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .berry-calculator-container {
+        padding: 1rem;
+    }
+    
+    .berry-calculator-header h2 {
+        font-size: 1.8rem;
+    }
+    
+    .berry-calculator-controls {
+        padding: 1rem;
+    }
+    
+    .berry-info,
+    .seed-info {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    
+    .berry-sprite,
+    .seed-sprite {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .irrigation-schedule-table,
+    .seeds-profits-table {
+        padding: 0.5rem;
+    }
+    
+    .irrigation-schedule-table .table th,
+    .seeds-profits-table .table th {
+        padding: 0.5rem 0.25rem;
+        font-size: 0.7rem;
+    }
+    
+    .irrigation-schedule-table .table td,
+    .seeds-profits-table .table td {
+        padding: 0.5rem 0.25rem;
+    }
+    
+    .expenses-summary-section {
+        padding: 1rem;
+    }
+    
+    .summary-card {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+}
+
+/* Light Theme Adjustments */
+body.light-theme .berry-calculator-container {
+    background: rgba(255, 255, 255, 0.9);
+    border: 4px solid var(--primary-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .berry-calculator-header h2 {
+    color: #1a1a1a;
+}
+
+body.light-theme .berry-calculator-header .lead {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+body.light-theme .berry-calculator-controls {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .berry-calculator-controls .form-label {
+    color: #1a1a1a;
+}
+
+body.light-theme .berry-calculator-controls .form-select,
+body.light-theme .berry-calculator-controls .form-control {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.2);
+    color: #1a1a1a;
+}
+
+body.light-theme .berry-calculator-controls .form-select:focus,
+body.light-theme .berry-calculator-controls .form-control:focus {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-bg);
+}
+
+body.light-theme .section-title {
+    color: #1a1a1a;
+    border-bottom-color: var(--primary-color);
+}
+
+body.light-theme .irrigation-schedule-table,
+body.light-theme .seeds-profits-table {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .irrigation-schedule-table .table th,
+body.light-theme .seeds-profits-table .table th {
+    background: rgba(0, 0, 0, 0.05);
+    color: #1a1a1a;
+}
+
+body.light-theme .irrigation-schedule-table .table td,
+body.light-theme .seeds-profits-table .table td {
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .irrigation-schedule-table .table tbody tr:hover,
+body.light-theme .seeds-profits-table .table tbody tr:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .berry-info span,
+body.light-theme .seed-info span {
+    color: #1a1a1a;
+}
+
+body.light-theme .irrigation-schedule-table .form-control-sm,
+body.light-theme .seeds-profits-table .form-control-sm {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.2);
+    color: #1a1a1a;
+}
+
+body.light-theme .irrigation-schedule-table .form-control-sm:focus,
+body.light-theme .seeds-profits-table .form-control-sm:focus {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-bg);
+}
+
+body.light-theme .loss-time {
+    color: #dc2626;
+}
+
+body.light-theme .calculated-time {
+    color: #1d4ed8;
+    background: rgba(29, 78, 216, 0.1);
+    border-color: rgba(29, 78, 216, 0.2);
+}
+
+body.light-theme .harvest-input {
+    background: rgba(21, 128, 61, 0.2);
+    border-color: rgba(21, 128, 61, 0.3);
+}
+
+body.light-theme .harvest-input:focus {
+    background: rgba(21, 128, 61, 0.3);
+    border-color: #15803d;
+    box-shadow: 0 0 0 2px rgba(21, 128, 61, 0.2);
+}
+
+body.light-theme .plant-time-input {
+    background: rgba(124, 58, 237, 0.2);
+    border-color: rgba(124, 58, 237, 0.3);
+}
+
+body.light-theme .plant-time-input:focus {
+    background: rgba(124, 58, 237, 0.3);
+    border-color: #7c3aed;
+    box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.2);
+}
+
+body.light-theme .irrigation-input {
+    background: rgba(29, 78, 216, 0.2);
+    border-color: rgba(29, 78, 216, 0.3);
+}
+
+body.light-theme .irrigation-input:focus {
+    background: rgba(29, 78, 216, 0.3);
+    border-color: #1d4ed8;
+    box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.2);
+}
+
+body.light-theme .loss-input {
+    background: rgba(185, 28, 28, 0.2);
+    border-color: rgba(185, 28, 28, 0.3);
+}
+
+body.light-theme .loss-time-display {
+    color: #dc2626;
+    background: rgba(185, 28, 28, 0.1);
+    border-color: rgba(185, 28, 28, 0.2);
+}
+
+body.light-theme .expenses-summary-section {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .summary-card {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .summary-card:hover {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .summary-card h5 {
+    color: #1a1a1a;
+}
+
+body.light-theme .summary-item {
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .summary-item span:first-child {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+body.light-theme .summary-item span:last-child {
+    color: #1a1a1a;
+}
+
+body.light-theme .summary-item.total {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+/* ===== EXPENSE INPUTS STYLES ===== */
+.cost-input-group {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+    align-items: center;
+}
+
+.cost-input-group .form-control {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: white;
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+    transition: all 0.3s ease;
+}
+
+.cost-input-group .form-control:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-bg);
+    outline: none;
+}
+
+.add-cost-btn,
+.remove-cost-btn {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.add-cost-btn {
+    background: rgba(34, 197, 94, 0.2);
+    border-color: rgba(34, 197, 94, 0.3);
+    color: #22c55e;
+}
+
+.add-cost-btn:hover {
+    background: rgba(34, 197, 94, 0.3);
+    border-color: #22c55e;
+    transform: scale(1.05);
+}
+
+.remove-cost-btn {
+    background: rgba(239, 68, 68, 0.2);
+    border-color: rgba(239, 68, 68, 0.3);
+    color: #ef4444;
+}
+
+.remove-cost-btn:hover {
+    background: rgba(239, 68, 68, 0.3);
+    border-color: #ef4444;
+    transform: scale(1.05);
+}
+
+/* Berry Info Small */
+.berry-info-small {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.berry-sprite-small {
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px;
+}
+
+.berry-name {
+    font-weight: 500;
+    font-size: 0.85rem;
+}
+
+.extraction-item {
+    padding: 0.25rem 0;
+    font-size: 0.9rem;
+}
+
+/* Light Theme Adjustments */
+body.light-theme .cost-input-group .form-control {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.2);
+    color: #1a1a1a;
+}
+
+body.light-theme .cost-input-group .form-control:focus {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px var(--primary-bg);
+}
+
+body.light-theme .add-cost-btn {
+    background: rgba(21, 128, 61, 0.2);
+    border-color: rgba(21, 128, 61, 0.3);
+    color: #15803d;
+}
+
+body.light-theme .add-cost-btn:hover {
+    background: rgba(21, 128, 61, 0.3);
+    border-color: #15803d;
+}
+
+body.light-theme .remove-cost-btn {
+    background: rgba(185, 28, 28, 0.2);
+    border-color: rgba(185, 28, 28, 0.3);
+    color: #b91c1c;
+}
+
+body.light-theme .remove-cost-btn:hover {
+    background: rgba(185, 28, 28, 0.3);
+    border-color: #b91c1c;
+}
+
+/* ===== CURRENCY INPUT STYLES ===== */
+.currency-input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.currency-symbol {
+    position: absolute;
+    left: 8px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+    font-size: 0.8rem;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.currency-input {
+    padding-left: 24px !important;
+    text-align: right;
+}
+
+/* ===== CUSTOM FORM CONTROLS STYLES ===== */
+/* Estilos para inputs de fecha */
+input[type="time"]::-webkit-calendar-picker-indicator,
+input[type="date"]::-webkit-calendar-picker-indicator {
+    background: var(--primary-color);
+    border-radius: 4px;
+    padding: 4px;
+    cursor: pointer;
+    filter: brightness(0) invert(1);
+}
+
+input[type="time"]::-webkit-calendar-picker-indicator:hover,
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+    background: var(--primary-color);
+    opacity: 0.8;
+}
+
+/* Estilos para spinners de inputs numéricos */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Custom spinner buttons */
+input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: inner-spin-button;
+    background: var(--primary-color);
+    border-radius: 4px;
+    padding: 2px;
+    cursor: pointer;
+}
+
+/* Estilos para selectores */
+.berry-type-selector {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    color: white;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    padding-right: 50px; /* Espacio para el sprite */
+}
+
+.berry-type-selector:focus {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-bg);
+    outline: none;
+}
+
+.berry-type-selector option {
+    background: #1a1a1a;
+    color: white;
+    padding: 8px;
+}
+
+/* Eliminar controles de tiempo (spinners y dropdowns) */
+input[type="time"]::-webkit-calendar-picker-indicator {
+    display: none !important;
+}
+
+input[type="time"]::-webkit-inner-spin-button,
+input[type="time"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="time"] {
+    -moz-appearance: textfield;
+}
+
+/* Light Theme Adjustments */
+body.light-theme .currency-symbol {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+body.light-theme .berry-type-selector {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.2);
+    color: #1a1a1a;
+    padding-right: 50px; /* Espacio para el sprite */
+}
+
+body.light-theme .berry-type-selector:focus {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px var(--primary-bg);
+}
+
+body.light-theme .berry-type-selector option {
+    background: white;
+    color: #1a1a1a;
+}
