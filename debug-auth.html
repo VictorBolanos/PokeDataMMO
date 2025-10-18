@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug - Auth System</title>
+    <style>
+        body { font-family: monospace; padding: 20px; background: #1a1a1a; color: #fff; }
+        .section { margin: 20px 0; padding: 15px; background: #2a2a2a; border-radius: 8px; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        pre { background: #0a0a0a; padding: 10px; border-radius: 5px; overflow-x: auto; }
+        .clear-btn { background: #ef4444; color: white; border: none; border-radius: 5px; }
+        .load-btn { background: #22c55e; color: white; border: none; border-radius: 5px; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Debug - Sistema de Autenticación</h1>
+    
+    <div class="section">
+        <h2>📊 Datos en localStorage</h2>
+        <button class="load-btn" onclick="showLocalStorage()">Ver Datos</button>
+        <button class="clear-btn" onclick="clearLocalStorage()">Limpiar localStorage</button>
+        <button class="load-btn" onclick="loadFromJSON()">Forzar carga desde JSON</button>
+        <pre id="localStorageData">Click en "Ver Datos" para mostrar...</pre>
+    </div>
+    
+    <div class="section">
+        <h2>📝 users.json Original</h2>
+        <button class="load-btn" onclick="showJSON()">Cargar JSON</button>
+        <pre id="jsonData">Click en "Cargar JSON" para mostrar...</pre>
+    </div>
+    
+    <div class="section">
+        <h2>👤 Sesión Actual</h2>
+        <pre id="sessionData">Cargando...</pre>
+    </div>
+
+    <script>
+        const STORAGE_KEY = 'pokedatammo_users';
+        const SESSION_KEY = 'pokedatammo_session';
+
+        function showLocalStorage() {
+            const data = localStorage.getItem(STORAGE_KEY);
+            const session = localStorage.getItem(SESSION_KEY);
+            
+            const output = {
+                users: data ? JSON.parse(data) : null,
+                session: session ? JSON.parse(session) : null
+            };
+            
+            document.getElementById('localStorageData').textContent = JSON.stringify(output, null, 2);
+        }
+
+        function clearLocalStorage() {
+            if (confirm('¿Eliminar TODOS los datos de localStorage?')) {
+                localStorage.removeItem(STORAGE_KEY);
+                localStorage.removeItem(SESSION_KEY);
+                alert('✅ localStorage limpiado');
+                showLocalStorage();
+                showSession();
+            }
+        }
+
+        async function loadFromJSON() {
+            try {
+                const response = await fetch('data/users-info/users.json');
+                const data = await response.json();
+                
+                // Codificar passwords
+                data.users = data.users.map(user => ({
+                    ...user,
+                    password: btoa(user.password)
+                }));
+                
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+                alert('✅ Usuarios cargados desde JSON');
+                showLocalStorage();
+            } catch (error) {
+                alert('❌ Error: ' + error.message);
+            }
+        }
+
+        async function showJSON() {
+            try {
+                const response = await fetch('data/users-info/users.json');
+                const data = await response.json();
+                document.getElementById('jsonData').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById('jsonData').textContent = '❌ Error: ' + error.message;
+            }
+        }
+
+        function showSession() {
+            const session = localStorage.getItem(SESSION_KEY);
+            const output = session ? JSON.parse(session) : 'No hay sesión activa';
+            document.getElementById('sessionData').textContent = JSON.stringify(output, null, 2);
+        }
+
+        // Cargar automáticamente
+        showLocalStorage();
+        showSession();
+        showJSON();
+    </script>
+</body>
+</html>
+

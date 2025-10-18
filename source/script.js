@@ -3,13 +3,33 @@
 // ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', initializeApp);
 
-function initializeApp() {
+async function initializeApp() {
+    // Limpiar sesión existente para forzar login (temporal)
+    console.log('🧹 Limpiando sesión existente para debug...');
+    localStorage.removeItem('pokedatammo_session');
+    
+    // Verificar que AuthManager esté disponible
+    console.log('🔍 AuthManager disponible:', !!window.authManager);
+    if (!window.authManager) {
+        console.error('❌ AuthManager no está disponible!');
+        return;
+    }
+    
+    // Esperar a que AuthManager esté listo
+    console.log('⏳ Inicializando AuthManager...');
+    await window.authManager.init();
+    console.log('✅ AuthManager inicializado');
+    
+    // Verificar autenticación y mostrar vista apropiada
+    checkAuthenticationAndRender();
+    
     initializeTabs();
     initializeWallpaper();
     initializeTheme();
     initializeLanguage();
     initializeFont();
     initializeColor();
+    initializeAuth();
     loadSavedWallpaper();
     loadSavedTheme();
     translateUI(); // Initial translation
@@ -303,6 +323,7 @@ async function translateUI() {
     translatePVPTab();
     await translatePokedexTab();
     translateTypeChartTab();
+    translateAuthUI();
 }
 
 function translateLeaguesTab() {
@@ -714,5 +735,272 @@ async function initializeBerryCalculator() {
         console.log('✅ Berry Calculator integrated successfully');
     } catch (error) {
         console.error('❌ Error integrating Berry Calculator:', error);
+    }
+}
+
+// ===== AUTHENTICATION SYSTEM =====
+function checkAuthenticationAndRender() {
+    const isAuthenticated = window.authManager.isAuthenticated();
+    const authCard = document.getElementById('authCard');
+    const mainCard = document.getElementById('mainCard');
+    const userPillContainer = document.getElementById('userPillContainer');
+    
+    console.log('🔍 Auth Status:', {
+        isAuthenticated: isAuthenticated,
+        currentUser: window.authManager.getCurrentUser(),
+        sessionKey: localStorage.getItem('pokedatammo_session')
+    });
+    
+    if (isAuthenticated) {
+        // Usuario autenticado - mostrar contenido principal
+        console.log('✅ Usuario autenticado, mostrando contenido principal');
+        authCard.style.display = 'none';
+        mainCard.style.display = 'block';
+        userPillContainer.style.display = 'block';
+        updateUserPill();
+    } else {
+        // No autenticado - mostrar login/registro
+        console.log('❌ Usuario NO autenticado, mostrando login/registro');
+        authCard.style.display = 'block';
+        mainCard.style.display = 'none';
+        userPillContainer.style.display = 'none';
+    }
+}
+
+function initializeAuth() {
+    console.log('🔧 Inicializando sistema de autenticación...');
+    
+    // Auth Tabs
+    const authTabs = document.querySelectorAll('.auth-tab');
+    authTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            switchAuthTab(tab.dataset.authTab);
+        });
+    });
+    
+    // Login Form
+    const loginForm = document.getElementById('loginForm');
+    console.log('🔍 Login form encontrado:', !!loginForm);
+    if (loginForm) {
+        loginForm.addEventListener('submit', handleLogin);
+        console.log('✅ Event listener de login añadido');
+    } else {
+        console.error('❌ Login form NO encontrado!');
+    }
+    
+    // Register Form
+    const registerForm = document.getElementById('registerForm');
+    console.log('🔍 Register form encontrado:', !!registerForm);
+    if (registerForm) {
+        registerForm.addEventListener('submit', handleRegister);
+        console.log('✅ Event listener de register añadido');
+    } else {
+        console.error('❌ Register form NO encontrado!');
+    }
+    
+    // Logout Button
+    const logoutBtn = document.getElementById('logoutBtn');
+    logoutBtn.addEventListener('click', handleLogout);
+    
+    // User Pill Dropdown
+    const userPillBtn = document.getElementById('userPillBtn');
+    const userDropdown = document.getElementById('userDropdown');
+    
+    userPillBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        closeDropdown('musicDropdown');
+        closeDropdown('wallpaperDropdown');
+        closeDropdown('fontDropdown');
+        closeDropdown('colorDropdown');
+        userDropdown.classList.toggle('show');
+    });
+    
+    // Close user dropdown on outside click
+    setupOutsideClickHandler(userDropdown, userPillBtn);
+}
+
+function switchAuthTab(tabName) {
+    const authTabs = document.querySelectorAll('.auth-tab');
+    const authPanes = document.querySelectorAll('.auth-pane');
+    
+    authTabs.forEach(tab => {
+        tab.classList.toggle('active', tab.dataset.authTab === tabName);
+    });
+    
+    authPanes.forEach(pane => {
+        pane.classList.toggle('active', pane.id === `${tabName}Pane`);
+    });
+    
+    // Limpiar mensajes al cambiar de tab
+    document.getElementById('loginMessage').textContent = '';
+    document.getElementById('registerMessage').textContent = '';
+}
+
+async function handleLogin(e) {
+    e.preventDefault();
+    
+    console.log('🔑 Iniciando proceso de login...');
+    
+    const username = document.getElementById('loginUsername').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    const messageEl = document.getElementById('loginMessage');
+    
+    console.log('📝 Datos del login:', {
+        username: username,
+        password: password ? '***' : 'VACÍO',
+        messageEl: !!messageEl
+    });
+    
+    // Limpiar mensaje anterior
+    messageEl.textContent = '';
+    messageEl.className = 'auth-message';
+    
+    try {
+        console.log('⏳ Llamando a authManager.login...');
+        
+        const result = await window.authManager.login(username, password);
+        
+        console.log('📋 Resultado del login:', result);
+        
+        if (result.success) {
+            console.log('✅ Login exitoso!');
+            messageEl.className = 'auth-message success';
+            messageEl.textContent = result.message;
+            
+            // Esperar un momento y recargar vista
+            setTimeout(() => {
+                checkAuthenticationAndRender();
+                translateAuthUI(); // Actualizar traducciones
+            }, 500);
+        } else {
+            console.log('❌ Error en login:', result.message);
+            messageEl.className = 'auth-message error';
+            messageEl.textContent = result.message;
+        }
+    } catch (error) {
+        console.error('💥 Error inesperado en login:', error);
+        messageEl.className = 'auth-message error';
+        messageEl.textContent = 'Error inesperado. Inténtalo de nuevo.';
+    }
+}
+
+async function handleRegister(e) {
+    e.preventDefault();
+    
+    console.log('🚀 Iniciando proceso de registro...');
+    
+    const username = document.getElementById('registerUsername').value.trim();
+    const password = document.getElementById('registerPassword').value;
+    const email = document.getElementById('registerEmail').value.trim();
+    const messageEl = document.getElementById('registerMessage');
+    
+    console.log('📝 Datos del formulario:', {
+        username: username,
+        password: password ? '***' : 'VACÍO',
+        email: email,
+        messageEl: !!messageEl
+    });
+    
+    // Limpiar mensaje anterior
+    messageEl.textContent = '';
+    messageEl.className = 'auth-message';
+    
+    try {
+        console.log('⏳ Llamando a authManager.register...');
+        
+        const result = await window.authManager.register(username, password, email);
+        
+        console.log('📋 Resultado del registro:', result);
+        
+        if (result.success) {
+            console.log('✅ Registro exitoso!');
+            messageEl.className = 'auth-message success';
+            messageEl.textContent = result.message;
+            
+            // Esperar un momento y recargar vista
+            setTimeout(() => {
+                checkAuthenticationAndRender();
+                translateAuthUI(); // Actualizar traducciones
+            }, 500);
+        } else {
+            console.log('❌ Error en registro:', result.message);
+            messageEl.className = 'auth-message error';
+            messageEl.textContent = result.message;
+        }
+    } catch (error) {
+        console.error('💥 Error inesperado en registro:', error);
+        messageEl.className = 'auth-message error';
+        messageEl.textContent = 'Error inesperado. Inténtalo de nuevo.';
+    }
+}
+
+function handleLogout() {
+    const result = window.authManager.logout();
+    
+    // Cerrar dropdown
+    document.getElementById('userDropdown').classList.remove('show');
+    
+    // Recargar vista
+    checkAuthenticationAndRender();
+    translateAuthUI(); // Actualizar traducciones
+}
+
+function updateUserPill() {
+    const user = window.authManager.getCurrentUser();
+    
+    if (user) {
+        document.getElementById('usernameDisplay').textContent = user.username;
+        document.getElementById('userDropdownName').textContent = user.username;
+        document.getElementById('userDropdownEmail').textContent = user.email || 
+            (window.languageManager.getCurrentLanguage() === 'es' ? 'Sin email' : 'No email');
+    }
+}
+
+function translateAuthUI() {
+    const lm = window.languageManager;
+    const lang = lm.getCurrentLanguage();
+    
+    // Auth card title y subtitle
+    const authTitle = document.getElementById('authTitle');
+    const authSubtitle = document.getElementById('authSubtitle');
+    if (authTitle) authTitle.textContent = lm.t('auth.title');
+    if (authSubtitle) authSubtitle.textContent = lm.t('auth.subtitle');
+    
+    // Auth tabs
+    const loginTab = document.getElementById('loginTab');
+    const registerTab = document.getElementById('registerTab');
+    if (loginTab) loginTab.textContent = lm.t('auth.loginTab');
+    if (registerTab) registerTab.textContent = lm.t('auth.registerTab');
+    
+    // Login form
+    const loginUsernameLabel = document.getElementById('loginUsernameLabel');
+    const loginPasswordLabel = document.getElementById('loginPasswordLabel');
+    const loginSubmitBtn = document.getElementById('loginSubmitBtn');
+    if (loginUsernameLabel) loginUsernameLabel.textContent = lm.t('auth.username');
+    if (loginPasswordLabel) loginPasswordLabel.textContent = lm.t('auth.password');
+    if (loginSubmitBtn) loginSubmitBtn.textContent = lm.t('auth.loginButton');
+    
+    // Register form
+    const registerUsernameLabel = document.getElementById('registerUsernameLabel');
+    const registerPasswordLabel = document.getElementById('registerPasswordLabel');
+    const registerEmailLabel = document.getElementById('registerEmailLabel');
+    const registerSubmitBtn = document.getElementById('registerSubmitBtn');
+    const usernameHelp = document.getElementById('usernameHelp');
+    const passwordHelp = document.getElementById('passwordHelp');
+    
+    if (registerUsernameLabel) registerUsernameLabel.textContent = lm.t('auth.username');
+    if (registerPasswordLabel) registerPasswordLabel.textContent = lm.t('auth.password');
+    if (registerEmailLabel) registerEmailLabel.innerHTML = `${lm.t('auth.email')} <span class="text-muted">${lm.t('auth.optional')}</span>`;
+    if (registerSubmitBtn) registerSubmitBtn.textContent = lm.t('auth.registerButton');
+    if (usernameHelp) usernameHelp.textContent = lm.t('auth.usernameHelp');
+    if (passwordHelp) passwordHelp.textContent = lm.t('auth.passwordHelp');
+    
+    // Logout button
+    const logoutBtnText = document.getElementById('logoutBtnText');
+    if (logoutBtnText) logoutBtnText.textContent = lm.t('auth.logout');
+    
+    // Update user pill if authenticated
+    if (window.authManager.isAuthenticated()) {
+        updateUserPill();
     }
 }

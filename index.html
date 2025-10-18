@@ -20,6 +20,42 @@
             
             <!-- Menu Buttons Container -->
             <div class="menu-buttons-container d-flex align-items-center gap-3">
+                <!-- User Pill (shown when logged in) -->
+                <div class="user-pill-container position-relative" id="userPillContainer" style="display: none;">
+                    <button class="user-pill-btn" id="userPillBtn">
+                        <svg width="16" height="16" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+                            <path fill="white" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"/>
+                        </svg>
+                        <span class="username-display" id="usernameDisplay"></span>
+                        <svg width="10" height="10" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="dropdown-arrow-svg">
+                            <path fill="white" d="M7 10l5 5 5-5z"/>
+                        </svg>
+                    </button>
+                    
+                    <!-- User Dropdown -->
+                    <div class="user-dropdown" id="userDropdown">
+                        <div class="user-info-section">
+                            <div class="user-avatar">
+                                <svg width="40" height="40" viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="white" d="M224 256c70.7 0 128-57.3 128-128S294.7 0 224 0 96 57.3 96 128s57.3 128 128 128zm89.6 32h-16.7c-22.2 10.2-46.9 16-72.9 16s-50.6-5.8-72.9-16h-16.7C60.2 288 0 348.2 0 422.4V464c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48v-41.6c0-74.2-60.2-134.4-134.4-134.4z"/>
+                                </svg>
+                            </div>
+                            <div class="user-details">
+                                <div class="user-name" id="userDropdownName"></div>
+                                <div class="user-email" id="userDropdownEmail"></div>
+                            </div>
+                        </div>
+                        <div class="user-actions">
+                            <button class="logout-btn" id="logoutBtn">
+                                <svg width="16" height="16" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill="white" d="M497 273L329 441c-15 15-41 4.5-41-17v-96H152c-13.3 0-24-10.7-24-24v-96c0-13.3 10.7-24 24-24h136V88c0-21.4 25.9-32 41-17l168 168c9.3 9.4 9.3 24.6 0 34zM192 436v-40c0-6.6-5.4-12-12-12H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h84c6.6 0 12-5.4 12-12V76c0-6.6-5.4-12-12-12H96c-53 0-96 43-96 96v192c0 53 43 96 96 96h84c6.6 0 12-5.4 12-12z"/>
+                                </svg>
+                                <span id="logoutBtnText">Cerrar Sesión</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
                 <!-- 1. Language Button -->
                 <div class="language-container position-relative">
                     <button class="language-btn" id="languageBtn" title="Change Language / Cambiar Idioma">
@@ -201,8 +237,79 @@
             </div>
         </div>
 
+        <!-- Authentication Card (shown when not logged in) -->
+        <div class="auth-card" id="authCard" style="display: none;">
+            <div class="auth-container">
+                <!-- Auth Header -->
+                <div class="auth-header">
+                    <h2 class="auth-title" id="authTitle">🔐 PokeDataMMO</h2>
+                    <p class="auth-subtitle" id="authSubtitle">Inicia sesión o regístrate para continuar</p>
+                </div>
+                
+                <!-- Auth Tabs -->
+                <div class="auth-tabs">
+                    <button class="auth-tab active" data-auth-tab="login" id="loginTab">
+                        Iniciar Sesión
+                    </button>
+                    <button class="auth-tab" data-auth-tab="register" id="registerTab">
+                        Registrarse
+                    </button>
+                </div>
+                
+                <!-- Auth Content -->
+                <div class="auth-content">
+                    <!-- Login Form -->
+                    <div class="auth-pane active" id="loginPane">
+                        <form class="auth-form" id="loginForm">
+                            <div class="form-group mb-3">
+                                <label class="form-label" id="loginUsernameLabel">Usuario</label>
+                                <input type="text" class="form-control auth-input" id="loginUsername" 
+                                       placeholder="username" autocomplete="username" required>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label class="form-label" id="loginPasswordLabel">Contraseña</label>
+                                <input type="password" class="form-control auth-input" id="loginPassword" 
+                                       placeholder="••••••••" autocomplete="current-password" required>
+                            </div>
+                            <div class="auth-message" id="loginMessage"></div>
+                            <button type="submit" class="btn btn-primary w-100 auth-submit-btn" id="loginSubmitBtn">
+                                Iniciar Sesión
+                            </button>
+                        </form>
+                    </div>
+                    
+                    <!-- Register Form -->
+                    <div class="auth-pane" id="registerPane">
+                        <form class="auth-form" id="registerForm">
+                            <div class="form-group mb-3">
+                                <label class="form-label" id="registerUsernameLabel">Usuario</label>
+                                <input type="text" class="form-control auth-input" id="registerUsername" 
+                                       placeholder="username" autocomplete="username" required>
+                                <small class="form-text" id="usernameHelp">3-20 caracteres, solo letras, números, _ y -</small>
+                            </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label" id="registerPasswordLabel">Contraseña</label>
+                                <input type="password" class="form-control auth-input" id="registerPassword" 
+                                       placeholder="••••••••" autocomplete="new-password" required>
+                                <small class="form-text" id="passwordHelp">Mínimo 3 caracteres</small>
+                            </div>
+                            <div class="form-group mb-4">
+                                <label class="form-label" id="registerEmailLabel">Email <span class="text-muted">(opcional)</span></label>
+                                <input type="email" class="form-control auth-input" id="registerEmail" 
+                                       placeholder="email@example.com" autocomplete="email">
+                            </div>
+                            <div class="auth-message" id="registerMessage"></div>
+                            <button type="submit" class="btn btn-primary w-100 auth-submit-btn" id="registerSubmitBtn">
+                                Registrarse
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Main Content Card -->
-        <div class="main-card">
+        <div class="main-card" id="mainCard">
             <!-- Unified Tab System -->
             <div class="tab-system-container">
                 <!-- Navigation Tabs -->
@@ -465,10 +572,34 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyB0jcy1XMigBepVTJnyywWKapOnmUWr2kU",
+            authDomain: "pokedatammo.firebaseapp.com",
+            projectId: "pokedatammo",
+            storageBucket: "pokedatammo.firebasestorage.app",
+            messagingSenderId: "172800873755",
+            appId: "1:172800873755:web:dd03fce2491d398b722fbe"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        
+        // Initialize Firestore
+        const db = firebase.firestore();
+    </script>
+    
     <!-- Shared Utilities -->
     <script src="source/utils.js"></script>
     <!-- Language Manager (MUST load first) -->
     <script src="source/language-manager.js"></script>
+    <!-- Authentication Manager -->
+    <script src="source/auth-manager.js"></script>
     <!-- Berry Calculator Scripts -->
     <script src="source/berry-calculator/berry-data.js"></script>
     <script src="source/berry-calculator/berry-calculations.js"></script>

@@ -247,6 +247,24 @@ class LanguageManager {
                     dragon: 'Dragon',
                     dark: 'Dark',
                     steel: 'Steel'
+                },
+                
+                // ===== AUTHENTICATION =====
+                auth: {
+                    title: '🔐 PokeDataMMO',
+                    subtitle: 'Log in or register to continue',
+                    loginTab: 'Login',
+                    registerTab: 'Register',
+                    username: 'Username',
+                    password: 'Password',
+                    email: 'Email',
+                    optional: '(optional)',
+                    loginButton: 'Login',
+                    registerButton: 'Register',
+                    logout: 'Logout',
+                    usernameHelp: '3-20 characters, only letters, numbers, _ and -',
+                    passwordHelp: 'Minimum 6 characters',
+                    noEmail: 'No email'
                 }
             },
             es: {
@@ -491,6 +509,24 @@ class LanguageManager {
                     dragon: 'Dragón',
                     dark: 'Siniestro',
                     steel: 'Acero'
+                },
+                
+                // ===== AUTENTICACIÓN =====
+                auth: {
+                    title: '🔐 PokeDataMMO',
+                    subtitle: 'Inicia sesión o regístrate para continuar',
+                    loginTab: 'Iniciar Sesión',
+                    registerTab: 'Registrarse',
+                    username: 'Usuario',
+                    password: 'Contraseña',
+                    email: 'Email',
+                    optional: '(opcional)',
+                    loginButton: 'Iniciar Sesión',
+                    registerButton: 'Registrarse',
+                    logout: 'Cerrar Sesión',
+                    usernameHelp: '3-20 caracteres, solo letras, números, _ y -',
+                    passwordHelp: 'Mínimo 3 caracteres',
+                    noEmail: 'Sin email'
                 }
             }
         };
