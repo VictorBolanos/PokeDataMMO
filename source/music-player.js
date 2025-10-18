@@ -172,11 +172,15 @@ class MusicPlayer {
     }
     
     toggleDropdown() {
-        // Close wallpaper dropdown if open
+        // Close other dropdowns if open
         const wallpaperDropdown = document.getElementById('wallpaperDropdown');
-        if (wallpaperDropdown) {
-            wallpaperDropdown.classList.remove('show');
-        }
+        const fontDropdown = document.getElementById('fontDropdown');
+        const colorDropdown = document.getElementById('colorDropdown');
+        
+        if (wallpaperDropdown) wallpaperDropdown.classList.remove('show');
+        if (fontDropdown) fontDropdown.classList.remove('show');
+        if (colorDropdown) colorDropdown.classList.remove('show');
+        
         this.elements.musicDropdown.classList.toggle('show');
     }
     

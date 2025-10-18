@@ -163,7 +163,7 @@ body::before {
     backdrop-filter: blur(2px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-top: none;
-    border-bottom: 4px solid var(--primary-color);
+    border-bottom: 5px solid var(--primary-color);
     z-index: 1000;
     width: 93.5%;
     max-width: 1386px;
@@ -180,7 +180,7 @@ body::before {
 .menu-buttons-container {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
 }
 
 /* ===== LANGUAGE FEATURE ===== */
@@ -738,7 +738,7 @@ body::before {
     border-radius: 15px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(2px);
-    border: 3px solid var(--primary-color);
+    border: 4px solid var(--primary-color);
     overflow: hidden;
 }
 
@@ -892,7 +892,7 @@ footer.footer-custom {
     backdrop-filter: blur(2px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-bottom: none;
-    border-top: 4px solid var(--primary-color);
+    border-top: 5px solid var(--primary-color);
     width: 93.5%;
     max-width: 1386px;
     margin: 20px auto 0 auto;
@@ -900,9 +900,8 @@ footer.footer-custom {
 
 .footer-content {
     display: flex;
-    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    gap: 15px;
 }
 
 .footer-text {
@@ -911,17 +910,6 @@ footer.footer-custom {
     font-weight: 300;
 }
 
-.selector-container {
-    display: flex;
-    gap: 15px;
-    align-items: center;
-    justify-content: center;
-}
-
-.font-selector-container,
-.color-selector-container {
-    position: relative;
-}
 
 /* Selector Buttons */
 .selector-btn {
@@ -945,35 +933,48 @@ footer.footer-custom {
     transform: scale(1.05);
 }
 
-.selector-btn svg {
+.selector-btn svg,
+.selector-btn img.selector-icon {
     transition: transform 0.3s ease;
 }
 
-.selector-btn:hover svg {
+.selector-btn:hover svg,
+.selector-btn:hover img.selector-icon {
     transform: scale(1.1);
+}
+
+.selector-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
 }
 
 /* Color Preview Button */
 .color-btn {
-    padding: 0;
-    overflow: hidden;
+    padding: 5px;
 }
 
 .color-preview {
-    width: 100%;
-    height: 100%;
+    width: calc(100% - 10px);
+    height: calc(100% - 10px);
     border-radius: 50%;
     background: var(--primary-color);
     transition: all 0.3s ease;
+    box-shadow: 0 0 8px var(--primary-color);
+}
+
+.color-btn:hover .color-preview {
+    box-shadow: 0 0 15px var(--primary-color);
+    transform: scale(1.05);
 }
 
 /* Font Dropdown */
 .font-dropdown {
     position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-bottom: 10px;
+    top: 100%;
+    right: 0;
+    margin-top: 10px;
     background: rgba(30, 30, 30, 0.95);
     border-radius: 15px;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -984,7 +985,7 @@ footer.footer-custom {
     max-height: 400px;
     opacity: 0;
     visibility: hidden;
-    transform: translateX(-50%) translateY(10px);
+    transform: translateY(-10px);
     transition: all 0.3s ease;
     z-index: 1001;
 }
@@ -992,7 +993,7 @@ footer.footer-custom {
 .font-dropdown.show {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
 }
 
 .dropdown-header {
@@ -1043,10 +1044,9 @@ footer.footer-custom {
 /* Color Dropdown */
 .color-dropdown {
     position: absolute;
-    bottom: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-bottom: 10px;
+    top: 100%;
+    right: 0;
+    margin-top: 10px;
     background: rgba(30, 30, 30, 0.95);
     border-radius: 15px;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -1056,7 +1056,7 @@ footer.footer-custom {
     width: 280px;
     opacity: 0;
     visibility: hidden;
-    transform: translateX(-50%) translateY(10px);
+    transform: translateY(-10px);
     transition: all 0.3s ease;
     z-index: 1001;
 }
@@ -1064,7 +1064,7 @@ footer.footer-custom {
 .color-dropdown.show {
     opacity: 1;
     visibility: visible;
-    transform: translateX(-50%) translateY(0);
+    transform: translateY(0);
 }
 
 .color-grid {
@@ -1160,12 +1160,12 @@ body.light-theme::before {
 body.light-theme .header-card {
     background: rgba(255, 255, 255, 0.6);
     border-color: rgba(0, 0, 0, 0.1);
-    border-bottom: 4px solid var(--primary-color);
+    border-bottom: 5px solid var(--primary-color);
 }
 
 body.light-theme .tab-system-container {
     background: rgba(255, 255, 255, 0.6);
-    border: 3px solid var(--primary-color);
+    border: 4px solid var(--primary-color);
 }
 
 body.light-theme .nav-tabs-container {
@@ -1202,7 +1202,7 @@ body.light-theme .tab-content-area {
 body.light-theme footer.footer-custom {
     background: rgba(255, 255, 255, 0.6);
     border-color: rgba(0, 0, 0, 0.1);
-    border-top: 4px solid var(--primary-color);
+    border-top: 5px solid var(--primary-color);
 }
 
 body.light-theme .footer-text {
@@ -1222,6 +1222,10 @@ body.light-theme .selector-btn:hover {
 
 body.light-theme .selector-btn svg path {
     fill: #000;
+}
+
+body.light-theme .selector-btn img.selector-icon {
+    filter: brightness(0) invert(0);
 }
 
 body.light-theme .font-dropdown,
@@ -2016,6 +2020,22 @@ body.light-theme .playlist-item.active {
     min-height: 400px;
 }
 
+/* Empty State */
+.pokemon-card-container .text-muted {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.pokemon-card-container .text-muted h4 {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.pokemon-card-container .text-muted p {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1rem;
+}
+
 .pokemon-main-card {
     display: flex;
     flex-direction: column;
@@ -2028,7 +2048,7 @@ body.light-theme .playlist-item.active {
     border-radius: 20px;
     padding: 25px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    border: 3px solid var(--primary-color);
+    border: 4px solid var(--primary-color);
     backdrop-filter: blur(10px);
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
@@ -2783,7 +2803,7 @@ body.light-theme .playlist-item.active {
     }
     
     .menu-buttons-container {
-        gap: 8px;
+        gap: 6px;
     }
     
     .main-card {
@@ -2844,9 +2864,12 @@ body.light-theme .playlist-item.active {
         height: 35px;
     }
     
-    .font-dropdown,
-    .color-dropdown {
+    .font-dropdown {
         width: 280px;
+    }
+    
+    .color-dropdown {
+        width: 240px;
     }
 }
 
@@ -2919,15 +2942,19 @@ body.light-theme .playlist-item.active {
         height: 16px;
     }
     
-    .font-dropdown,
+    .font-dropdown {
+        width: 240px;
+        padding: 15px;
+    }
+    
     .color-dropdown {
-        width: 250px;
+        width: 200px;
         padding: 15px;
     }
     
     .color-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
+        gap: 8px;
     }
 }
 
@@ -2984,7 +3011,7 @@ body.light-theme .playlist-item.active {
 /* ===== LIGHT THEME - POKEDEX OPTIMIZATION ===== */
 body.light-theme .pokemon-card-section {
     background: rgba(255, 255, 255, 0.9);
-    border: 3px solid var(--primary-color);
+    border: 4px solid var(--primary-color);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
@@ -3223,4 +3250,17 @@ body.light-theme .suggestion-id {
 
 body.light-theme .suggestion-name {
     color: #1a1a1a;
+}
+
+/* Light Theme - Empty State */
+body.light-theme .pokemon-card-container .text-muted {
+    color: rgba(0, 0, 0, 0.7) !important;
+}
+
+body.light-theme .pokemon-card-container .text-muted h4 {
+    color: rgba(0, 0, 0, 0.9);
+}
+
+body.light-theme .pokemon-card-container .text-muted p {
+    color: rgba(0, 0, 0, 0.6);
 }

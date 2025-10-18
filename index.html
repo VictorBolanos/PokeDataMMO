@@ -20,14 +20,58 @@
             
             <!-- Menu Buttons Container -->
             <div class="menu-buttons-container d-flex align-items-center gap-3">
-                <!-- Language Button -->
+                <!-- 1. Language Button -->
                 <div class="language-container position-relative">
                     <button class="language-btn" id="languageBtn" title="Change Language / Cambiar Idioma">
                         <img src="img/res/language-icons/united-kingdom.png" alt="Language" class="language-icon" id="languageIcon">
                     </button>
                 </div>
                 
-                <!-- Theme Button -->
+                <!-- 2. Color Selector -->
+                <div class="color-selector-container position-relative">
+                    <button class="selector-btn color-btn" id="colorSelectorBtn" title="Change Color Theme">
+                        <div class="color-preview" id="colorPreview"></div>
+                    </button>
+                    
+                    <!-- Color Dropdown -->
+                    <div class="color-dropdown" id="colorDropdown">
+                        <div class="dropdown-header">
+                            <h6 class="mb-0">Select Color</h6>
+                            <button class="close-btn" id="closeColorDropdown">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <path d="M18 6L6 18M6 6L18 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="color-grid" id="colorGrid">
+                            <!-- Colors will be loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 3. Font Selector -->
+                <div class="font-selector-container position-relative">
+                    <button class="selector-btn" id="fontSelectorBtn" title="Change Font">
+                        <img src="img/res/ui-icons/menu/font.svg" alt="Font" class="selector-icon">
+                    </button>
+                    
+                    <!-- Font Dropdown -->
+                    <div class="font-dropdown" id="fontDropdown">
+                        <div class="dropdown-header">
+                            <h6 class="mb-0">Select Font</h6>
+                            <button class="close-btn" id="closeFontDropdown">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                                    <path d="M18 6L6 18M6 6L18 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="font-list" id="fontList">
+                            <!-- Fonts will be loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 4. Theme Button -->
                 <div class="theme-container position-relative">
                     <button class="theme-btn" id="themeBtn">
                         <svg width="20" height="20" viewBox="0 0 472 472" xmlns="http://www.w3.org/2000/svg" id="sunIcon">
@@ -39,7 +83,7 @@
                     </button>
                 </div>
                 
-                <!-- Wallpaper Button -->
+                <!-- 5. Wallpaper Button -->
                 <div class="wallpaper-container position-relative">
                     <button class="wallpaper-btn" id="wallpaperBtn">
                         <svg width="20" height="20" viewBox="0 0 432 432" xmlns="http://www.w3.org/2000/svg">
@@ -63,7 +107,7 @@
                     </div>
                 </div>
                 
-                <!-- Music Player Button -->
+                <!-- 6. Music Player Button -->
                 <div class="music-container position-relative">
                     <button class="music-btn" id="musicBtn">
                         <svg width="20" height="20" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
@@ -440,53 +484,6 @@
         <footer class="footer-custom text-center">
             <div class="container-fluid">
                 <div class="footer-content">
-                    <div class="selector-container">
-                        <!-- Font Selector -->
-                        <div class="font-selector-container position-relative">
-                            <button class="selector-btn" id="fontSelectorBtn" title="Change Font">
-                                <svg width="20" height="20" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill="white" d="M9.6 13.6L11.05 9.45h1.9l1.45 4.15h1.65L13.3 5.8h-2.6L8 13.6h1.6zM12 7.05l1.05 3h-2.1l1.05-3zm10 9.45v2H2v-2h20z"/>
-                                </svg>
-                            </button>
-                            
-                            <!-- Font Dropdown -->
-                            <div class="font-dropdown" id="fontDropdown">
-                                <div class="dropdown-header">
-                                    <h6 class="mb-0">Select Font</h6>
-                                    <button class="close-btn" id="closeFontDropdown">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                            <path d="M18 6L6 18M6 6L18 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                                <div class="font-list" id="fontList">
-                                    <!-- Fonts will be loaded dynamically -->
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Color Selector -->
-                        <div class="color-selector-container position-relative">
-                            <button class="selector-btn color-btn" id="colorSelectorBtn" title="Change Color Theme">
-                                <div class="color-preview" id="colorPreview"></div>
-                            </button>
-                            
-                            <!-- Color Dropdown -->
-                            <div class="color-dropdown" id="colorDropdown">
-                                <div class="dropdown-header">
-                                    <h6 class="mb-0">Select Color</h6>
-                                    <button class="close-btn" id="closeColorDropdown">
-                                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                                            <path d="M18 6L6 18M6 6L18 18" stroke="white" stroke-width="2" stroke-linecap="round"/>
-                                        </svg>
-                                    </button>
-                                </div>
-                                <div class="color-grid" id="colorGrid">
-                                    <!-- Colors will be loaded dynamically -->
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <p class="footer-text mb-0">
                         2025 PokeDataMMO - Created by Victor Bolaños for managing strategies, farming and data for PokeMMO game
                     </p>
