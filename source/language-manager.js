@@ -14,6 +14,7 @@ class LanguageManager {
                     leagues: 'Leagues',
                     farming: 'Berry Farming',
                     breeding: 'Breeding Calculator',
+                    pokecalc: 'Pokémon Calculator',
                     pvp: 'PVP Teams',
                     pokedex: 'Pokédex',
                     typechart: 'Types Table'
@@ -290,6 +291,7 @@ class LanguageManager {
                     leagues: 'Ligas',
                     farming: 'Cultivo de Bayas',
                     breeding: 'Calculadora de Cría',
+                    pokecalc: 'Calculadora Pokémon',
                     pvp: 'Equipos PVP',
                     pokedex: 'Pokédex',
                     typechart: 'Tabla de Tipos'

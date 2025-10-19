@@ -623,6 +623,172 @@ class AuthManager {
             return { success: false, message: 'Error renaming calculation' };
         }
     }
+
+    // ========================================
+    // PVP TEAMS METHODS
+    // ========================================
+
+    /**
+     * Guardar un equipo PVP (crear o actualizar)
+     */
+    async savePVPTeam(teamName, teamData) {
+        if (!this.isAuthenticated()) {
+            return { success: false, message: 'No session active' };
+        }
+
+        try {
+            const userDataRef = this.db.collection('user_data').doc(this.currentUser.username);
+            
+            const dataToSave = {
+                ...teamData,
+                teamName: teamName,
+                lastSaved: firebase.firestore.FieldValue.serverTimestamp()
+            };
+            
+            await userDataRef.update({
+                [`pvp_teams.${teamName}`]: dataToSave,
+                lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            
+            console.log('💾 Team saved:', teamName);
+            return { success: true, message: 'Team saved' };
+            
+        } catch (error) {
+            console.error('❌ Save team error:', error);
+            return { success: false, message: 'Error saving team' };
+        }
+    }
+
+    /**
+     * Cargar un equipo PVP específico
+     */
+    async loadPVPTeam(teamName) {
+        if (!this.isAuthenticated()) {
+            return { success: false, message: 'No session active' };
+        }
+
+        try {
+            const userDataRef = this.db.collection('user_data').doc(this.currentUser.username);
+            const userDataDoc = await userDataRef.get();
+            
+            if (!userDataDoc.exists) {
+                return { success: false, message: 'User data not found' };
+            }
+            
+            const userData = userDataDoc.data();
+            const team = userData.pvp_teams?.[teamName];
+            
+            if (!team) {
+                return { success: false, message: 'Team not found' };
+            }
+            
+            console.log('📂 Team loaded:', teamName);
+            return { success: true, data: team };
+            
+        } catch (error) {
+            console.error('❌ Load team error:', error);
+            return { success: false, message: 'Error loading team' };
+        }
+    }
+
+    /**
+     * Obtener lista de todos los equipos PVP
+     */
+    async getAllPVPTeams() {
+        if (!this.isAuthenticated()) {
+            return { success: false, message: 'No session active' };
+        }
+
+        try {
+            const userDataRef = this.db.collection('user_data').doc(this.currentUser.username);
+            const userDataDoc = await userDataRef.get();
+            
+            if (!userDataDoc.exists) {
+                await userDataRef.set({
+                    owner_user: this.db.collection('users').doc(this.currentUser.username),
+                    berry_calculations: {},
+                    breeding_plans: {},
+                    pvp_teams: {},
+                    league_calculations: {},
+                    lastUpdated: new Date().toISOString()
+                });
+                return { success: true, data: {}, list: [] };
+            }
+            
+            const userData = userDataDoc.data();
+            const teams = userData.pvp_teams || {};
+            
+            return { 
+                success: true, 
+                data: teams,
+                list: Object.keys(teams)
+            };
+            
+        } catch (error) {
+            console.error('❌ Get teams error:', error);
+            return { success: false, message: 'Error loading teams' };
+        }
+    }
+
+    /**
+     * Eliminar un equipo PVP
+     */
+    async deletePVPTeam(teamName) {
+        if (!this.isAuthenticated()) {
+            return { success: false, message: 'No session active' };
+        }
+
+        try {
+            const userDataRef = this.db.collection('user_data').doc(this.currentUser.username);
+            
+            await userDataRef.update({
+                [`pvp_teams.${teamName}`]: firebase.firestore.FieldValue.delete(),
+                lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            
+            console.log('🗑️ Team deleted:', teamName);
+            return { success: true, message: 'Team deleted' };
+            
+        } catch (error) {
+            console.error('❌ Delete team error:', error);
+            return { success: false, message: 'Error deleting team' };
+        }
+    }
+
+    /**
+     * Renombrar un equipo PVP
+     */
+    async renamePVPTeam(oldName, newName) {
+        if (!this.isAuthenticated()) {
+            return { success: false, message: 'No session active' };
+        }
+
+        try {
+            const loadResult = await this.loadPVPTeam(oldName);
+            if (!loadResult.success) {
+                return loadResult;
+            }
+            
+            const teamData = loadResult.data;
+            teamData.teamName = newName;
+            
+            const saveResult = await this.savePVPTeam(newName, teamData);
+            if (!saveResult.success) {
+                return saveResult;
+            }
+            
+            const deleteResult = await this.deletePVPTeam(oldName);
+            if (!deleteResult.success) {
+                return deleteResult;
+            }
+            
+            return { success: true, message: 'Team renamed' };
+            
+        } catch (error) {
+            console.error('❌ Rename team error:', error);
+            return { success: false, message: 'Error renaming team' };
+        }
+    }
 }
 
 // Exportar instancia global

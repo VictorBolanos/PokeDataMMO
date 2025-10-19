@@ -345,6 +345,10 @@
                         <span class="tab-icon">🧬</span>
                         <span class="tab-text d-none d-lg-inline ms-1">Breeding Calculator</span>
                     </button>
+                    <button class="nav-tab d-flex align-items-center justify-content-center flex-fill" data-tab="pokecalc" aria-selected="false">
+                        <span class="tab-icon">🔢</span>
+                        <span class="tab-text d-none d-lg-inline ms-1">Pokémon Calculator</span>
+                    </button>
                     <button class="nav-tab d-flex align-items-center justify-content-center flex-fill" data-tab="pvp" aria-selected="false">
                         <span class="tab-icon">⚔️</span>
                         <span class="tab-text d-none d-lg-inline ms-1">PVP Teams</span>
@@ -453,35 +457,47 @@
                             </div>
                         </div>
 
+                        <!-- Pokémon Calculator Tab -->
+                        <div class="tab-pane" id="pokecalc">
+                            <div class="pokemon-calculator-container">
+                                <!-- Stats Calculator Card -->
+                                <div class="calculator-card mb-4">
+                                    <div class="calculator-header">
+                                        <h2 class="d-flex align-items-center justify-content-center gap-3 mb-3" id="statsCalcTitle">
+                                            🔢 Pokémon Stats Calculator
+                                        </h2>
+                                        <p class="lead mb-0 text-center" id="statsCalcSubtitle">
+                                            Calculate final stats based on Base Stats, EVs, IVs, and Nature
+                                        </p>
+                                    </div>
+                                    <div class="calculator-content" id="statsCalculatorContent">
+                                        <!-- Se llenará dinámicamente -->
+                                    </div>
+                                </div>
+
+                                <!-- Damage Calculator Card -->
+                                <div class="calculator-card">
+                                    <div class="calculator-header">
+                                        <h2 class="d-flex align-items-center justify-content-center gap-3 mb-3" id="damageCalcTitle">
+                                            ⚔️ Damage Calculator
+                                        </h2>
+                                        <p class="lead mb-0 text-center" id="damageCalcSubtitle">
+                                            Calculate damage between Pokémon in battle
+                                        </p>
+                                    </div>
+                                    <div class="calculator-content" id="damageCalculatorContent">
+                                        <div class="alert alert-info text-center">
+                                            <strong>Coming Soon</strong><br>
+                                            Advanced damage calculation system in development
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- PVP Teams Tab -->
                         <div class="tab-pane" id="pvp">
-                            <div class="mb-4 pb-3 border-bottom border-secondary">
-                                <h2 class="d-flex align-items-center gap-3 mb-3">⚔️ PVP Teams</h2>
-                                <p class="lead mb-0">Competitive team management and analysis</p>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <h4 class="mb-3">What's Coming</h4>
-                                    <p class="mb-3">This section will provide comprehensive PVP team building and analysis tools:</p>
-                                    <ul class="feature-list list-unstyled">
-                                        <li class="mb-2"><strong>Team Builder</strong> with drag-and-drop interface</li>
-                                        <li class="mb-2"><strong>Type Coverage Analysis</strong> to identify weaknesses</li>
-                                        <li class="mb-2"><strong>Move Set Optimization</strong> recommendations</li>
-                                        <li class="mb-2"><strong>Meta Analysis</strong> for current competitive scene</li>
-                                        <li class="mb-2"><strong>Battle Simulation</strong> and matchup calculations</li>
-                                    </ul>
-                                    <div class="alert alert-info mt-3">
-                                        <strong>Ambitious Project:</strong> We're exploring how to create a comprehensive Pokémon calculator that can analyze stats, matchups, and battle outcomes.
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="status-card bg-light bg-opacity-10 border border-secondary rounded p-4 text-center">
-                                        <h5 class="text-white mb-3">Development Status</h5>
-                                        <span class="badge bg-warning">In Planning</span>
-                                        <p class="mt-2 mb-0">Research phase ongoing</p>
-                                    </div>
-                                </div>
-                            </div>
+                            <!-- Se llenará dinámicamente por JavaScript -->
                         </div>
                         
                         <!-- Pokédex Tab -->
@@ -624,6 +640,11 @@
     <script src="source/berry-calculator/berry-calculations.js"></script>
     <script src="source/berry-calculator/berry-ui.js"></script>
     <script src="source/berry-calculator/berry-calculator.js"></script>
+    <!-- PVP Teams Scripts -->
+    <script src="source/pvp-teams/pvp-team-data.js"></script>
+    <script src="source/pvp-teams/pokemon-builder.js"></script>
+    <script src="source/pvp-teams/pvp-team-ui.js"></script>
+    <script src="source/pvp-teams/pvp-teams.js"></script>
     <!-- Custom JS -->
     <script src="source/script.js"></script>
     <!-- Music Player JS -->

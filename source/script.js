@@ -23,6 +23,7 @@ async function initializeApp() {
     loadSavedTheme();
     translateUI(); // Initial translation
     initializeBerryCalculator();
+    initializePVPTeams();
 }
 
 // ===== TAB SYSTEM =====
@@ -286,6 +287,7 @@ async function translateUI() {
     document.querySelector('[data-tab="leagues"] .tab-text').textContent = lm.t('tabs.leagues');
     document.querySelector('[data-tab="farming"] .tab-text').textContent = lm.t('tabs.farming');
     document.querySelector('[data-tab="breeding"] .tab-text').textContent = lm.t('tabs.breeding');
+    document.querySelector('[data-tab="pokecalc"] .tab-text').textContent = lm.t('tabs.pokecalc');
     document.querySelector('[data-tab="pvp"] .tab-text').textContent = lm.t('tabs.pvp');
     document.querySelector('[data-tab="pokedex"] .tab-text').textContent = lm.t('tabs.pokedex');
     document.querySelector('[data-tab="typechart"] .tab-text').textContent = lm.t('tabs.typechart');
@@ -309,6 +311,7 @@ async function translateUI() {
     translateLeaguesTab();
     translateFarmingTab();
     translateBreedingTab();
+    translatePokeCalcTab();
     translatePVPTab();
     await translatePokedexTab();
     translateTypeChartTab();
@@ -388,39 +391,49 @@ function translateBreedingTab() {
     if (statusP) statusP.textContent = lm.t('breeding.algorithmProgress');
 }
 
-function translatePVPTab() {
+function translatePokeCalcTab() {
     const lm = window.languageManager;
-    const tab = document.getElementById('pvp');
+    const tab = document.getElementById('pokecalc');
     if (!tab) return;
     
-    const h2 = tab.querySelector('h2');
-    const lead = tab.querySelector('.lead');
-    const h4 = tab.querySelector('h4');
-    const p = tab.querySelectorAll('p')[0];
+    // Stats Calculator
+    const statsTitle = document.getElementById('statsCalcTitle');
+    const statsSubtitle = document.getElementById('statsCalcSubtitle');
     
-    if (h2) h2.innerHTML = lm.t('pvp.title');
-    if (lead) lead.textContent = lm.t('pvp.subtitle');
-    if (h4) h4.textContent = lm.t('pvp.whatsComingTitle');
-    if (p) p.textContent = lm.t('pvp.description');
+    if (statsTitle) {
+        statsTitle.innerHTML = lm.getCurrentLanguage() === 'es' 
+            ? '🔢 Calculadora de Stats de Pokémon' 
+            : '🔢 Pokémon Stats Calculator';
+    }
     
-    const featureItems = tab.querySelectorAll('.feature-list li');
-    if (featureItems[0]) featureItems[0].innerHTML = `<strong>${lm.t('pvp.features.builder').split(' ')[0]} ${lm.t('pvp.features.builder').split(' ')[1]}</strong> ${lm.t('pvp.features.builder').split(' ').slice(2).join(' ')}`;
-    if (featureItems[1]) featureItems[1].innerHTML = `<strong>${lm.t('pvp.features.coverage').split(' ').slice(0, 3).join(' ')}</strong> ${lm.t('pvp.features.coverage').split(' ').slice(3).join(' ')}`;
-    if (featureItems[2]) featureItems[2].innerHTML = `<strong>${lm.t('pvp.features.moveset').split(' ').slice(0, 3).join(' ')}</strong> ${lm.t('pvp.features.moveset').split(' ').slice(3).join(' ')}`;
-    if (featureItems[3]) featureItems[3].innerHTML = `<strong>${lm.t('pvp.features.meta').split(' ').slice(0, 2).join(' ')}</strong> ${lm.t('pvp.features.meta').split(' ').slice(2).join(' ')}`;
-    if (featureItems[4]) featureItems[4].innerHTML = `<strong>${lm.t('pvp.features.simulation').split(' ').slice(0, 2).join(' ')}</strong> ${lm.t('pvp.features.simulation').split(' ').slice(2).join(' ')}`;
+    if (statsSubtitle) {
+        statsSubtitle.textContent = lm.getCurrentLanguage() === 'es' 
+            ? 'Calcula stats finales basados en Stats Base, EVs, IVs y Naturaleza' 
+            : 'Calculate final stats based on Base Stats, EVs, IVs, and Nature';
+    }
     
-    const alertStrong = tab.querySelector('.alert strong');
-    const alert = tab.querySelector('.alert');
-    if (alertStrong) alertStrong.textContent = lm.t('pvp.ambitiousProject');
-    if (alert) alert.innerHTML = `<strong>${lm.t('pvp.ambitiousProject')}</strong> ${lm.t('pvp.ambitiousDescription')}`;
+    // Damage Calculator
+    const damageTitle = document.getElementById('damageCalcTitle');
+    const damageSubtitle = document.getElementById('damageCalcSubtitle');
     
-    const statusH5 = tab.querySelector('.status-card h5');
-    const statusBadge = tab.querySelector('.status-card .badge');
-    const statusP = tab.querySelector('.status-card p');
-    if (statusH5) statusH5.textContent = lm.t('pvp.developmentStatus');
-    if (statusBadge) statusBadge.textContent = lm.t('pvp.statusPlanning');
-    if (statusP) statusP.textContent = lm.t('pvp.researchPhase');
+    if (damageTitle) {
+        damageTitle.innerHTML = lm.getCurrentLanguage() === 'es' 
+            ? '⚔️ Calculadora de Daño' 
+            : '⚔️ Damage Calculator';
+    }
+    
+    if (damageSubtitle) {
+        damageSubtitle.textContent = lm.getCurrentLanguage() === 'es' 
+            ? 'Calcula el daño entre Pokémon en batalla' 
+            : 'Calculate damage between Pokémon in battle';
+    }
+}
+
+function translatePVPTab() {
+    // Actualizar PVP Teams UI si está activa
+    if (window.pvpTeamsUI && window.pvpTeamsUI.updateTranslations) {
+        window.pvpTeamsUI.updateTranslations();
+    }
 }
 
 async function translatePokedexTab() {
@@ -723,6 +736,15 @@ async function initializeBerryCalculator() {
         await window.berryCalculator.init();
     } catch (error) {
         console.error('❌ Berry Calculator error:', error);
+    }
+}
+
+// PVP Teams Integration
+async function initializePVPTeams() {
+    try {
+        await window.pvpTeams.init();
+    } catch (error) {
+        console.error('❌ PVP Teams error:', error);
     }
 }
 
