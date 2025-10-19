@@ -794,6 +794,10 @@ function initializeAuth() {
     if (registerForm) {
         registerForm.addEventListener('submit', handleRegister);
         console.log('✅ Event listener de register añadido');
+        
+        // Validación en tiempo real para el formulario de registro
+        setupRegisterValidation();
+        setupLoginValidation();
     } else {
         console.error('❌ Register form NO encontrado!');
     }
@@ -819,6 +823,69 @@ function initializeAuth() {
     setupOutsideClickHandler(userDropdown, userPillBtn);
 }
 
+// Configurar validación en tiempo real para el formulario de registro
+function setupRegisterValidation() {
+    const usernameInput = document.getElementById('registerUsername');
+    const passwordInput = document.getElementById('registerPassword');
+    const submitBtn = document.getElementById('registerSubmitBtn');
+    
+    function validateForm() {
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value;
+        
+        // Validar username (3-20 caracteres, alfanumérico)
+        const usernameValid = username.length >= 3 && username.length <= 20 && /^[a-zA-Z0-9_-]+$/.test(username);
+        
+        // Validar password (mínimo 4 caracteres)
+        const passwordValid = password.length >= 4;
+        
+        const formValid = usernameValid && passwordValid;
+        
+        // Limpiar mensajes de error cuando el usuario empiece a escribir
+        const messageEl = document.getElementById('registerMessage');
+        if (messageEl && (username || password)) {
+            messageEl.innerHTML = '';
+            messageEl.className = 'auth-message';
+        }
+        
+        // Habilitar/deshabilitar botón
+        submitBtn.disabled = !formValid;
+        
+        // Cambiar estilo del botón
+        if (formValid) {
+            submitBtn.style.opacity = '1';
+            submitBtn.style.cursor = 'pointer';
+        } else {
+            submitBtn.style.opacity = '0.6';
+            submitBtn.style.cursor = 'not-allowed';
+        }
+    }
+    
+    // Añadir event listeners
+    usernameInput.addEventListener('input', validateForm);
+    passwordInput.addEventListener('input', validateForm);
+    
+    // Validación inicial
+    validateForm();
+}
+
+function setupLoginValidation() {
+    const usernameInput = document.getElementById('loginUsername');
+    const passwordInput = document.getElementById('loginPassword');
+    
+    function clearMessages() {
+        const messageEl = document.getElementById('loginMessage');
+        if (messageEl) {
+            messageEl.innerHTML = '';
+            messageEl.className = 'auth-message';
+        }
+    }
+    
+    // Añadir event listeners para limpiar mensajes
+    usernameInput.addEventListener('input', clearMessages);
+    passwordInput.addEventListener('input', clearMessages);
+}
+
 function switchAuthTab(tabName) {
     const authTabs = document.querySelectorAll('.auth-tab');
     const authPanes = document.querySelectorAll('.auth-pane');
@@ -836,10 +903,90 @@ function switchAuthTab(tabName) {
     document.getElementById('registerMessage').textContent = '';
 }
 
+// ===== VALIDACIÓN DE FORMULARIOS =====
+
+function validateLoginForm() {
+    const username = document.getElementById('loginUsername').value.trim();
+    const password = document.getElementById('loginPassword').value;
+    const messageEl = document.getElementById('loginMessage');
+    
+    // Limpiar mensajes anteriores
+    messageEl.innerHTML = '';
+    messageEl.className = 'auth-message';
+    
+    const errors = [];
+    
+    // Validar username
+    if (!username) {
+        errors.push(window.languageManager.t('auth.validationErrors.usernameRequired'));
+    }
+    
+    // Validar password
+    if (!password) {
+        errors.push(window.languageManager.t('auth.validationErrors.passwordRequired'));
+    }
+    
+    // Mostrar errores si los hay
+    if (errors.length > 0) {
+        messageEl.className = 'auth-message error';
+        messageEl.innerHTML = errors.join('<br>');
+        return false;
+    }
+    
+    return true;
+}
+
+function validateRegisterForm() {
+    const username = document.getElementById('registerUsername').value.trim();
+    const password = document.getElementById('registerPassword').value;
+    const email = document.getElementById('registerEmail').value.trim();
+    const messageEl = document.getElementById('registerMessage');
+    
+    // Limpiar mensajes anteriores
+    messageEl.innerHTML = '';
+    messageEl.className = 'auth-message';
+    
+    const errors = [];
+    
+    // Validar username
+    if (!username) {
+        errors.push(window.languageManager.t('auth.validationErrors.usernameRequired'));
+    } else if (username.length < 3 || username.length > 20 || !/^[a-zA-Z0-9_-]+$/.test(username)) {
+        errors.push(window.languageManager.t('auth.validationErrors.usernameInvalid'));
+    }
+    
+    // Validar password
+    if (!password) {
+        errors.push(window.languageManager.t('auth.validationErrors.passwordRequired'));
+    } else if (password.length < 4) {
+        errors.push(window.languageManager.t('auth.validationErrors.passwordTooShort'));
+    }
+    
+    // Validar email (opcional pero si se proporciona debe ser válido)
+    if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errors.push(window.languageManager.t('auth.validationErrors.emailInvalid'));
+    }
+    
+    // Mostrar errores si los hay
+    if (errors.length > 0) {
+        messageEl.className = 'auth-message error';
+        messageEl.innerHTML = errors.join('<br>');
+        return false;
+    }
+    
+    return true;
+}
+
 async function handleLogin(e) {
     e.preventDefault();
     
     console.log('🔑 Iniciando proceso de login...');
+    
+    // Validar formulario antes de proceder
+    if (!validateLoginForm()) {
+        console.log('❌ Validación de formulario fallida');
+        return;
+    }
     
     const username = document.getElementById('loginUsername').value.trim();
     const password = document.getElementById('loginPassword').value;
@@ -888,6 +1035,12 @@ async function handleRegister(e) {
     e.preventDefault();
     
     console.log('🚀 Iniciando proceso de registro...');
+    
+    // Validar formulario antes de proceder
+    if (!validateRegisterForm()) {
+        console.log('❌ Validación de formulario fallida');
+        return;
+    }
     
     const username = document.getElementById('registerUsername').value.trim();
     const password = document.getElementById('registerPassword').value;
@@ -972,26 +1125,29 @@ function translateAuthUI() {
     if (loginTab) loginTab.textContent = lm.t('auth.loginTab');
     if (registerTab) registerTab.textContent = lm.t('auth.registerTab');
     
-    // Login form
-    const loginUsernameLabel = document.getElementById('loginUsernameLabel');
-    const loginPasswordLabel = document.getElementById('loginPasswordLabel');
-    const loginSubmitBtn = document.getElementById('loginSubmitBtn');
-    if (loginUsernameLabel) loginUsernameLabel.textContent = lm.t('auth.username');
-    if (loginPasswordLabel) loginPasswordLabel.textContent = lm.t('auth.password');
-    if (loginSubmitBtn) loginSubmitBtn.textContent = lm.t('auth.loginButton');
+    // Login form labels
+    const loginUsernameLabelText = document.getElementById('loginUsernameLabelText');
+    const loginPasswordLabelText = document.getElementById('loginPasswordLabelText');
+    const loginSubmitBtnText = document.getElementById('loginSubmitBtnText');
+    if (loginUsernameLabelText) loginUsernameLabelText.textContent = lm.t('auth.username');
+    if (loginPasswordLabelText) loginPasswordLabelText.textContent = lm.t('auth.password');
+    if (loginSubmitBtnText) loginSubmitBtnText.textContent = lm.t('auth.loginButton');
     
-    // Register form
-    const registerUsernameLabel = document.getElementById('registerUsernameLabel');
-    const registerPasswordLabel = document.getElementById('registerPasswordLabel');
-    const registerEmailLabel = document.getElementById('registerEmailLabel');
-    const registerSubmitBtn = document.getElementById('registerSubmitBtn');
+    // Register form labels
+    const registerUsernameLabelText = document.getElementById('registerUsernameLabelText');
+    const registerPasswordLabelText = document.getElementById('registerPasswordLabelText');
+    const registerEmailLabelText = document.getElementById('registerEmailLabelText');
+    const registerEmailOptional = document.getElementById('registerEmailOptional');
+    const registerSubmitBtnText = document.getElementById('registerSubmitBtnText');
+    if (registerUsernameLabelText) registerUsernameLabelText.textContent = lm.t('auth.username');
+    if (registerPasswordLabelText) registerPasswordLabelText.textContent = lm.t('auth.password');
+    if (registerEmailLabelText) registerEmailLabelText.textContent = lm.t('auth.email');
+    if (registerEmailOptional) registerEmailOptional.textContent = lm.t('auth.optional');
+    if (registerSubmitBtnText) registerSubmitBtnText.textContent = lm.t('auth.registerButton');
+    
+    // Help texts
     const usernameHelp = document.getElementById('usernameHelp');
     const passwordHelp = document.getElementById('passwordHelp');
-    
-    if (registerUsernameLabel) registerUsernameLabel.textContent = lm.t('auth.username');
-    if (registerPasswordLabel) registerPasswordLabel.textContent = lm.t('auth.password');
-    if (registerEmailLabel) registerEmailLabel.innerHTML = `${lm.t('auth.email')} <span class="text-muted">${lm.t('auth.optional')}</span>`;
-    if (registerSubmitBtn) registerSubmitBtn.textContent = lm.t('auth.registerButton');
     if (usernameHelp) usernameHelp.textContent = lm.t('auth.usernameHelp');
     if (passwordHelp) passwordHelp.textContent = lm.t('auth.passwordHelp');
     

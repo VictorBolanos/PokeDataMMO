@@ -3261,6 +3261,10 @@ body.light-theme .pokemon-card-container .text-muted p {
     cursor: not-allowed;
 }
 
+.btn.disabled, .btn:disabled {
+    background-color: rgb(100, 100, 100);
+}
+
 /* Placeholders para Berry Calculator */
 .berry-calculator-controls .form-control::placeholder {
     color: rgba(255, 255, 255, 0.7) !important;
@@ -4598,6 +4602,30 @@ body.light-theme .currency-symbol {
     display: block;
 }
 
+/* Optional text styling for dark theme */
+.text-muted {
+    color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Required field asterisk styling - Más específico para sobrescribir Bootstrap */
+.auth-form .form-label .text-danger,
+.form-label .text-danger {
+    color: #ff4444 !important;
+    font-weight: bold !important;
+    margin-left: 3px !important;
+    font-size: 1.1em !important;
+    display: inline !important;
+}
+
+/* Asegurar que los asteriscos se vean en todos los temas */
+body .text-danger,
+body.light-theme .text-danger {
+    color: #ff4444 !important;
+    font-weight: bold !important;
+    margin-left: 3px !important;
+    font-size: 1.1em !important;
+}
+
 .auth-submit-btn {
     background: var(--primary-color);
     border: none;
@@ -4744,6 +4772,17 @@ body.light-theme .auth-input::placeholder {
 
 body.light-theme .form-text {
     color: rgba(0, 0, 0, 0.6);
+}
+
+body.light-theme .text-muted {
+    color: rgba(0, 0, 0, 0.6) !important;
+}
+
+body.light-theme .text-danger {
+    color: #ff4444 !important;
+    font-weight: bold;
+    margin-left: 3px;
+    font-size: 1.1em;
 }
 
 body.light-theme .auth-message.error {

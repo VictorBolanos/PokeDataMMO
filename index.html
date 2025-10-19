@@ -262,18 +262,22 @@
                     <div class="auth-pane active" id="loginPane">
                         <form class="auth-form" id="loginForm">
                             <div class="form-group mb-3">
-                                <label class="form-label" id="loginUsernameLabel">Usuario</label>
+                                <label class="form-label" id="loginUsernameLabel">
+                                    <span id="loginUsernameLabelText">Usuario</span> <span class="text-danger">*</span>
+                                </label>
                                 <input type="text" class="form-control auth-input" id="loginUsername" 
-                                       placeholder="username" autocomplete="username" required>
+                                       placeholder="username" autocomplete="username">
                             </div>
                             <div class="form-group mb-4">
-                                <label class="form-label" id="loginPasswordLabel">Contraseña</label>
+                                <label class="form-label" id="loginPasswordLabel">
+                                    <span id="loginPasswordLabelText">Contraseña</span> <span class="text-danger">*</span>
+                                </label>
                                 <input type="password" class="form-control auth-input" id="loginPassword" 
-                                       placeholder="••••••••" autocomplete="current-password" required>
+                                       placeholder="••••••••" autocomplete="current-password">
                             </div>
                             <div class="auth-message" id="loginMessage"></div>
                             <button type="submit" class="btn btn-primary w-100 auth-submit-btn" id="loginSubmitBtn">
-                                Iniciar Sesión
+                                <span id="loginSubmitBtnText">Iniciar Sesión</span>
                             </button>
                         </form>
                     </div>
@@ -282,25 +286,31 @@
                     <div class="auth-pane" id="registerPane">
                         <form class="auth-form" id="registerForm">
                             <div class="form-group mb-3">
-                                <label class="form-label" id="registerUsernameLabel">Usuario</label>
+                                <label class="form-label" id="registerUsernameLabel">
+                                    <span id="registerUsernameLabelText">Usuario</span> <span class="text-danger">*</span>
+                                </label>
                                 <input type="text" class="form-control auth-input" id="registerUsername" 
-                                       placeholder="username" autocomplete="username" required>
+                                       placeholder="username" autocomplete="username">
                                 <small class="form-text" id="usernameHelp">3-20 caracteres, solo letras, números, _ y -</small>
                             </div>
                             <div class="form-group mb-3">
-                                <label class="form-label" id="registerPasswordLabel">Contraseña</label>
+                                <label class="form-label" id="registerPasswordLabel">
+                                    <span id="registerPasswordLabelText">Contraseña</span> <span class="text-danger">*</span>
+                                </label>
                                 <input type="password" class="form-control auth-input" id="registerPassword" 
-                                       placeholder="••••••••" autocomplete="new-password" required>
-                                <small class="form-text" id="passwordHelp">Mínimo 3 caracteres</small>
+                                       placeholder="••••••••" autocomplete="new-password">
+                                <small class="form-text" id="passwordHelp">Mínimo 4 caracteres</small>
                             </div>
                             <div class="form-group mb-4">
-                                <label class="form-label" id="registerEmailLabel">Email <span class="text-muted">(opcional)</span></label>
+                                <label class="form-label" id="registerEmailLabel">
+                                    <span id="registerEmailLabelText">Email</span> <span class="text-muted" id="registerEmailOptional">(opcional)</span>
+                                </label>
                                 <input type="email" class="form-control auth-input" id="registerEmail" 
                                        placeholder="email@example.com" autocomplete="email">
                             </div>
                             <div class="auth-message" id="registerMessage"></div>
                             <button type="submit" class="btn btn-primary w-100 auth-submit-btn" id="registerSubmitBtn">
-                                Registrarse
+                                <span id="registerSubmitBtnText">Registrarse</span>
                             </button>
                         </form>
                     </div>

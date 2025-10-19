@@ -109,9 +109,9 @@ class AuthManager {
         return regex.test(username);
     }
 
-    // Validar password (mínimo 3 caracteres)
+    // Validar password (mínimo 4 caracteres)
     validatePassword(password) {
-        return password && password.length >= 3;
+        return password && password.length >= 4;
     }
 
     // Codificar password (base64 básico - en producción usar bcrypt)
@@ -153,8 +153,8 @@ class AuthManager {
             return {
                 success: false,
                 message: window.languageManager.getCurrentLanguage() === 'es' 
-                    ? 'La contraseña debe tener al menos 3 caracteres' 
-                    : 'Password must be at least 3 characters'
+                    ? 'La contraseña debe tener al menos 4 caracteres' 
+                    : 'Password must be at least 4 characters'
             };
         }
 

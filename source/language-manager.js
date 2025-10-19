@@ -263,8 +263,15 @@ class LanguageManager {
                     registerButton: 'Register',
                     logout: 'Logout',
                     usernameHelp: '3-20 characters, only letters, numbers, _ and -',
-                    passwordHelp: 'Minimum 6 characters',
-                    noEmail: 'No email'
+                    passwordHelp: 'Minimum 4 characters',
+                    noEmail: 'No email',
+                    validationErrors: {
+                        usernameRequired: 'Username is required',
+                        passwordRequired: 'Password is required',
+                        usernameInvalid: 'Username must be 3-20 characters, only letters, numbers, _ and -',
+                        passwordTooShort: 'Password must be at least 4 characters',
+                        emailInvalid: 'Please enter a valid email address'
+                    }
                 }
             },
             es: {
@@ -525,8 +532,15 @@ class LanguageManager {
                     registerButton: 'Registrarse',
                     logout: 'Cerrar Sesión',
                     usernameHelp: '3-20 caracteres, solo letras, números, _ y -',
-                    passwordHelp: 'Mínimo 3 caracteres',
-                    noEmail: 'Sin email'
+                    passwordHelp: 'Mínimo 4 caracteres',
+                    noEmail: 'Sin email',
+                    validationErrors: {
+                        usernameRequired: 'El nombre de usuario es obligatorio',
+                        passwordRequired: 'La contraseña es obligatoria',
+                        usernameInvalid: 'El nombre de usuario debe tener 3-20 caracteres, solo letras, números, _ y -',
+                        passwordTooShort: 'La contraseña debe tener al menos 4 caracteres',
+                        emailInvalid: 'Por favor ingresa un email válido'
+                    }
                 }
             }
         };
