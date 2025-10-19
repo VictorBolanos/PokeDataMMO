@@ -11,7 +11,9 @@
 
 **A comprehensive suite of professional tools to optimize your PokeMMO gameplay experience**
 
-[Features](#-features) • [Demo](#-demo) • [Technologies](#-technologies) • [Installation](#-installation) • [Roadmap](#-roadmap)
+[Features](#-features) • [Demo](#-demo) • [Technologies](#-technologies) • [Installation](#-installation)
+
+Live Application: https://victorbolanos.github.io/PokeDataMMO
 
 </div>
 
