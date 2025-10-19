@@ -4,20 +4,12 @@
 document.addEventListener('DOMContentLoaded', initializeApp);
 
 async function initializeApp() {
-    // Limpiar sesión existente para forzar login (temporal)
-    // Verificar que AuthManager esté disponible
-    console.log('🔍 AuthManager disponible:', !!window.authManager);
     if (!window.authManager) {
-        console.error('❌ AuthManager no está disponible!');
+        console.error('❌ AuthManager not available');
         return;
     }
     
-    // Esperar a que AuthManager esté listo
-    console.log('⏳ Inicializando AuthManager...');
     await window.authManager.init();
-    console.log('✅ AuthManager inicializado');
-    
-    // Verificar autenticación y mostrar vista apropiada
     checkAuthenticationAndRender();
     
     initializeTabs();
@@ -729,9 +721,8 @@ function updateColorPreview(color) {
 async function initializeBerryCalculator() {
     try {
         await window.berryCalculator.init();
-        console.log('✅ Berry Calculator integrated successfully');
     } catch (error) {
-        console.error('❌ Error integrating Berry Calculator:', error);
+        console.error('❌ Berry Calculator error:', error);
     }
 }
 
@@ -742,30 +733,18 @@ function checkAuthenticationAndRender() {
     const mainCard = document.getElementById('mainCard');
     const userPillContainer = document.getElementById('userPillContainer');
     
-    console.log('🔍 Auth Status:', {
-        isAuthenticated: isAuthenticated,
-        currentUser: window.authManager.getCurrentUser(),
-        sessionKey: localStorage.getItem('pokedatammo_session')
-    });
-    
     if (isAuthenticated) {
-        // Usuario autenticado - mostrar contenido principal
-        console.log('✅ Usuario autenticado, mostrando contenido principal');
         authCard.style.display = 'none';
         mainCard.style.display = 'block';
-        updateUserPill(); // Esto mostrará el estado del usuario logueado
+        updateUserPill();
     } else {
-        // No autenticado - mostrar login/registro
-        console.log('❌ Usuario NO autenticado, mostrando login/registro');
         authCard.style.display = 'block';
         mainCard.style.display = 'none';
-        updateUserPill(); // Esto mostrará el estado "no conectado"
+        updateUserPill();
     }
 }
 
 function initializeAuth() {
-    console.log('🔧 Inicializando sistema de autenticación...');
-    
     // Auth Tabs
     const authTabs = document.querySelectorAll('.auth-tab');
     authTabs.forEach(tab => {
@@ -776,26 +755,20 @@ function initializeAuth() {
     
     // Login Form
     const loginForm = document.getElementById('loginForm');
-    console.log('🔍 Login form encontrado:', !!loginForm);
     if (loginForm) {
         loginForm.addEventListener('submit', handleLogin);
-        console.log('✅ Event listener de login añadido');
     } else {
-        console.error('❌ Login form NO encontrado!');
+        console.error('❌ Login form not found');
     }
     
     // Register Form
     const registerForm = document.getElementById('registerForm');
-    console.log('🔍 Register form encontrado:', !!registerForm);
     if (registerForm) {
         registerForm.addEventListener('submit', handleRegister);
-        console.log('✅ Event listener de register añadido');
-        
-        // Validación en tiempo real para el formulario de registro
         setupRegisterValidation();
         setupLoginValidation();
     } else {
-        console.error('❌ Register form NO encontrado!');
+        console.error('❌ Register form not found');
     }
     
     // Logout Button
@@ -806,15 +779,12 @@ function initializeAuth() {
     const dropdownLoginBtn = document.getElementById('dropdownLoginBtn');
     if (dropdownLoginBtn) {
         dropdownLoginBtn.addEventListener('click', () => {
-            // Cambiar a la pestaña de login
             switchAuthTab('login');
-            // Mostrar la auth card
             document.getElementById('authCard').style.display = 'block';
             document.getElementById('mainCard').style.display = 'none';
         });
-        console.log('✅ Event listener de dropdown login añadido');
     } else {
-        console.error('❌ Dropdown login button NO encontrado!');
+        console.error('❌ Dropdown login button not found');
     }
     
     // User Pill Dropdown
@@ -995,11 +965,7 @@ function validateRegisterForm() {
 async function handleLogin(e) {
     e.preventDefault();
     
-    console.log('🔑 Iniciando proceso de login...');
-    
-    // Validar formulario antes de proceder
     if (!validateLoginForm()) {
-        console.log('❌ Validación de formulario fallida');
         return;
     }
     
@@ -1007,40 +973,26 @@ async function handleLogin(e) {
     const password = document.getElementById('loginPassword').value;
     const messageEl = document.getElementById('loginMessage');
     
-    console.log('📝 Datos del login:', {
-        username: username,
-        password: password ? '***' : 'VACÍO',
-        messageEl: !!messageEl
-    });
-    
-    // Limpiar mensaje anterior
     messageEl.textContent = '';
     messageEl.className = 'auth-message';
     
     try {
-        console.log('⏳ Llamando a authManager.login...');
-        
         const result = await window.authManager.login(username, password);
         
-        console.log('📋 Resultado del login:', result);
-        
         if (result.success) {
-            console.log('✅ Login exitoso!');
             messageEl.className = 'auth-message success';
             messageEl.textContent = result.message;
             
-            // Esperar un momento y recargar vista
             setTimeout(() => {
                 checkAuthenticationAndRender();
-                translateAuthUI(); // Actualizar traducciones
+                translateAuthUI();
             }, 500);
         } else {
-            console.log('❌ Error en login:', result.message);
             messageEl.className = 'auth-message error';
             messageEl.textContent = result.message;
         }
     } catch (error) {
-        console.error('💥 Error inesperado en login:', error);
+        console.error('❌ Login error:', error);
         messageEl.className = 'auth-message error';
         messageEl.textContent = 'Error inesperado. Inténtalo de nuevo.';
     }
@@ -1049,11 +1001,7 @@ async function handleLogin(e) {
 async function handleRegister(e) {
     e.preventDefault();
     
-    console.log('🚀 Iniciando proceso de registro...');
-    
-    // Validar formulario antes de proceder
     if (!validateRegisterForm()) {
-        console.log('❌ Validación de formulario fallida');
         return;
     }
     
@@ -1062,41 +1010,26 @@ async function handleRegister(e) {
     const email = document.getElementById('registerEmail').value.trim();
     const messageEl = document.getElementById('registerMessage');
     
-    console.log('📝 Datos del formulario:', {
-        username: username,
-        password: password ? '***' : 'VACÍO',
-        email: email,
-        messageEl: !!messageEl
-    });
-    
-    // Limpiar mensaje anterior
     messageEl.textContent = '';
     messageEl.className = 'auth-message';
     
     try {
-        console.log('⏳ Llamando a authManager.register...');
-        
         const result = await window.authManager.register(username, password, email);
         
-        console.log('📋 Resultado del registro:', result);
-        
         if (result.success) {
-            console.log('✅ Registro exitoso!');
             messageEl.className = 'auth-message success';
             messageEl.textContent = result.message;
             
-            // Esperar un momento y recargar vista
             setTimeout(() => {
                 checkAuthenticationAndRender();
-                translateAuthUI(); // Actualizar traducciones
+                translateAuthUI();
             }, 500);
         } else {
-            console.log('❌ Error en registro:', result.message);
             messageEl.className = 'auth-message error';
             messageEl.textContent = result.message;
         }
     } catch (error) {
-        console.error('💥 Error inesperado en registro:', error);
+        console.error('❌ Register error:', error);
         messageEl.className = 'auth-message error';
         messageEl.textContent = 'Error inesperado. Inténtalo de nuevo.';
     }

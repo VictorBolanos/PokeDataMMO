@@ -3,11 +3,9 @@
 
 class AuthManager {
     constructor() {
-        console.log('🏗️ AuthManager constructor iniciado');
         this.currentUser = null;
         this.sessionKey = 'pokedatammo_session';
         this.db = null; // Se inicializará cuando Firebase esté listo
-        console.log('✅ AuthManager constructor completado');
         this.init();
     }
 
@@ -46,23 +44,14 @@ class AuthManager {
     // Probar conexión con Firebase
     async testFirebaseConnection() {
         try {
-            console.log('🧪 Probando conexión con Firebase...');
-            
-            // Intentar leer una colección (esto debería funcionar incluso si está vacía)
             const testQuery = await this.db.collection('users').limit(1).get();
-            console.log('✅ Conexión con Firebase exitosa');
-            
+            console.log('✅ Firebase connected');
             return true;
         } catch (error) {
-            console.error('❌ Error en conexión Firebase:', error);
-            
-            // Verificar si es un error de permisos
+            console.error('❌ Firebase connection error:', error);
             if (error.code === 'permission-denied') {
-                console.error('🚫 ERROR: Permisos denegados en Firestore');
-                console.error('💡 Solución: Ve a Firebase Console → Firestore → Reglas');
-                console.error('💡 Cambia las reglas a: allow read, write: if true;');
+                console.error('🚫 Firestore permissions denied - Check Firebase rules');
             }
-            
             throw error;
         }
     }
@@ -71,25 +60,17 @@ class AuthManager {
     checkSession() {
         const session = localStorage.getItem(this.sessionKey);
         
-        console.log('🔍 Checking session:', {
-            sessionKey: this.sessionKey,
-            sessionExists: !!session,
-            sessionValue: session
-        });
-        
         if (session) {
             try {
                 this.currentUser = JSON.parse(session);
-                console.log('✅ Session restored for user:', this.currentUser.username);
                 return true;
             } catch (error) {
-                console.error('❌ Error parsing session:', error);
+                console.error('❌ Session parse error:', error);
                 this.logout();
                 return false;
             }
         }
         
-        console.log('❌ No active session found');
         return false;
     }
 
@@ -130,16 +111,8 @@ class AuthManager {
 
     // Registrar nuevo usuario en Firebase
     async register(username, password, email = '') {
-        console.log('🔐 AuthManager.register iniciado:', {
-            username: username,
-            password: password ? '***' : 'VACÍO',
-            email: email,
-            db: !!this.db
-        });
-        
         // Validaciones
         if (!this.validateUsername(username)) {
-            console.log('❌ Username inválido');
             return {
                 success: false,
                 message: window.languageManager.getCurrentLanguage() === 'es' 
@@ -149,7 +122,6 @@ class AuthManager {
         }
 
         if (!this.validatePassword(password)) {
-            console.log('❌ Password inválido');
             return {
                 success: false,
                 message: window.languageManager.getCurrentLanguage() === 'es' 
@@ -159,7 +131,6 @@ class AuthManager {
         }
 
         if (email && !this.validateEmail(email)) {
-            console.log('❌ Email inválido');
             return {
                 success: false,
                 message: window.languageManager.getCurrentLanguage() === 'es' 
@@ -169,16 +140,11 @@ class AuthManager {
         }
 
         try {
-            console.log('⏳ Verificando si usuario existe...');
-            
             // Verificar si el usuario ya existe
             const userRef = this.db.collection('users').doc(username);
             const userDoc = await userRef.get();
 
-            console.log('📋 Usuario existe:', userDoc.exists);
-
             if (userDoc.exists) {
-                console.log('❌ Usuario ya existe');
                 return {
                     success: false,
                     message: window.languageManager.getCurrentLanguage() === 'es' 
@@ -189,16 +155,12 @@ class AuthManager {
 
             // Verificar si el email ya existe (si se proporcionó)
             if (email) {
-                console.log('⏳ Verificando email...');
                 const emailQuery = await this.db.collection('users')
                     .where('email', '==', email)
                     .limit(1)
                     .get();
                 
-                console.log('📋 Email existe:', !emailQuery.empty);
-                
                 if (!emailQuery.empty) {
-                    console.log('❌ Email ya existe');
                     return {
                         success: false,
                         message: window.languageManager.getCurrentLanguage() === 'es' 
@@ -207,8 +169,6 @@ class AuthManager {
                     };
                 }
             }
-
-            console.log('⏳ Creando usuario en Firebase...');
 
             // Crear nuevo usuario en Firebase
             const newUser = {
@@ -219,19 +179,18 @@ class AuthManager {
             };
 
             await userRef.set(newUser);
-            console.log('✅ Usuario creado en Firebase');
 
             // Crear documento de datos personalizados del usuario
             const userDataRef = this.db.collection('user_data').doc(username);
             
             await userDataRef.set({
-                owner_user: userRef, // Referencia directa al documento del usuario
+                owner_user: userRef,
                 berry_calculations: {},
-                pokedex_favorites: [],
                 breeding_plans: {},
+                pvp_teams: {},
+                league_calculations: {},
                 lastUpdated: new Date().toISOString()
             });
-            console.log('✅ Datos de usuario creados en Firebase');
 
             // Auto-login después del registro
             this.currentUser = {
@@ -239,7 +198,6 @@ class AuthManager {
                 email: newUser.email
             };
             localStorage.setItem(this.sessionKey, JSON.stringify(this.currentUser));
-            console.log('✅ Auto-login realizado');
 
             return {
                 success: true,
@@ -250,7 +208,7 @@ class AuthManager {
             };
 
         } catch (error) {
-            console.error('💥 Error registering user:', error);
+            console.error('❌ Register error:', error);
             return {
                 success: false,
                 message: window.languageManager.getCurrentLanguage() === 'es' 
@@ -262,15 +220,8 @@ class AuthManager {
 
     // Iniciar sesión con Firebase
     async login(username, password) {
-        console.log('🔐 AuthManager.login iniciado:', {
-            username: username,
-            password: password ? '***' : 'VACÍO',
-            db: !!this.db
-        });
-        
         // Validaciones básicas
         if (!username || !password) {
-            console.log('❌ Campos vacíos');
             return {
                 success: false,
                 message: window.languageManager.getCurrentLanguage() === 'es' 
@@ -280,16 +231,11 @@ class AuthManager {
         }
 
         try {
-            console.log('⏳ Buscando usuario en Firebase...');
-            
             // Buscar usuario en Firebase
             const userRef = this.db.collection('users').doc(username);
             const userDoc = await userRef.get();
 
-            console.log('📋 Usuario encontrado:', userDoc.exists);
-
             if (!userDoc.exists) {
-                console.log('❌ Usuario no encontrado');
                 return {
                     success: false,
                     message: window.languageManager.getCurrentLanguage() === 'es' 
@@ -299,20 +245,11 @@ class AuthManager {
             }
 
             const userData = userDoc.data();
-            console.log('📋 Datos del usuario:', {
-                username: userData.username,
-                email: userData.email,
-                hasPassword: !!userData.password
-            });
 
             // Verificar contraseña
-            console.log('⏳ Verificando contraseña...');
             const decodedPassword = this.decodePassword(userData.password);
             
-            console.log('📋 Contraseña decodificada:', decodedPassword ? '***' : 'ERROR');
-            
             if (decodedPassword !== password) {
-                console.log('❌ Contraseña incorrecta');
                 return {
                     success: false,
                     message: window.languageManager.getCurrentLanguage() === 'es' 
@@ -320,8 +257,6 @@ class AuthManager {
                         : 'Incorrect password'
                 };
             }
-
-            console.log('✅ Contraseña correcta, iniciando sesión...');
 
             // Login exitoso
             this.currentUser = {
@@ -331,7 +266,6 @@ class AuthManager {
             
             // Guardar sesión en localStorage (persistente)
             localStorage.setItem(this.sessionKey, JSON.stringify(this.currentUser));
-            console.log('✅ Sesión guardada en localStorage');
 
             return {
                 success: true,
@@ -342,7 +276,7 @@ class AuthManager {
             };
 
         } catch (error) {
-            console.error('💥 Error logging in:', error);
+            console.error('❌ Login error:', error);
             return {
                 success: false,
                 message: window.languageManager.getCurrentLanguage() === 'es' 
@@ -512,9 +446,184 @@ class AuthManager {
             return { success: false, message: 'Error updating user' };
         }
     }
+
+    // ========================================
+    // BERRY CALCULATIONS METHODS
+    // ========================================
+
+    /**
+     * Guardar un cálculo de bayas (crear o actualizar)
+     * @param {string} calculationName - Nombre del cálculo
+     * @param {Object} calculationData - Datos del cálculo
+     * @returns {Promise<Object>} Resultado de la operación
+     */
+    async saveBerryCalculation(calculationName, calculationData) {
+        if (!this.isAuthenticated()) {
+            return { success: false, message: 'No session active' };
+        }
+
+        try {
+            const userDataRef = this.db.collection('user_data').doc(this.currentUser.username);
+            
+            const dataToSave = {
+                ...calculationData,
+                calculationName: calculationName,
+                lastSaved: firebase.firestore.FieldValue.serverTimestamp()
+            };
+            
+            await userDataRef.update({
+                [`berry_calculations.${calculationName}`]: dataToSave,
+                lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            
+            console.log('💾 Saved:', calculationName);
+            return { success: true, message: 'Calculation saved' };
+            
+        } catch (error) {
+            console.error('❌ Save error:', error);
+            return { success: false, message: 'Error saving calculation' };
+        }
+    }
+
+    /**
+     * Cargar un cálculo específico de bayas
+     * @param {string} calculationName - Nombre del cálculo
+     * @returns {Promise<Object>} Resultado con los datos del cálculo
+     */
+    async loadBerryCalculation(calculationName) {
+        if (!this.isAuthenticated()) {
+            return { success: false, message: 'No session active' };
+        }
+
+        try {
+            const userDataRef = this.db.collection('user_data').doc(this.currentUser.username);
+            const userDataDoc = await userDataRef.get();
+            
+            if (!userDataDoc.exists) {
+                return { success: false, message: 'User data not found' };
+            }
+            
+            const userData = userDataDoc.data();
+            const calculation = userData.berry_calculations?.[calculationName];
+            
+            if (!calculation) {
+                return { success: false, message: 'Calculation not found' };
+            }
+            
+            console.log('📂 Loaded:', calculationName);
+            return { success: true, data: calculation };
+            
+        } catch (error) {
+            console.error('❌ Load error:', error);
+            return { success: false, message: 'Error loading calculation' };
+        }
+    }
+
+    /**
+     * Obtener lista de todos los cálculos de bayas del usuario
+     * @returns {Promise<Object>} Resultado con todos los cálculos
+     */
+    async getAllBerryCalculations() {
+        if (!this.isAuthenticated()) {
+            return { success: false, message: 'No session active' };
+        }
+
+        try {
+            const userDataRef = this.db.collection('user_data').doc(this.currentUser.username);
+            const userDataDoc = await userDataRef.get();
+            
+            if (!userDataDoc.exists) {
+                await userDataRef.set({
+                    owner_user: this.db.collection('users').doc(this.currentUser.username),
+                    berry_calculations: {},
+                    breeding_plans: {},
+                    pvp_teams: {},
+                    league_calculations: {},
+                    lastUpdated: new Date().toISOString()
+                });
+                return { success: true, data: {}, list: [] };
+            }
+            
+            const userData = userDataDoc.data();
+            const calculations = userData.berry_calculations || {};
+            
+            return { 
+                success: true, 
+                data: calculations,
+                list: Object.keys(calculations)
+            };
+            
+        } catch (error) {
+            console.error('❌ Get calculations error:', error);
+            return { success: false, message: 'Error loading calculations' };
+        }
+    }
+
+    /**
+     * Eliminar un cálculo de bayas
+     * @param {string} calculationName - Nombre del cálculo a eliminar
+     * @returns {Promise<Object>} Resultado de la operación
+     */
+    async deleteBerryCalculation(calculationName) {
+        if (!this.isAuthenticated()) {
+            return { success: false, message: 'No session active' };
+        }
+
+        try {
+            const userDataRef = this.db.collection('user_data').doc(this.currentUser.username);
+            
+            await userDataRef.update({
+                [`berry_calculations.${calculationName}`]: firebase.firestore.FieldValue.delete(),
+                lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+            });
+            
+            console.log('🗑️ Deleted:', calculationName);
+            return { success: true, message: 'Calculation deleted' };
+            
+        } catch (error) {
+            console.error('❌ Delete error:', error);
+            return { success: false, message: 'Error deleting calculation' };
+        }
+    }
+
+    /**
+     * Renombrar un cálculo de bayas
+     * @param {string} oldName - Nombre actual
+     * @param {string} newName - Nuevo nombre
+     * @returns {Promise<Object>} Resultado de la operación
+     */
+    async renameBerryCalculation(oldName, newName) {
+        if (!this.isAuthenticated()) {
+            return { success: false, message: 'No session active' };
+        }
+
+        try {
+            const loadResult = await this.loadBerryCalculation(oldName);
+            if (!loadResult.success) {
+                return loadResult;
+            }
+            
+            const calculationData = loadResult.data;
+            calculationData.calculationName = newName;
+            
+            const saveResult = await this.saveBerryCalculation(newName, calculationData);
+            if (!saveResult.success) {
+                return saveResult;
+            }
+            
+            const deleteResult = await this.deleteBerryCalculation(oldName);
+            if (!deleteResult.success) {
+                return deleteResult;
+            }
+            
+            return { success: true, message: 'Calculation renamed' };
+            
+        } catch (error) {
+            console.error('❌ Rename error:', error);
+            return { success: false, message: 'Error renaming calculation' };
+        }
+    }
 }
 
 // Exportar instancia global
-console.log('🌍 Creando instancia global de AuthManager...');
 window.authManager = new AuthManager();
-console.log('✅ AuthManager instancia global creada:', !!window.authManager);

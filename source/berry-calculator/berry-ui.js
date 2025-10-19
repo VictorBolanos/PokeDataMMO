@@ -5,12 +5,45 @@ class BerryUI {
         this.currentBerry = null;
     }
 
-    // Renderizar interfaz principal
-    render() {
+    // ========================================
+    // RENDERIZADO INICIAL
+    // ========================================
+
+    /**
+     * Renderizar UI inicial con botones Load/New
+     */
+    async renderInitialUI() {
         const farmingTab = document.getElementById('farming');
         if (!farmingTab) return;
 
         const lm = window.languageManager;
+
+        // Verificar si hay sesión activa
+        const isAuthenticated = window.authManager && window.authManager.isAuthenticated();
+
+        if (!isAuthenticated) {
+            farmingTab.innerHTML = `
+                <div class="berry-calculator-container">
+                    <div class="berry-calculator-header text-center">
+                        <h2 class="mb-3" id="calculatorTitle">
+                            ${lm.t('farming.calculator.title')}
+                        </h2>
+                        <p class="lead mb-4" id="calculatorSubtitle">${lm.t('farming.calculator.subtitle')}</p>
+                        <div class="alert alert-warning">
+                            <strong>${lm.getCurrentLanguage() === 'es' ? '⚠️ Inicio de sesión requerido' : '⚠️ Login Required'}</strong><br>
+                            ${lm.getCurrentLanguage() === 'es' 
+                                ? 'Debes iniciar sesión para usar la calculadora de bayas y guardar tus cálculos.' 
+                                : 'You must log in to use the berry calculator and save your calculations.'}
+                        </div>
+                    </div>
+                </div>
+            `;
+            return;
+        }
+
+        // Cargar lista de cálculos guardados
+        const calculationsResult = await window.authManager.getAllBerryCalculations();
+        const hasSavedCalculations = calculationsResult.success && calculationsResult.list.length > 0;
 
         farmingTab.innerHTML = `
             <div class="berry-calculator-container">
@@ -18,70 +51,434 @@ class BerryUI {
                     <h2 class="d-flex align-items-center justify-content-center gap-3 mb-3" id="calculatorTitle">
                         ${lm.t('farming.calculator.title')}
                     </h2>
-                    <p class="lead mb-4" id="calculatorSubtitle">${lm.t('farming.calculator.subtitle')}</p>
+                    <p class="lead mb-4 text-center" id="calculatorSubtitle">${lm.t('farming.calculator.subtitle')}</p>
                 </div>
 
-                <div class="berry-calculator-controls">
-                    <div class="row mb-4">
+                <!-- Load/New Controls -->
+                <div class="berry-calculator-load-new-controls mb-5">
+                    <div class="row align-items-end">
+                        <div class="col-md-8">
+                            <label class="form-label text-white mb-2">
+                                ${lm.getCurrentLanguage() === 'es' ? '📂 Cargar Cálculo Guardado' : '📂 Load Saved Calculation'}
+                            </label>
+                            <select class="form-control" id="loadCalculationSelect" ${!hasSavedCalculations ? 'disabled' : ''}>
+                                <option value="">
+                                    ${hasSavedCalculations 
+                                        ? (lm.getCurrentLanguage() === 'es' ? 'Selecciona un cálculo...' : 'Select a calculation...') 
+                                        : (lm.getCurrentLanguage() === 'es' ? 'No hay cálculos guardados' : 'No saved calculations')}
+                                </option>
+                                ${hasSavedCalculations ? calculationsResult.list.map(name => `
+                                    <option value="${name}">${name}</option>
+                                `).join('') : ''}
+                            </select>
+                        </div>
                         <div class="col-md-4">
-                            <label class="form-label text-white mb-2" id="labelCultivationType">${lm.t('farming.calculator.cultivationType')}</label>
-                            <div class="custom-dropdown" id="berryTypeDropdown">
-                                <div class="custom-dropdown-selected" id="berryTypeSelected">
-                                    <span class="dropdown-text" id="dropdownText">${lm.t('farming.calculator.selectCultivation')}</span>
-                                    <span class="dropdown-arrow">▼</span>
-                                </div>
-                                <div class="custom-dropdown-options" id="berryTypeOptions">
-                                    <div class="custom-dropdown-option" data-value="zanamas" data-icon="leppa-berry">
-                                        <img src="" alt="" class="dropdown-sprite" style="display: none;">
-                                        <span class="dropdown-option-text">${lm.t('farming.calculator.leppa')}</span>
-                                    </div>
+                            <button class="btn btn-primary w-100" id="newCalculationBtn">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="margin-right: 8px;">
+                                    <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                                </svg>
+                                ${lm.getCurrentLanguage() === 'es' ? 'Nuevo Cálculo' : 'New Calculation'}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculation Container (hidden initially) -->
+                <div id="calculatorMainContent" style="display: none;">
+                    <!-- Se llenará dinámicamente -->
+                </div>
+            </div>
+        `;
+
+        // Setup event listeners
+        this.setupLoadNewControls();
+    }
+
+    /**
+     * Configurar controles de Load/New
+     */
+    setupLoadNewControls() {
+        const loadSelect = document.getElementById('loadCalculationSelect');
+        const newBtn = document.getElementById('newCalculationBtn');
+
+        if (loadSelect) {
+            loadSelect.addEventListener('change', async (e) => {
+                const calculationName = e.target.value;
+                if (calculationName) {
+                    await window.berryCalculator.loadCalculation(calculationName);
+                }
+            });
+        }
+
+        if (newBtn) {
+            newBtn.addEventListener('click', async () => {
+                await window.berryCalculator.createNewCalculation();
+            });
+        }
+    }
+
+    // ========================================
+    // RENDERIZADO DE CALCULADORA
+    // ========================================
+
+    /**
+     * Renderizar calculadora completa (con o sin datos)
+     */
+    async renderCalculatorUI(data = null) {
+        const calculatorContent = document.getElementById('calculatorMainContent');
+        if (!calculatorContent) return;
+
+        const lm = window.languageManager;
+
+        calculatorContent.innerHTML = `
+            <!-- Save Indicator -->
+            <div class="save-indicator" id="saveIndicator" style="display: none;">
+                <span id="saveIndicatorText"></span>
+            </div>
+
+            <!-- Calculation Name Input -->
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <label class="form-label text-white mb-2">
+                        ${lm.getCurrentLanguage() === 'es' ? '📝 Nombre del Cálculo' : '📝 Calculation Name'}
+                        <span class="text-danger">*</span>
+                    </label>
+                    <input type="text" class="form-control" id="calculationNameInput" 
+                           placeholder="${lm.getCurrentLanguage() === 'es' ? 'Ej: Zanamas Farm Principal' : 'E.g: Zanamas Main Farm'}"
+                           value="${data?.calculationName || ''}" required>
+                    <small class="form-text text-muted">
+                        ${lm.getCurrentLanguage() === 'es' ? 'Este nombre identifica tu cálculo' : 'This name identifies your calculation'}
+                    </small>
+                </div>
+            </div>
+
+            <div class="berry-calculator-controls">
+                <div class="row mb-4">
+                    <div class="col-md-4">
+                        <label class="form-label text-white mb-2" id="labelCultivationType">${lm.t('farming.calculator.cultivationType')}</label>
+                        <div class="custom-dropdown" id="berryTypeDropdown">
+                            <div class="custom-dropdown-selected" id="berryTypeSelected">
+                                <span class="dropdown-text" id="dropdownText">${lm.t('farming.calculator.selectCultivation')}</span>
+                                <span class="dropdown-arrow">▼</span>
+                            </div>
+                            <div class="custom-dropdown-options" id="berryTypeOptions">
+                                <div class="custom-dropdown-option" data-value="zanamas" data-icon="leppa-berry">
+                                    <img src="" alt="" class="dropdown-sprite" style="display: none;">
+                                    <span class="dropdown-option-text">${lm.t('farming.calculator.leppa')}</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <label class="form-label text-white mb-2" id="labelPlantsPerCharacter">${lm.t('farming.calculator.plantsPerCharacter')}</label>
-                            <input type="number" class="form-control" id="plantCountInput" 
-                                   placeholder="${lm.getCurrentLanguage() === 'es' ? 'Ej: 100' : 'E.g: 100'}" min="1" max="1000" disabled>
-                        </div>
-                        <div class="col-md-4">
-                            <label class="form-label text-white mb-2" id="labelNumberOfCharacters">${lm.t('farming.calculator.numberOfCharacters')}</label>
-                            <input type="number" class="form-control" id="characterCountInput" 
-                                   placeholder="${lm.getCurrentLanguage() === 'es' ? 'Ej: 3' : 'E.g: 3'}" min="1" max="10" disabled>
-                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label text-white mb-2" id="labelPlantsPerCharacter">${lm.t('farming.calculator.plantsPerCharacter')}</label>
+                        <input type="number" class="form-control" id="plantCountInput" 
+                               placeholder="${lm.getCurrentLanguage() === 'es' ? 'Ej: 100' : 'E.g: 100'}" 
+                               min="1" max="1000" value="${data?.plantsPerCharacter || ''}" 
+                               ${data && data.cultivationType ? '' : 'disabled'}>
+                    </div>
+                    <div class="col-md-4">
+                        <label class="form-label text-white mb-2" id="labelNumberOfCharacters">${lm.t('farming.calculator.numberOfCharacters')}</label>
+                        <input type="number" class="form-control" id="characterCountInput" 
+                               placeholder="${lm.getCurrentLanguage() === 'es' ? 'Ej: 3' : 'E.g: 3'}" 
+                               min="1" max="10" value="${data?.characters || ''}"
+                               ${data && data.cultivationType ? '' : 'disabled'}>
+                    </div>
+                </div>
+            </div>
+
+            <div class="berry-calculator-content" id="berryCalculatorContent" style="${data && data.cultivationType ? 'display: block;' : 'display: none;'}">
+                <!-- Horarios de Riego -->
+                <div class="irrigation-schedule-section mb-5">
+                    <h4 class="section-title mb-4" id="titleIrrigationSchedule">${lm.t('farming.calculator.irrigationSchedule')}</h4>
+                    <div class="irrigation-schedule-table" id="irrigationScheduleTable">
+                        <!-- Se generará dinámicamente -->
                     </div>
                 </div>
 
-                <div class="berry-calculator-content" id="berryCalculatorContent" style="display: none;">
-                    <!-- Horarios de Riego -->
-                    <div class="irrigation-schedule-section mb-5">
-                        <h4 class="section-title mb-4" id="titleIrrigationSchedule">${lm.t('farming.calculator.irrigationSchedule')}</h4>
-                        <div class="irrigation-schedule-table" id="irrigationScheduleTable">
-                            <!-- Se generará dinámicamente -->
-                        </div>
+                <!-- Tabla de Semillas y Ganancias -->
+                <div class="seeds-profits-section mb-5">
+                    <h4 class="section-title mb-4" id="titleSeedsAnalysis">${lm.t('farming.calculator.seedsAnalysis')}</h4>
+                    <div class="seeds-profits-table" id="seedsProfitsTable">
+                        <!-- Se generará dinámicamente -->
                     </div>
+                </div>
 
-                    <!-- Tabla de Semillas y Ganancias -->
-                    <div class="seeds-profits-section mb-5">
-                        <h4 class="section-title mb-4" id="titleSeedsAnalysis">${lm.t('farming.calculator.seedsAnalysis')}</h4>
-                        <div class="seeds-profits-table" id="seedsProfitsTable">
-                            <!-- Se generará dinámicamente -->
-                        </div>
-                    </div>
-
-                    <!-- Resumen de Gastos -->
-                    <div class="expenses-summary-section">
-                        <h4 class="section-title mb-4" id="titleExpensesSummary">${lm.t('farming.calculator.expensesSummary')}</h4>
-                        <div class="expenses-summary" id="expensesSummary">
-                            <!-- Se generará dinámicamente -->
-                        </div>
+                <!-- Resumen de Gastos -->
+                <div class="expenses-summary-section">
+                    <h4 class="section-title mb-4" id="titleExpensesSummary">${lm.t('farming.calculator.expensesSummary')}</h4>
+                    <div class="expenses-summary" id="expensesSummary">
+                        <!-- Se generará dinámicamente -->
                     </div>
                 </div>
             </div>
         `;
 
+        // Mostrar contenedor
+        calculatorContent.style.display = 'block';
+
+        // Setup components
         this.container = document.getElementById('berryCalculatorContent');
+        this.setupCalculationNameListener();
         this.setupEventListeners();
         this.setupCustomDropdown();
+
+        // Si hay datos, poblar la calculadora
+        if (data && data.cultivationType) {
+            await this.populateCalculatorWithData(data);
+        }
+    }
+
+    /**
+     * Configurar listener para el nombre del cálculo
+     */
+    setupCalculationNameListener() {
+        const nameInput = document.getElementById('calculationNameInput');
+        if (!nameInput) return;
+
+        nameInput.addEventListener('input', (e) => {
+            const newName = e.target.value.trim();
+            if (newName) {
+                window.berryCalculator.setCalculationName(newName);
+                // Programar auto-save
+                window.berryCalculator.scheduleAutoSave();
+            }
+        });
+    }
+
+    /**
+     * Poblar calculadora con datos guardados
+     */
+    async populateCalculatorWithData(data) {
+
+        // Seleccionar tipo de baya
+        if (data.cultivationType) {
+            this.currentBerry = data.cultivationType;
+            await this.handleBerrySelection(data.cultivationType);
+        }
+
+        // Poblar plantas y personajes
+        if (data.plantsPerCharacter) {
+            document.getElementById('plantCountInput').value = data.plantsPerCharacter;
+            this.plantCount = data.plantsPerCharacter;
+        }
+
+        if (data.characters) {
+            document.getElementById('characterCountInput').value = data.characters;
+            this.characterCount = data.characters;
+        }
+
+        // Esperar un momento a que se renderice
+        await new Promise(resolve => setTimeout(resolve, 100));
+
+        // Poblar horarios de riego
+        if (data.irrigationTimes && Array.isArray(data.irrigationTimes)) {
+            data.irrigationTimes.forEach(schedule => {
+                const berryName = schedule.berryName;
+                
+                if (schedule.plantingTime) {
+                    const plantInput = document.getElementById(`plantTime_${berryName}`);
+                    if (plantInput) plantInput.value = schedule.plantingTime;
+                }
+                
+                if (schedule.firstIrrigation) {
+                    const firstInput = document.getElementById(`firstIrrigation_${berryName}`);
+                    if (firstInput) firstInput.value = schedule.firstIrrigation;
+                }
+                
+                if (schedule.secondIrrigation) {
+                    const secondInput = document.getElementById(`secondIrrigation_${berryName}`);
+                    if (secondInput) secondInput.value = schedule.secondIrrigation;
+                }
+                
+                if (schedule.harvestTime) {
+                    const harvestInput = document.getElementById(`harvestTime_${berryName}`);
+                    if (harvestInput) harvestInput.value = schedule.harvestTime;
+                }
+                
+                if (schedule.harvestUnits) {
+                    const unitsInput = document.getElementById(`harvestUnits_${berryName}`);
+                    if (unitsInput) unitsInput.value = schedule.harvestUnits;
+                }
+            });
+        }
+
+        // Poblar semillas y precios
+        if (data.seedsProfits && Array.isArray(data.seedsProfits)) {
+            data.seedsProfits.forEach(seed => {
+                const seedName = seed.seedName;
+                
+                if (seed.harvest !== undefined) {
+                    const harvestInput = document.getElementById(`harvest_${seedName}`);
+                    if (harvestInput) harvestInput.value = seed.harvest;
+                }
+                
+                if (seed.sellingPrice !== undefined) {
+                    const priceInput = document.getElementById(`price_${seedName}`);
+                    if (priceInput) priceInput.value = seed.sellingPrice;
+                }
+            });
+        }
+
+        // Poblar costos de compra
+        if (data.purchaseCosts && Array.isArray(data.purchaseCosts)) {
+            const container = document.getElementById('purchaseCostsContainer');
+            if (container) {
+                // Limpiar inputs existentes
+                container.innerHTML = '';
+                
+                // Crear inputs para cada costo
+                data.purchaseCosts.forEach((cost, index) => {
+                    const inputGroup = document.createElement('div');
+                    inputGroup.className = 'cost-input-group';
+                    inputGroup.innerHTML = `
+                        <div class="currency-input-group">
+                            <span class="currency-symbol">₽</span>
+                            <input type="number" class="form-control form-control-sm purchase-cost-input currency-input" 
+                                   placeholder="0" min="0" step="1" value="${cost}">
+                        </div>
+                        <button class="btn btn-sm btn-outline-${index === 0 ? 'primary add' : 'danger remove'}-cost-btn">
+                            ${index === 0 ? '+' : '-'}
+                        </button>
+                    `;
+                    container.appendChild(inputGroup);
+                });
+                
+                // Re-setup event listeners
+                this.setupExpenseInputListeners();
+            }
+        }
+
+        // Poblar costos de gestión
+        if (data.managementCosts && Array.isArray(data.managementCosts)) {
+            const container = document.getElementById('managementCostsContainer');
+            if (container) {
+                // Limpiar inputs existentes
+                container.innerHTML = '';
+                
+                // Crear inputs para cada costo
+                data.managementCosts.forEach((cost, index) => {
+                    const inputGroup = document.createElement('div');
+                    inputGroup.className = 'cost-input-group';
+                    inputGroup.innerHTML = `
+                        <div class="currency-input-group">
+                            <span class="currency-symbol">₽</span>
+                            <input type="number" class="form-control form-control-sm management-cost-input currency-input" 
+                                   placeholder="0" min="0" step="1" value="${cost}">
+                        </div>
+                        <button class="btn btn-sm btn-outline-${index === 0 ? 'primary add' : 'danger remove'}-cost-btn">
+                            ${index === 0 ? '+' : '-'}
+                        </button>
+                    `;
+                    container.appendChild(inputGroup);
+                });
+                
+                // Re-setup event listeners
+                this.setupExpenseInputListeners();
+            }
+        }
+
+        // Recalcular todo
+        this.calculateAndRender();
+    }
+
+    /**
+     * Recopilar todos los datos del cálculo actual
+     */
+    collectCalculationData() {
+        const data = {};
+
+        // Configuración básica
+        data.cultivationType = this.currentBerry;
+        data.plantsPerCharacter = parseInt(document.getElementById('plantCountInput')?.value) || 0;
+        data.characters = parseInt(document.getElementById('characterCountInput')?.value) || 0;
+
+        // Horarios de riego
+        data.irrigationTimes = [];
+        const config = window.berryData.getBerryConfig(this.currentBerry);
+        if (config && config.phases) {
+            config.phases.forEach(phase => {
+                const berryName = phase.apiName;
+                data.irrigationTimes.push({
+                    berryName: berryName,
+                    plantingTime: document.getElementById(`plantTime_${berryName}`)?.value || '',
+                    firstIrrigation: document.getElementById(`firstIrrigation_${berryName}`)?.value || '',
+                    secondIrrigation: document.getElementById(`secondIrrigation_${berryName}`)?.value || null,
+                    harvestTime: document.getElementById(`harvestTime_${berryName}`)?.value || '',
+                    harvestUnits: parseInt(document.getElementById(`harvestUnits_${berryName}`)?.value) || 0
+                });
+            });
+        }
+
+        // Semillas y ganancias
+        data.seedsProfits = [];
+        const requiredSeeds = window.berryData.getRequiredSeedsForCultivation(this.currentBerry);
+        requiredSeeds.forEach(seedType => {
+            data.seedsProfits.push({
+                seedName: seedType,
+                harvest: parseInt(document.getElementById(`harvest_${seedType}`)?.value) || 0,
+                sellingPrice: parseInt(document.getElementById(`price_${seedType}`)?.value) || 0
+            });
+        });
+
+        // Agregar Zanamas berry
+        data.seedsProfits.push({
+            seedName: 'zanamas',
+            harvest: parseInt(document.getElementById('harvest_zanamas')?.value) || 0,
+            sellingPrice: parseInt(document.getElementById('price_zanamas')?.value) || 0
+        });
+
+        // Costos de compra
+        data.purchaseCosts = [];
+        document.querySelectorAll('.purchase-cost-input').forEach(input => {
+            const value = parseInt(input.value) || 0;
+            if (value > 0) data.purchaseCosts.push(value);
+        });
+
+        // Costos de gestión
+        data.managementCosts = [];
+        document.querySelectorAll('.management-cost-input').forEach(input => {
+            const value = parseInt(input.value) || 0;
+            if (value > 0) data.managementCosts.push(value);
+        });
+
+        return data;
+    }
+
+    /**
+     * Mostrar indicador de guardado
+     */
+    showSaveIndicator(status) {
+        const indicator = document.getElementById('saveIndicator');
+        const text = document.getElementById('saveIndicatorText');
+        
+        if (!indicator || !text) return;
+
+        const lm = window.languageManager;
+
+        if (status === 'success') {
+            indicator.className = 'save-indicator success';
+            text.textContent = lm.getCurrentLanguage() === 'es' 
+                ? '✅ Guardado automáticamente' 
+                : '✅ Auto-saved';
+        } else if (status === 'error') {
+            indicator.className = 'save-indicator error';
+            text.textContent = lm.getCurrentLanguage() === 'es' 
+                ? '❌ Error al guardar' 
+                : '❌ Error saving';
+        } else if (status === 'saving') {
+            indicator.className = 'save-indicator saving';
+            text.textContent = lm.getCurrentLanguage() === 'es' 
+                ? '💾 Guardando...' 
+                : '💾 Saving...';
+        }
+
+        // Mostrar
+        indicator.style.display = 'block';
+
+        // Ocultar después de 3 segundos
+        setTimeout(() => {
+            indicator.style.display = 'none';
+        }, 3000);
     }
 
     // Configurar event listeners
@@ -89,14 +486,21 @@ class BerryUI {
         const plantCountInput = document.getElementById('plantCountInput');
         const characterCountInput = document.getElementById('characterCountInput');
 
+        if (plantCountInput) {
+            plantCountInput.addEventListener('input', () => {
+                this.handleInputChange();
+                // Programar auto-save
+                window.berryCalculator.scheduleAutoSave();
+            });
+        }
 
-        plantCountInput.addEventListener('input', () => {
-            this.handleInputChange();
-        });
-
-        characterCountInput.addEventListener('input', () => {
-            this.handleInputChange();
-        });
+        if (characterCountInput) {
+            characterCountInput.addEventListener('input', () => {
+                this.handleInputChange();
+                // Programar auto-save
+                window.berryCalculator.scheduleAutoSave();
+            });
+        }
     }
 
     // Manejar selección de baya
@@ -558,6 +962,8 @@ class BerryUI {
                 this.calculateAndRender();
                 // Autocompletar cosecha de Zanamas si es la fila correspondiente
                 this.autoCompleteZanamasHarvest(input);
+                // Programar auto-save
+                window.berryCalculator.scheduleAutoSave();
             });
         });
 
@@ -565,18 +971,24 @@ class BerryUI {
         plantTimeInputs.forEach(input => {
             input.addEventListener('input', () => {
                 this.calculateCascadeTimes(input);
+                // Programar auto-save
+                window.berryCalculator.scheduleAutoSave();
             });
         });
 
         irrigationInputs.forEach(input => {
             input.addEventListener('input', () => {
                 this.calculateCascadeTimes(input);
+                // Programar auto-save
+                window.berryCalculator.scheduleAutoSave();
             });
         });
 
         harvestTimeInputs.forEach(input => {
             input.addEventListener('input', () => {
                 this.calculateCascadeTimes(input);
+                // Programar auto-save
+                window.berryCalculator.scheduleAutoSave();
             });
         });
     }
@@ -603,12 +1015,16 @@ class BerryUI {
         priceInputs.forEach(input => {
             input.addEventListener('input', () => {
                 this.calculateAndRender();
+                // Programar auto-save
+                window.berryCalculator.scheduleAutoSave();
             });
         });
 
         harvestInputs.forEach(input => {
             input.addEventListener('input', () => {
                 this.calculateAndRender();
+                // Programar auto-save
+                window.berryCalculator.scheduleAutoSave();
             });
         });
     }
@@ -943,6 +1359,8 @@ class BerryUI {
             input.addEventListener('input', () => {
                 this.updatePurchaseCostsTotal();
                 this.calculateAndRender();
+                // Programar auto-save
+                window.berryCalculator.scheduleAutoSave();
             });
         });
 
@@ -951,6 +1369,8 @@ class BerryUI {
             input.addEventListener('input', () => {
                 this.updateManagementCostsTotal();
                 this.calculateAndRender();
+                // Programar auto-save
+                window.berryCalculator.scheduleAutoSave();
             });
         });
     }
