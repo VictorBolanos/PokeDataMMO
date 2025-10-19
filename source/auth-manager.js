@@ -328,6 +328,8 @@ class AuthManager {
                 username: userData.username,
                 email: userData.email
             };
+            
+            // Guardar sesión en localStorage (persistente)
             localStorage.setItem(this.sessionKey, JSON.stringify(this.currentUser));
             console.log('✅ Sesión guardada en localStorage');
 

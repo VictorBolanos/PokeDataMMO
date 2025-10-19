@@ -5,9 +5,6 @@ document.addEventListener('DOMContentLoaded', initializeApp);
 
 async function initializeApp() {
     // Limpiar sesión existente para forzar login (temporal)
-    console.log('🧹 Limpiando sesión existente para debug...');
-    localStorage.removeItem('pokedatammo_session');
-    
     // Verificar que AuthManager esté disponible
     console.log('🔍 AuthManager disponible:', !!window.authManager);
     if (!window.authManager) {
@@ -756,14 +753,13 @@ function checkAuthenticationAndRender() {
         console.log('✅ Usuario autenticado, mostrando contenido principal');
         authCard.style.display = 'none';
         mainCard.style.display = 'block';
-        userPillContainer.style.display = 'block';
-        updateUserPill();
+        updateUserPill(); // Esto mostrará el estado del usuario logueado
     } else {
         // No autenticado - mostrar login/registro
         console.log('❌ Usuario NO autenticado, mostrando login/registro');
         authCard.style.display = 'block';
         mainCard.style.display = 'none';
-        userPillContainer.style.display = 'none';
+        updateUserPill(); // Esto mostrará el estado "no conectado"
     }
 }
 
@@ -806,12 +802,31 @@ function initializeAuth() {
     const logoutBtn = document.getElementById('logoutBtn');
     logoutBtn.addEventListener('click', handleLogout);
     
+    // Dropdown Login Button
+    const dropdownLoginBtn = document.getElementById('dropdownLoginBtn');
+    if (dropdownLoginBtn) {
+        dropdownLoginBtn.addEventListener('click', () => {
+            // Cambiar a la pestaña de login
+            switchAuthTab('login');
+            // Mostrar la auth card
+            document.getElementById('authCard').style.display = 'block';
+            document.getElementById('mainCard').style.display = 'none';
+        });
+        console.log('✅ Event listener de dropdown login añadido');
+    } else {
+        console.error('❌ Dropdown login button NO encontrado!');
+    }
+    
     // User Pill Dropdown
     const userPillBtn = document.getElementById('userPillBtn');
     const userDropdown = document.getElementById('userDropdown');
     
     userPillBtn.addEventListener('click', (e) => {
         e.stopPropagation();
+        // Solo mostrar dropdown si hay usuario logueado
+        if (!window.authManager.isAuthenticated()) {
+            return;
+        }
         closeDropdown('musicDropdown');
         closeDropdown('wallpaperDropdown');
         closeDropdown('fontDropdown');
@@ -1099,13 +1114,47 @@ function handleLogout() {
 }
 
 function updateUserPill() {
+    const userPillContainer = document.getElementById('userPillContainer');
+    const usernameDisplay = document.getElementById('usernameDisplay');
+    const userDropdownName = document.getElementById('userDropdownName');
+    const userDropdownEmail = document.getElementById('userDropdownEmail');
+    const dropdownLoginBtn = document.getElementById('dropdownLoginBtn');
+    const logoutBtn = document.getElementById('logoutBtn');
     const user = window.authManager.getCurrentUser();
     
     if (user) {
-        document.getElementById('usernameDisplay').textContent = user.username;
-        document.getElementById('userDropdownName').textContent = user.username;
-        document.getElementById('userDropdownEmail').textContent = user.email || 
+        // Usuario logueado - mostrar datos del usuario
+        usernameDisplay.textContent = user.username;
+        userDropdownName.textContent = user.username;
+        userDropdownEmail.textContent = user.email || 
             (window.languageManager.getCurrentLanguage() === 'es' ? 'Sin email' : 'No email');
+        
+        // Mostrar botón de logout, ocultar botón de login
+        dropdownLoginBtn.style.display = 'none';
+        logoutBtn.style.display = 'flex';
+        
+        // Cambiar estilo para usuario logueado
+        userPillContainer.classList.remove('user-pill-no-user');
+        userPillContainer.classList.add('user-pill-logged-in');
+    } else {
+        // Sin usuario - mostrar estado "no conectado"
+        const noUserText = window.languageManager.getCurrentLanguage() === 'es' 
+            ? 'No conectado' 
+            : 'Not connected';
+        
+        usernameDisplay.textContent = noUserText;
+        userDropdownName.textContent = noUserText;
+        userDropdownEmail.textContent = window.languageManager.getCurrentLanguage() === 'es' 
+            ? 'Inicia sesión para ver tu perfil' 
+            : 'Login to see your profile';
+        
+        // Mostrar botón de login, ocultar botón de logout
+        dropdownLoginBtn.style.display = 'flex';
+        logoutBtn.style.display = 'none';
+        
+        // Cambiar estilo para usuario no logueado
+        userPillContainer.classList.remove('user-pill-logged-in');
+        userPillContainer.classList.add('user-pill-no-user');
     }
 }
 
@@ -1153,7 +1202,9 @@ function translateAuthUI() {
     
     // Logout button
     const logoutBtnText = document.getElementById('logoutBtnText');
+    const dropdownLoginBtnText = document.getElementById('dropdownLoginBtnText');
     if (logoutBtnText) logoutBtnText.textContent = lm.t('auth.logout');
+    if (dropdownLoginBtnText) dropdownLoginBtnText.textContent = lm.t('auth.loginButton');
     
     // Update user pill if authenticated
     if (window.authManager.isAuthenticated()) {
