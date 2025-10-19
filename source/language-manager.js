@@ -107,7 +107,14 @@ class LanguageManager {
                             'muy-seca': 'Very Dry',
                             acida: 'Sour',
                             'muy-acida': 'Very Sour'
-                        }
+                        },
+                        // Load/New System
+                        loadSavedCalculation: 'Load Saved Calculation',
+                        newCalculation: 'New Calculation',
+                        calculationName: 'Calculation Name',
+                        calculationNameHelp: 'This name identifies your calculation',
+                        selectCalculationPlaceholder: 'Select a calculation...',
+                        noSavedCalculations: 'No saved calculations'
                     }
                 },
                 
@@ -376,7 +383,14 @@ class LanguageManager {
                             'muy-seca': 'Muy Seca',
                             acida: 'Ácida',
                             'muy-acida': 'Muy Ácida'
-                        }
+                        },
+                        // Sistema Load/New
+                        loadSavedCalculation: 'Cargar Cálculo Guardado',
+                        newCalculation: 'Nuevo Cálculo',
+                        calculationName: 'Nombre del Cálculo',
+                        calculationNameHelp: 'Este nombre identifica tu cálculo',
+                        selectCalculationPlaceholder: 'Selecciona un cálculo...',
+                        noSavedCalculations: 'No hay cálculos guardados'
                     }
                 },
                 

@@ -58,14 +58,14 @@ class BerryUI {
                 <div class="berry-calculator-load-new-controls mb-5">
                     <div class="row align-items-end">
                         <div class="col-md-8">
-                            <label class="form-label text-white mb-2">
-                                ${lm.getCurrentLanguage() === 'es' ? '📂 Cargar Cálculo Guardado' : '📂 Load Saved Calculation'}
+                            <label class="form-label text-white mb-2" id="labelLoadCalculation">
+                                📂 ${lm.t('farming.calculator.loadSavedCalculation')}
                             </label>
                             <select class="form-control" id="loadCalculationSelect" ${!hasSavedCalculations ? 'disabled' : ''}>
-                                <option value="">
+                                <option value="" id="loadCalculationPlaceholder">
                                     ${hasSavedCalculations 
-                                        ? (lm.getCurrentLanguage() === 'es' ? 'Selecciona un cálculo...' : 'Select a calculation...') 
-                                        : (lm.getCurrentLanguage() === 'es' ? 'No hay cálculos guardados' : 'No saved calculations')}
+                                        ? lm.t('farming.calculator.selectCalculationPlaceholder')
+                                        : lm.t('farming.calculator.noSavedCalculations')}
                                 </option>
                                 ${hasSavedCalculations ? calculationsResult.list.map(name => `
                                     <option value="${name}">${name}</option>
@@ -77,7 +77,7 @@ class BerryUI {
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="margin-right: 8px;">
                                     <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                                 </svg>
-                                ${lm.getCurrentLanguage() === 'es' ? 'Nuevo Cálculo' : 'New Calculation'}
+                                <span id="newCalculationBtnText">${lm.t('farming.calculator.newCalculation')}</span>
                             </button>
                         </div>
                     </div>
@@ -139,15 +139,15 @@ class BerryUI {
             <!-- Calculation Name Input -->
             <div class="row mb-4">
                 <div class="col-md-12">
-                    <label class="form-label text-white mb-2">
-                        ${lm.getCurrentLanguage() === 'es' ? '📝 Nombre del Cálculo' : '📝 Calculation Name'}
+                    <label class="form-label text-white mb-2" id="labelCalculationName">
+                        📝 ${lm.t('farming.calculator.calculationName')}
                         <span class="text-danger">*</span>
                     </label>
                     <input type="text" class="form-control" id="calculationNameInput" 
                            placeholder="${lm.getCurrentLanguage() === 'es' ? 'Ej: Zanamas Farm Principal' : 'E.g: Zanamas Main Farm'}"
                            value="${data?.calculationName || ''}" required>
-                    <small class="form-text text-muted">
-                        ${lm.getCurrentLanguage() === 'es' ? 'Este nombre identifica tu cálculo' : 'This name identifies your calculation'}
+                    <small class="form-text text-muted" id="calculationNameHelp">
+                        ${lm.t('farming.calculator.calculationNameHelp')}
                     </small>
                 </div>
             </div>
@@ -1441,6 +1441,46 @@ class BerryUI {
         
         // Si la calculadora NO está renderizada, no hacer nada
         if (!document.getElementById('calculatorTitle')) return;
+        
+        // 0. Actualizar Load/New Controls (si existen en UI inicial)
+        const labelLoadCalculation = document.getElementById('labelLoadCalculation');
+        const newCalculationBtnText = document.getElementById('newCalculationBtnText');
+        const loadCalculationPlaceholder = document.getElementById('loadCalculationPlaceholder');
+        
+        if (labelLoadCalculation) {
+            labelLoadCalculation.innerHTML = `📂 ${lm.t('farming.calculator.loadSavedCalculation')}`;
+        }
+        
+        if (newCalculationBtnText) {
+            newCalculationBtnText.textContent = lm.t('farming.calculator.newCalculation');
+        }
+        
+        if (loadCalculationPlaceholder) {
+            const loadSelect = document.getElementById('loadCalculationSelect');
+            const hasOptions = loadSelect && loadSelect.options.length > 1;
+            loadCalculationPlaceholder.textContent = hasOptions 
+                ? lm.t('farming.calculator.selectCalculationPlaceholder')
+                : lm.t('farming.calculator.noSavedCalculations');
+        }
+        
+        // 0.5 Actualizar Calculation Name (si existe en calculadora activa)
+        const labelCalculationName = document.getElementById('labelCalculationName');
+        const calculationNameHelp = document.getElementById('calculationNameHelp');
+        const calculationNameInput = document.getElementById('calculationNameInput');
+        
+        if (labelCalculationName) {
+            labelCalculationName.innerHTML = `📝 ${lm.t('farming.calculator.calculationName')} <span class="text-danger">*</span>`;
+        }
+        
+        if (calculationNameHelp) {
+            calculationNameHelp.textContent = lm.t('farming.calculator.calculationNameHelp');
+        }
+        
+        if (calculationNameInput) {
+            calculationNameInput.placeholder = lm.getCurrentLanguage() === 'es' 
+                ? 'Ej: Zanamas Farm Principal' 
+                : 'E.g: Zanamas Main Farm';
+        }
         
         // 1. Actualizar títulos principales
         const calcTitle = document.getElementById('calculatorTitle');
