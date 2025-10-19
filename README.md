@@ -371,29 +371,10 @@ PokeDataMMO/
 
 ---
 
-## 📞 Support
-
-If you find this project useful, please consider:
-- ⭐ **Starring** the repository
-- 🐛 **Reporting** bugs
-- 💡 **Suggesting** new features
-- 🔄 **Sharing** with the PokeMMO community
-
----
-
 ## 🔖 Version
 
 **Current Version:** 2.0.0  
 **Last Updated:** October 19, 2025
-
-### **Recent Updates**
-- ✅ Complete PVP Teams Manager implementation
-- ✅ Cloud save system with Firebase
-- ✅ Auto-save functionality (10s debounce)
-- ✅ Stats calculator with official formulas
-- ✅ New "Pokémon Calculator" tab
-- ✅ Enhanced berry farming calculator
-- ✅ Improved multi-language support
 
 ---
 
