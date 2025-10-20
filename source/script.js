@@ -12,6 +12,14 @@ async function initializeApp() {
     await window.authManager.init();
     checkAuthenticationAndRender();
     
+    // Precargar datos de movimientos y objetos de PokeAPI
+    if (window.pokemonDataLoader) {
+        console.log('🚀 Iniciando precarga de datos de PokeAPI...');
+        window.pokemonDataLoader.preloadData().catch(err => {
+            console.error('⚠️ Error precargando datos:', err);
+        });
+    }
+    
     initializeTabs();
     initializeWallpaper();
     initializeTheme();
@@ -261,6 +269,12 @@ function initializeLanguage() {
 async function toggleLanguage() {
     window.languageManager.toggleLanguage();
     updateLanguageIcon();
+    
+    // Actualizar traducciones de movimientos e items
+    if (window.pokemonDataLoader) {
+        window.pokemonDataLoader.updateAllTranslations();
+    }
+    
     await translateUI();
 }
 

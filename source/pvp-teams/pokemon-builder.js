@@ -99,7 +99,7 @@ class PokemonBuilder {
                     </table>
                     <div class="ev-total-display">
                         ${lm.getCurrentLanguage() === 'es' ? 'Total EVs:' : 'Total EVs:'}
-                        <span id="evTotal_${slotIndex}" class="ev-total-number">0</span> / 510
+                        <span id="evTotal_${slotIndex}" class="ev-total-number">${data.getTotalEVs(pokemon.evs)}</span> / 510
                     </div>
                 </div>
 
@@ -122,10 +122,7 @@ class PokemonBuilder {
                         </div>
                         <div class="col-md-4">
                             <label class="form-label-sm">${lm.getCurrentLanguage() === 'es' ? 'Objeto' : 'Item'}</label>
-                            <select class="form-control form-control-sm item-select"
-                                    data-slot="${slotIndex}" id="item_${slotIndex}">
-                                <option value="">--</option>
-                            </select>
+                            ${window.customDropdowns.renderItemSelect(slotIndex, pokemon.item)}
                         </div>
                     </div>
                 </div>
@@ -134,13 +131,9 @@ class PokemonBuilder {
                 <div class="pokemon-moves-section">
                     <label class="form-label-sm mb-2">${lm.getCurrentLanguage() === 'es' ? 'Movimientos' : 'Moves'}</label>
                     <div class="moves-grid">
-                        ${[0, 1, 2, 3].map(moveIndex => `
-                            <select class="form-control form-control-sm move-select"
-                                    data-slot="${slotIndex}" data-move-index="${moveIndex}"
-                                    id="move_${slotIndex}_${moveIndex}">
-                                <option value="">--</option>
-                            </select>
-                        `).join('')}
+                        ${[0, 1, 2, 3].map(moveIndex => 
+                            window.customDropdowns.renderMoveSelect(slotIndex, moveIndex, pokemon.moves[moveIndex] || '')
+                        ).join('')}
                     </div>
                 </div>
             </div>

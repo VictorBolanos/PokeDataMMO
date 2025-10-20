@@ -234,6 +234,13 @@ class PVPTeamUI {
         if (data && data.pokemons) {
             await this.populateDropdowns(data.pokemons);
         }
+        
+        // Actualizar totales de EVs para todos los Pokémon
+        this.currentTeam.pokemons.forEach((pokemon, index) => {
+            if (pokemon && pokemon.id) {
+                this.updateEVTotal(index);
+            }
+        });
     }
 
     /**
@@ -323,18 +330,19 @@ class PVPTeamUI {
             });
         });
 
-        // Item selects
-        document.querySelectorAll('.item-select').forEach(select => {
-            select.addEventListener('change', (e) => {
-                this.handleItemChange(e.target);
-            });
+        // Inicializar dropdowns personalizados de items
+        document.querySelectorAll('.custom-item-select-wrapper').forEach(wrapper => {
+            const slotIndex = parseInt(wrapper.dataset.slot);
+            const selectedItem = this.currentTeam.pokemons[slotIndex]?.item || '';
+            window.customDropdowns.initItemSelect(slotIndex, selectedItem);
         });
 
-        // Move selects
-        document.querySelectorAll('.move-select').forEach(select => {
-            select.addEventListener('change', (e) => {
-                this.handleMoveChange(e.target);
-            });
+        // Inicializar dropdowns personalizados de movimientos
+        document.querySelectorAll('.custom-move-select-wrapper').forEach(wrapper => {
+            const slotIndex = parseInt(wrapper.dataset.slot);
+            const moveIndex = parseInt(wrapper.dataset.moveIndex);
+            const selectedMove = this.currentTeam.pokemons[slotIndex]?.moves[moveIndex] || '';
+            window.customDropdowns.initMoveSelect(slotIndex, moveIndex, selectedMove);
         });
     }
 
@@ -645,11 +653,14 @@ class PVPTeamUI {
         // Poblar habilidades
         const abilitySelect = document.getElementById(`ability_${slotIndex}`);
         if (abilitySelect && pokemon.availableAbilities) {
-            pokemon.availableAbilities.forEach(ability => {
+            // Cargar traducciones de las habilidades
+            const abilities = await window.pokemonDataLoader.loadAbilities(pokemon.availableAbilities);
+            
+            abilities.forEach(ability => {
                 const option = document.createElement('option');
-                option.value = ability;
-                option.textContent = this.capitalizeText(ability);
-                if (pokemon.ability === ability) {
+                option.value = ability.name;
+                option.textContent = ability.displayName;
+                if (pokemon.ability === ability.name) {
                     option.selected = true;
                 }
                 abilitySelect.appendChild(option);
@@ -790,7 +801,8 @@ class PVPTeamUI {
      * Formatear nombre de naturaleza
      */
     formatNatureName(nature) {
-        const name = this.capitalizeText(nature.name);
+        // Usar displayName traducido en lugar de capitalizar manualmente
+        const name = nature.displayName || this.capitalizeText(nature.name);
         
         if (!nature.increased_stat) return name;
         
@@ -912,6 +924,90 @@ class PVPTeamUI {
                 lm.getCurrentLanguage() === 'es' ? 'Movimientos' : 'Moves'
             ];
             label.textContent = labels[labelIndex];
+        });
+        
+        // Actualizar label de nivel
+        document.querySelectorAll('.level-label').forEach(label => {
+            label.textContent = lm.getCurrentLanguage() === 'es' ? 'Nivel:' : 'Level:';
+        });
+        
+        // RE-POBLAR DROPDOWNS CON TRADUCCIONES ACTUALIZADAS
+        this.repopulateAllDropdowns();
+        
+        // RE-RENDERIZAR DROPDOWNS PERSONALIZADOS (ITEMS Y MOVIMIENTOS)
+        if (window.customDropdowns) {
+            window.customDropdowns.updateAllDropdownTranslations();
+        }
+    }
+
+    /**
+     * Re-poblar todos los dropdowns con traducciones actualizadas
+     */
+    async repopulateAllDropdowns() {
+        if (!this.currentTeam || !this.currentTeam.pokemons) return;
+        
+        console.log('🔄 Re-poblando dropdowns con nuevas traducciones...');
+        
+        // Re-poblar naturalezas y habilidades para cada Pokémon
+        for (let slotIndex = 0; slotIndex < this.currentTeam.pokemons.length; slotIndex++) {
+            const pokemon = this.currentTeam.pokemons[slotIndex];
+            if (pokemon && pokemon.id) {
+                await this.repopulateNatureDropdown(slotIndex, pokemon);
+                await this.repopulateAbilityDropdown(slotIndex, pokemon);
+            }
+        }
+        
+        console.log('✅ Dropdowns actualizados con nuevas traducciones');
+    }
+
+    /**
+     * Re-poblar dropdown de naturalezas
+     */
+    async repopulateNatureDropdown(slotIndex, pokemon) {
+        const natureSelect = document.getElementById(`nature_${slotIndex}`);
+        if (!natureSelect) return;
+        
+        const currentValue = natureSelect.value;
+        
+        // Limpiar opciones actuales
+        natureSelect.innerHTML = '<option value="">--</option>';
+        
+        // Re-poblar con traducciones actualizadas
+        const natures = await window.pvpTeamData.loadNatures();
+        natures.forEach(nature => {
+            const option = document.createElement('option');
+            option.value = nature.name;
+            option.textContent = this.formatNatureName(nature);
+            if (nature.name === currentValue) {
+                option.selected = true;
+            }
+            natureSelect.appendChild(option);
+        });
+    }
+
+    /**
+     * Re-poblar dropdown de habilidades
+     */
+    async repopulateAbilityDropdown(slotIndex, pokemon) {
+        const abilitySelect = document.getElementById(`ability_${slotIndex}`);
+        if (!abilitySelect || !pokemon.availableAbilities) return;
+        
+        const currentValue = abilitySelect.value;
+        
+        // Limpiar opciones actuales
+        abilitySelect.innerHTML = '<option value="">--</option>';
+        
+        // Re-cargar con traducciones actualizadas
+        const abilities = await window.pokemonDataLoader.loadAbilities(pokemon.availableAbilities);
+        
+        abilities.forEach(ability => {
+            const option = document.createElement('option');
+            option.value = ability.name;
+            option.textContent = ability.displayName;
+            if (ability.name === currentValue) {
+                option.selected = true;
+            }
+            abilitySelect.appendChild(option);
         });
     }
 }

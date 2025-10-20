@@ -32,17 +32,60 @@ class PVPTeamData {
                     const detail = await detailResponse.json();
                     return {
                         name: detail.name,
+                        displayName: this.getTranslatedNatureName(detail),
                         increased_stat: detail.increased_stat?.name || null,
-                        decreased_stat: detail.decreased_stat?.name || null
+                        decreased_stat: detail.decreased_stat?.name || null,
+                        names: detail.names // Guardar para traducción dinámica
                     };
                 })
             );
+            
+            // Ordenar alfabéticamente por displayName
+            this.naturesCache.sort((a, b) => a.displayName.localeCompare(b.displayName));
             
             return this.naturesCache;
         } catch (error) {
             console.error('❌ Error loading natures:', error);
             return [];
         }
+    }
+
+    /**
+     * Obtener nombre traducido de naturaleza
+     */
+    getTranslatedNatureName(nature) {
+        if (!nature || !nature.names) {
+            return this.formatName(nature.name || '');
+        }
+        
+        const lang = window.languageManager ? window.languageManager.getApiLanguage() : 'en';
+        const nameEntry = nature.names.find(entry => entry.language.name === lang);
+        
+        return nameEntry ? nameEntry.name : this.formatName(nature.name);
+    }
+
+    /**
+     * Actualizar traducciones de naturalezas
+     */
+    updateNatureTranslations() {
+        if (!this.naturesCache) return;
+        
+        this.naturesCache.forEach(nature => {
+            nature.displayName = this.getTranslatedNatureName(nature);
+        });
+        
+        // Re-ordenar alfabéticamente
+        this.naturesCache.sort((a, b) => a.displayName.localeCompare(b.displayName));
+        
+        console.log('✅ Traducciones de naturalezas actualizadas');
+    }
+
+    /**
+     * Formatear nombre
+     */
+    formatName(name) {
+        if (!name) return '';
+        return name.charAt(0).toUpperCase() + name.slice(1).replace(/-/g, ' ');
     }
 
     /**
