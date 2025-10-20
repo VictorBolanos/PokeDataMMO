@@ -5318,8 +5318,8 @@ body.light-theme .pvp-teams-load-new-controls {
 }
 
 .pokemon-sprite-large {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     object-fit: contain;
     background: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
@@ -5352,6 +5352,73 @@ body.light-theme .pvp-teams-load-new-controls {
     background: rgba(239, 68, 68, 0.3);
     border-color: #ef4444;
     transform: scale(1.1);
+}
+
+/* Level Selector Inline */
+.level-selector-inline {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-left: auto;
+    margin-right: 0.5rem;
+}
+
+.level-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.85rem;
+    font-weight: 500;
+}
+
+/* Botones de nivel personalizados */
+.btn-outline-custom {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    background: transparent;
+    font-weight: 600;
+    font-size: 0.8rem;
+    padding: 0.25rem 0.75rem;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-custom:hover {
+    color: white;
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.btn-check:checked + .btn-outline-custom {
+    color: white;
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(var(--primary-color-rgb), 0.3);
+}
+
+.btn-check:focus + .btn-outline-custom {
+    box-shadow: 0 0 0 0.2rem rgba(var(--primary-color-rgb), 0.5);
+}
+
+/* Light Theme - Level Selector */
+body.light-theme .level-label {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+body.light-theme .btn-outline-custom {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+body.light-theme .btn-outline-custom:hover {
+    color: white;
+    background: var(--primary-hover);
+    border-color: var(--primary-hover);
+}
+
+body.light-theme .btn-check:checked + .btn-outline-custom {
+    color: white;
+    background: var(--primary-color);
+    border-color: var(--primary-color);
 }
 
 /* Pokémon Stats Table */
@@ -5771,8 +5838,8 @@ body.light-theme .suggestion-info strong {
     }
     
     .pokemon-sprite-large {
-        width: 60px;
-        height: 60px;
+        width: 70px;
+        height: 70px;
     }
     
     .pokemon-name-display {

@@ -143,6 +143,25 @@ class PVPTeamUI {
     }
 
     /**
+     * Asegurar que siempre hay 6 slots de Pokémon
+     */
+    ensureSixSlots(pokemons) {
+        const sixSlots = Array(6).fill(null);
+        
+        // Copiar Pokémon existentes a sus posiciones
+        pokemons.forEach((pokemon, index) => {
+            if (index < 6 && pokemon && pokemon.id) {
+                sixSlots[index] = pokemon;
+            }
+        });
+        
+        // Rellenar slots vacíos con Pokémon vacío
+        return sixSlots.map(pokemon => 
+            pokemon || window.pvpTeamData.createEmptyPokemon()
+        );
+    }
+
+    /**
      * Renderizar editor de equipo completo
      */
     async renderTeamEditor(data = null) {
@@ -151,9 +170,12 @@ class PVPTeamUI {
 
         const lm = window.languageManager;
 
-        // Inicializar equipo actual
+        // Inicializar equipo actual - SIEMPRE asegurar 6 slots
         if (data) {
-            this.currentTeam = data;
+            this.currentTeam = {
+                teamName: data.teamName || '',
+                pokemons: this.ensureSixSlots(data.pokemons || [])
+            };
         } else {
             this.currentTeam = {
                 teamName: '',
@@ -204,6 +226,9 @@ class PVPTeamUI {
         // Setup event listeners
         this.setupTeamNameListener();
         this.setupPokemonEventListeners();
+        
+        // Sincronizar radio buttons de nivel al cargar
+        this.syncAllLevelRadioButtons(window.pvpTeamData.getSelectedLevel());
         
         // Si hay datos, poblar dropdowns
         if (data && data.pokemons) {
@@ -263,6 +288,13 @@ class PVPTeamUI {
      * Configurar event listeners de Pokémon
      */
     setupPokemonEventListeners() {
+        // Level radio buttons
+        document.querySelectorAll('input[name^="level-"]').forEach(radio => {
+            radio.addEventListener('change', (e) => {
+                this.handleLevelChange(e.target);
+            });
+        });
+
         // EVs inputs
         document.querySelectorAll('.ev-input').forEach(input => {
             input.addEventListener('input', (e) => {
@@ -303,6 +335,107 @@ class PVPTeamUI {
             select.addEventListener('change', (e) => {
                 this.handleMoveChange(e.target);
             });
+        });
+    }
+
+    /**
+     * Manejar cambio de nivel
+     */
+    handleLevelChange(radioButton) {
+        const slotIndex = parseInt(radioButton.name.split('-')[1]);
+        const newLevel = parseInt(radioButton.value);
+        
+        console.log(`🎮 Cambiando nivel a ${newLevel} desde el slot ${slotIndex}`);
+        
+        // Actualizar nivel en el sistema de datos (GLOBAL)
+        window.pvpTeamData.setSelectedLevel(newLevel);
+        console.log(`✅ Nivel global actualizado a: ${window.pvpTeamData.getSelectedLevel()}`);
+        
+        // Sincronizar todos los radio buttons del equipo
+        this.syncAllLevelRadioButtons(newLevel);
+        console.log(`✅ Radio buttons sincronizados a nivel ${newLevel}`);
+        
+        // Recalcular stats para TODOS los Pokémon del equipo
+        this.recalculateAllPokemonStats();
+        console.log(`✅ Stats de todos los Pokémon recalculados`);
+        
+        // Programar auto-save
+        window.pvpTeams.scheduleAutoSave();
+    }
+
+    /**
+     * Sincronizar todos los radio buttons de nivel
+     */
+    syncAllLevelRadioButtons(level) {
+        document.querySelectorAll(`input[name^="level-"][value="${level}"]`).forEach(radio => {
+            radio.checked = true;
+        });
+        
+        document.querySelectorAll(`input[name^="level-"][value="${level === 50 ? 100 : 50}"]`).forEach(radio => {
+            radio.checked = false;
+        });
+    }
+
+    /**
+     * Recalcular stats de TODOS los Pokémon del equipo
+     */
+    recalculateAllPokemonStats() {
+        this.currentTeam.pokemons.forEach((pokemon, slotIndex) => {
+            if (pokemon && pokemon.id) {
+                this.recalculatePokemonStats(slotIndex);
+            }
+        });
+    }
+
+    /**
+     * Recalcular stats de un Pokémon específico
+     */
+    recalculatePokemonStats(slotIndex) {
+        const pokemon = this.currentTeam.pokemons[slotIndex];
+        if (!pokemon || !pokemon.id) {
+            console.log(`⚠️ Slot ${slotIndex}: Pokémon vacío, omitiendo recálculo`);
+            return;
+        }
+        
+        console.log(`🔄 Recalculando stats del slot ${slotIndex} (${pokemon.name})`);
+        
+        // Recalcular stats con el nuevo nivel
+        const newStats = window.pvpTeamData.calculateAllStats(
+            pokemon.baseStats,
+            pokemon.evs,
+            pokemon.ivs,
+            pokemon.nature
+        );
+        
+        console.log(`📊 Nuevos stats calculados para ${pokemon.name}:`, newStats);
+        
+        // Actualizar stats en el Pokémon
+        pokemon.finalStats = newStats;
+        
+        // Actualizar UI
+        this.updatePokemonStatsDisplay(slotIndex, newStats);
+        console.log(`✅ UI actualizada para slot ${slotIndex}`);
+    }
+
+    /**
+     * Actualizar display de stats en la UI
+     */
+    updatePokemonStatsDisplay(slotIndex, stats) {
+        console.log(`🎨 Actualizando display de stats para slot ${slotIndex}:`, stats);
+        
+        // Actualizar valores de stats finales usando el ID específico
+        Object.keys(stats).forEach(statName => {
+            const elementId = `finalStat_${slotIndex}_${statName}`;
+            const finalStatElement = document.getElementById(elementId);
+            
+            if (finalStatElement) {
+                const oldValue = finalStatElement.textContent;
+                const newValue = stats[statName];
+                finalStatElement.textContent = newValue;
+                console.log(`  ✅ ${statName}: ${oldValue} → ${newValue}`);
+            } else {
+                console.warn(`  ⚠️ No se encontró el elemento: ${elementId}`);
+            }
         });
     }
 
@@ -479,6 +612,9 @@ class PVPTeamUI {
 
         // Re-setup event listeners
         this.setupPokemonEventListeners();
+        
+        // Sincronizar radio buttons de nivel
+        this.syncAllLevelRadioButtons(window.pvpTeamData.getSelectedLevel());
 
         // Poblar dropdowns para este Pokémon
         await this.populateDropdownsForSlot(slotIndex, pokemon);

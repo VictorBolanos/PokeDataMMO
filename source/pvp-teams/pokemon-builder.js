@@ -41,6 +41,19 @@ class PokemonBuilder {
                     <img src="${pokemon.sprite}" alt="${pokemon.name}" class="pokemon-sprite-large">
                     <div class="pokemon-card-title">
                         <h5 class="pokemon-name-display">${this.capitalizeName(pokemon.name)}</h5>
+                        
+                        <!-- Level Selector (inline con el nombre) -->
+                        <div class="level-selector-inline">
+                            <span class="level-label">${lm.getCurrentLanguage() === 'es' ? 'Nivel:' : 'Level:'}</span>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <input type="radio" class="btn-check" name="level-${slotIndex}" id="level50-${slotIndex}" value="50" ${window.pvpTeamData.getSelectedLevel() === 50 ? 'checked' : ''}>
+                                <label class="btn btn-outline-custom" for="level50-${slotIndex}">50</label>
+                                
+                                <input type="radio" class="btn-check" name="level-${slotIndex}" id="level100-${slotIndex}" value="100" ${window.pvpTeamData.getSelectedLevel() === 100 ? 'checked' : ''}>
+                                <label class="btn btn-outline-custom" for="level100-${slotIndex}">100</label>
+                            </div>
+                        </div>
+                        
                         <button class="btn btn-sm btn-outline-danger remove-pokemon-btn" 
                                 onclick="window.pvpTeamsUI.removePokemon(${slotIndex})">
                             <svg width="12" height="12" viewBox="0 0 24 24" fill="none">

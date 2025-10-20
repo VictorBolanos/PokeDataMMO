@@ -6,7 +6,8 @@ class PVPTeamData {
         this.MAX_EV_INDIVIDUAL = 252;
         this.MAX_EV_TOTAL = 510;
         this.MAX_IV = 31;
-        this.POKEMON_LEVEL = 100;  // Nivel competitivo
+        this.POKEMON_LEVEL = 50;  // Nivel por defecto (50)
+        this.SELECTED_LEVEL = 50; // Nivel seleccionado actualmente
         
         // Stats order
         this.statsOrder = ['hp', 'attack', 'defense', 'special-attack', 'special-defense', 'speed'];
@@ -75,6 +76,7 @@ class PVPTeamData {
      */
     calculateAllStats(baseStats, evs, ivs, nature) {
         const stats = {};
+        const level = this.SELECTED_LEVEL; // Usar nivel seleccionado
         
         this.statsOrder.forEach(statName => {
             const base = baseStats[statName] || 0;
@@ -82,14 +84,33 @@ class PVPTeamData {
             const iv = ivs[statName] || 31;
             
             if (statName === 'hp') {
-                stats[statName] = this.calculateHP(base, iv, ev, this.POKEMON_LEVEL);
+                stats[statName] = this.calculateHP(base, iv, ev, level);
             } else {
                 const natureMultiplier = this.getNatureMultiplier(nature, statName);
-                stats[statName] = this.calculateStat(base, iv, ev, natureMultiplier, this.POKEMON_LEVEL);
+                stats[statName] = this.calculateStat(base, iv, ev, natureMultiplier, level);
             }
         });
         
         return stats;
+    }
+
+    /**
+     * Cambiar nivel seleccionado
+     */
+    setSelectedLevel(level) {
+        if (level === 50 || level === 100) {
+            this.SELECTED_LEVEL = level;
+            this.POKEMON_LEVEL = level;
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Obtener nivel seleccionado
+     */
+    getSelectedLevel() {
+        return this.SELECTED_LEVEL;
     }
 
     /**
