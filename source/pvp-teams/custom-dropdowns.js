@@ -47,7 +47,6 @@ class CustomDropdowns {
             move = moves.find(m => m.name === move) || { 
                 name: move, 
                 displayName: this.formatName(move),
-                pp: '—',
                 type: 'normal'
             };
         }
@@ -58,10 +57,7 @@ class CustomDropdowns {
         return `
             <div class="${className}" data-move-name="${move.name}">
                 <span class="move-name">${move.displayName}</span>
-                <div class="move-meta">
-                    <span class="move-pp">PP: ${move.pp}</span>
-                    <img src="${typeIcon}" alt="${move.type}" class="move-type-icon" title="${this.formatName(move.type)}">
-                </div>
+                <img src="${typeIcon}" alt="${move.type}" class="move-type-icon" title="${this.formatName(move.type)}">
             </div>
         `;
     }

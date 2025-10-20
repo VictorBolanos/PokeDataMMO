@@ -659,7 +659,7 @@ class PVPTeamUI {
             abilities.forEach(ability => {
                 const option = document.createElement('option');
                 option.value = ability.name;
-                option.textContent = ability.displayName;
+                option.textContent = ability.displayName + (ability.is_hidden ? ' 💎' : '');
                 if (pokemon.ability === ability.name) {
                     option.selected = true;
                 }
@@ -1003,7 +1003,7 @@ class PVPTeamUI {
         abilities.forEach(ability => {
             const option = document.createElement('option');
             option.value = ability.name;
-            option.textContent = ability.displayName;
+            option.textContent = ability.displayName + (ability.is_hidden ? ' 💎' : '');
             if (ability.name === currentValue) {
                 option.selected = true;
             }

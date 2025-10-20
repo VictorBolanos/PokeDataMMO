@@ -138,18 +138,21 @@ class PokemonDataLoader {
                 console.log(`📊 Progreso: ${Math.min(i + batchSize, data.results.length)}/${data.results.length}`);
             }
             
-            // Filtrar SOLO items holdables y formatear
+            // Filtrar items holdables Y items con categoría held-items
             this.itemsCache = items
                 .filter(item => {
-                    // Verificar que tenga sprite y atributos
-                    if (!item.sprites || !item.sprites.default || !item.attributes) return false;
+                    // Verificar que tenga sprite
+                    if (!item.sprites || !item.sprites.default) return false;
                     
-                    // Verificar que sea holdable o holdable-active
-                    const isHoldable = item.attributes.some(attr => 
+                    // Verificar que sea holdable o holdable-active (si tiene atributos)
+                    const isHoldable = item.attributes && item.attributes.some(attr => 
                         attr.name === 'holdable' || attr.name === 'holdable-active'
                     );
                     
-                    return isHoldable;
+                    // Verificar que tenga categoría held-items
+                    const isHeldItem = item.category && item.category.name === 'held-items';
+                    
+                    return isHoldable || isHeldItem;
                 })
                 .map(item => ({
                     id: item.id,
@@ -162,7 +165,7 @@ class PokemonDataLoader {
                 }))
                 .sort((a, b) => a.displayName.localeCompare(b.displayName));
             
-            console.log(`✅ ${this.itemsCache.length} objetos holdables cargados y cacheados`);
+            console.log(`✅ ${this.itemsCache.length} objetos holdables y held-items cargados y cacheados`);
             this.isLoadingItems = false;
             return this.itemsCache;
             
@@ -291,7 +294,7 @@ class PokemonDataLoader {
     /**
      * Cargar habilidad individual
      */
-    async loadAbility(abilityName) {
+    async loadAbility(abilityName, isHidden = false) {
         // Si ya está en caché, devolver
         if (this.abilitiesCache[abilityName]) {
             return this.abilitiesCache[abilityName];
@@ -305,7 +308,8 @@ class PokemonDataLoader {
             this.abilitiesCache[abilityName] = {
                 name: abilityData.name,
                 displayName: this.getTranslatedAbilityName(abilityData),
-                names: abilityData.names
+                names: abilityData.names,
+                is_hidden: isHidden
             };
             
             return this.abilitiesCache[abilityName];
@@ -314,7 +318,8 @@ class PokemonDataLoader {
             return {
                 name: abilityName,
                 displayName: this.formatName(abilityName),
-                names: []
+                names: [],
+                is_hidden: isHidden
             };
         }
     }
@@ -322,8 +327,15 @@ class PokemonDataLoader {
     /**
      * Cargar múltiples habilidades
      */
-    async loadAbilities(abilityNames) {
-        const promises = abilityNames.map(name => this.loadAbility(name));
+    async loadAbilities(abilityData) {
+        const promises = abilityData.map(data => {
+            // Si es un string, mantener compatibilidad
+            if (typeof data === 'string') {
+                return this.loadAbility(data);
+            }
+            // Si es un objeto con name e is_hidden
+            return this.loadAbility(data.name, data.is_hidden);
+        });
         return await Promise.all(promises);
     }
 
