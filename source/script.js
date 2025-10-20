@@ -139,11 +139,22 @@ function initializeWallpaper() {
         closeDropdown('musicDropdown');
         closeDropdown('fontDropdown');
         closeDropdown('colorDropdown');
-        wallpaperDropdown.classList.toggle('show');
+        
+        const isShowing = wallpaperDropdown.classList.contains('show');
+        if (isShowing) {
+            wallpaperDropdown.classList.remove('show');
+            hideMobileOverlay();
+        } else {
+            wallpaperDropdown.classList.add('show');
+            showMobileOverlay();
+        }
     });
     
     // Close dropdown
-    closeBtn.addEventListener('click', () => wallpaperDropdown.classList.remove('show'));
+    closeBtn.addEventListener('click', () => {
+        wallpaperDropdown.classList.remove('show');
+        hideMobileOverlay();
+    });
     
     // Close on outside click
     setupOutsideClickHandler(wallpaperDropdown, wallpaperBtn);
@@ -230,6 +241,7 @@ function setWallpaper(wallpaperName) {
     
     // Close dropdown
     document.getElementById('wallpaperDropdown').classList.remove('show');
+    hideMobileOverlay();
 }
 
 function loadSavedWallpaper() {
@@ -548,6 +560,52 @@ function updateThemeIcons(isLight) {
     moonIcon.style.display = isLight ? 'block' : 'none';
 }
 
+// ===== MOBILE OVERLAY SYSTEM =====
+function createMobileOverlay() {
+    let overlay = document.querySelector('.dropdown-overlay');
+    if (!overlay) {
+        overlay = document.createElement('div');
+        overlay.className = 'dropdown-overlay';
+        document.body.appendChild(overlay);
+        
+        // Cerrar dropdowns al hacer click en overlay
+        overlay.addEventListener('click', () => {
+            closeAllDropdowns();
+        });
+    }
+    return overlay;
+}
+
+function showMobileOverlay() {
+    if (window.innerWidth <= 450) {
+        const overlay = createMobileOverlay();
+        overlay.classList.add('show');
+    }
+}
+
+function hideMobileOverlay() {
+    const overlay = document.querySelector('.dropdown-overlay');
+    if (overlay) {
+        overlay.classList.remove('show');
+    }
+}
+
+function closeAllDropdowns() {
+    const dropdowns = [
+        'colorDropdown', 'fontDropdown', 'wallpaperDropdown', 
+        'musicDropdown', 'userDropdown', 'hamburgerMenuDropdown'
+    ];
+    
+    dropdowns.forEach(id => {
+        const dropdown = document.getElementById(id);
+        if (dropdown) {
+            dropdown.classList.remove('show');
+        }
+    });
+    
+    hideMobileOverlay();
+}
+
 // ===== HELPER FUNCTIONS =====
 function closeDropdown(dropdownId) {
     const dropdown = document.getElementById(dropdownId);
@@ -560,6 +618,11 @@ function setupOutsideClickHandler(dropdown, button) {
     document.addEventListener('click', function(e) {
         if (!dropdown.contains(e.target) && !button.contains(e.target)) {
             dropdown.classList.remove('show');
+            // Remover overlay si existe
+            const overlay = document.querySelector('.dropdown-overlay');
+            if (overlay) {
+                overlay.classList.remove('show');
+            }
         }
     });
 }

@@ -2225,6 +2225,90 @@ body.light-theme .playlist-item.active {
     }
 }
 
+/* ===== MOBILE FIXES - CRITICAL ===== */
+@media (max-width: 768px) {
+    /* Fix para evitar que elementos se salgan del viewport */
+    body {
+        overflow-x: hidden;
+        position: relative;
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling en iOS */
+    }
+    
+    /* Fix para evitar zoom en inputs en iOS */
+    input[type="text"],
+    input[type="password"],
+    input[type="email"],
+    textarea,
+    select {
+        font-size: 16px !important;
+    }
+    
+    /* Asegurar que el header esté siempre encima */
+    .header-card {
+        z-index: 9999 !important;
+        position: fixed !important;
+        top: 0 !important;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 100% !important;
+        max-width: 100vw !important;
+    }
+    
+    /* Fix para auth card en móvil */
+    .auth-card {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: 10000 !important;
+        width: 95% !important;
+        max-width: 400px !important;
+        max-height: 90vh !important;
+        overflow-y: auto !important;
+        margin: 0 !important;
+    }
+    
+    /* Fix para main card */
+    .main-card {
+        margin-top: 80px !important;
+        width: 98% !important;
+        position: relative;
+        z-index: 1;
+    }
+    
+    /* Fix para dropdowns - asegurar que estén encima de todo */
+    .color-dropdown,
+    .font-dropdown,
+    .wallpaper-dropdown,
+    .music-dropdown,
+    .user-dropdown {
+        z-index: 10001 !important;
+    }
+    
+    /* Fix para hamburger menu */
+    .hamburger-menu-dropdown {
+        z-index: 10002 !important;
+    }
+    
+    /* Fix para evitar que elementos se salgan horizontalmente */
+    * {
+        max-width: 100vw;
+        box-sizing: border-box;
+    }
+    
+    /* Fix para tabs en móvil */
+    .nav-tabs-container {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none; /* IE/Edge */
+    }
+    
+    .nav-tabs-container::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+}
+
 /* ===== POKÉDEX STYLES ===== */
 /* Pokemon Search */
 .pokemon-search-container {
@@ -3169,23 +3253,44 @@ body.light-theme .playlist-item.active {
     /* Mostrar mobile-menu-container */
     .mobile-menu-container {
         display: flex !important;
+        align-items: center;
+        gap: 8px;
     }
     
     /* Mostrar user pill mobile */
     .user-pill-container-mobile {
-        display: block;
+        display: block !important;
+        position: relative;
     }
     
     /* Mostrar botón hamburguesa */
     .hamburger-menu-btn {
-        display: block;
+        display: block !important;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 8px;
+        padding: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        z-index: 10003;
     }
     
     /* Ajustar posición del dropdown hamburguesa */
     .hamburger-menu-dropdown {
-        top: 60px;
-        right: 5px;
-        min-width: 200px;
+        position: fixed !important;
+        top: 70px !important;
+        right: 10px !important;
+        left: auto !important;
+        min-width: 200px !important;
+        max-width: 250px !important;
+        z-index: 10003 !important;
+        background: rgba(30, 30, 30, 0.98) !important;
+        border-radius: 15px !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+        backdrop-filter: blur(10px) !important;
+        padding: 10px !important;
+        transform: none !important;
     }
     
     /* Ajustar tamaño del user pill en móvil */
@@ -3193,11 +3298,33 @@ body.light-theme .playlist-item.active {
         min-width: 80px;
         padding: 6px 10px;
         font-size: 0.85rem;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 20px;
+        color: white;
+        cursor: pointer;
+        transition: all 0.3s ease;
     }
     
     .user-pill-container-mobile .username-display {
         max-width: 60px;
         font-size: 0.8rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    
+    /* Fix para user dropdown en móvil */
+    .user-pill-container-mobile .user-dropdown {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        right: auto !important;
+        transform: translate(-50%, -50%) !important;
+        width: 90% !important;
+        max-width: 300px !important;
+        z-index: 10004 !important;
+        margin-top: 0 !important;
     }
     
     /* ===== DROPDOWNS CENTRADOS EN MÓVIL ===== */
@@ -3211,8 +3338,13 @@ body.light-theme .playlist-item.active {
         transform: translate(-50%, -50%) !important;
         width: 90% !important;
         max-width: 280px !important;
-        z-index: 1002 !important;
+        z-index: 10005 !important;
         margin-top: 0 !important;
+        background: rgba(30, 30, 30, 0.98) !important;
+        border-radius: 15px !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+        backdrop-filter: blur(10px) !important;
     }
     
     .color-dropdown.show {
@@ -3228,8 +3360,13 @@ body.light-theme .playlist-item.active {
         transform: translate(-50%, -50%) !important;
         width: 90% !important;
         max-width: 320px !important;
-        z-index: 1002 !important;
+        z-index: 10005 !important;
         margin-top: 0 !important;
+        background: rgba(30, 30, 30, 0.98) !important;
+        border-radius: 15px !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+        backdrop-filter: blur(10px) !important;
     }
     
     .font-dropdown.show {
@@ -3245,10 +3382,15 @@ body.light-theme .playlist-item.active {
         transform: translate(-50%, -50%) !important;
         width: 90% !important;
         max-width: 350px !important;
-        z-index: 1002 !important;
+        z-index: 10005 !important;
         max-height: 60vh !important;
         overflow-y: auto !important;
         margin-top: 0 !important;
+        background: rgba(30, 30, 30, 0.98) !important;
+        border-radius: 15px !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+        backdrop-filter: blur(10px) !important;
     }
     
     .wallpaper-dropdown.show {
@@ -3264,14 +3406,46 @@ body.light-theme .playlist-item.active {
         transform: translate(-50%, -50%) !important;
         width: 90% !important;
         max-width: 350px !important;
-        z-index: 1002 !important;
+        z-index: 10005 !important;
         max-height: 60vh !important;
         overflow-y: auto !important;
         margin-top: 0 !important;
+        background: rgba(30, 30, 30, 0.98) !important;
+        border-radius: 15px !important;
+        border: 1px solid rgba(255, 255, 255, 0.1) !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+        backdrop-filter: blur(10px) !important;
     }
     
     .music-dropdown.show {
         transform: translate(-50%, -50%) !important;
+    }
+    
+    /* Overlay de fondo para dropdowns móviles */
+    .dropdown-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        bottom: 0 !important;
+        background: rgba(0, 0, 0, 0.5) !important;
+        z-index: 10004 !important;
+        display: none;
+    }
+    
+    .dropdown-overlay.show {
+        display: block !important;
+    }
+    
+    /* Fix para tabs en móvil */
+    .nav-tab {
+        padding: 8px 6px !important;
+        font-size: 0.7rem !important;
+        min-width: 40px !important;
+    }
+    
+    .nav-tab .tab-icon {
+        font-size: 1.2rem !important;
     }
     
     footer.footer-custom {
@@ -5337,12 +5511,25 @@ body.light-theme .auth-message.success {
 /* Responsive - Authentication */
 @media (max-width: 768px) {
     .auth-card {
-        width: 95%;
-        margin-top: 95px;
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: 10000 !important;
+        width: 95% !important;
+        max-width: 400px !important;
+        max-height: 90vh !important;
+        overflow-y: auto !important;
+        margin: 0 !important;
     }
     
     .auth-container {
         padding: 1.5rem;
+        background: rgba(30, 30, 30, 0.95) !important;
+        border-radius: 15px !important;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5) !important;
+        backdrop-filter: blur(10px) !important;
+        border: 4px solid var(--primary-color) !important;
     }
     
     .auth-title {
@@ -5362,15 +5549,28 @@ body.light-theme .auth-message.success {
 
 @media (max-width: 480px) {
     .auth-card {
-        width: 98%;
+        width: 98% !important;
+        max-width: 350px !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: 10000 !important;
+        margin: 0 !important;
     }
     
     .auth-container {
         padding: 1rem;
+        background: rgba(30, 30, 30, 0.98) !important;
     }
     
     .auth-tabs {
         flex-direction: column;
+        gap: 8px;
+    }
+    
+    .auth-tab {
+        padding: 12px 16px;
+        font-size: 0.9rem;
     }
     
     .user-pill-btn {
@@ -5381,6 +5581,16 @@ body.light-theme .auth-message.success {
     .username-display {
         max-width: 60px;
         font-size: 0.8rem;
+    }
+    
+    .auth-form .form-control {
+        font-size: 16px; /* Evita zoom en iOS */
+        padding: 12px 15px;
+    }
+    
+    .auth-submit-btn {
+        padding: 12px 20px;
+        font-size: 1rem;
     }
 }
 
