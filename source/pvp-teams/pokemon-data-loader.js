@@ -4,6 +4,8 @@ class PokemonDataLoader {
         this.movesCache = null;
         this.itemsCache = null;
         this.abilitiesCache = {}; // Cache para habilidades individuales
+        this.allAbilitiesCache = null; // Cache de TODAS las habilidades
+        this.isLoadingAbilities = false;
         this.isLoadingMoves = false;
         this.isLoadingItems = false;
         
@@ -316,6 +318,62 @@ class PokemonDataLoader {
     }
 
     /**
+     * Cargar TODAS las habilidades disponibles en PokeAPI
+     */
+    async loadAllAbilities() {
+        if (this.allAbilitiesCache) {
+            return this.allAbilitiesCache;
+        }
+
+        if (this.isLoadingAbilities) {
+            while (this.isLoadingAbilities) {
+                await new Promise(resolve => setTimeout(resolve, 100));
+            }
+            return this.allAbilitiesCache;
+        }
+
+        this.isLoadingAbilities = true;
+        try {
+            // PokeAPI actualmente tiene ~300 habilidades; usamos un límite amplio para cubrir todas
+            const response = await fetch(`https://pokeapi.co/api/v2/ability?limit=10000`);
+            const data = await response.json();
+
+            const abilities = [];
+            const batchSize = 50;
+
+            for (let i = 0; i < data.results.length; i += batchSize) {
+                const batch = data.results.slice(i, i + batchSize);
+                const batchPromises = batch.map(ability => 
+                    fetch(ability.url)
+                        .then(res => res.json())
+                        .catch(err => {
+                            console.warn(`⚠️ Error cargando habilidad ${ability.name}:`, err);
+                            return null;
+                        })
+                );
+
+                const batchResults = await Promise.all(batchPromises);
+                abilities.push(...batchResults.filter(a => a !== null));
+            }
+
+            // Mapear y ordenar
+            this.allAbilitiesCache = abilities.map(ability => ({
+                id: ability.id,
+                name: ability.name,
+                displayName: this.getTranslatedAbilityName(ability),
+                names: ability.names
+            })).sort((a, b) => a.displayName.localeCompare(b.displayName));
+
+            this.isLoadingAbilities = false;
+            return this.allAbilitiesCache;
+        } catch (error) {
+            console.error('❌ Error cargando habilidades:', error);
+            this.isLoadingAbilities = false;
+            return [];
+        }
+    }
+
+    /**
      * Obtener nombre traducido de habilidad
      */
     getTranslatedAbilityName(ability) {
@@ -331,6 +389,13 @@ class PokemonDataLoader {
             ability.displayName = this.getTranslatedAbilityName(ability);
         });
         
+        if (this.allAbilitiesCache) {
+            this.allAbilitiesCache.forEach(ability => {
+                ability.displayName = this.getTranslatedAbilityName(ability);
+            });
+            this.allAbilitiesCache.sort((a, b) => a.displayName.localeCompare(b.displayName));
+        }
+
         console.log('✅ Traducciones de habilidades actualizadas');
     }
 
@@ -353,11 +418,21 @@ class PokemonDataLoader {
      */
     async preloadData() {
         console.log('🚀 Precargando datos de PokeAPI...');
-        await Promise.all([
-            this.loadAllMoves(),
-            this.loadAllItems()
-        ]);
-        console.log('✅ Datos precargados completamente');
+        try {
+            await Promise.all([
+                this.loadAllMoves(),
+                this.loadAllItems(),
+                this.loadAllAbilities()
+            ]);
+            console.log('✅ Datos precargados completamente');
+            console.log('📊 Resumen:', {
+                moves: this.movesCache?.length || 0,
+                items: this.itemsCache?.length || 0,
+                abilities: this.allAbilitiesCache?.length || 0
+            });
+        } catch (error) {
+            console.error('❌ Error en precarga:', error);
+        }
     }
 }
 

@@ -6230,24 +6230,129 @@ body.light-theme .pokemon-stats-table .base-stat {
 }
 
 body.light-theme .pokemon-stats-table input {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.2);
-    color: #1a1a1a;
+    background: rgba(0, 0, 0, 0.05) !important;
+    border-color: rgba(0, 0, 0, 0.2) !important;
+    color: #1a1a1a !important;
 }
 
 body.light-theme .pokemon-stats-table input:focus {
-    background: rgba(0, 0, 0, 0.08);
+    background: rgba(0, 0, 0, 0.08) !important;
+    border-color: var(--primary-color) !important;
+    color: #1a1a1a !important;
+}
+
+/* ESPECIFICIDAD MÁXIMA para inputs de número en tabla de stats */
+body.light-theme .pokemon-stats-table input[type="number"] {
+    background: rgba(0, 0, 0, 0.05) !important;
+    border-color: rgba(0, 0, 0, 0.2) !important;
+    color: #1a1a1a !important;
+}
+
+body.light-theme .pokemon-stats-table input[type="number"]:focus {
+    background: rgba(0, 0, 0, 0.08) !important;
+    border-color: var(--primary-color) !important;
+    color: #1a1a1a !important;
 }
 
 /* Asegurar que los inputs type="number" mantengan color blanco */
 .ev-input,
 .iv-input {
     color: white !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
 }
 
 .ev-input:focus,
 .iv-input:focus {
     color: white !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* Tema claro para inputs de EVs e IVs */
+body.light-theme .ev-input,
+body.light-theme .iv-input {
+    color: #1a1a1a !important;
+    background: rgba(0, 0, 0, 0.05) !important;
+    border-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+body.light-theme .ev-input:focus,
+body.light-theme .iv-input:focus {
+    color: #1a1a1a !important;
+    background: rgba(0, 0, 0, 0.08) !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* MÁXIMA ESPECIFICIDAD - Sobrescribir cualquier conflicto */
+body.light-theme .pokemon-stats-table .ev-input,
+body.light-theme .pokemon-stats-table .iv-input,
+body.light-theme .pokemon-slot-card .ev-input,
+body.light-theme .pokemon-slot-card .iv-input {
+    color: #1a1a1a !important;
+    background: rgba(0, 0, 0, 0.05) !important;
+    border-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+body.light-theme .pokemon-stats-table .ev-input:focus,
+body.light-theme .pokemon-stats-table .iv-input:focus,
+body.light-theme .pokemon-slot-card .ev-input:focus,
+body.light-theme .pokemon-slot-card .iv-input:focus {
+    color: #1a1a1a !important;
+    background: rgba(0, 0, 0, 0.08) !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* NUCLEAR OPTION - Máxima especificidad posible */
+body.light-theme .pokemon-stats-table input.ev-input,
+body.light-theme .pokemon-stats-table input.iv-input,
+body.light-theme .pokemon-stats-table input[class*="ev"],
+body.light-theme .pokemon-stats-table input[class*="iv"] {
+    color: #1a1a1a !important;
+    background: rgba(0, 0, 0, 0.05) !important;
+    border-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+body.light-theme .pokemon-stats-table input.ev-input:focus,
+body.light-theme .pokemon-stats-table input.iv-input:focus,
+body.light-theme .pokemon-stats-table input[class*="ev"]:focus,
+body.light-theme .pokemon-stats-table input[class*="iv"]:focus {
+    color: #1a1a1a !important;
+    background: rgba(0, 0, 0, 0.08) !important;
+    border-color: var(--primary-color) !important;
+}
+
+/* Estilos generales para inputs en PVP Teams - Tema claro */
+body.light-theme .pokemon-slot-card input,
+body.light-theme .pokemon-slot-card .form-control,
+body.light-theme .pokemon-slot-card select,
+body.light-theme .pokemon-slot-card .form-select {
+    background: rgba(0, 0, 0, 0.05) !important;
+    border-color: rgba(0, 0, 0, 0.2) !important;
+    color: #1a1a1a !important;
+}
+
+body.light-theme .pokemon-slot-card input:focus,
+body.light-theme .pokemon-slot-card .form-control:focus,
+body.light-theme .pokemon-slot-card select:focus,
+body.light-theme .pokemon-slot-card .form-select:focus {
+    background: rgba(0, 0, 0, 0.08) !important;
+    border-color: var(--primary-color) !important;
+    color: #1a1a1a !important;
+    box-shadow: 0 0 0 2px var(--primary-bg) !important;
+}
+
+/* Estilos específicos para inputs de número en PVP Teams */
+body.light-theme .pokemon-slot-card input[type="number"] {
+    background: rgba(0, 0, 0, 0.05) !important;
+    border-color: rgba(0, 0, 0, 0.2) !important;
+    color: #1a1a1a !important;
+}
+
+body.light-theme .pokemon-slot-card input[type="number"]:focus {
+    background: rgba(0, 0, 0, 0.08) !important;
+    border-color: var(--primary-color) !important;
+    color: #1a1a1a !important;
 }
 
 /* EV Total Display */
@@ -6259,10 +6364,20 @@ body.light-theme .pokemon-stats-table input:focus {
     font-weight: 500;
 }
 
+/* EV Total Display - Tema claro */
+body.light-theme .ev-total-display {
+    color: rgba(0, 0, 0, 0.7) !important;
+}
+
 .ev-total-number {
     color: #22c55e;
     font-weight: 700;
     font-size: 0.95rem;
+}
+
+/* EV Total Number - Tema claro */
+body.light-theme .ev-total-number {
+    color: #16a34a !important; /* Verde más oscuro para tema claro */
 }
 
 /* Pokémon Attributes Section */
@@ -6353,18 +6468,22 @@ body.light-theme .pokemon-stats-table input:focus {
 /* Dropdown Container */
 .custom-move-select-dropdown,
 .custom-item-select-dropdown {
-    position: absolute;
-    top: calc(100% + 4px);
-    left: 0;
-    right: 0;
+    /* ✅ SOLUCIÓN: Position fixed para estar por encima de todo */
+    position: fixed !important;
     background: rgba(30, 30, 30, 0.98);
     border: 2px solid var(--primary-color);
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    z-index: 1000;
+    z-index: 10000 !important; /* Z-index muy alto */
     max-height: 300px;
-    overflow: hidden;
+    overflow-y: auto;
     backdrop-filter: blur(10px);
+    /* Remover posicionamiento absoluto que causaba problemas */
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+    width: auto !important;
 }
 
 /* Search Input */
@@ -6770,6 +6889,24 @@ body.light-theme .pokemon-slot-card.empty:hover .add-pokemon-text {
 
 body.light-theme .pokemon-name-display {
     color: #1a1a1a;
+}
+
+/* Estilos adicionales para elementos de texto en PVP Teams - Tema claro */
+body.light-theme .pokemon-slot-card .pokemon-name-display,
+body.light-theme .pokemon-slot-card .pokemon-type,
+body.light-theme .pokemon-slot-card .pokemon-ability,
+body.light-theme .pokemon-slot-card .pokemon-item,
+body.light-theme .pokemon-slot-card .pokemon-move,
+body.light-theme .pokemon-slot-card .stat-name,
+body.light-theme .pokemon-slot-card .stat-value,
+body.light-theme .pokemon-slot-card .nature-name {
+    color: #1a1a1a !important;
+}
+
+body.light-theme .pokemon-slot-card .pokemon-type-badge {
+    background: rgba(0, 0, 0, 0.1) !important;
+    color: #1a1a1a !important;
+    border: 1px solid rgba(0, 0, 0, 0.2) !important;
 }
 
 body.light-theme .ev-total-display {

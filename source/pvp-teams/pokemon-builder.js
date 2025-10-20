@@ -190,6 +190,9 @@ class PokemonBuilder {
                 modal.remove();
             }
         });
+
+        // Asegurar que, al seleccionar Pokémon y renderizar la card, se inicialicen dropdowns personalizados
+        // Esto se hace en updatePokemonSlot, pero reforzamos la cadena
     }
 
     /**

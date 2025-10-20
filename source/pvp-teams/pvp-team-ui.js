@@ -143,17 +143,101 @@ class PVPTeamUI {
     }
 
     /**
-     * Asegurar que siempre hay 6 slots de Pokémon
+     * Reconstruir objeto Pokémon completo desde datos esenciales guardados
      */
-    ensureSixSlots(pokemons) {
+    async reconstructPokemon(essentialData) {
+        try {
+            // Obtener datos completos del Pokémon desde la API
+            const pokemonData = await window.pokemonBuilder.fetchPokemon(essentialData.id || essentialData.name);
+            
+            if (!pokemonData) {
+                console.error('❌ No se pudo cargar Pokémon:', essentialData.name);
+                return null;
+            }
+            
+            // Extraer base stats
+            const baseStats = {};
+            pokemonData.stats.forEach(stat => {
+                baseStats[stat.stat.name] = stat.base_stat;
+            });
+            
+            // Buscar la naturaleza completa
+            let natureObject = null;
+            if (essentialData.nature) {
+                const natures = await window.pvpTeamData.loadNatures();
+                natureObject = natures.find(n => n.name === essentialData.nature);
+                if (!natureObject) {
+                    console.warn('⚠️ Naturaleza no encontrada:', essentialData.nature);
+                } else {
+                    console.log('✅ Naturaleza encontrada:', essentialData.nature, '→', natureObject);
+                }
+            }
+            
+            // Debug: Verificar habilidad
+            console.log('🔍 Reconstruyendo Pokémon:', essentialData.name);
+            console.log('🔍 Habilidad guardada:', essentialData.ability);
+            console.log('🔍 Naturaleza guardada:', essentialData.nature);
+            
+            // Reconstruir objeto Pokémon completo
+            const pokemon = {
+                id: pokemonData.id,
+                name: pokemonData.name,
+                sprite: pokemonData.sprites.front_default,
+                baseStats: baseStats,
+                evs: essentialData.evs || {
+                    hp: 0, attack: 0, defense: 0,
+                    'special-attack': 0, 'special-defense': 0, speed: 0
+                },
+                ivs: essentialData.ivs || {
+                    hp: 31, attack: 31, defense: 31,
+                    'special-attack': 31, 'special-defense': 31, speed: 31
+                },
+                nature: natureObject,
+                ability: essentialData.ability || pokemonData.abilities[0]?.ability.name || null,
+                item: essentialData.item || null,
+                moves: essentialData.moves || [null, null, null, null],
+                availableAbilities: pokemonData.abilities.map(a => ({
+                    name: a.ability.name,
+                    is_hidden: a.is_hidden
+                })),
+                availableMoves: pokemonData.moves.slice(0, 50).map(m => m.move.name),
+                finalStats: {}
+            };
+            
+            // Calcular stats finales
+            pokemon.finalStats = window.pvpTeamData.calculateAllStats(
+                pokemon.baseStats,
+                pokemon.evs,
+                pokemon.ivs,
+                natureObject
+            );
+            
+            return pokemon;
+            
+        } catch (error) {
+            console.error('❌ Error reconstruyendo Pokémon:', error);
+            return null;
+        }
+    }
+
+    /**
+     * Asegurar que siempre hay 6 slots de Pokémon (ahora async para reconstruir)
+     */
+    async ensureSixSlots(pokemons) {
         const sixSlots = Array(6).fill(null);
         
-        // Copiar Pokémon existentes a sus posiciones
-        pokemons.forEach((pokemon, index) => {
-            if (index < 6 && pokemon && pokemon.id) {
-                sixSlots[index] = pokemon;
+        // Procesar Pokémon existentes
+        for (let i = 0; i < pokemons.length && i < 6; i++) {
+            if (pokemons[i] && pokemons[i].id) {
+                // Si no tiene baseStats, son datos esenciales -> reconstruir
+                if (!pokemons[i].baseStats) {
+                    sixSlots[i] = await this.reconstructPokemon(pokemons[i]);
+                } else {
+                    // Ya es un objeto completo
+                    sixSlots[i] = pokemons[i];
+                }
             }
-        });
+        }
         
         // Rellenar slots vacíos con Pokémon vacío
         return sixSlots.map(pokemon => 
@@ -174,7 +258,7 @@ class PVPTeamUI {
         if (data) {
             this.currentTeam = {
                 teamName: data.teamName || '',
-                pokemons: this.ensureSixSlots(data.pokemons || [])
+                pokemons: await this.ensureSixSlots(data.pokemons || [])
             };
         } else {
             this.currentTeam = {
@@ -226,7 +310,27 @@ class PVPTeamUI {
         // Setup event listeners
         this.setupTeamNameListener();
         this.setupPokemonEventListeners();
+
+        // Precargar datos críticos (items, movimientos, habilidades) para que los dropdowns abran al instante
+        if (window.pokemonDataLoader && window.pokemonDataLoader.preloadData) {
+            try {
+                await window.pokemonDataLoader.preloadData();
+            } catch (_) {}
+        }
         
+        // Si hay datos guardados, establecer el nivel del primer Pokémon válido
+        if (data && data.pokemons && data.pokemons.length > 0) {
+            const firstPokemon = data.pokemons.find(p => p && p.id);
+            if (firstPokemon && firstPokemon.level) {
+                window.pvpTeamData.setSelectedLevel(firstPokemon.level);
+            }
+        }
+        
+        // Inicializar dropdowns personalizados actualmente presentes en DOM (por si ya hay Pokémon cargados)
+        if (window.customDropdowns) {
+            this.initCustomDropdownsForAllCurrentSlots();
+        }
+
         // Sincronizar radio buttons de nivel al cargar
         this.syncAllLevelRadioButtons(window.pvpTeamData.getSelectedLevel());
         
@@ -331,11 +435,7 @@ class PVPTeamUI {
         });
 
         // Inicializar dropdowns personalizados de items
-        document.querySelectorAll('.custom-item-select-wrapper').forEach(wrapper => {
-            const slotIndex = parseInt(wrapper.dataset.slot);
-            const selectedItem = this.currentTeam.pokemons[slotIndex]?.item || '';
-            window.customDropdowns.initItemSelect(slotIndex, selectedItem);
-        });
+        this.initCustomDropdownsForAllCurrentSlots();
 
         // Inicializar dropdowns personalizados de movimientos
         document.querySelectorAll('.custom-move-select-wrapper').forEach(wrapper => {
@@ -344,6 +444,48 @@ class PVPTeamUI {
             const selectedMove = this.currentTeam.pokemons[slotIndex]?.moves[moveIndex] || '';
             window.customDropdowns.initMoveSelect(slotIndex, moveIndex, selectedMove);
         });
+    }
+
+    /**
+     * Inicializa dropdowns personalizados (items y movimientos) para todos los slots presentes en DOM
+     */
+    initCustomDropdownsForAllCurrentSlots() {
+        console.log('🔧 initCustomDropdownsForAllCurrentSlots llamado');
+        
+        // Items
+        const itemWrappers = document.querySelectorAll('.custom-item-select-wrapper');
+        console.log('🔍 Encontrados', itemWrappers.length, 'wrappers de items');
+        
+        itemWrappers.forEach((wrapper, index) => {
+            const slotIndex = parseInt(wrapper.dataset.slot);
+            const selectedItem = this.currentTeam.pokemons?.[slotIndex]?.item || '';
+            console.log(`🔧 Inicializando item dropdown ${index}: slot=${slotIndex}, item=${selectedItem}`);
+            
+            if (window.customDropdowns && Number.isInteger(slotIndex)) {
+                window.customDropdowns.initItemSelect(slotIndex, selectedItem);
+            } else {
+                console.warn('⚠️ No se puede inicializar item dropdown:', { slotIndex, customDropdowns: !!window.customDropdowns });
+            }
+        });
+
+        // Moves
+        const moveWrappers = document.querySelectorAll('.custom-move-select-wrapper');
+        console.log('🔍 Encontrados', moveWrappers.length, 'wrappers de movimientos');
+        
+        moveWrappers.forEach((wrapper, index) => {
+            const slotIndex = parseInt(wrapper.dataset.slot);
+            const moveIndex = parseInt(wrapper.dataset.moveIndex);
+            const selectedMove = this.currentTeam.pokemons?.[slotIndex]?.moves?.[moveIndex] || '';
+            console.log(`🔧 Inicializando move dropdown ${index}: slot=${slotIndex}, moveIndex=${moveIndex}, move=${selectedMove}`);
+            
+            if (window.customDropdowns && Number.isInteger(slotIndex) && Number.isInteger(moveIndex)) {
+                window.customDropdowns.initMoveSelect(slotIndex, moveIndex, selectedMove);
+            } else {
+                console.warn('⚠️ No se puede inicializar move dropdown:', { slotIndex, moveIndex, customDropdowns: !!window.customDropdowns });
+            }
+        });
+        
+        console.log('✅ initCustomDropdownsForAllCurrentSlots completado');
     }
 
     /**
@@ -620,13 +762,25 @@ class PVPTeamUI {
         // Poblar naturalezas
         const natureSelect = document.getElementById(`nature_${slotIndex}`);
         if (natureSelect) {
+            console.log('🔍 Poblando naturalezas para slot', slotIndex, 'Pokémon:', pokemon.name);
+            console.log('🔍 Naturaleza actual:', pokemon.nature);
+            
             const natures = await window.pvpTeamData.loadNatures();
             natures.forEach(nature => {
                 const option = document.createElement('option');
                 option.value = nature.name;
                 option.textContent = this.formatNatureName(nature);
-                if (pokemon.nature && pokemon.nature.name === nature.name) {
+                
+                // ✅ SOLUCIÓN: Manejar tanto objeto como string
+                const currentNature = pokemon.nature;
+                const isSelected = currentNature && (
+                    (typeof currentNature === 'string' && currentNature === nature.name) ||
+                    (typeof currentNature === 'object' && currentNature.name === nature.name)
+                );
+                
+                if (isSelected) {
                     option.selected = true;
+                    console.log('✅ Naturaleza seleccionada:', nature.name);
                 }
                 natureSelect.appendChild(option);
             });
@@ -634,16 +788,23 @@ class PVPTeamUI {
 
         // Poblar habilidades
         const abilitySelect = document.getElementById(`ability_${slotIndex}`);
-        if (abilitySelect && pokemon.availableAbilities) {
-            // Cargar traducciones de las habilidades
-            const abilities = await window.pokemonDataLoader.loadAbilities(pokemon.availableAbilities);
-            
-            abilities.forEach(ability => {
+        if (abilitySelect) {
+            console.log('🔍 Poblando habilidades para slot', slotIndex, 'Pokémon:', pokemon.name);
+            console.log('🔍 Habilidad actual:', pokemon.ability);
+
+            // Cargar TODAS las habilidades para compatibilidad con PokeMMO
+            const allAbilities = await window.pokemonDataLoader.loadAllAbilities();
+
+            // Limpia y añade placeholder
+            abilitySelect.innerHTML = '<option value="">--</option>';
+
+            allAbilities.forEach(ability => {
                 const option = document.createElement('option');
                 option.value = ability.name;
-                option.textContent = ability.displayName + (ability.is_hidden ? ' 💎' : '');
+                option.textContent = ability.displayName;
                 if (pokemon.ability === ability.name) {
                     option.selected = true;
+                    console.log('✅ Habilidad seleccionada:', ability.name);
                 }
                 abilitySelect.appendChild(option);
             });
@@ -666,6 +827,19 @@ class PVPTeamUI {
                 }
             });
         }
+
+        // ✅ SOLUCIÓN: Inicializar dropdowns personalizados de objetos y movimientos
+        if (window.customDropdowns) {
+            // Inicializar dropdown de objetos
+            const selectedItem = pokemon.item || '';
+            await window.customDropdowns.initItemSelect(slotIndex, selectedItem);
+            
+            // Inicializar dropdowns de movimientos
+            [0, 1, 2, 3].forEach(moveIndex => {
+                const selectedMove = pokemon.moves[moveIndex] || '';
+                window.customDropdowns.initMoveSelect(slotIndex, moveIndex, selectedMove);
+            });
+        }
     }
 
     /**
@@ -676,6 +850,30 @@ class PVPTeamUI {
             if (pokemons[i] && pokemons[i].id) {
                 await this.populateDropdownsForSlot(i, pokemons[i]);
             }
+        }
+        
+        // ✅ SOLUCIÓN: También inicializar dropdowns personalizados para equipos cargados
+        if (window.customDropdowns) {
+            // Inicializar dropdowns de objetos para todos los slots
+            document.querySelectorAll('.custom-item-select-wrapper').forEach(wrapper => {
+                const slotIndex = parseInt(wrapper.dataset.slot);
+                const pokemon = this.currentTeam.pokemons[slotIndex];
+                if (pokemon && pokemon.id) {
+                    const selectedItem = pokemon.item || '';
+                    window.customDropdowns.initItemSelect(slotIndex, selectedItem);
+                }
+            });
+
+            // Inicializar dropdowns de movimientos para todos los slots
+            document.querySelectorAll('.custom-move-select-wrapper').forEach(wrapper => {
+                const slotIndex = parseInt(wrapper.dataset.slot);
+                const moveIndex = parseInt(wrapper.dataset.moveIndex);
+                const pokemon = this.currentTeam.pokemons[slotIndex];
+                if (pokemon && pokemon.id) {
+                    const selectedMove = pokemon.moves[moveIndex] || '';
+                    window.customDropdowns.initMoveSelect(slotIndex, moveIndex, selectedMove);
+                }
+            });
         }
     }
 
@@ -699,12 +897,63 @@ class PVPTeamUI {
     }
 
     /**
-     * Recopilar datos del equipo actual
+     * Recopilar datos del equipo actual (SOLO datos esenciales)
      */
     collectTeamData() {
+        // Filtrar solo Pokémon válidos y extraer SOLO datos esenciales
+        const essentialPokemons = this.currentTeam.pokemons
+            .filter(p => p && p.id)
+            .map(pokemon => ({
+                // 1. Qué Pokémon es
+                id: pokemon.id,
+                name: pokemon.name,
+                
+                // 2. Nivel (50 o 100)
+                level: window.pvpTeamData.getSelectedLevel(),
+                
+                // 3. Todos los EVs
+                evs: {
+                    hp: pokemon.evs.hp || 0,
+                    attack: pokemon.evs.attack || 0,
+                    defense: pokemon.evs.defense || 0,
+                    'special-attack': pokemon.evs['special-attack'] || 0,
+                    'special-defense': pokemon.evs['special-defense'] || 0,
+                    speed: pokemon.evs.speed || 0
+                },
+                
+                // 4. Todos los IVs
+                ivs: {
+                    hp: pokemon.ivs.hp || 31,
+                    attack: pokemon.ivs.attack || 31,
+                    defense: pokemon.ivs.defense || 31,
+                    'special-attack': pokemon.ivs['special-attack'] || 31,
+                    'special-defense': pokemon.ivs['special-defense'] || 31,
+                    speed: pokemon.ivs.speed || 31
+                },
+                
+                // 5. Naturaleza
+                nature: pokemon.nature ? (pokemon.nature.name || pokemon.nature) : null,
+                
+                // 6. Habilidad
+                ability: pokemon.ability || null,
+                
+                // 7. Objeto
+                item: pokemon.item || null,
+                
+                // 8. Los 4 movimientos
+                moves: [
+                    pokemon.moves[0] || null,
+                    pokemon.moves[1] || null,
+                    pokemon.moves[2] || null,
+                    pokemon.moves[3] || null
+                ]
+                
+                // ❌ NO guardamos: baseStats, sprite, availableAbilities, availableMoves, finalStats
+            }));
+        
         return {
             teamName: this.currentTeam.teamName,
-            pokemons: this.currentTeam.pokemons.filter(p => p && p.id)  // Solo Pokémon válidos
+            pokemons: essentialPokemons
         };
     }
 

@@ -130,33 +130,55 @@ class CustomDropdowns {
 
         if (!trigger || !dropdown) return;
 
+        // ✅ SOLUCIÓN: Remover listeners existentes para evitar duplicados
+        const newTrigger = trigger.cloneNode(true);
+        trigger.parentNode.replaceChild(newTrigger, trigger);
+        const newDropdown = dropdown.cloneNode(true);
+        dropdown.parentNode.replaceChild(newDropdown, dropdown);
+        
+        // Actualizar referencias
+        const finalTrigger = document.getElementById(`moveSelectTrigger_${slotIndex}_${moveIndex}`);
+        const finalDropdown = document.getElementById(`moveSelectDropdown_${slotIndex}_${moveIndex}`);
+        const finalSearchInput = document.getElementById(`moveSearch_${slotIndex}_${moveIndex}`);
+        const finalOptionsContainer = document.getElementById(`moveOptions_${slotIndex}_${moveIndex}`);
+
         // Cargar movimientos
         const moves = await window.pokemonDataLoader.loadAllMoves();
 
         // Renderizar opciones iniciales
-        this.renderMoveOptions(optionsContainer, moves);
+        this.renderMoveOptions(finalOptionsContainer, moves);
 
-        // Toggle dropdown
-        trigger.addEventListener('click', (e) => {
+        // Toggle dropdown - SOLO UN LISTENER
+        finalTrigger.addEventListener('click', (e) => {
             e.stopPropagation();
-            this.toggleDropdown(dropdown);
+            this.toggleDropdown(finalDropdown);
         });
 
         // Búsqueda
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => {
+        if (finalSearchInput) {
+            finalSearchInput.addEventListener('input', (e) => {
                 const query = e.target.value;
                 const filtered = query ? window.pokemonDataLoader.searchMoves(query) : moves;
-                this.renderMoveOptions(optionsContainer, filtered);
+                this.renderMoveOptions(finalOptionsContainer, filtered);
             });
         }
 
         // Cerrar al hacer click fuera
         document.addEventListener('click', (e) => {
-            if (!dropdown.contains(e.target) && !trigger.contains(e.target)) {
-                dropdown.style.display = 'none';
+            if (!finalDropdown.contains(e.target) && !finalTrigger.contains(e.target)) {
+                finalDropdown.style.display = 'none';
             }
         });
+
+        // Reposicionar dropdown cuando se hace scroll o resize
+        const repositionHandler = () => {
+            if (finalDropdown.style.display === 'block') {
+                this.positionDropdown(finalDropdown);
+            }
+        };
+        
+        window.addEventListener('scroll', repositionHandler, true);
+        window.addEventListener('resize', repositionHandler);
     }
 
     /**
@@ -220,47 +242,128 @@ class CustomDropdowns {
      * Inicializar dropdown de objetos
      */
     async initItemSelect(slotIndex, selectedItem = '') {
+        console.log('🔍 initItemSelect llamado para slot:', slotIndex, 'selectedItem:', selectedItem);
+        
         const trigger = document.getElementById(`itemSelectTrigger_${slotIndex}`);
         const dropdown = document.getElementById(`itemSelectDropdown_${slotIndex}`);
         const searchInput = document.getElementById(`itemSearch_${slotIndex}`);
         const optionsContainer = document.getElementById(`itemOptions_${slotIndex}`);
 
-        if (!trigger || !dropdown) return;
+        console.log('🔍 Elementos encontrados:', {
+            trigger: !!trigger,
+            dropdown: !!dropdown,
+            searchInput: !!searchInput,
+            optionsContainer: !!optionsContainer
+        });
 
-        // Cargar objetos
-        const items = await window.pokemonDataLoader.loadAllItems();
+        if (!trigger || !dropdown) {
+            console.error('❌ Elementos básicos no encontrados para slot:', slotIndex);
+            return;
+        }
 
-        // Renderizar opciones iniciales
-        this.renderItemOptions(optionsContainer, items);
+        // ✅ SOLUCIÓN: Remover listeners existentes para evitar duplicados
+        const newTrigger = trigger.cloneNode(true);
+        trigger.parentNode.replaceChild(newTrigger, trigger);
+        const newDropdown = dropdown.cloneNode(true);
+        dropdown.parentNode.replaceChild(newDropdown, dropdown);
+        
+        // Actualizar referencias
+        const finalTrigger = document.getElementById(`itemSelectTrigger_${slotIndex}`);
+        const finalDropdown = document.getElementById(`itemSelectDropdown_${slotIndex}`);
+        const finalSearchInput = document.getElementById(`itemSearch_${slotIndex}`);
+        const finalOptionsContainer = document.getElementById(`itemOptions_${slotIndex}`);
 
-        // Toggle dropdown
-        trigger.addEventListener('click', (e) => {
+        // Cargar objetos (garantizado)
+        let items = window.pokemonDataLoader.itemsCache;
+        console.log('🔍 ItemsCache actual:', items ? items.length : 'null/undefined');
+        
+        if (!items || items.length === 0) {
+            console.log('🔄 Cargando items desde API...');
+            try {
+                items = await window.pokemonDataLoader.loadAllItems();
+                console.log('✅ Items cargados:', items.length);
+            } catch (error) {
+                console.error('❌ Error cargando items:', error);
+                items = [];
+            }
+        }
+
+        // Renderizar opciones iniciales si hay datos
+        if (items && items.length > 0) {
+            console.log('🎨 Renderizando opciones iniciales con', items.length, 'items');
+            this.renderItemOptions(finalOptionsContainer, items);
+            console.log('🔍 Opciones renderizadas:', finalOptionsContainer.children.length);
+        } else {
+            console.warn('⚠️ No hay items para renderizar');
+        }
+
+        // Toggle dropdown - SOLO UN LISTENER
+        finalTrigger.addEventListener('click', (e) => {
+            console.log('🖱️ Click en trigger de item para slot:', slotIndex);
             e.stopPropagation();
-            this.toggleDropdown(dropdown);
+            
+            // Lazy render: si aún no hay opciones, intentar cargar ahora
+            if (!finalOptionsContainer || finalOptionsContainer.children.length === 0) {
+                console.log('🔄 Lazy loading items...');
+                (async () => {
+                    let list = window.pokemonDataLoader.itemsCache;
+                    if (!list || list.length === 0) {
+                        try {
+                            list = await window.pokemonDataLoader.loadAllItems();
+                            console.log('✅ Lazy loaded items:', list.length);
+                        } catch (error) {
+                            console.error('❌ Error en lazy load:', error);
+                            list = [];
+                        }
+                    }
+                    this.renderItemOptions(finalOptionsContainer, list);
+                    console.log('🔍 Opciones después de lazy load:', finalOptionsContainer.children.length);
+                    this.toggleDropdown(finalDropdown);
+                })();
+                return;
+            }
+            console.log('🎯 Abriendo dropdown con', finalOptionsContainer.children.length, 'opciones');
+            this.toggleDropdown(finalDropdown);
         });
 
         // Búsqueda
-        if (searchInput) {
-            searchInput.addEventListener('input', (e) => {
+        if (finalSearchInput) {
+            finalSearchInput.addEventListener('input', (e) => {
                 const query = e.target.value;
+                console.log('🔍 Búsqueda:', query);
                 const filtered = query ? window.pokemonDataLoader.searchItems(query) : items;
-                this.renderItemOptions(optionsContainer, filtered);
+                console.log('🔍 Resultados filtrados:', filtered.length);
+                this.renderItemOptions(finalOptionsContainer, filtered);
             });
         }
 
         // Cerrar al hacer click fuera
         document.addEventListener('click', (e) => {
-            if (!dropdown.contains(e.target) && !trigger.contains(e.target)) {
-                dropdown.style.display = 'none';
+            if (!finalDropdown.contains(e.target) && !finalTrigger.contains(e.target)) {
+                finalDropdown.style.display = 'none';
             }
         });
+
+        // Reposicionar dropdown cuando se hace scroll o resize
+        const repositionHandler = () => {
+            if (finalDropdown.style.display === 'block') {
+                this.positionDropdown(finalDropdown);
+            }
+        };
+        
+        window.addEventListener('scroll', repositionHandler, true);
+        window.addEventListener('resize', repositionHandler);
     }
 
     /**
      * Renderizar opciones de objetos
      */
     renderItemOptions(container, items) {
+        console.log('🎨 renderItemOptions llamado con', items.length, 'items');
+        console.log('🔍 Container:', container);
+        
         if (items.length === 0) {
+            console.warn('⚠️ No hay items para renderizar');
             container.innerHTML = `
                 <div class="custom-select-no-results">
                     ${window.languageManager.getCurrentLanguage() === 'es' ? 'No se encontraron objetos' : 'No items found'}
@@ -269,15 +372,23 @@ class CustomDropdowns {
             return;
         }
 
+        console.log('🎨 Generando HTML para', items.length, 'items');
         container.innerHTML = items.map(item => this.renderItemOption(item)).join('');
+        console.log('🔍 HTML generado, container.children.length:', container.children.length);
 
         // Agregar eventos de click
-        container.querySelectorAll('.custom-item-option').forEach(option => {
+        const options = container.querySelectorAll('.custom-item-option');
+        console.log('🔍 Opciones encontradas para eventos:', options.length);
+        
+        options.forEach((option, index) => {
             option.addEventListener('click', (e) => {
                 const itemName = e.currentTarget.dataset.itemName;
+                console.log('🖱️ Click en item:', itemName, 'índice:', index);
                 this.selectItem(container, itemName);
             });
         });
+        
+        console.log('✅ Eventos de click agregados a', options.length, 'opciones');
     }
 
     /**
@@ -316,6 +427,9 @@ class CustomDropdowns {
      * Toggle dropdown
      */
     toggleDropdown(dropdown) {
+        console.log('🔄 toggleDropdown llamado para:', dropdown.id);
+        console.log('🔍 Estado actual del dropdown:', dropdown.style.display);
+        
         // Cerrar otros dropdowns abiertos
         document.querySelectorAll('.custom-move-select-dropdown, .custom-item-select-dropdown').forEach(d => {
             if (d !== dropdown) {
@@ -324,15 +438,112 @@ class CustomDropdowns {
         });
 
         // Toggle actual dropdown
-        dropdown.style.display = dropdown.style.display === 'none' ? 'block' : 'none';
-
-        // Focus en el input de búsqueda
-        if (dropdown.style.display === 'block') {
-            const searchInput = dropdown.querySelector('.custom-select-search-input');
-            if (searchInput) {
-                setTimeout(() => searchInput.focus(), 100);
-            }
+        const isCurrentlyHidden = dropdown.style.display === 'none';
+        
+        if (isCurrentlyHidden) {
+            // Abrir dropdown
+            console.log('🎯 Abriendo dropdown');
+            
+            // Posicionar correctamente antes de mostrar
+            this.positionDropdown(dropdown);
+            
+            // Mostrar con requestAnimationFrame para asegurar posicionamiento
+            requestAnimationFrame(() => {
+                dropdown.style.display = 'block';
+                
+                // Focus en el input de búsqueda después de mostrar
+                setTimeout(() => {
+                    const searchInput = dropdown.querySelector('.custom-select-search-input');
+                    if (searchInput) {
+                        console.log('✅ Input encontrado, haciendo focus');
+                        searchInput.focus();
+                    } else {
+                        console.warn('⚠️ Input de búsqueda no encontrado');
+                    }
+                }, 50);
+            });
+        } else {
+            // Cerrar dropdown
+            console.log('🎯 Cerrando dropdown');
+            dropdown.style.display = 'none';
         }
+    }
+
+    /**
+     * Posicionar dropdown correctamente con position: fixed
+     */
+    positionDropdown(dropdown) {
+        console.log('📍 Posicionando dropdown:', dropdown.id);
+        
+        // Encontrar el trigger correspondiente
+        const triggerId = dropdown.id.replace('Dropdown', 'Trigger');
+        const trigger = document.getElementById(triggerId);
+        
+        if (!trigger) {
+            console.error('❌ No se encontró el trigger para:', dropdown.id);
+            return;
+        }
+
+        const triggerRect = trigger.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        const viewportWidth = window.innerWidth;
+        const dropdownHeight = 300; // max-height del dropdown
+        const dropdownWidth = Math.max(triggerRect.width, 250); // Ancho mínimo
+        
+        console.log('📍 Datos del trigger:', {
+            top: triggerRect.top,
+            bottom: triggerRect.bottom,
+            left: triggerRect.left,
+            width: triggerRect.width,
+            viewportHeight,
+            viewportWidth
+        });
+        
+        // Calcular posición horizontal
+        let left = triggerRect.left;
+        
+        // Si no cabe a la derecha, ajustar hacia la izquierda
+        if (left + dropdownWidth > viewportWidth) {
+            left = viewportWidth - dropdownWidth - 10;
+        }
+        
+        // Asegurar que no se salga por la izquierda
+        if (left < 10) {
+            left = 10;
+        }
+        
+        // Calcular posición vertical
+        let top = triggerRect.bottom + 4; // 4px de separación
+        let opensUpward = false;
+        
+        // Si no cabe abajo, mostrar arriba
+        if (top + dropdownHeight > viewportHeight - 10) {
+            top = triggerRect.top - dropdownHeight - 4;
+            opensUpward = true;
+            console.log('📍 Dropdown se abre hacia arriba');
+        } else {
+            console.log('📍 Dropdown se abre hacia abajo');
+        }
+        
+        // Asegurar que no se salga por arriba
+        if (top < 10) {
+            top = 10;
+            console.log('📍 Dropdown ajustado al límite superior');
+        }
+        
+        // Aplicar posición fixed para estar por encima de todo
+        dropdown.style.position = 'fixed';
+        dropdown.style.top = `${top}px`;
+        dropdown.style.left = `${left}px`;
+        dropdown.style.width = `${dropdownWidth}px`;
+        dropdown.style.zIndex = '10000'; // Z-index alto para estar por encima
+        
+        console.log('📍 Posición aplicada:', {
+            top: `${top}px`,
+            left: `${left}px`,
+            width: `${dropdownWidth}px`,
+            direction: opensUpward ? 'upward' : 'downward'
+        });
     }
 
 
