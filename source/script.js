@@ -764,6 +764,28 @@ function checkAuthenticationAndRender() {
         mainCard.style.display = 'none';
         updateUserPill();
     }
+    
+    // Re-renderizar componentes que dependen de autenticación
+    reRenderAuthenticationDependentComponents();
+}
+
+/**
+ * Re-renderizar componentes que dependen del estado de autenticación
+ */
+async function reRenderAuthenticationDependentComponents() {
+    try {
+        // Berry Calculator
+        if (window.berryUI && window.berryUI.checkAuthenticationAndReRender) {
+            await window.berryUI.checkAuthenticationAndReRender();
+        }
+        
+        // PVP Teams
+        if (window.pvpTeamsUI && window.pvpTeamsUI.updateTranslations) {
+            await window.pvpTeamsUI.updateTranslations();
+        }
+    } catch (error) {
+        console.error('❌ Error re-rendering auth dependent components:', error);
+    }
 }
 
 function initializeAuth() {
@@ -1008,6 +1030,8 @@ async function handleLogin(e) {
             setTimeout(() => {
                 checkAuthenticationAndRender();
                 translateAuthUI();
+                // Forzar re-renderizado de componentes después del login
+                reRenderAuthenticationDependentComponents();
             }, 500);
         } else {
             messageEl.className = 'auth-message error';
@@ -1045,6 +1069,8 @@ async function handleRegister(e) {
             setTimeout(() => {
                 checkAuthenticationAndRender();
                 translateAuthUI();
+                // Forzar re-renderizado de componentes después del login
+                reRenderAuthenticationDependentComponents();
             }, 500);
         } else {
             messageEl.className = 'auth-message error';
@@ -1066,6 +1092,8 @@ function handleLogout() {
     // Recargar vista
     checkAuthenticationAndRender();
     translateAuthUI(); // Actualizar traducciones
+    // Re-renderizar componentes después del logout
+    reRenderAuthenticationDependentComponents();
 }
 
 function updateUserPill() {

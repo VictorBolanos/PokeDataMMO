@@ -29,11 +29,9 @@ class BerryUI {
                             ${lm.t('farming.calculator.title')}
                         </h2>
                         <p class="lead mb-4" id="calculatorSubtitle">${lm.t('farming.calculator.subtitle')}</p>
-                        <div class="alert alert-warning">
-                            <strong>${lm.getCurrentLanguage() === 'es' ? '⚠️ Inicio de sesión requerido' : '⚠️ Login Required'}</strong><br>
-                            ${lm.getCurrentLanguage() === 'es' 
-                                ? 'Debes iniciar sesión para usar la calculadora de bayas y guardar tus cálculos.' 
-                                : 'You must log in to use the berry calculator and save your calculations.'}
+                        <div class="alert alert-warning" id="loginRequiredAlert">
+                            <strong id="loginRequiredTitle">${lm.t('farming.calculator.loginRequired')}</strong><br>
+                            <span id="loginRequiredMessage">${lm.t('farming.calculator.loginRequiredMessage')}</span>
                         </div>
                     </div>
                 </div>
@@ -56,8 +54,18 @@ class BerryUI {
 
                 <!-- Load/New Controls -->
                 <div class="berry-calculator-load-new-controls mb-5">
-                    <div class="row align-items-end">
-                        <div class="col-md-8">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <button class="btn btn-danger" id="deleteCalculationBtn" disabled title="${lm.getCurrentLanguage() === 'es' ? 'Eliminar cálculo' : 'Delete calculation'}">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="col">
                             <label class="form-label text-white mb-2" id="labelLoadCalculation">
                                 📂 ${lm.t('farming.calculator.loadSavedCalculation')}
                             </label>
@@ -72,8 +80,8 @@ class BerryUI {
                                 `).join('') : ''}
                             </select>
                         </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-primary w-100" id="newCalculationBtn">
+                        <div class="col-auto">
+                            <button class="btn btn-primary" id="newCalculationBtn">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="margin-right: 8px;">
                                     <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                                 </svg>
@@ -100,6 +108,7 @@ class BerryUI {
     setupLoadNewControls() {
         const loadSelect = document.getElementById('loadCalculationSelect');
         const newBtn = document.getElementById('newCalculationBtn');
+        const deleteBtn = document.getElementById('deleteCalculationBtn');
 
         if (loadSelect) {
             loadSelect.addEventListener('change', async (e) => {
@@ -107,12 +116,26 @@ class BerryUI {
                 if (calculationName) {
                     await window.berryCalculator.loadCalculation(calculationName);
                 }
+                
+                // Habilitar/deshabilitar botón de eliminar según selección
+                if (deleteBtn) {
+                    deleteBtn.disabled = !calculationName;
+                }
             });
         }
 
         if (newBtn) {
             newBtn.addEventListener('click', async () => {
                 await window.berryCalculator.createNewCalculation();
+            });
+        }
+
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', async () => {
+                const selectedCalculation = loadSelect?.value;
+                if (!selectedCalculation) return;
+                
+                await this.deleteSelectedCalculation(selectedCalculation);
             });
         }
     }
@@ -149,8 +172,14 @@ class BerryUI {
                     <small class="form-text text-muted" id="calculationNameHelp">
                         ${lm.t('farming.calculator.calculationNameHelp')}
                     </small>
+                    <div class="invalid-feedback" id="calculationNameError" style="display: none;">
+                        ${lm.t('farming.calculator.nameRequired')}
+                    </div>
                 </div>
             </div>
+
+            <!-- Main Calculator Content (hidden until name is provided) -->
+            <div id="berryCalculatorMainContent" style="display: none;">
 
             <div class="berry-calculator-controls">
                 <div class="row mb-4">
@@ -211,6 +240,7 @@ class BerryUI {
                     </div>
                 </div>
             </div>
+            </div> <!-- End of berryCalculatorMainContent -->
         `;
 
         // Mostrar contenedor
@@ -233,16 +263,46 @@ class BerryUI {
      */
     setupCalculationNameListener() {
         const nameInput = document.getElementById('calculationNameInput');
-        if (!nameInput) return;
+        const mainContent = document.getElementById('berryCalculatorMainContent');
+        const errorDiv = document.getElementById('calculationNameError');
+        
+        if (!nameInput || !mainContent) return;
 
-        nameInput.addEventListener('input', (e) => {
-            const newName = e.target.value.trim();
-            if (newName) {
-                window.berryCalculator.setCalculationName(newName);
-                // Programar auto-save
+        // Función para validar y mostrar/ocultar contenido
+        const validateAndToggleContent = (value) => {
+            const trimmedValue = value.trim();
+            const isValid = trimmedValue.length > 0;
+            
+            if (isValid) {
+                // Mostrar contenido principal
+                mainContent.style.display = 'block';
+                nameInput.classList.remove('is-invalid');
+                if (errorDiv) errorDiv.style.display = 'none';
+                
+                // Actualizar nombre en el controlador
+                window.berryCalculator.setCalculationName(trimmedValue);
                 window.berryCalculator.scheduleAutoSave();
+            } else {
+                // Ocultar contenido principal
+                mainContent.style.display = 'none';
+                nameInput.classList.add('is-invalid');
+                if (errorDiv) errorDiv.style.display = 'block';
+                
+                // CRÍTICO: Cancelar auto-guardado si se borra el nombre
+                window.berryCalculator.cancelAutoSave();
+                window.berryCalculator.setCalculationName('');
             }
+        };
+
+        // Event listener para cambios en tiempo real
+        nameInput.addEventListener('input', (e) => {
+            validateAndToggleContent(e.target.value);
         });
+
+        // Validación inicial si ya hay un valor
+        if (nameInput.value.trim()) {
+            validateAndToggleContent(nameInput.value);
+        }
     }
 
     /**
@@ -388,6 +448,7 @@ class BerryUI {
         const data = {};
 
         // Configuración básica
+        data.calculationName = window.berryCalculator.currentCalculation || '';
         data.cultivationType = this.currentBerry;
         data.plantsPerCharacter = parseInt(document.getElementById('plantCountInput')?.value) || 0;
         data.characters = parseInt(document.getElementById('characterCountInput')?.value) || 0;
@@ -479,6 +540,47 @@ class BerryUI {
         setTimeout(() => {
             indicator.style.display = 'none';
         }, 3000);
+    }
+
+    /**
+     * Eliminar cálculo seleccionado
+     */
+    async deleteSelectedCalculation(calculationName) {
+        const lm = window.languageManager;
+        const confirmMessage = lm.getCurrentLanguage() === 'es' 
+            ? `¿Estás seguro de que deseas eliminar el cálculo "${calculationName}"?\n\nEsta acción no se puede deshacer.`
+            : `Are you sure you want to delete the calculation "${calculationName}"?\n\nThis action cannot be undone.`;
+        
+        if (!confirm(confirmMessage)) {
+            return;
+        }
+
+        try {
+            // Eliminar de la base de datos
+            const result = await window.authManager.deleteBerryCalculation(calculationName);
+            
+            if (result.success) {
+                console.log('✅ Calculation deleted:', calculationName);
+                
+                // Mostrar mensaje de éxito
+                alert(lm.getCurrentLanguage() === 'es' 
+                    ? '✅ Cálculo eliminado correctamente'
+                    : '✅ Calculation deleted successfully');
+                
+                // Re-renderizar la UI inicial para actualizar la lista
+                await this.renderInitialUI();
+            } else {
+                console.error('❌ Delete error:', result.message);
+                alert(lm.getCurrentLanguage() === 'es' 
+                    ? '❌ Error al eliminar el cálculo'
+                    : '❌ Error deleting calculation');
+            }
+        } catch (error) {
+            console.error('❌ Delete error:', error);
+            alert(lm.getCurrentLanguage() === 'es' 
+                ? '❌ Error al eliminar el cálculo'
+                : '❌ Error deleting calculation');
+        }
     }
 
     // Configurar event listeners
@@ -1435,6 +1537,32 @@ class BerryUI {
         document.getElementById('managementCosts').textContent = `₽${Math.round(total).toLocaleString('es-ES', {maximumFractionDigits: 0})}`;
     }
 
+    // ========================================
+    // GESTIÓN DE AUTENTICACIÓN
+    // ========================================
+
+    /**
+     * Verificar estado de autenticación y re-renderizar si es necesario
+     */
+    async checkAuthenticationAndReRender() {
+        const farmingTab = document.getElementById('farming');
+        if (!farmingTab) return;
+
+        const isAuthenticated = window.authManager && window.authManager.isAuthenticated();
+        
+        // Si no está autenticado pero la UI muestra contenido autenticado, re-renderizar
+        if (!isAuthenticated && farmingTab.querySelector('.berry-calculator-load-new-controls')) {
+            await this.renderInitialUI();
+            return;
+        }
+        
+        // Si está autenticado pero muestra mensaje de login, re-renderizar
+        if (isAuthenticated && farmingTab.querySelector('#loginRequiredAlert')) {
+            await this.renderInitialUI();
+            return;
+        }
+    }
+
     // Actualizar traducciones cuando se cambia el idioma
     updateTranslations() {
         const lm = window.languageManager;
@@ -1442,7 +1570,16 @@ class BerryUI {
         // Si la calculadora NO está renderizada, no hacer nada
         if (!document.getElementById('calculatorTitle')) return;
         
-        // 0. Actualizar Load/New Controls (si existen en UI inicial)
+        // 0. Actualizar mensajes de autenticación y validación (si existen)
+        const loginRequiredTitle = document.getElementById('loginRequiredTitle');
+        const loginRequiredMessage = document.getElementById('loginRequiredMessage');
+        const calculationNameError = document.getElementById('calculationNameError');
+        
+        if (loginRequiredTitle) loginRequiredTitle.textContent = lm.t('farming.calculator.loginRequired');
+        if (loginRequiredMessage) loginRequiredMessage.textContent = lm.t('farming.calculator.loginRequiredMessage');
+        if (calculationNameError) calculationNameError.textContent = lm.t('farming.calculator.nameRequired');
+
+        // 1. Actualizar Load/New Controls (si existen en UI inicial)
         const labelLoadCalculation = document.getElementById('labelLoadCalculation');
         const newCalculationBtnText = document.getElementById('newCalculationBtnText');
         const loadCalculationPlaceholder = document.getElementById('loadCalculationPlaceholder');

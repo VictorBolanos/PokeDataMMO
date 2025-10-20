@@ -115,7 +115,12 @@ class LanguageManager {
                         calculationName: 'Calculation Name',
                         calculationNameHelp: 'This name identifies your calculation',
                         selectCalculationPlaceholder: 'Select a calculation...',
-                        noSavedCalculations: 'No saved calculations'
+                        noSavedCalculations: 'No saved calculations',
+                        // Mensajes de autenticación
+                        loginRequired: '⚠️ Login Required',
+                        loginRequiredMessage: 'You must log in to use the berry calculator and save your calculations.',
+                        // Mensajes de validación
+                        nameRequired: 'Calculation name is required to continue'
                     }
                 },
                 
@@ -280,6 +285,11 @@ class LanguageManager {
                         passwordTooShort: 'Password must be at least 4 characters',
                         emailInvalid: 'Please enter a valid email address'
                     }
+                },
+                
+                // ===== PVP TEAMS VALIDATION =====
+                pvpTeams: {
+                    nameRequired: 'Team name is required to continue'
                 }
             },
             es: {
@@ -392,7 +402,12 @@ class LanguageManager {
                         calculationName: 'Nombre del Cálculo',
                         calculationNameHelp: 'Este nombre identifica tu cálculo',
                         selectCalculationPlaceholder: 'Selecciona un cálculo...',
-                        noSavedCalculations: 'No hay cálculos guardados'
+                        noSavedCalculations: 'No hay cálculos guardados',
+                        // Mensajes de autenticación
+                        loginRequired: '⚠️ Inicio de sesión requerido',
+                        loginRequiredMessage: 'Debes iniciar sesión para usar la calculadora de bayas y guardar tus cálculos.',
+                        // Mensajes de validación
+                        nameRequired: 'El nombre del cálculo es obligatorio para continuar'
                     }
                 },
                 
@@ -557,6 +572,11 @@ class LanguageManager {
                         passwordTooShort: 'La contraseña debe tener al menos 4 caracteres',
                         emailInvalid: 'Por favor ingresa un email válido'
                     }
+                },
+                
+                // ===== VALIDACIÓN EQUIPOS PVP =====
+                pvpTeams: {
+                    nameRequired: 'El nombre del equipo es obligatorio para continuar'
                 }
             }
         };

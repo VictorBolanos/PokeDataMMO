@@ -5020,6 +5020,31 @@ body.light-theme .auth-message.success {
     transform: translateY(0);
 }
 
+#newTeamBtn {
+    background: var(--primary-color);
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    color: white;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#newTeamBtn:hover {
+    background: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+#newTeamBtn:active {
+    transform: translateY(0);
+}
+
 /* Calculation Name Input */
 #calculationNameInput {
     background: rgba(255, 255, 255, 0.1);
@@ -5109,7 +5134,7 @@ body.light-theme #calculationNameInput::placeholder {
     text-align: center;
     margin-bottom: 2rem;
     padding-bottom: 1.5rem;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    border-bottom: 2px solid var(--primary-color);
 }
 
 .calculator-content {
@@ -5123,12 +5148,58 @@ body.light-theme .calculator-card {
 
 /* ===== PVP TEAMS SYSTEM ===== */
 .pvp-teams-container {
-    padding: 2rem 1rem;
+    padding: 2rem;
+    background: rgba(30, 30, 30, 0.6);
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    border: 4px solid var(--primary-color);
+    backdrop-filter: blur(10px);
 }
 
 .pvp-teams-header {
     text-align: center;
     margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.pvp-teams-header h2 {
+    color: white;
+    font-weight: 700;
+    font-size: 2.2rem;
+}
+
+.pvp-teams-header .lead {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+}
+
+/* PVP Teams Load/New Controls */
+.pvp-teams-load-new-controls {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    padding: 1.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Light Theme - PVP Teams */
+body.light-theme .pvp-teams-container {
+    background: rgba(255, 255, 255, 0.9);
+    border: 4px solid var(--primary-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .pvp-teams-header h2 {
+    color: #1a1a1a;
+}
+
+body.light-theme .pvp-teams-header .lead {
+    color: rgba(0, 0, 0, 0.8);
+}
+
+body.light-theme .pvp-teams-load-new-controls {
+    background: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.1);
 }
 
 .pvp-teams-load-new-controls {

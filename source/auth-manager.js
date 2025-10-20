@@ -462,6 +462,17 @@ class AuthManager {
             return { success: false, message: 'No session active' };
         }
 
+        // Validación crítica: no permitir guardar sin nombre
+        if (!calculationName || !calculationName.trim()) {
+            console.error('❌ Cannot save berry calculation: No name provided');
+            return { success: false, message: 'No calculation name provided' };
+        }
+        
+        if (!calculationData || !calculationData.calculationName || !calculationData.calculationName.trim()) {
+            console.error('❌ Cannot save berry calculation: No name in data');
+            return { success: false, message: 'No calculation name in data' };
+        }
+
         try {
             const userDataRef = this.db.collection('user_data').doc(this.currentUser.username);
             
@@ -634,6 +645,17 @@ class AuthManager {
     async savePVPTeam(teamName, teamData) {
         if (!this.isAuthenticated()) {
             return { success: false, message: 'No session active' };
+        }
+
+        // Validación crítica: no permitir guardar sin nombre
+        if (!teamName || !teamName.trim()) {
+            console.error('❌ Cannot save PVP team: No name provided');
+            return { success: false, message: 'No team name provided' };
+        }
+        
+        if (!teamData || !teamData.teamName || !teamData.teamName.trim()) {
+            console.error('❌ Cannot save PVP team: No name in data');
+            return { success: false, message: 'No team name in data' };
         }
 
         try {

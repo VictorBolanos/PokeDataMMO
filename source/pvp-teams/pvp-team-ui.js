@@ -57,8 +57,18 @@ class PVPTeamUI {
 
                 <!-- Load/New Controls -->
                 <div class="pvp-teams-load-new-controls mb-5">
-                    <div class="row align-items-end">
-                        <div class="col-md-8">
+                    <div class="row align-items-center">
+                        <div class="col-auto">
+                            <button class="btn btn-danger" id="deleteTeamBtn" disabled title="${lm.getCurrentLanguage() === 'es' ? 'Eliminar equipo' : 'Delete team'}">
+                                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <polyline points="3 6 5 6 21 6"></polyline>
+                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    <line x1="10" y1="11" x2="10" y2="17"></line>
+                                    <line x1="14" y1="11" x2="14" y2="17"></line>
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="col">
                             <label class="form-label text-white mb-2" id="labelLoadTeam">
                                 ⚔️ ${lm.getCurrentLanguage() === 'es' ? 'Cargar Equipo Guardado' : 'Load Saved Team'}
                             </label>
@@ -73,8 +83,8 @@ class PVPTeamUI {
                                 `).join('') : ''}
                             </select>
                         </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-primary w-100" id="newTeamBtn">
+                        <div class="col-auto">
+                            <button class="btn btn-primary" id="newTeamBtn">
                                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="margin-right: 8px;">
                                     <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                                 </svg>
@@ -100,6 +110,7 @@ class PVPTeamUI {
     setupLoadNewControls() {
         const loadSelect = document.getElementById('loadTeamSelect');
         const newBtn = document.getElementById('newTeamBtn');
+        const deleteBtn = document.getElementById('deleteTeamBtn');
 
         if (loadSelect) {
             loadSelect.addEventListener('change', async (e) => {
@@ -107,12 +118,26 @@ class PVPTeamUI {
                 if (teamName) {
                     await window.pvpTeams.loadTeam(teamName);
                 }
+                
+                // Habilitar/deshabilitar botón de eliminar según selección
+                if (deleteBtn) {
+                    deleteBtn.disabled = !teamName;
+                }
             });
         }
 
         if (newBtn) {
             newBtn.addEventListener('click', async () => {
                 await window.pvpTeams.createNewTeam();
+            });
+        }
+
+        if (deleteBtn) {
+            deleteBtn.addEventListener('click', async () => {
+                const selectedTeam = loadSelect?.value;
+                if (!selectedTeam) return;
+                
+                await this.deleteSelectedTeam(selectedTeam);
             });
         }
     }
@@ -155,9 +180,14 @@ class PVPTeamUI {
                     <small class="form-text text-muted" id="teamNameHelp">
                         ${lm.getCurrentLanguage() === 'es' ? 'Este nombre identifica tu equipo' : 'This name identifies your team'}
                     </small>
+                    <div class="invalid-feedback" id="teamNameError" style="display: none;">
+                        ${lm.t('pvpTeams.nameRequired')}
+                    </div>
                 </div>
             </div>
 
+            <!-- Main Team Content (hidden until name is provided) -->
+            <div id="pvpTeamMainContent" style="display: none;">
             <!-- Pokémon Grid (2x3) -->
             <div class="pokemon-team-grid">
                 ${this.currentTeam.pokemons.map((pokemon, index) => 
@@ -166,6 +196,7 @@ class PVPTeamUI {
                         : window.pokemonBuilder.renderEmptyCard(index)
                 ).join('')}
             </div>
+            </div> <!-- End of pvpTeamMainContent -->
         `;
 
         teamContent.style.display = 'block';
@@ -185,16 +216,47 @@ class PVPTeamUI {
      */
     setupTeamNameListener() {
         const nameInput = document.getElementById('teamNameInput');
-        if (!nameInput) return;
+        const mainContent = document.getElementById('pvpTeamMainContent');
+        const errorDiv = document.getElementById('teamNameError');
+        
+        if (!nameInput || !mainContent) return;
 
-        nameInput.addEventListener('input', (e) => {
-            const newName = e.target.value.trim();
-            if (newName) {
-                this.currentTeam.teamName = newName;
-                window.pvpTeams.setTeamName(newName);
+        // Función para validar y mostrar/ocultar contenido
+        const validateAndToggleContent = (value) => {
+            const trimmedValue = value.trim();
+            const isValid = trimmedValue.length > 0;
+            
+            if (isValid) {
+                // Mostrar contenido principal
+                mainContent.style.display = 'block';
+                nameInput.classList.remove('is-invalid');
+                if (errorDiv) errorDiv.style.display = 'none';
+                
+                // Actualizar nombre en el controlador
+                this.currentTeam.teamName = trimmedValue;
+                window.pvpTeams.setTeamName(trimmedValue);
                 window.pvpTeams.scheduleAutoSave();
+            } else {
+                // Ocultar contenido principal
+                mainContent.style.display = 'none';
+                nameInput.classList.add('is-invalid');
+                if (errorDiv) errorDiv.style.display = 'block';
+                
+                // CRÍTICO: Cancelar auto-guardado si se borra el nombre
+                window.pvpTeams.cancelAutoSave();
+                window.pvpTeams.setTeamName('');
             }
+        };
+
+        // Event listener para cambios en tiempo real
+        nameInput.addEventListener('input', (e) => {
+            validateAndToggleContent(e.target.value);
         });
+
+        // Validación inicial si ya hay un valor
+        if (nameInput.value.trim()) {
+            validateAndToggleContent(nameInput.value);
+        }
     }
 
     /**
@@ -518,6 +580,47 @@ class PVPTeamUI {
     }
 
     /**
+     * Eliminar equipo seleccionado
+     */
+    async deleteSelectedTeam(teamName) {
+        const lm = window.languageManager;
+        const confirmMessage = lm.getCurrentLanguage() === 'es' 
+            ? `¿Estás seguro de que deseas eliminar el equipo "${teamName}"?\n\nEsta acción no se puede deshacer.`
+            : `Are you sure you want to delete the team "${teamName}"?\n\nThis action cannot be undone.`;
+        
+        if (!confirm(confirmMessage)) {
+            return;
+        }
+
+        try {
+            // Eliminar de la base de datos
+            const result = await window.authManager.deletePVPTeam(teamName);
+            
+            if (result.success) {
+                console.log('✅ Team deleted:', teamName);
+                
+                // Mostrar mensaje de éxito
+                alert(lm.getCurrentLanguage() === 'es' 
+                    ? '✅ Equipo eliminado correctamente'
+                    : '✅ Team deleted successfully');
+                
+                // Re-renderizar la UI inicial para actualizar la lista
+                await this.renderInitialUI();
+            } else {
+                console.error('❌ Delete error:', result.message);
+                alert(lm.getCurrentLanguage() === 'es' 
+                    ? '❌ Error al eliminar el equipo'
+                    : '❌ Error deleting team');
+            }
+        } catch (error) {
+            console.error('❌ Delete error:', error);
+            alert(lm.getCurrentLanguage() === 'es' 
+                ? '❌ Error al eliminar el equipo'
+                : '❌ Error deleting team');
+        }
+    }
+
+    /**
      * Mostrar indicador de guardado
      */
     showSaveIndicator(status) {
@@ -576,6 +679,12 @@ class PVPTeamUI {
         
         // Verificar si la UI está renderizada
         if (!document.getElementById('pvpTeamsTitle')) return;
+
+        // Actualizar mensaje de validación de nombre (si existe)
+        const teamNameError = document.getElementById('teamNameError');
+        if (teamNameError) {
+            teamNameError.textContent = lm.t('pvpTeams.nameRequired');
+        }
 
         // Títulos principales
         const title = document.getElementById('pvpTeamsTitle');

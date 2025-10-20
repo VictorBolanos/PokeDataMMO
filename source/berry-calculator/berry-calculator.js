@@ -5,7 +5,7 @@ class BerryCalculator {
         this.currentCalculation = null;  // Nombre del cálculo actual
         this.isNewCalculation = false;   // Si es un cálculo nuevo
         this.autoSaveTimeout = null;     // Timer para auto-save
-        this.AUTO_SAVE_DELAY = 10000;    // 10 segundos de delay
+        this.AUTO_SAVE_DELAY = 7000;     // 7 segundos de delay
         this.isSaving = false;           // Flag para evitar guardados simultáneos
     }
 
@@ -50,7 +50,9 @@ class BerryCalculator {
             clearTimeout(this.autoSaveTimeout);
         }
         
-        if (!this.currentCalculation) {
+        // Validar que hay nombre válido antes de programar
+        if (!this.currentCalculation || !this.currentCalculation.trim()) {
+            console.log('🚫 Auto-save cancelled: No valid calculation name');
             return;
         }
         
@@ -59,9 +61,32 @@ class BerryCalculator {
         }, this.AUTO_SAVE_DELAY);
     }
 
+    // Cancelar auto-guardado programado
+    cancelAutoSave() {
+        if (this.autoSaveTimeout) {
+            clearTimeout(this.autoSaveTimeout);
+            this.autoSaveTimeout = null;
+            console.log('🚫 Auto-save cancelled');
+        }
+    }
+
     // Ejecutar auto-guardado
     async performAutoSave() {
-        if (this.isSaving || !this.currentCalculation) {
+        // Validaciones múltiples antes de guardar
+        if (this.isSaving) {
+            console.log('🚫 Auto-save skipped: Already saving');
+            return;
+        }
+        
+        if (!this.currentCalculation || !this.currentCalculation.trim()) {
+            console.log('🚫 Auto-save skipped: No valid calculation name');
+            return;
+        }
+        
+        // Verificar que el nombre en el input sigue siendo válido
+        const nameInput = document.getElementById('calculationNameInput');
+        if (nameInput && (!nameInput.value || !nameInput.value.trim())) {
+            console.log('🚫 Auto-save skipped: Name input is empty');
             return;
         }
         
@@ -69,6 +94,13 @@ class BerryCalculator {
         
         try {
             const calculationData = window.berryUI.collectCalculationData();
+            
+            // Validación final: asegurar que el nombre está en los datos
+            if (!calculationData.calculationName || !calculationData.calculationName.trim()) {
+                console.log('🚫 Auto-save skipped: No name in calculation data');
+                return;
+            }
+            
             const result = await window.authManager.saveBerryCalculation(
                 this.currentCalculation, 
                 calculationData

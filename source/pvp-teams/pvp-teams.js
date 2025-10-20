@@ -5,7 +5,7 @@ class PVPTeams {
         this.currentTeam = null;  // Nombre del equipo actual
         this.isNewTeam = false;   // Si es un equipo nuevo
         this.autoSaveTimeout = null;
-        this.AUTO_SAVE_DELAY = 10000;  // 10 segundos
+        this.AUTO_SAVE_DELAY = 7000;   // 7 segundos
         this.isSaving = false;
     }
 
@@ -74,7 +74,9 @@ class PVPTeams {
             clearTimeout(this.autoSaveTimeout);
         }
         
-        if (!this.currentTeam) {
+        // Validar que hay nombre válido antes de programar
+        if (!this.currentTeam || !this.currentTeam.trim()) {
+            console.log('🚫 Auto-save cancelled: No valid team name');
             return;
         }
         
@@ -84,10 +86,35 @@ class PVPTeams {
     }
 
     /**
+     * Cancelar auto-guardado programado
+     */
+    cancelAutoSave() {
+        if (this.autoSaveTimeout) {
+            clearTimeout(this.autoSaveTimeout);
+            this.autoSaveTimeout = null;
+            console.log('🚫 Auto-save cancelled');
+        }
+    }
+
+    /**
      * Ejecutar auto-guardado
      */
     async performAutoSave() {
-        if (this.isSaving || !this.currentTeam) {
+        // Validaciones múltiples antes de guardar
+        if (this.isSaving) {
+            console.log('🚫 Auto-save skipped: Already saving');
+            return;
+        }
+        
+        if (!this.currentTeam || !this.currentTeam.trim()) {
+            console.log('🚫 Auto-save skipped: No valid team name');
+            return;
+        }
+        
+        // Verificar que el nombre en el input sigue siendo válido
+        const nameInput = document.getElementById('teamNameInput');
+        if (nameInput && (!nameInput.value || !nameInput.value.trim())) {
+            console.log('🚫 Auto-save skipped: Name input is empty');
             return;
         }
         
@@ -95,6 +122,13 @@ class PVPTeams {
         
         try {
             const teamData = window.pvpTeamsUI.collectTeamData();
+            
+            // Validación final: asegurar que el nombre está en los datos
+            if (!teamData.teamName || !teamData.teamName.trim()) {
+                console.log('🚫 Auto-save skipped: No name in team data');
+                return;
+            }
+            
             const result = await window.authManager.savePVPTeam(
                 this.currentTeam, 
                 teamData
