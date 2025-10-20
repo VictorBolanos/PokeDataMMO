@@ -6,6 +6,9 @@
     <title>PokeDataMMO - Personal Wiki and Utilities for PokeMMO</title>
     <meta name="description" content="Personal Wiki and Utilities for PokeMMO gameplay">
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="img/MasterBall.png">
+    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Custom CSS -->
@@ -16,7 +19,22 @@
     <div class="main-container d-flex flex-column align-items-center">
         <!-- Header Card - Fixed -->
         <div class="header-card d-flex align-items-center justify-content-between">
-            <img src="img/TitleLogo.png" alt="PokeDataMMO" class="title-logo">
+            <img src="img/TitleLogo.png" alt="PokeDataMMO" class="title-logo" id="titleLogo" style="cursor: pointer;">
+            
+            <!-- Mobile Menu Container (< 420px) -->
+            <div class="mobile-menu-container d-flex align-items-center gap-2">
+                <!-- User Pill (izquierda en móvil) -->
+                <div class="user-pill-container-mobile position-relative" id="userPillContainerMobile">
+                    <!-- Se clonará el user pill aquí dinámicamente -->
+                </div>
+                
+                <!-- Hamburger Menu Button (derecha en móvil) -->
+                <button class="hamburger-menu-btn" id="hamburgerMenuBtn">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 12h18M3 6h18M3 18h18" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            </div>
             
             <!-- Menu Buttons Container -->
             <div class="menu-buttons-container d-flex align-items-center gap-3">
@@ -244,6 +262,53 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Hamburger Menu Dropdown (móvil < 450px) -->
+            <div class="hamburger-menu-dropdown" id="hamburgerMenuDropdown">
+                <div class="hamburger-menu-content">
+                    <!-- Language Button -->
+                    <button class="hamburger-menu-item" id="hamburgerLanguageBtn">
+                        <img src="img/res/language-icons/united-kingdom.png" alt="Language" class="hamburger-icon" id="hamburgerLanguageIcon">
+                        <span>Cambiar Idioma</span>
+                    </button>
+                    
+                    <!-- Color Button -->
+                    <button class="hamburger-menu-item" id="hamburgerColorBtn">
+                        <div class="hamburger-color-preview" id="hamburgerColorPreview"></div>
+                        <span>Cambiar Color</span>
+                    </button>
+                    
+                    <!-- Font Button -->
+                    <button class="hamburger-menu-item" id="hamburgerFontBtn">
+                        <img src="img/res/ui-icons/menu/font.svg" alt="Font" class="hamburger-icon">
+                        <span>Cambiar Fuente</span>
+                    </button>
+                    
+                    <!-- Theme Button -->
+                    <button class="hamburger-menu-item" id="hamburgerThemeBtn">
+                        <svg width="20" height="20" viewBox="0 0 472 472" xmlns="http://www.w3.org/2000/svg" class="hamburger-icon">
+                            <path fill="white" d="m123 95l-30 30l-39-38l30-30zM64 216v43H0v-43h64zM256 4v63h-43V4h43zm159 83l-38 38l-30-30l38-38zm-69 292l30-29l39 38l-30 30zm59-163h64v43h-64v-43zM235 109q53 0 90.5 37.5T363 237t-37.5 90.5T235 365t-90.5-37.5T107 237t37.5-90.5T235 109zm-22 362v-63h43v63h-43zM54 388l39-39l30 30l-39 39z"/>
+                        </svg>
+                        <span id="hamburgerThemeText">Tema Claro</span>
+                    </button>
+                    
+                    <!-- Wallpaper Button -->
+                    <button class="hamburger-menu-item" id="hamburgerWallpaperBtn">
+                        <svg width="20" height="20" viewBox="0 0 432 432" xmlns="http://www.w3.org/2000/svg" class="hamburger-icon">
+                            <path fill="white" d="M43 45v150H0V45q0-17 12.5-29.5T43 3h149v42H43zm128 192l63 79l43-57l64 85H85zm149-95.5q0 13.5-9.5 22.5t-22.5 9t-22.5-9t-9.5-22.5t9.5-23T288 109t22.5 9.5t9.5 23zM384 3q18 0 30.5 12.5T427 45v150h-43V45H235V3h149zm0 384V237h43v150q0 17-12.5 29.5T384 429H235v-42h149zM43 237v150h149v42H43q-18 0-30.5-12.5T0 387V237h43z"/>
+                        </svg>
+                        <span>Cambiar Fondo</span>
+                    </button>
+                    
+                    <!-- Music Button -->
+                    <button class="hamburger-menu-item" id="hamburgerMusicBtn">
+                        <svg width="20" height="20" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" class="hamburger-icon">
+                            <path fill="white" d="M831.5 896Q752 896 696 858.5T640 768t56-90.5T832 640q31 0 64 8V269L384 371v525q0 53-56 90.5T192 1024T56 986.5T0 896t56-90.5T192 768q31 0 64 8V192q0-26 19-45t45-19L960 0q26 0 45 18.5t19 45.5v704q0 53-56.5 90.5t-136 37.5z"/>
+                        </svg>
+                        <span>Reproductor</span>
+                    </button>
+                </div>
+            </div>
         </div>
 
         <!-- Authentication Card (shown when not logged in) -->
@@ -330,10 +395,10 @@
         <!-- Main Content Card -->
         <div class="main-card" id="mainCard">
             <!-- Unified Tab System -->
-            <div class="tab-system-container">
+            <div class="tab-system-container" id="tabSystem">
                 <!-- Navigation Tabs -->
                 <div class="nav-tabs-container d-flex">
-                    <button class="nav-tab active d-flex align-items-center justify-content-center flex-fill" data-tab="leagues" aria-selected="true">
+                    <button class="nav-tab d-flex align-items-center justify-content-center flex-fill" data-tab="leagues" aria-selected="false">
                         <span class="tab-icon">🏆</span>
                         <span class="tab-text d-none d-lg-inline ms-1">Leagues</span>
                     </button>
@@ -366,8 +431,146 @@
                 <!-- Tab Content Area -->
                 <div class="tab-content-area">
                     <div class="tab-content">
+                        <!-- Home Tab (Default - No tab button) -->
+                        <div class="tab-pane active" id="home">
+                            <div class="home-content-wrapper">
+                                <div class="home-header text-center mb-5">
+                                    <img src="img/TitleLogo.png" alt="PokeDataMMO" class="home-logo mb-4">
+                                    <h1 class="home-title mb-3">
+                                        <img src="img/MasterBall.png" alt="PokeDataMMO" class="home-title-icon"> PokeDataMMO
+                                    </h1>
+                                    <p class="home-subtitle lead mb-4" id="homeSubtitle">Personal Wiki & Advanced Utilities for PokeMMO</p>
+                                    <p class="home-description" id="homeDescription">Una suite completa de herramientas profesionales para optimizar tu experiencia de juego en PokeMMO</p>
+                                </div>
+
+                                <div class="home-features">
+                                    <div class="row g-4">
+                                        <!-- Berry Farming -->
+                                        <div class="col-md-6 col-lg-4">
+                                            <div class="feature-card h-100">
+                                                <div class="feature-icon">🌱</div>
+                                                <h3 class="feature-title" id="homeFeature1Title">Berry Farming Calculator</h3>
+                                                <p class="feature-description" id="homeFeature1Desc">Sistema avanzado de cálculo para optimizar el cultivo de bayas y maximizar beneficios.</p>
+                                                <ul class="feature-list">
+                                                    <li id="homeFeature1Item1">📅 Horarios de riego automáticos</li>
+                                                    <li id="homeFeature1Item2">💰 Análisis de beneficios en tiempo real</li>
+                                                    <li id="homeFeature1Item3">💾 Guardado en la nube</li>
+                                                    <li id="homeFeature1Item4">🔄 Auto-guardado cada 7 segundos</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <!-- PVP Teams -->
+                                        <div class="col-md-6 col-lg-4">
+                                            <div class="feature-card h-100">
+                                                <div class="feature-icon">⚔️</div>
+                                                <h3 class="feature-title" id="homeFeature2Title">PVP Teams Manager</h3>
+                                                <p class="feature-description" id="homeFeature2Desc">Sistema completo de construcción y gestión de equipos para juego competitivo.</p>
+                                                <ul class="feature-list">
+                                                    <li id="homeFeature2Item1">🎯 Equipos de 6 Pokémon</li>
+                                                    <li id="homeFeature2Item2">📊 Calculadora de estadísticas</li>
+                                                    <li id="homeFeature2Item3">🧬 Sistema de naturalezas</li>
+                                                    <li id="homeFeature2Item4">⚡ Habilidades y movimientos</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <!-- Pokédex -->
+                                        <div class="col-md-6 col-lg-4">
+                                            <div class="feature-card h-100">
+                                                <div class="feature-icon">📱</div>
+                                                <h3 class="feature-title" id="homeFeature3Title">Pokédex Interactivo</h3>
+                                                <p class="feature-description" id="homeFeature3Desc">Base de datos completa de Pokémon con información detallada (Generaciones I-V).</p>
+                                                <ul class="feature-list">
+                                                    <li id="homeFeature3Item1">🔍 Búsqueda inteligente</li>
+                                                    <li id="homeFeature3Item2">📊 Estadísticas completas</li>
+                                                    <li id="homeFeature3Item3">🎨 Sprites oficiales</li>
+                                                    <li id="homeFeature3Item4">⚡ Efectividad de tipos</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <!-- Type Chart -->
+                                        <div class="col-md-6 col-lg-4">
+                                            <div class="feature-card h-100">
+                                                <div class="feature-icon">⚡</div>
+                                                <h3 class="feature-title" id="homeFeature4Title">Tabla de Efectividad</h3>
+                                                <p class="feature-description" id="homeFeature4Desc">Calculadora interactiva de matchups de tipos y tabla de referencia.</p>
+                                                <ul class="feature-list">
+                                                    <li id="homeFeature4Item1">🎯 Soporte de doble tipo</li>
+                                                    <li id="homeFeature4Item2">📊 Muestra 4x, 2x, 0.5x, 0.25x, 0x</li>
+                                                    <li id="homeFeature4Item3">📋 Tabla completa</li>
+                                                    <li id="homeFeature4Item4">🎨 Indicadores visuales</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <!-- Pokémon Calculator -->
+                                        <div class="col-md-6 col-lg-4">
+                                            <div class="feature-card h-100">
+                                                <div class="feature-icon">🔢</div>
+                                                <h3 class="feature-title" id="homeFeature5Title">Calculadora Pokémon</h3>
+                                                <p class="feature-description" id="homeFeature5Desc">Herramientas avanzadas de cálculo para juego competitivo.</p>
+                                                <ul class="feature-list">
+                                                    <li id="homeFeature5Item1">📊 Calculadora de estadísticas</li>
+                                                    <li id="homeFeature5Item2">⚔️ Simulador de daño (próximamente)</li>
+                                                    <li id="homeFeature5Item3">🎯 Herramientas de optimización</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <!-- Breeding Calculator -->
+                                        <div class="col-md-6 col-lg-4">
+                                            <div class="feature-card h-100">
+                                                <div class="feature-icon">🧬</div>
+                                                <h3 class="feature-title" id="homeFeature6Title">Calculadora de Cría</h3>
+                                                <p class="feature-description" id="homeFeature6Desc">Optimiza el proceso de cría de Pokémon con guía paso a paso.</p>
+                                                <ul class="feature-list">
+                                                    <li id="homeFeature6Item1">🎯 Selección de Pokémon objetivo</li>
+                                                    <li id="homeFeature6Item2">📝 Cálculo de ruta óptima</li>
+                                                    <li id="homeFeature6Item3">🐦 Modo dual: Con/Sin Natu</li>
+                                                    <li id="homeFeature6Item4">💎 Optimización de IVs y naturaleza</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="home-highlights mt-5">
+                                    <div class="row g-4">
+                                        <div class="col-md-4">
+                                            <div class="highlight-card text-center">
+                                                <div class="highlight-icon">🎨</div>
+                                                <h4 id="homeHighlight1Title">UI Hermosa y Moderna</h4>
+                                                <p id="homeHighlight1Desc">Diseño glass-morphism con animaciones suaves y temas personalizables</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="highlight-card text-center">
+                                                <div class="highlight-icon">☁️</div>
+                                                <h4 id="homeHighlight2Title">Potenciado por la Nube</h4>
+                                                <p id="homeHighlight2Desc">Integración con Firebase para sincronización en tiempo real y autenticación segura</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="highlight-card text-center">
+                                                <div class="highlight-icon">🌍</div>
+                                                <h4 id="homeHighlight3Title">Verdaderamente Multilingüe</h4>
+                                                <p id="homeHighlight3Desc">Soporte completo en español e inglés con traducciones dinámicas</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="home-footer text-center mt-5 pt-4 border-top">
+                                    <p class="mb-2" id="homeFooterText1">Hecho con ❤️ para la Comunidad PokeMMO</p>
+                                    <p class="text-muted" id="homeFooterText2">¡Feliz Gaming! 🎉</p>
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Leagues Tab -->
-                        <div class="tab-pane active" id="leagues">
+                        <div class="tab-pane" id="leagues">
                             <div class="mb-4 pb-3 border-bottom border-secondary">
                                 <h2 class="d-flex align-items-center gap-3 mb-3">🏆 Leagues</h2>
                                 <p class="lead mb-0">Complete guides for conquering the game's leagues</p>

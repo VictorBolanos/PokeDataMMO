@@ -32,6 +32,8 @@ async function initializeApp() {
     translateUI(); // Initial translation
     initializeBerryCalculator();
     initializePVPTeams();
+    initializeHomePage();
+    initializeHamburgerMenu();
 }
 
 // ===== TAB SYSTEM =====
@@ -308,6 +310,9 @@ async function translateUI() {
     
     // Update footer
     document.querySelector('.footer-text').textContent = lm.t('footer');
+    
+    // Translate home page
+    translateHomePage();
     
     // Update Music Player header
     const musicHeaderTitle = document.querySelector('#musicDropdown .music-header h6');
@@ -1206,5 +1211,278 @@ function translateAuthUI() {
     // Update user pill if authenticated
     if (window.authManager.isAuthenticated()) {
         updateUserPill();
+    }
+}
+
+// ===== PÁGINA DE INICIO =====
+function initializeHomePage() {
+    const titleLogo = document.getElementById('titleLogo');
+    if (titleLogo) {
+        titleLogo.addEventListener('click', showHomePage);
+    }
+    
+    // La página home ya está como tab-pane activo por defecto
+}
+
+// ===== MENÚ HAMBURGUESA =====
+function initializeHamburgerMenu() {
+    const hamburgerBtn = document.getElementById('hamburgerMenuBtn');
+    const hamburgerDropdown = document.getElementById('hamburgerMenuDropdown');
+    
+    if (!hamburgerBtn || !hamburgerDropdown) return;
+    
+    // Clonar user pill al contenedor móvil
+    cloneUserPillToMobile();
+    
+    // Toggle menú
+    hamburgerBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        hamburgerDropdown.classList.toggle('show');
+    });
+    
+    // Cerrar al hacer click fuera
+    document.addEventListener('click', (e) => {
+        if (!hamburgerDropdown.contains(e.target) && e.target !== hamburgerBtn) {
+            hamburgerDropdown.classList.remove('show');
+        }
+    });
+    
+    // Sincronizar estado inicial
+    syncHamburgerMenu();
+    
+    // Event listeners para los botones del menú hamburguesa
+    setupHamburgerMenuListeners();
+    
+    // Traducir textos del menú
+    translateHamburgerMenu();
+}
+
+function cloneUserPillToMobile() {
+    const userPillContainer = document.getElementById('userPillContainer');
+    const userPillContainerMobile = document.getElementById('userPillContainerMobile');
+    
+    if (userPillContainer && userPillContainerMobile) {
+        // Clonar el contenido completo del user pill
+        userPillContainerMobile.innerHTML = userPillContainer.innerHTML;
+        
+        // Re-inicializar los event listeners para el user pill clonado
+        const clonedBtn = userPillContainerMobile.querySelector('.user-pill-btn');
+        const clonedDropdown = userPillContainerMobile.querySelector('.user-dropdown');
+        
+        if (clonedBtn && clonedDropdown) {
+            clonedBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                clonedDropdown.classList.toggle('show');
+            });
+        }
+    }
+}
+
+function syncHamburgerMenu() {
+    // Sincronizar color preview
+    const colorPreview = document.getElementById('colorPreview');
+    const hamburgerColorPreview = document.getElementById('hamburgerColorPreview');
+    if (colorPreview && hamburgerColorPreview) {
+        hamburgerColorPreview.style.backgroundColor = colorPreview.style.backgroundColor;
+    }
+    
+    // Sincronizar icono de idioma
+    const languageIcon = document.getElementById('languageIcon');
+    const hamburgerLanguageIcon = document.getElementById('hamburgerLanguageIcon');
+    if (languageIcon && hamburgerLanguageIcon) {
+        hamburgerLanguageIcon.src = languageIcon.src;
+    }
+    
+    // Sincronizar texto de tema
+    const hamburgerThemeText = document.getElementById('hamburgerThemeText');
+    if (hamburgerThemeText) {
+        const isDark = document.body.classList.contains('dark-theme');
+        hamburgerThemeText.textContent = 'Cambiar Tema';
+    }
+}
+
+function setupHamburgerMenuListeners() {
+    // Language - SÍ cerrar menú (no abre dropdown)
+    const hamburgerLanguageBtn = document.getElementById('hamburgerLanguageBtn');
+    if (hamburgerLanguageBtn) {
+        hamburgerLanguageBtn.addEventListener('click', () => {
+            toggleLanguage();
+            syncHamburgerMenu();
+            translateHamburgerMenu();
+            closeHamburgerMenu();
+        });
+    }
+    
+    // Color - NO cerrar menú (abre dropdown)
+    const hamburgerColorBtn = document.getElementById('hamburgerColorBtn');
+    if (hamburgerColorBtn) {
+        hamburgerColorBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const colorBtn = document.getElementById('colorSelectorBtn');
+            if (colorBtn) colorBtn.click();
+            // NO cerrar menú
+        });
+    }
+    
+    // Font - NO cerrar menú (abre dropdown)
+    const hamburgerFontBtn = document.getElementById('hamburgerFontBtn');
+    if (hamburgerFontBtn) {
+        hamburgerFontBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const fontBtn = document.getElementById('fontSelectorBtn');
+            if (fontBtn) fontBtn.click();
+            // NO cerrar menú
+        });
+    }
+    
+    // Theme - SÍ cerrar menú (no abre dropdown)
+    const hamburgerThemeBtn = document.getElementById('hamburgerThemeBtn');
+    if (hamburgerThemeBtn) {
+        hamburgerThemeBtn.addEventListener('click', () => {
+            toggleTheme();
+            syncHamburgerMenu();
+            translateHamburgerMenu();
+            closeHamburgerMenu();
+        });
+    }
+    
+    // Wallpaper - NO cerrar menú (abre dropdown)
+    const hamburgerWallpaperBtn = document.getElementById('hamburgerWallpaperBtn');
+    if (hamburgerWallpaperBtn) {
+        hamburgerWallpaperBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const wallpaperBtn = document.getElementById('wallpaperBtn');
+            if (wallpaperBtn) wallpaperBtn.click();
+            // NO cerrar menú
+        });
+    }
+    
+    // Music - NO cerrar menú (abre dropdown)
+    const hamburgerMusicBtn = document.getElementById('hamburgerMusicBtn');
+    if (hamburgerMusicBtn) {
+        hamburgerMusicBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const musicBtn = document.getElementById('musicBtn');
+            if (musicBtn) musicBtn.click();
+            // NO cerrar menú
+        });
+    }
+}
+
+function translateHamburgerMenu() {
+    const lm = window.languageManager;
+    if (!lm) return;
+    
+    // Language button
+    const languageBtn = document.querySelector('#hamburgerLanguageBtn span');
+    if (languageBtn) {
+        languageBtn.textContent = lm.t('menu.changeLanguage');
+    }
+    
+    // Color button
+    const colorBtn = document.querySelector('#hamburgerColorBtn span');
+    if (colorBtn) {
+        colorBtn.textContent = lm.t('menu.changeColor');
+    }
+    
+    // Font button
+    const fontBtn = document.querySelector('#hamburgerFontBtn span');
+    if (fontBtn) {
+        fontBtn.textContent = lm.t('menu.changeFont');
+    }
+    
+    // Theme button
+    const themeText = document.getElementById('hamburgerThemeText');
+    if (themeText) {
+        themeText.textContent = lm.t('menu.changeTheme');
+    }
+    
+    // Wallpaper button
+    const wallpaperBtn = document.querySelector('#hamburgerWallpaperBtn span');
+    if (wallpaperBtn) {
+        wallpaperBtn.textContent = lm.t('menu.changeBackground');
+    }
+    
+    // Music button
+    const musicBtn = document.querySelector('#hamburgerMusicBtn span');
+    if (musicBtn) {
+        musicBtn.textContent = lm.t('menu.musicPlayer');
+    }
+}
+
+function translateHomePage() {
+    const lm = window.languageManager;
+    if (!lm) return;
+    
+    // Header
+    const homeSubtitle = document.getElementById('homeSubtitle');
+    if (homeSubtitle) homeSubtitle.textContent = lm.t('home.subtitle');
+    
+    const homeDescription = document.getElementById('homeDescription');
+    if (homeDescription) homeDescription.textContent = lm.t('home.description');
+    
+    // Features (6 features)
+    for (let i = 1; i <= 6; i++) {
+        const featureTitle = document.getElementById(`homeFeature${i}Title`);
+        const featureDesc = document.getElementById(`homeFeature${i}Desc`);
+        
+        if (featureTitle) featureTitle.textContent = lm.t(`home.feature${i}.title`);
+        if (featureDesc) featureDesc.textContent = lm.t(`home.feature${i}.desc`);
+        
+        // Items (features 1-4 y 6 tienen 4 items, feature 5 tiene 3)
+        const itemCount = i === 5 ? 3 : 4;
+        for (let j = 1; j <= itemCount; j++) {
+            const item = document.getElementById(`homeFeature${i}Item${j}`);
+            if (item) item.textContent = lm.t(`home.feature${i}.item${j}`);
+        }
+    }
+    
+    // Highlights (3 highlights)
+    for (let i = 1; i <= 3; i++) {
+        const highlightTitle = document.getElementById(`homeHighlight${i}Title`);
+        const highlightDesc = document.getElementById(`homeHighlight${i}Desc`);
+        
+        if (highlightTitle) highlightTitle.textContent = lm.t(`home.highlight${i}.title`);
+        if (highlightDesc) highlightDesc.textContent = lm.t(`home.highlight${i}.desc`);
+    }
+    
+    // Footer
+    const footer1 = document.getElementById('homeFooterText1');
+    if (footer1) footer1.textContent = lm.t('home.footer1');
+    
+    const footer2 = document.getElementById('homeFooterText2');
+    if (footer2) footer2.textContent = lm.t('home.footer2');
+}
+
+function closeHamburgerMenu() {
+    const hamburgerDropdown = document.getElementById('hamburgerMenuDropdown');
+    if (hamburgerDropdown) {
+        hamburgerDropdown.classList.remove('show');
+    }
+}
+
+function showHomePage() {
+    // Ocultar todos los tab-panes
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    tabPanes.forEach(pane => {
+        pane.classList.remove('active');
+    });
+    
+    // Mostrar el tab-pane de home
+    const homePane = document.getElementById('home');
+    if (homePane) {
+        homePane.classList.add('active');
+    }
+    
+    // Remover clase active de todos los tabs
+    const tabs = document.querySelectorAll('.nav-tab');
+    tabs.forEach(tab => {
+        tab.classList.remove('active');
+        tab.setAttribute('aria-selected', 'false');
+    });
+    
+    // Actualizar URL sin hash
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.pathname);
     }
 }

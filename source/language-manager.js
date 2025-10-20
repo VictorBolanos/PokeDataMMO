@@ -262,6 +262,83 @@ class LanguageManager {
                     steel: 'Steel'
                 },
                 
+                // ===== MENU HAMBURGUESA =====
+                menu: {
+                    changeLanguage: 'Change Language',
+                    changeColor: 'Change Color',
+                    changeFont: 'Change Font',
+                    changeTheme: 'Change Theme',
+                    changeBackground: 'Change Background',
+                    musicPlayer: 'Music Player'
+                },
+                
+                // ===== HOME PAGE =====
+                home: {
+                    subtitle: 'Personal Wiki & Advanced Utilities for PokeMMO',
+                    description: 'A comprehensive suite of professional tools to optimize your PokeMMO gameplay experience',
+                    feature1: {
+                        title: 'Berry Farming Calculator',
+                        desc: 'Advanced calculation system to optimize berry cultivation and maximize profits.',
+                        item1: '📅 Automatic irrigation schedules',
+                        item2: '💰 Real-time profit analysis',
+                        item3: '💾 Cloud storage',
+                        item4: '🔄 Auto-save every 7 seconds'
+                    },
+                    feature2: {
+                        title: 'PVP Teams Manager',
+                        desc: 'Complete team building and management system for competitive play.',
+                        item1: '🎯 6-Pokémon teams',
+                        item2: '📊 Stats calculator',
+                        item3: '🧬 Nature system',
+                        item4: '⚡ Abilities and moves'
+                    },
+                    feature3: {
+                        title: 'Interactive Pokédex',
+                        desc: 'Complete Pokémon database with detailed information (Generations I-V).',
+                        item1: '🔍 Smart search',
+                        item2: '📊 Complete stats',
+                        item3: '🎨 Official sprites',
+                        item4: '⚡ Type effectiveness'
+                    },
+                    feature4: {
+                        title: 'Type Effectiveness Table',
+                        desc: 'Interactive type matchup calculator and reference table.',
+                        item1: '🎯 Dual-type support',
+                        item2: '📊 Shows 4x, 2x, 0.5x, 0.25x, 0x',
+                        item3: '📋 Complete chart',
+                        item4: '🎨 Visual indicators'
+                    },
+                    feature5: {
+                        title: 'Pokémon Calculator',
+                        desc: 'Advanced calculation tools for competitive play.',
+                        item1: '📊 Stats calculator',
+                        item2: '⚔️ Damage simulator (coming soon)',
+                        item3: '🎯 Optimization tools'
+                    },
+                    feature6: {
+                        title: 'Breeding Calculator',
+                        desc: 'Optimize the Pokémon breeding process with step-by-step guidance.',
+                        item1: '🎯 Target Pokémon selection',
+                        item2: '📝 Optimal path calculation',
+                        item3: '🐦 Dual mode: With/Without Natu',
+                        item4: '💎 IV and Nature optimization'
+                    },
+                    highlight1: {
+                        title: 'Beautiful & Modern UI',
+                        desc: 'Glass-morphism design with smooth animations and customizable themes'
+                    },
+                    highlight2: {
+                        title: 'Cloud-Powered',
+                        desc: 'Firebase integration for real-time sync and secure authentication'
+                    },
+                    highlight3: {
+                        title: 'Truly Multilingual',
+                        desc: 'Complete support in Spanish and English with dynamic translations'
+                    },
+                    footer1: 'Made with ❤️ for the PokeMMO Community',
+                    footer2: 'Happy Gaming! 🎉'
+                },
+                
                 // ===== AUTHENTICATION =====
                 auth: {
                     title: '🔐 PokeDataMMO',
@@ -547,6 +624,83 @@ class LanguageManager {
                     dragon: 'Dragón',
                     dark: 'Siniestro',
                     steel: 'Acero'
+                },
+                
+                // ===== MENU HAMBURGUESA =====
+                menu: {
+                    changeLanguage: 'Cambiar Idioma',
+                    changeColor: 'Cambiar Color',
+                    changeFont: 'Cambiar Fuente',
+                    changeTheme: 'Cambiar Tema',
+                    changeBackground: 'Cambiar Fondo',
+                    musicPlayer: 'Reproductor'
+                },
+                
+                // ===== PÁGINA DE INICIO =====
+                home: {
+                    subtitle: 'Wiki Personal y Utilidades Avanzadas para PokeMMO',
+                    description: 'Una suite completa de herramientas profesionales para optimizar tu experiencia de juego en PokeMMO',
+                    feature1: {
+                        title: 'Calculadora de Cultivo de Bayas',
+                        desc: 'Sistema avanzado de cálculo para optimizar el cultivo de bayas y maximizar beneficios.',
+                        item1: '📅 Horarios de riego automáticos',
+                        item2: '💰 Análisis de beneficios en tiempo real',
+                        item3: '💾 Guardado en la nube',
+                        item4: '🔄 Auto-guardado cada 7 segundos'
+                    },
+                    feature2: {
+                        title: 'Gestor de Equipos PVP',
+                        desc: 'Sistema completo de construcción y gestión de equipos para juego competitivo.',
+                        item1: '🎯 Equipos de 6 Pokémon',
+                        item2: '📊 Calculadora de estadísticas',
+                        item3: '🧬 Sistema de naturalezas',
+                        item4: '⚡ Habilidades y movimientos'
+                    },
+                    feature3: {
+                        title: 'Pokédex Interactivo',
+                        desc: 'Base de datos completa de Pokémon con información detallada (Generaciones I-V).',
+                        item1: '🔍 Búsqueda inteligente',
+                        item2: '📊 Estadísticas completas',
+                        item3: '🎨 Sprites oficiales',
+                        item4: '⚡ Efectividad de tipos'
+                    },
+                    feature4: {
+                        title: 'Tabla de Efectividad',
+                        desc: 'Calculadora interactiva de matchups de tipos y tabla de referencia.',
+                        item1: '🎯 Soporte de doble tipo',
+                        item2: '📊 Muestra 4x, 2x, 0.5x, 0.25x, 0x',
+                        item3: '📋 Tabla completa',
+                        item4: '🎨 Indicadores visuales'
+                    },
+                    feature5: {
+                        title: 'Calculadora Pokémon',
+                        desc: 'Herramientas avanzadas de cálculo para juego competitivo.',
+                        item1: '📊 Calculadora de estadísticas',
+                        item2: '⚔️ Simulador de daño (próximamente)',
+                        item3: '🎯 Herramientas de optimización'
+                    },
+                    feature6: {
+                        title: 'Calculadora de Cría',
+                        desc: 'Optimiza el proceso de cría de Pokémon con guía paso a paso.',
+                        item1: '🎯 Selección de Pokémon objetivo',
+                        item2: '📝 Cálculo de ruta óptima',
+                        item3: '🐦 Modo dual: Con/Sin Natu',
+                        item4: '💎 Optimización de IVs y naturaleza'
+                    },
+                    highlight1: {
+                        title: 'UI Hermosa y Moderna',
+                        desc: 'Diseño glass-morphism con animaciones suaves y temas personalizables'
+                    },
+                    highlight2: {
+                        title: 'Potenciado por la Nube',
+                        desc: 'Integración con Firebase para sincronización en tiempo real y autenticación segura'
+                    },
+                    highlight3: {
+                        title: 'Verdaderamente Multilingüe',
+                        desc: 'Soporte completo en español e inglés con traducciones dinámicas'
+                    },
+                    footer1: 'Hecho con ❤️ para la Comunidad PokeMMO',
+                    footer2: '¡Feliz Gaming! 🎉'
                 },
                 
                 // ===== AUTENTICACIÓN =====
