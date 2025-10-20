@@ -375,7 +375,21 @@ class PokemonBuilder {
                         name: a.ability.name,
                         is_hidden: a.is_hidden
                     })),
-                    availableMoves: pokemonData.moves.slice(0, 50).map(m => m.move.name)  // Limitar a 50 moves
+                    // FILTRAR: Solo movimientos de Gen I-V (sin Fairy type)
+                    availableMoves: pokemonData.moves
+                        .filter(m => {
+                            // Filtrar solo movimientos aprendidos en Gen V o anteriores
+                            const learnedInGenV = m.version_group_details.some(vg => {
+                                const versionName = vg.version_group.name;
+                                return ['red-blue', 'yellow', 'gold-silver', 'crystal', 
+                                        'ruby-sapphire', 'emerald', 'firered-leafgreen',
+                                        'diamond-pearl', 'platinum', 'heartgold-soulsilver',
+                                        'black-white', 'black-2-white-2'].includes(versionName);
+                            });
+                            return learnedInGenV;
+                        })
+                        .slice(0, 80)  // Limitar a 80 moves más comunes
+                        .map(m => m.move.name)
                 };
                 
                 // Calcular stats finales
@@ -460,12 +474,26 @@ class PokemonBuilder {
                 ability: pokemonData.abilities[0]?.ability.name || null,
                 item: null,
                 moves: [null, null, null, null],
-                availableAbilities: pokemonData.abilities.map(a => ({
-                    name: a.ability.name,
-                    is_hidden: a.is_hidden
-                })),
-                availableMoves: pokemonData.moves.slice(0, 50).map(m => m.move.name)  // Limitar a 50 moves
-            };
+                    availableAbilities: pokemonData.abilities.map(a => ({
+                        name: a.ability.name,
+                        is_hidden: a.is_hidden
+                    })),
+                    // FILTRAR: Solo movimientos de Gen I-V (sin Fairy type)
+                    availableMoves: pokemonData.moves
+                        .filter(m => {
+                            // Filtrar solo movimientos aprendidos en Gen V o anteriores
+                            const learnedInGenV = m.version_group_details.some(vg => {
+                                const versionName = vg.version_group.name;
+                                return ['red-blue', 'yellow', 'gold-silver', 'crystal', 
+                                        'ruby-sapphire', 'emerald', 'firered-leafgreen',
+                                        'diamond-pearl', 'platinum', 'heartgold-soulsilver',
+                                        'black-white', 'black-2-white-2'].includes(versionName);
+                            });
+                            return learnedInGenV;
+                        })
+                        .slice(0, 80)  // Limitar a 80 moves más comunes
+                        .map(m => m.move.name)
+                };
             
             // Calcular stats finales
             pokemon.finalStats = window.pvpTeamData.calculateAllStats(

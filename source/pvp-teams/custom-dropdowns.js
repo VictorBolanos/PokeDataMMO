@@ -51,13 +51,22 @@ class CustomDropdowns {
             };
         }
 
+        // ✅ FILTRO CRÍTICO: No renderizar movimientos tipo Fairy (Gen VI+)
+        if (move.type === 'fairy') {
+            return ''; // Devolver vacío para que no se renderice
+        }
+
         const typeIcon = window.pokemonDataLoader.getTypeIcon(move.type);
         const className = isTrigger ? 'custom-move-option-trigger' : 'custom-move-option';
         
         return `
             <div class="${className}" data-move-name="${move.name}">
                 <span class="move-name">${move.displayName}</span>
-                <img src="${typeIcon}" alt="${move.type}" class="move-type-icon" title="${window.PokeUtils.formatName(move.type)}">
+                <img src="${typeIcon}" 
+                     alt="${move.type}" 
+                     class="move-type-icon" 
+                     title="${window.PokeUtils.formatName(move.type)}"
+                     onerror="this.style.display='none'">
             </div>
         `;
     }

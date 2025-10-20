@@ -4644,6 +4644,85 @@ body.light-theme .remove-management-cost-btn:hover {
     color: white;
 }
 
+/* ===== PVP LOADING OVERLAY ===== */
+.pvp-loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    animation: fadeIn 0.3s ease;
+}
+
+.pvp-loading-spinner-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.pvp-loading-spinner {
+    width: 80px;
+    height: 80px;
+    border: 6px solid rgba(255, 255, 255, 0.1);
+    border-top: 6px solid var(--primary-color-dark);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+.pvp-loading-text {
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-align: center;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.6; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Tema claro */
+body.light-theme .pvp-loading-overlay {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+body.light-theme .pvp-loading-spinner-container {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .pvp-loading-spinner {
+    border-color: rgba(0, 0, 0, 0.1);
+    border-top-color: var(--primary-color-light);
+}
+
+body.light-theme .pvp-loading-text {
+    color: #1f2937;
+}
+
 /* ===== CURRENCY INPUT STYLES ===== */
 .currency-input-group {
     position: relative;

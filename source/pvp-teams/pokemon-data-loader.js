@@ -54,9 +54,26 @@ class PokemonDataLoader {
                 moves.push(...batchResults.filter(m => m !== null));
             }
             
-            // Filtrar y formatear movimientos
+            // Filtrar y formatear movimientos - SOLO Gen I-V (PokeMMO)
             this.movesCache = moves
-                .filter(move => move.generation && this.getGenerationNumber(move.generation.name) <= 5)
+                .filter(move => {
+                    // Filtro 1: Solo generaciones I-V
+                    if (!move.generation || this.getGenerationNumber(move.generation.name) > 5) {
+                        return false;
+                    }
+                    
+                    // Filtro 2: Excluir tipo Fairy (Gen VI+)
+                    if (move.type && move.type.name === 'fairy') {
+                        return false;
+                    }
+                    
+                    // Filtro 3: Verificar que tenga nombre y tipo válido
+                    if (!move.name || !move.type) {
+                        return false;
+                    }
+                    
+                    return true;
+                })
                 .map(move => ({
                     id: move.id,
                     name: move.name,
@@ -118,18 +135,21 @@ class PokemonDataLoader {
                 items.push(...batchResults.filter(i => i !== null));
             }
             
-            // Filtrar items holdables Y items con categoría held-items
+            // Filtrar items holdables SOLO hasta Gen V (PokeMMO)
             this.itemsCache = items
                 .filter(item => {
-                    // Verificar que tenga sprite
+                    // Filtro 1: Verificar que tenga sprite
                     if (!item.sprites || !item.sprites.default) return false;
                     
-                    // Verificar que sea holdable o holdable-active (si tiene atributos)
+                    // Filtro 2: Solo items hasta Gen V (ID <= 537)
+                    if (item.id > this.MAX_ITEM_ID) return false;
+                    
+                    // Filtro 3: Verificar que sea holdable o holdable-active (si tiene atributos)
                     const isHoldable = item.attributes && item.attributes.some(attr => 
                         attr.name === 'holdable' || attr.name === 'holdable-active'
                     );
                     
-                    // Verificar que tenga categoría held-items
+                    // Filtro 4: Verificar que tenga categoría held-items
                     const isHeldItem = item.category && item.category.name === 'held-items';
                     
                     return isHoldable || isHeldItem;
@@ -310,8 +330,10 @@ class PokemonDataLoader {
 
         this.isLoadingAbilities = true;
         try {
-            // PokeAPI actualmente tiene ~300 habilidades; usamos un límite amplio para cubrir todas
-            const response = await fetch(`https://pokeapi.co/api/v2/ability?limit=10000`);
+            // OPTIMIZACIÓN: Solo cargar habilidades hasta Gen V (PokeMMO)
+            // Gen V tiene ~164 habilidades (hasta ID 164)
+            const MAX_ABILITY_GEN5 = 164;
+            const response = await fetch(`https://pokeapi.co/api/v2/ability?limit=${MAX_ABILITY_GEN5}`);
             const data = await response.json();
 
             const abilities = [];
@@ -329,13 +351,16 @@ class PokemonDataLoader {
                 abilities.push(...batchResults.filter(a => a !== null));
             }
 
-            // Mapear y ordenar
-            this.allAbilitiesCache = abilities.map(ability => ({
-                id: ability.id,
-                name: ability.name,
-                displayName: this.getTranslatedAbilityName(ability),
-                names: ability.names
-            })).sort((a, b) => a.displayName.localeCompare(b.displayName));
+            // Mapear y ordenar - SOLO Gen I-V
+            this.allAbilitiesCache = abilities
+                .filter(ability => ability.id <= MAX_ABILITY_GEN5)
+                .map(ability => ({
+                    id: ability.id,
+                    name: ability.name,
+                    displayName: this.getTranslatedAbilityName(ability),
+                    names: ability.names
+                }))
+                .sort((a, b) => a.displayName.localeCompare(b.displayName));
 
             this.isLoadingAbilities = false;
             return this.allAbilitiesCache;

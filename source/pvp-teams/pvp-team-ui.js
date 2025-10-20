@@ -189,7 +189,21 @@ class PVPTeamUI {
                     name: a.ability.name,
                     is_hidden: a.is_hidden
                 })),
-                availableMoves: pokemonData.moves.slice(0, 50).map(m => m.move.name),
+                // FILTRAR: Solo movimientos de Gen I-V (sin Fairy type)
+                availableMoves: pokemonData.moves
+                    .filter(m => {
+                        // Filtrar solo movimientos aprendidos en Gen V o anteriores
+                        const learnedInGenV = m.version_group_details.some(vg => {
+                            const versionName = vg.version_group.name;
+                            return ['red-blue', 'yellow', 'gold-silver', 'crystal', 
+                                    'ruby-sapphire', 'emerald', 'firered-leafgreen',
+                                    'diamond-pearl', 'platinum', 'heartgold-soulsilver',
+                                    'black-white', 'black-2-white-2'].includes(versionName);
+                        });
+                        return learnedInGenV;
+                    })
+                    .slice(0, 80)  // Limitar a 80 moves más comunes
+                    .map(m => m.move.name),
                 finalStats: {}
             };
             
@@ -210,16 +224,21 @@ class PVPTeamUI {
 
     /**
      * Asegurar que siempre hay 6 slots de Pokémon (ahora async para reconstruir)
+     * OPTIMIZADO: Carga en PARALELO en lugar de secuencial
      */
     async ensureSixSlots(pokemons) {
         const sixSlots = Array(6).fill(null);
         
-        // Procesar Pokémon existentes
+        // OPTIMIZACIÓN: Crear array de promesas para cargar en PARALELO
+        const reconstructPromises = [];
+        
         for (let i = 0; i < pokemons.length && i < 6; i++) {
             if (pokemons[i] && pokemons[i].id) {
                 // Si no tiene baseStats, son datos esenciales -> reconstruir
                 if (!pokemons[i].baseStats) {
-                    sixSlots[i] = await this.reconstructPokemon(pokemons[i]);
+                    reconstructPromises.push(
+                        this.reconstructPokemon(pokemons[i]).then(result => ({ index: i, pokemon: result }))
+                    );
                 } else {
                     // Ya es un objeto completo
                     sixSlots[i] = pokemons[i];
@@ -227,10 +246,54 @@ class PVPTeamUI {
             }
         }
         
+        // ✅ CARGA EN PARALELO: Esperar a que TODOS terminen simultáneamente
+        if (reconstructPromises.length > 0) {
+            const results = await Promise.all(reconstructPromises);
+            results.forEach(result => {
+                sixSlots[result.index] = result.pokemon;
+            });
+        }
+        
         // Rellenar slots vacíos con Pokémon vacío
         return sixSlots.map(pokemon => 
             pokemon || window.pvpTeamData.createEmptyPokemon()
         );
+    }
+
+    /**
+     * Mostrar spinner de carga
+     */
+    showLoadingSpinner() {
+        const lm = window.languageManager;
+        
+        // Crear overlay de carga si no existe
+        let loadingOverlay = document.getElementById('pvpLoadingOverlay');
+        if (!loadingOverlay) {
+            loadingOverlay = document.createElement('div');
+            loadingOverlay.id = 'pvpLoadingOverlay';
+            loadingOverlay.className = 'pvp-loading-overlay';
+            loadingOverlay.innerHTML = `
+                <div class="pvp-loading-spinner-container">
+                    <div class="pvp-loading-spinner"></div>
+                    <div class="pvp-loading-text">
+                        ${lm.getCurrentLanguage() === 'es' ? '⚔️ Cargando equipo...' : '⚔️ Loading team...'}
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(loadingOverlay);
+        }
+        
+        loadingOverlay.style.display = 'flex';
+    }
+    
+    /**
+     * Ocultar spinner de carga
+     */
+    hideLoadingSpinner() {
+        const loadingOverlay = document.getElementById('pvpLoadingOverlay');
+        if (loadingOverlay) {
+            loadingOverlay.style.display = 'none';
+        }
     }
 
     /**
@@ -242,17 +305,27 @@ class PVPTeamUI {
 
         const lm = window.languageManager;
 
-        // Inicializar equipo actual - SIEMPRE asegurar 6 slots
-        if (data) {
-            this.currentTeam = {
-                teamName: data.teamName || '',
-                pokemons: await this.ensureSixSlots(data.pokemons || [])
-            };
-        } else {
-            this.currentTeam = {
-                teamName: '',
-                pokemons: Array(6).fill(null).map(() => window.pvpTeamData.createEmptyPokemon())
-            };
+        // ✅ MOSTRAR SPINNER DE CARGA si hay datos a cargar
+        if (data && data.pokemons && data.pokemons.length > 0) {
+            this.showLoadingSpinner();
+        }
+
+        try {
+            // Inicializar equipo actual - SIEMPRE asegurar 6 slots
+            if (data) {
+                this.currentTeam = {
+                    teamName: data.teamName || '',
+                    pokemons: await this.ensureSixSlots(data.pokemons || [])
+                };
+            } else {
+                this.currentTeam = {
+                    teamName: '',
+                    pokemons: Array(6).fill(null).map(() => window.pvpTeamData.createEmptyPokemon())
+                };
+            }
+        } catch (error) {
+            this.hideLoadingSpinner();
+            throw error;
         }
 
         teamContent.innerHTML = `
@@ -333,6 +406,9 @@ class PVPTeamUI {
                 this.updateEVTotal(index);
             }
         });
+        
+        // ✅ OCULTAR SPINNER DE CARGA (todo está listo)
+        this.hideLoadingSpinner();
     }
 
     /**
@@ -812,13 +888,20 @@ class PVPTeamUI {
 
     /**
      * Poblar todos los dropdowns
+     * OPTIMIZADO: Carga en PARALELO en lugar de secuencial
      */
     async populateDropdowns(pokemons) {
+        // ✅ OPTIMIZACIÓN: Cargar dropdowns en PARALELO
+        const populatePromises = [];
+        
         for (let i = 0; i < pokemons.length; i++) {
             if (pokemons[i] && pokemons[i].id) {
-                await this.populateDropdownsForSlot(i, pokemons[i]);
+                populatePromises.push(this.populateDropdownsForSlot(i, pokemons[i]));
             }
         }
+        
+        // Esperar a que TODOS los dropdowns se carguen simultáneamente
+        await Promise.all(populatePromises);
         
         // ✅ SOLUCIÓN: También inicializar dropdowns personalizados para equipos cargados
         if (window.customDropdowns) {
