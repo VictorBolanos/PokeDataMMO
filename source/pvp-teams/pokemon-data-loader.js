@@ -18,12 +18,10 @@ class PokemonDataLoader {
      */
     async loadAllMoves() {
         if (this.movesCache) {
-            console.log('✅ Moves ya cargados desde caché');
             return this.movesCache;
         }
 
         if (this.isLoadingMoves) {
-            console.log('⏳ Moves ya se están cargando...');
             // Esperar a que termine la carga actual
             while (this.isLoadingMoves) {
                 await new Promise(resolve => setTimeout(resolve, 100));
@@ -32,14 +30,11 @@ class PokemonDataLoader {
         }
 
         this.isLoadingMoves = true;
-        console.log('🔄 Cargando movimientos de PokeAPI...');
 
         try {
             // Obtener lista completa de movimientos
             const response = await fetch(`https://pokeapi.co/api/v2/move?limit=${this.MAX_MOVE_ID}`);
             const data = await response.json();
-            
-            console.log(`📥 Cargando ${data.results.length} movimientos...`);
             
             // Cargar detalles de movimientos en lotes
             const moves = [];
@@ -191,15 +186,6 @@ class PokemonDataLoader {
         return romanToNumber[match[1].toLowerCase()] || 99;
     }
 
-    /**
-     * Formatear nombre (capitalize y reemplazar guiones)
-     */
-    formatName(name) {
-        return name
-            .split('-')
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(' ');
-    }
 
     /**
      * Buscar movimientos por texto
@@ -239,24 +225,14 @@ class PokemonDataLoader {
      * Obtener nombre traducido de movimiento
      */
     getTranslatedMoveName(move) {
-        if (!move || !move.names) return this.formatName(move.name || '');
-        
-        const lang = window.languageManager ? window.languageManager.getApiLanguage() : 'en';
-        const nameEntry = move.names.find(entry => entry.language.name === lang);
-        
-        return nameEntry ? nameEntry.name : this.formatName(move.name);
+        return window.PokeUtils.getTranslatedName(move, move?.name);
     }
 
     /**
      * Obtener nombre traducido de objeto
      */
     getTranslatedItemName(item) {
-        if (!item || !item.names) return this.formatName(item.name || '');
-        
-        const lang = window.languageManager ? window.languageManager.getApiLanguage() : 'en';
-        const nameEntry = item.names.find(entry => entry.language.name === lang);
-        
-        return nameEntry ? nameEntry.name : this.formatName(item.name);
+        return window.PokeUtils.getTranslatedName(item, item?.name);
     }
 
     /**
@@ -317,7 +293,7 @@ class PokemonDataLoader {
             console.error(`❌ Error cargando habilidad ${abilityName}:`, error);
             return {
                 name: abilityName,
-                displayName: this.formatName(abilityName),
+                displayName: window.PokeUtils.formatName(abilityName),
                 names: [],
                 is_hidden: isHidden
             };
@@ -343,14 +319,7 @@ class PokemonDataLoader {
      * Obtener nombre traducido de habilidad
      */
     getTranslatedAbilityName(ability) {
-        if (!ability || !ability.names) {
-            return this.formatName(ability.name || '');
-        }
-        
-        const lang = window.languageManager ? window.languageManager.getApiLanguage() : 'en';
-        const nameEntry = ability.names.find(entry => entry.language.name === lang);
-        
-        return nameEntry ? nameEntry.name : this.formatName(ability.name);
+        return window.PokeUtils.getTranslatedName(ability, ability?.name);
     }
 
     /**

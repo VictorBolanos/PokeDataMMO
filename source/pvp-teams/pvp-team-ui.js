@@ -353,19 +353,14 @@ class PVPTeamUI {
         const slotIndex = parseInt(radioButton.name.split('-')[1]);
         const newLevel = parseInt(radioButton.value);
         
-        console.log(`🎮 Cambiando nivel a ${newLevel} desde el slot ${slotIndex}`);
-        
         // Actualizar nivel en el sistema de datos (GLOBAL)
         window.pvpTeamData.setSelectedLevel(newLevel);
-        console.log(`✅ Nivel global actualizado a: ${window.pvpTeamData.getSelectedLevel()}`);
         
         // Sincronizar todos los radio buttons del equipo
         this.syncAllLevelRadioButtons(newLevel);
-        console.log(`✅ Radio buttons sincronizados a nivel ${newLevel}`);
         
         // Recalcular stats para TODOS los Pokémon del equipo
         this.recalculateAllPokemonStats();
-        console.log(`✅ Stats de todos los Pokémon recalculados`);
         
         // Programar auto-save
         window.pvpTeams.scheduleAutoSave();
@@ -401,11 +396,8 @@ class PVPTeamUI {
     recalculatePokemonStats(slotIndex) {
         const pokemon = this.currentTeam.pokemons[slotIndex];
         if (!pokemon || !pokemon.id) {
-            console.log(`⚠️ Slot ${slotIndex}: Pokémon vacío, omitiendo recálculo`);
             return;
         }
-        
-        console.log(`🔄 Recalculando stats del slot ${slotIndex} (${pokemon.name})`);
         
         // Recalcular stats con el nuevo nivel
         const newStats = window.pvpTeamData.calculateAllStats(
@@ -415,34 +407,24 @@ class PVPTeamUI {
             pokemon.nature
         );
         
-        console.log(`📊 Nuevos stats calculados para ${pokemon.name}:`, newStats);
-        
         // Actualizar stats en el Pokémon
         pokemon.finalStats = newStats;
         
         // Actualizar UI
         this.updatePokemonStatsDisplay(slotIndex, newStats);
-        console.log(`✅ UI actualizada para slot ${slotIndex}`);
     }
 
     /**
      * Actualizar display de stats en la UI
      */
     updatePokemonStatsDisplay(slotIndex, stats) {
-        console.log(`🎨 Actualizando display de stats para slot ${slotIndex}:`, stats);
-        
         // Actualizar valores de stats finales usando el ID específico
         Object.keys(stats).forEach(statName => {
             const elementId = `finalStat_${slotIndex}_${statName}`;
             const finalStatElement = document.getElementById(elementId);
             
             if (finalStatElement) {
-                const oldValue = finalStatElement.textContent;
-                const newValue = stats[statName];
-                finalStatElement.textContent = newValue;
-                console.log(`  ✅ ${statName}: ${oldValue} → ${newValue}`);
-            } else {
-                console.warn(`  ⚠️ No se encontró el elemento: ${elementId}`);
+                finalStatElement.textContent = stats[statName];
             }
         });
     }
@@ -744,8 +726,6 @@ class PVPTeamUI {
             const result = await window.authManager.deletePVPTeam(teamName);
             
             if (result.success) {
-                console.log('✅ Team deleted:', teamName);
-                
                 // Mostrar mensaje de éxito
                 alert(lm.getCurrentLanguage() === 'es' 
                     ? '✅ Equipo eliminado correctamente'
@@ -754,13 +734,11 @@ class PVPTeamUI {
                 // Re-renderizar la UI inicial para actualizar la lista
                 await this.renderInitialUI();
             } else {
-                console.error('❌ Delete error:', result.message);
                 alert(lm.getCurrentLanguage() === 'es' 
                     ? '❌ Error al eliminar el equipo'
                     : '❌ Error deleting team');
             }
         } catch (error) {
-            console.error('❌ Delete error:', error);
             alert(lm.getCurrentLanguage() === 'es' 
                 ? '❌ Error al eliminar el equipo'
                 : '❌ Error deleting team');
@@ -946,8 +924,6 @@ class PVPTeamUI {
     async repopulateAllDropdowns() {
         if (!this.currentTeam || !this.currentTeam.pokemons) return;
         
-        console.log('🔄 Re-poblando dropdowns con nuevas traducciones...');
-        
         // Re-poblar naturalezas y habilidades para cada Pokémon
         for (let slotIndex = 0; slotIndex < this.currentTeam.pokemons.length; slotIndex++) {
             const pokemon = this.currentTeam.pokemons[slotIndex];
@@ -956,8 +932,6 @@ class PVPTeamUI {
                 await this.repopulateAbilityDropdown(slotIndex, pokemon);
             }
         }
-        
-        console.log('✅ Dropdowns actualizados con nuevas traducciones');
     }
 
     /**

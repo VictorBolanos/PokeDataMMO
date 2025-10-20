@@ -17,7 +17,7 @@ class PokemonCard {
         const lang = this.lm.getApiLanguage();
         const names = this.species.names;
         const nameEntry = names.find(entry => entry.language.name === lang);
-        return nameEntry ? nameEntry.name : this.capitalizeFirst(this.pokemon.name);
+        return nameEntry ? nameEntry.name : window.PokeUtils.capitalizeFirst(this.pokemon.name);
     }
     
     // Get ability name in current language
@@ -35,11 +35,11 @@ class PokemonCard {
             
             const lang = this.lm.getApiLanguage();
             const nameEntry = abilityData.names.find(entry => entry.language.name === lang);
-            return nameEntry ? nameEntry.name : this.capitalizeFirst(abilityName.replace('-', ' '));
+            return nameEntry ? nameEntry.name : window.PokeUtils.capitalizeFirst(abilityName.replace('-', ' '));
         } catch (error) {
             console.error('Error fetching ability name:', error);
             const abilityName = abilityUrl.split('/').slice(-2, -1)[0];
-            return this.capitalizeFirst(abilityName.replace('-', ' '));
+            return window.PokeUtils.capitalizeFirst(abilityName.replace('-', ' '));
         }
     }
     
@@ -54,11 +54,11 @@ class PokemonCard {
             
             const lang = this.lm.getApiLanguage();
             const nameEntry = itemData.names.find(entry => entry.language.name === lang);
-            return nameEntry ? nameEntry.name : this.capitalizeFirst(itemName.replace('-', ' '));
+            return nameEntry ? nameEntry.name : window.PokeUtils.capitalizeFirst(itemName.replace('-', ' '));
         } catch (error) {
             console.error('Error fetching item name:', error);
             const itemName = itemUrl.split('/').slice(-2, -1)[0];
-            return this.capitalizeFirst(itemName.replace('-', ' '));
+            return window.PokeUtils.capitalizeFirst(itemName.replace('-', ' '));
         }
     }
     
@@ -83,7 +83,7 @@ class PokemonCard {
             'undiscovered': { es: 'Desconocido', en: 'Undiscovered' },
             'no-eggs': { es: 'Sin Huevos', en: 'No Eggs' }
         };
-        return translations[groupName]?.[lang] || this.capitalizeFirst(groupName.replace('-', ' '));
+        return translations[groupName]?.[lang] || window.PokeUtils.capitalizeFirst(groupName.replace('-', ' '));
     }
     
     // Get genus (category) in current language
@@ -574,7 +574,7 @@ class PokemonCard {
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.extractPokemonId(chain.species.url)}.png" 
                          alt="${chain.species.name}" 
                          class="evolution-sprite">
-                    <div class="evolution-name">${this.capitalizeFirst(chain.species.name)}</div>
+                    <div class="evolution-name">${window.PokeUtils.capitalizeFirst(chain.species.name)}</div>
                     <div class="evolution-condition">No evolutions</div>
                 </div>
             `;
@@ -593,7 +593,7 @@ class PokemonCard {
                 <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.extractPokemonId(chain.species.url)}.png" 
                      alt="${chain.species.name}" 
                      class="evolution-sprite">
-                <div class="evolution-name">${this.capitalizeFirst(chain.species.name)}</div>
+                <div class="evolution-name">${window.PokeUtils.capitalizeFirst(chain.species.name)}</div>
             </div>
         `;
         
@@ -633,10 +633,6 @@ class PokemonCard {
         }
     }
     
-    // Helper methods
-    capitalizeFirst(str) {
-        return window.PokeUtils.capitalizeFirst(str);
-    }
     
     getGenerationIcon(generation) {
         const icons = {
@@ -687,10 +683,10 @@ class PokemonCard {
         try {
             const lang = this.lm.getApiLanguage();
             const nameEntry = move.names.find(entry => entry.language.name === lang);
-            return nameEntry ? nameEntry.name : this.capitalizeFirst(move.name.replace('-', ' '));
+            return nameEntry ? nameEntry.name : window.PokeUtils.capitalizeFirst(move.name.replace('-', ' '));
         } catch (error) {
             console.error('Error fetching move name:', error, move);
-            return this.capitalizeFirst(move.name.replace('-', ' '));
+            return window.PokeUtils.capitalizeFirst(move.name.replace('-', ' '));
         }
     }
     
@@ -757,7 +753,7 @@ class PokemonCard {
                 
             case 'use-item':
                 if (detail.item) {
-                    conditions.push(`<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${detail.item.name}.png" alt="${detail.item.name}" class="evolution-item-sprite"> Use ${this.capitalizeFirst(detail.item.name.replace('-', ' '))}`);
+                    conditions.push(`<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${detail.item.name}.png" alt="${detail.item.name}" class="evolution-item-sprite"> Use ${window.PokeUtils.capitalizeFirst(detail.item.name.replace('-', ' '))}`);
                 } else {
                     conditions.push('Use item');
                 }
@@ -765,7 +761,7 @@ class PokemonCard {
                 
             case 'trade':
                 if (detail.trade_species) {
-                    conditions.push(`Trade with ${this.capitalizeFirst(detail.trade_species.name)}`);
+                    conditions.push(`Trade with ${window.PokeUtils.capitalizeFirst(detail.trade_species.name)}`);
                 } else {
                     conditions.push('Trade');
                 }
@@ -784,12 +780,12 @@ class PokemonCard {
                 break;
                 
             default:
-                conditions.push(this.capitalizeFirst(trigger.replace('-', ' ')));
+                conditions.push(window.PokeUtils.capitalizeFirst(trigger.replace('-', ' ')));
         }
         
         // Additional conditions
         if (detail.held_item) {
-            conditions.push(`<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${detail.held_item.name}.png" alt="${detail.held_item.name}" class="evolution-item-sprite"> Holding ${this.capitalizeFirst(detail.held_item.name.replace('-', ' '))}`);
+            conditions.push(`<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${detail.held_item.name}.png" alt="${detail.held_item.name}" class="evolution-item-sprite"> Holding ${window.PokeUtils.capitalizeFirst(detail.held_item.name.replace('-', ' '))}`);
         }
         
         if (detail.time_of_day && detail.time_of_day !== '') {
@@ -797,11 +793,11 @@ class PokemonCard {
         }
         
         if (detail.known_move) {
-            conditions.push(`Knows ${this.capitalizeFirst(detail.known_move.name.replace('-', ' '))}`);
+            conditions.push(`Knows ${window.PokeUtils.capitalizeFirst(detail.known_move.name.replace('-', ' '))}`);
         }
         
         if (detail.location) {
-            conditions.push(`At ${this.capitalizeFirst(detail.location.name.replace('-', ' '))}`);
+            conditions.push(`At ${window.PokeUtils.capitalizeFirst(detail.location.name.replace('-', ' '))}`);
         }
         
         if (detail.needs_overworld_rain) {

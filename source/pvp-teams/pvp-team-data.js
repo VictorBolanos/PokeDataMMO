@@ -54,14 +54,7 @@ class PVPTeamData {
      * Obtener nombre traducido de naturaleza
      */
     getTranslatedNatureName(nature) {
-        if (!nature || !nature.names) {
-            return this.formatName(nature.name || '');
-        }
-        
-        const lang = window.languageManager ? window.languageManager.getApiLanguage() : 'en';
-        const nameEntry = nature.names.find(entry => entry.language.name === lang);
-        
-        return nameEntry ? nameEntry.name : this.formatName(nature.name);
+        return window.PokeUtils.getTranslatedName(nature, nature?.name);
     }
 
     /**
@@ -80,13 +73,6 @@ class PVPTeamData {
         console.log('✅ Traducciones de naturalezas actualizadas');
     }
 
-    /**
-     * Formatear nombre
-     */
-    formatName(name) {
-        if (!name) return '';
-        return name.charAt(0).toUpperCase() + name.slice(1).replace(/-/g, ' ');
-    }
 
     /**
      * Obtener multiplicador de naturaleza para un stat

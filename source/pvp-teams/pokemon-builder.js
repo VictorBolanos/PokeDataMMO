@@ -40,7 +40,7 @@ class PokemonBuilder {
                 <div class="pokemon-card-header">
                     <img src="${pokemon.sprite}" alt="${pokemon.name}" class="pokemon-sprite-large">
                     <div class="pokemon-card-title">
-                        <h5 class="pokemon-name-display">${this.capitalizeName(pokemon.name)}</h5>
+                        <h5 class="pokemon-name-display">${window.PokeUtils.formatName(pokemon.name)}</h5>
                         
                         <!-- Level Selector (inline con el nombre) -->
                         <div class="level-selector-inline">
@@ -298,7 +298,7 @@ class PokemonBuilder {
                          onerror="this.src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png'">
                 </div>
                 <div class="pokemon-result-info">
-                    <div class="pokemon-result-name">${this.capitalizeName(pokemon.name)}</div>
+                    <div class="pokemon-result-name">${window.PokeUtils.formatName(pokemon.name)}</div>
                     <div class="pokemon-result-id">#${pokemon.id}</div>
                 </div>
             </div>
@@ -486,12 +486,6 @@ class PokemonBuilder {
         }
     }
 
-    /**
-     * Capitalizar nombre de Pokémon
-     */
-    capitalizeName(name) {
-        return name.charAt(0).toUpperCase() + name.slice(1).replace(/-/g, ' ');
-    }
 }
 
 // Exportar instancia global

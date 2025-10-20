@@ -67,7 +67,7 @@ class BerryUI {
                         </div>
                         <div class="col">
                             <label class="form-label text-white mb-2" id="labelLoadCalculation">
-                                📂 ${lm.t('farming.calculator.loadSavedCalculation')}
+                                🌱 ${lm.t('farming.calculator.loadSavedCalculation')}
                             </label>
                             <select class="form-control" id="loadCalculationSelect" ${!hasSavedCalculations ? 'disabled' : ''}>
                                 <option value="" id="loadCalculationPlaceholder">
@@ -1585,7 +1585,7 @@ class BerryUI {
         const loadCalculationPlaceholder = document.getElementById('loadCalculationPlaceholder');
         
         if (labelLoadCalculation) {
-            labelLoadCalculation.innerHTML = `📂 ${lm.t('farming.calculator.loadSavedCalculation')}`;
+            labelLoadCalculation.innerHTML = `🌱 ${lm.t('farming.calculator.loadSavedCalculation')}`;
         }
         
         if (newCalculationBtnText) {

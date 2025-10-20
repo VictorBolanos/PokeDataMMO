@@ -1,8 +1,8 @@
-/* PokeDataMMO - Ultra Optimized CSS (Bootstrap-First) */
+/* PokeDataMMO - CSS Ultra Optimizado (Bootstrap-First) */
 
-/* ===== COLOR THEME VARIABLES ===== */
+/* ===== VARIABLES DE TEMA DE COLOR ===== */
 :root {
-    /* Standard Theme */
+    /* Tema Estándar */
     --primary-color-dark: #dc2626;
     --primary-color-light: #dc2626;
     --primary-hover-dark: #b91c1c;
@@ -13,7 +13,7 @@
     --primary-border-light: rgba(220, 38, 38, 0.3);
 }
 
-/* Red Theme */
+/* Tema Rojo */
 [data-color-theme="red"] {
     --primary-color-dark: #dc2626;
     --primary-color-light: #dc2626;
@@ -121,7 +121,7 @@
     --primary-border-light: rgba(20, 184, 166, 0.3);
 }
 
-/* ===== DYNAMIC COLOR FUNCTIONS ===== */
+/* ===== FUNCIONES DE COLOR DINÁMICO ===== */
 body:not(.light-theme) {
     --primary-color: var(--primary-color-dark);
     --primary-hover: var(--primary-hover-dark);
@@ -136,7 +136,7 @@ body.light-theme {
     --primary-border: var(--primary-border-light);
 }
 
-/* ===== GLOBAL STYLES ===== */
+/* ===== ESTILOS GLOBALES ===== */
 * {
     margin: 0;
     padding: 0;
@@ -152,7 +152,7 @@ body {
     position: relative;
 }
 
-/* Dark overlay for background */
+/* Overlay oscuro para el fondo */
 body::before {
     content: '';
     position: fixed;
@@ -5458,7 +5458,7 @@ body.light-theme .btn-check:checked + .btn-outline-custom {
     border-color: var(--primary-color);
 }
 
-/* Pokémon Stats Table */
+/* ===== TABLA DE ESTADÍSTICAS POKÉMON ===== */
 .pokemon-stats-section {
     margin-bottom: 1rem;
 }
@@ -5517,6 +5517,33 @@ body.light-theme .btn-check:checked + .btn-outline-custom {
     border-color: var(--primary-color);
     outline: none;
     color: white !important;
+}
+
+/* Tema claro para tabla de estadísticas */
+body.light-theme .pokemon-stats-table th {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+body.light-theme .pokemon-stats-table td {
+    color: #1a1a1a;
+}
+
+body.light-theme .pokemon-stats-table .stat-name {
+    color: rgba(0, 0, 0, 0.9);
+}
+
+body.light-theme .pokemon-stats-table .base-stat {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+body.light-theme .pokemon-stats-table input {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.2);
+    color: #1a1a1a;
+}
+
+body.light-theme .pokemon-stats-table input:focus {
+    background: rgba(0, 0, 0, 0.08);
 }
 
 /* Asegurar que los inputs type="number" mantengan color blanco */
@@ -6050,32 +6077,6 @@ body.light-theme .pokemon-slot-card.empty:hover .add-pokemon-text {
 
 body.light-theme .pokemon-name-display {
     color: #1a1a1a;
-}
-
-body.light-theme .pokemon-stats-table th {
-    color: rgba(0, 0, 0, 0.7);
-}
-
-body.light-theme .pokemon-stats-table td {
-    color: #1a1a1a;
-}
-
-body.light-theme .pokemon-stats-table .stat-name {
-    color: rgba(0, 0, 0, 0.9);
-}
-
-body.light-theme .pokemon-stats-table .base-stat {
-    color: rgba(0, 0, 0, 0.6);
-}
-
-body.light-theme .pokemon-stats-table input {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.2);
-    color: #1a1a1a;
-}
-
-body.light-theme .pokemon-stats-table input:focus {
-    background: rgba(0, 0, 0, 0.08);
 }
 
 body.light-theme .ev-total-display {

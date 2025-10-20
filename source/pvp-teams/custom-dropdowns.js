@@ -46,7 +46,7 @@ class CustomDropdowns {
             const moves = window.pokemonDataLoader.movesCache || [];
             move = moves.find(m => m.name === move) || { 
                 name: move, 
-                displayName: this.formatName(move),
+                displayName: window.PokeUtils.formatName(move),
                 type: 'normal'
             };
         }
@@ -57,7 +57,7 @@ class CustomDropdowns {
         return `
             <div class="${className}" data-move-name="${move.name}">
                 <span class="move-name">${move.displayName}</span>
-                <img src="${typeIcon}" alt="${move.type}" class="move-type-icon" title="${this.formatName(move.type)}">
+                <img src="${typeIcon}" alt="${move.type}" class="move-type-icon" title="${window.PokeUtils.formatName(move.type)}">
             </div>
         `;
     }
@@ -104,7 +104,7 @@ class CustomDropdowns {
             const items = window.pokemonDataLoader.itemsCache || [];
             item = items.find(i => i.name === item) || { 
                 name: item, 
-                displayName: this.formatName(item),
+                displayName: window.PokeUtils.formatName(item),
                 sprite: 'img/res/poke-types/box/type-normal-box-icon.png' // Placeholder
             };
         }
@@ -335,22 +335,11 @@ class CustomDropdowns {
         }
     }
 
-    /**
-     * Formatear nombre
-     */
-    formatName(name) {
-        return name
-            .split('-')
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-            .join(' ');
-    }
 
     /**
      * Re-renderizar todos los dropdowns con traducciones actualizadas
      */
     async updateAllDropdownTranslations() {
-        console.log('🔄 Actualizando traducciones de dropdowns personalizados...');
-        
         // Re-renderizar dropdowns de items
         document.querySelectorAll('.custom-item-select-wrapper').forEach(async wrapper => {
             const slotIndex = parseInt(wrapper.dataset.slot);
@@ -363,8 +352,6 @@ class CustomDropdowns {
             const moveIndex = parseInt(wrapper.dataset.moveIndex);
             await this.updateMoveDropdownTranslation(slotIndex, moveIndex);
         });
-        
-        console.log('✅ Dropdowns personalizados actualizados');
     }
 
     /**

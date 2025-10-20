@@ -160,7 +160,7 @@ class PokemonSearch {
             suggestionItem.innerHTML = `
                 <div class="suggestion-content">
                     <span class="suggestion-id">#${pokemon.id.toString().padStart(3, '0')}</span>
-                    <span class="suggestion-name">${this.capitalizeFirst(pokemon.name)}</span>
+                    <span class="suggestion-name">${window.PokeUtils.capitalizeFirst(pokemon.name)}</span>
                 </div>
             `;
             
@@ -180,9 +180,6 @@ class PokemonSearch {
         window.pokedex.loadPokemon(pokemon.id);
     }
     
-    capitalizeFirst(str) {
-        return window.PokeUtils.capitalizeFirst(str);
-    }
 }
 
 // Initialize search when DOM is loaded
