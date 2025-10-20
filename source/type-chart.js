@@ -110,7 +110,6 @@ class TypeChart {
     init() {
         this.populateSelectors();
         this.createTypeChart();
-        this.setupEventListeners();
     }
     
     populateSelectors() {

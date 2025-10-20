@@ -45,7 +45,6 @@ class PVPTeamData {
             
             return this.naturesCache;
         } catch (error) {
-            console.error('❌ Error loading natures:', error);
             return [];
         }
     }
@@ -69,8 +68,6 @@ class PVPTeamData {
         
         // Re-ordenar alfabéticamente
         this.naturesCache.sort((a, b) => a.displayName.localeCompare(b.displayName));
-        
-        console.log('✅ Traducciones de naturalezas actualizadas');
     }
 
 

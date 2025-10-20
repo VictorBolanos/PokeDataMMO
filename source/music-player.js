@@ -68,7 +68,6 @@ class MusicPlayer {
         this.audio.addEventListener('timeupdate', () => this.updateSongInfo());
         this.audio.addEventListener('ended', () => this.nextSong());
         this.audio.addEventListener('error', (e) => {
-            console.error('Audio error:', e);
             this.showError('Error loading audio file');
         });
         
@@ -203,7 +202,6 @@ class MusicPlayer {
         // Auto play if was playing
         if (this.isPlaying) {
             this.audio.play().catch(e => {
-                console.error('Play failed:', e);
                 this.showError('Could not play audio');
             });
         }
@@ -231,7 +229,6 @@ class MusicPlayer {
             this.isPlaying = true;
             this.updateUI();
         }).catch(e => {
-            console.error('Play failed:', e);
             this.showError('Could not play audio');
         });
     }

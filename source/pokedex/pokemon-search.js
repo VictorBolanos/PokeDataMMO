@@ -21,9 +21,7 @@ class PokemonSearch {
     async loadPokemonList() {
         try {
             this.pokemonList = await PokemonAPI.getAllPokemonNames();
-            console.log(`Loaded ${this.pokemonList.length} Pokémon for search`);
         } catch (error) {
-            console.error('Error loading Pokémon list:', error);
             this.pokemonList = [];
         }
     }

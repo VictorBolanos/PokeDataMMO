@@ -24,13 +24,11 @@ class AuthManager {
             const checkFirebase = () => {
                 if (typeof firebase !== 'undefined' && firebase.firestore) {
                     this.db = firebase.firestore();
-                    console.log('✅ Firebase Firestore initialized');
                     
                     // Probar conexión con una operación simple
                     this.testFirebaseConnection().then(() => {
                         resolve();
                     }).catch((error) => {
-                        console.error('❌ Error testing Firebase connection:', error);
                         resolve(); // Continuar aunque falle la prueba
                     });
                 } else {
@@ -45,13 +43,8 @@ class AuthManager {
     async testFirebaseConnection() {
         try {
             const testQuery = await this.db.collection('users').limit(1).get();
-            console.log('✅ Firebase connected');
             return true;
         } catch (error) {
-            console.error('❌ Firebase connection error:', error);
-            if (error.code === 'permission-denied') {
-                console.error('🚫 Firestore permissions denied - Check Firebase rules');
-            }
             throw error;
         }
     }
@@ -65,7 +58,6 @@ class AuthManager {
                 this.currentUser = JSON.parse(session);
                 return true;
             } catch (error) {
-                console.error('❌ Session parse error:', error);
                 this.logout();
                 return false;
             }
@@ -208,7 +200,6 @@ class AuthManager {
             };
 
         } catch (error) {
-            console.error('❌ Register error:', error);
             return {
                 success: false,
                 message: window.languageManager.getCurrentLanguage() === 'es' 
@@ -276,7 +267,6 @@ class AuthManager {
             };
 
         } catch (error) {
-            console.error('❌ Login error:', error);
             return {
                 success: false,
                 message: window.languageManager.getCurrentLanguage() === 'es' 
@@ -326,7 +316,6 @@ class AuthManager {
             return { success: true };
 
         } catch (error) {
-            console.error('Error saving user data:', error);
             return { success: false, message: 'Error saving data' };
         }
     }
@@ -360,7 +349,6 @@ class AuthManager {
             };
 
         } catch (error) {
-            console.error('Error loading user data:', error);
             return { success: false, message: 'Error loading data' };
         }
     }
@@ -405,7 +393,6 @@ class AuthManager {
             };
 
         } catch (error) {
-            console.error('Error loading user data with owner:', error);
             return { success: false, message: 'Error loading data' };
         }
     }
@@ -442,7 +429,6 @@ class AuthManager {
             return { success: true, message: 'User updated' };
 
         } catch (error) {
-            console.error('Error updating user:', error);
             return { success: false, message: 'Error updating user' };
         }
     }
@@ -464,12 +450,10 @@ class AuthManager {
 
         // Validación crítica: no permitir guardar sin nombre
         if (!calculationName || !calculationName.trim()) {
-            console.error('❌ Cannot save berry calculation: No name provided');
             return { success: false, message: 'No calculation name provided' };
         }
         
         if (!calculationData || !calculationData.calculationName || !calculationData.calculationName.trim()) {
-            console.error('❌ Cannot save berry calculation: No name in data');
             return { success: false, message: 'No calculation name in data' };
         }
 
@@ -487,11 +471,9 @@ class AuthManager {
                 lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
             });
             
-            console.log('💾 Saved:', calculationName);
             return { success: true, message: 'Calculation saved' };
             
         } catch (error) {
-            console.error('❌ Save error:', error);
             return { success: false, message: 'Error saving calculation' };
         }
     }
@@ -521,11 +503,9 @@ class AuthManager {
                 return { success: false, message: 'Calculation not found' };
             }
             
-            console.log('📂 Loaded:', calculationName);
             return { success: true, data: calculation };
             
         } catch (error) {
-            console.error('❌ Load error:', error);
             return { success: false, message: 'Error loading calculation' };
         }
     }
@@ -565,7 +545,6 @@ class AuthManager {
             };
             
         } catch (error) {
-            console.error('❌ Get calculations error:', error);
             return { success: false, message: 'Error loading calculations' };
         }
     }
@@ -588,11 +567,9 @@ class AuthManager {
                 lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
             });
             
-            console.log('🗑️ Deleted:', calculationName);
             return { success: true, message: 'Calculation deleted' };
             
         } catch (error) {
-            console.error('❌ Delete error:', error);
             return { success: false, message: 'Error deleting calculation' };
         }
     }
@@ -630,7 +607,6 @@ class AuthManager {
             return { success: true, message: 'Calculation renamed' };
             
         } catch (error) {
-            console.error('❌ Rename error:', error);
             return { success: false, message: 'Error renaming calculation' };
         }
     }
@@ -649,12 +625,10 @@ class AuthManager {
 
         // Validación crítica: no permitir guardar sin nombre
         if (!teamName || !teamName.trim()) {
-            console.error('❌ Cannot save PVP team: No name provided');
             return { success: false, message: 'No team name provided' };
         }
         
         if (!teamData || !teamData.teamName || !teamData.teamName.trim()) {
-            console.error('❌ Cannot save PVP team: No name in data');
             return { success: false, message: 'No team name in data' };
         }
 
@@ -672,11 +646,9 @@ class AuthManager {
                 lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
             });
             
-            console.log('💾 Team saved:', teamName);
             return { success: true, message: 'Team saved' };
             
         } catch (error) {
-            console.error('❌ Save team error:', error);
             return { success: false, message: 'Error saving team' };
         }
     }
@@ -704,11 +676,9 @@ class AuthManager {
                 return { success: false, message: 'Team not found' };
             }
             
-            console.log('📂 Team loaded:', teamName);
             return { success: true, data: team };
             
         } catch (error) {
-            console.error('❌ Load team error:', error);
             return { success: false, message: 'Error loading team' };
         }
     }
@@ -747,7 +717,6 @@ class AuthManager {
             };
             
         } catch (error) {
-            console.error('❌ Get teams error:', error);
             return { success: false, message: 'Error loading teams' };
         }
     }
@@ -768,11 +737,9 @@ class AuthManager {
                 lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
             });
             
-            console.log('🗑️ Team deleted:', teamName);
             return { success: true, message: 'Team deleted' };
             
         } catch (error) {
-            console.error('❌ Delete team error:', error);
             return { success: false, message: 'Error deleting team' };
         }
     }
@@ -807,7 +774,6 @@ class AuthManager {
             return { success: true, message: 'Team renamed' };
             
         } catch (error) {
-            console.error('❌ Rename team error:', error);
             return { success: false, message: 'Error renaming team' };
         }
     }

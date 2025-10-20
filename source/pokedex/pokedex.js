@@ -9,15 +9,11 @@ class Pokedex {
     }
     
     async init() {
-        console.log('Pokédex initialized');
-        
         // Wait for search to be ready
         if (window.pokemonSearch) {
-            console.log('Pokemon search ready');
         } else {
             // Wait a bit for search to initialize
             setTimeout(() => {
-                console.log('Pokemon search ready (delayed)');
             }, 1000);
         }
     }
@@ -35,8 +31,6 @@ class Pokedex {
             
             if (!pokemonData || !speciesData) {
                 // Fetch from API
-                console.log(`Loading Pokémon: ${idOrName}`);
-                
                 const [pokemon, species] = await Promise.all([
                     PokemonAPI.getPokemon(idOrName),
                     PokemonAPI.getPokemonSpecies(idOrName)
@@ -57,7 +51,6 @@ class Pokedex {
             await this.renderPokemonCard();
             
         } catch (error) {
-            console.error('Error loading Pokémon:', error);
             this.showError(`Error loading Pokémon: ${error.message}`);
         } finally {
             this.isLoading = false;
@@ -104,7 +97,6 @@ class Pokedex {
             }, 100);
             
         } catch (error) {
-            console.error('Error rendering Pokémon card:', error);
             this.showError('Error rendering Pokémon card');
         }
     }

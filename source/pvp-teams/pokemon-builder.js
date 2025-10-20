@@ -248,7 +248,6 @@ class PokemonBuilder {
             }
             
         } catch (error) {
-            console.error('❌ Error searching Pokémon:', error);
             this.showNoResults();
         }
     }
@@ -277,7 +276,6 @@ class PokemonBuilder {
             localStorage.setItem(cacheKey, JSON.stringify(pokemonList));
             return pokemonList;
         } catch (error) {
-            console.error('❌ Error fetching Pokémon list:', error);
             return [];
         }
     }
@@ -395,7 +393,6 @@ class PokemonBuilder {
                 window.pvpTeamsUI.updatePokemonSlot(slotIndex, pokemon);
             }
         } catch (error) {
-            console.error('❌ Error selecting Pokémon:', error);
         }
     }
 
@@ -485,7 +482,6 @@ class PokemonBuilder {
             window.pvpTeamsUI.updatePokemonSlot(slotIndex, pokemon);
             
         } catch (error) {
-            console.error('❌ Error selecting Pokémon:', error);
         }
     }
 

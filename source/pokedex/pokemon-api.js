@@ -10,7 +10,6 @@ class PokemonAPI {
             if (!response.ok) throw new Error('Pokémon not found');
             return await response.json();
         } catch (error) {
-            console.error('Error fetching Pokémon:', error);
             throw error;
         }
     }
@@ -22,7 +21,6 @@ class PokemonAPI {
             if (!response.ok) throw new Error('Pokémon species not found');
             return await response.json();
         } catch (error) {
-            console.error('Error fetching Pokémon species:', error);
             throw error;
         }
     }
@@ -34,7 +32,6 @@ class PokemonAPI {
             if (!response.ok) throw new Error('Evolution chain not found');
             return await response.json();
         } catch (error) {
-            console.error('Error fetching evolution chain:', error);
             throw error;
         }
     }
@@ -46,7 +43,6 @@ class PokemonAPI {
             if (!response.ok) throw new Error('Type not found');
             return await response.json();
         } catch (error) {
-            console.error('Error fetching type:', error);
             throw error;
         }
     }
@@ -58,7 +54,6 @@ class PokemonAPI {
             if (!response.ok) throw new Error('Ability not found');
             return await response.json();
         } catch (error) {
-            console.error('Error fetching ability:', error);
             throw error;
         }
     }
@@ -70,7 +65,6 @@ class PokemonAPI {
             if (!response.ok) throw new Error('Move not found');
             return await response.json();
         } catch (error) {
-            console.error('Error fetching move:', error);
             throw error;
         }
     }
@@ -82,7 +76,6 @@ class PokemonAPI {
             if (!response.ok) throw new Error('Item not found');
             return await response.json();
         } catch (error) {
-            console.error('Error fetching item:', error);
             throw error;
         }
     }
@@ -100,7 +93,6 @@ class PokemonAPI {
                 )
                 .slice(0, limit);
         } catch (error) {
-            console.error('Error searching Pokémon:', error);
             return [];
         }
     }
@@ -126,7 +118,6 @@ class PokemonAPI {
             localStorage.setItem(cacheKey, JSON.stringify(pokemonList));
             return pokemonList;
         } catch (error) {
-            console.error('Error fetching Pokémon list:', error);
             return [];
         }
     }

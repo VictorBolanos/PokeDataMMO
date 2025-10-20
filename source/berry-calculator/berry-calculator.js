@@ -17,7 +17,6 @@ class BerryCalculator {
             await window.berryUI.renderInitialUI();
             this.isInitialized = true;
         } catch (error) {
-            console.error('❌ Berry Calculator init error:', error);
         }
     }
 
@@ -33,7 +32,6 @@ class BerryCalculator {
         const result = await window.authManager.loadBerryCalculation(calculationName);
         
         if (!result.success) {
-            console.error('❌ Load error:', result.message);
             return false;
         }
         
@@ -52,7 +50,6 @@ class BerryCalculator {
         
         // Validar que hay nombre válido antes de programar
         if (!this.currentCalculation || !this.currentCalculation.trim()) {
-            console.log('🚫 Auto-save cancelled: No valid calculation name');
             return;
         }
         
@@ -66,7 +63,6 @@ class BerryCalculator {
         if (this.autoSaveTimeout) {
             clearTimeout(this.autoSaveTimeout);
             this.autoSaveTimeout = null;
-            console.log('🚫 Auto-save cancelled');
         }
     }
 
@@ -74,19 +70,16 @@ class BerryCalculator {
     async performAutoSave() {
         // Validaciones múltiples antes de guardar
         if (this.isSaving) {
-            console.log('🚫 Auto-save skipped: Already saving');
             return;
         }
         
         if (!this.currentCalculation || !this.currentCalculation.trim()) {
-            console.log('🚫 Auto-save skipped: No valid calculation name');
             return;
         }
         
         // Verificar que el nombre en el input sigue siendo válido
         const nameInput = document.getElementById('calculationNameInput');
         if (nameInput && (!nameInput.value || !nameInput.value.trim())) {
-            console.log('🚫 Auto-save skipped: Name input is empty');
             return;
         }
         
@@ -97,7 +90,6 @@ class BerryCalculator {
             
             // Validación final: asegurar que el nombre está en los datos
             if (!calculationData.calculationName || !calculationData.calculationName.trim()) {
-                console.log('🚫 Auto-save skipped: No name in calculation data');
                 return;
             }
             
@@ -109,12 +101,10 @@ class BerryCalculator {
             if (result.success) {
                 window.berryUI.showSaveIndicator('success');
             } else {
-                console.error('❌ Auto-save error:', result.message);
                 window.berryUI.showSaveIndicator('error');
             }
             
         } catch (error) {
-            console.error('❌ Auto-save error:', error);
             window.berryUI.showSaveIndicator('error');
         } finally {
             this.isSaving = false;

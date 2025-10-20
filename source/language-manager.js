@@ -783,7 +783,6 @@ class LanguageManager {
             if (value && typeof value === 'object' && key in value) {
                 value = value[key];
             } else {
-                console.warn(`Translation key not found: ${keyPath}`);
                 return keyPath; // Return key path if translation not found
             }
         }

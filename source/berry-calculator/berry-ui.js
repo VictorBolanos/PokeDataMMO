@@ -309,22 +309,28 @@ class BerryUI {
      * Poblar calculadora con datos guardados
      */
     async populateCalculatorWithData(data) {
-
         // Seleccionar tipo de baya
         if (data.cultivationType) {
             this.currentBerry = data.cultivationType;
             await this.handleBerrySelection(data.cultivationType);
+            
+            // Asegurar que el dropdown se actualice visualmente con sprite
+            await this.updateDropdownWithSprite(data.cultivationType);
         }
 
-        // Poblar plantas y personajes
+        // CRÍTICO: Establecer plantCount y characterCount PRIMERO antes de cualquier operación
         if (data.plantsPerCharacter) {
-            document.getElementById('plantCountInput').value = data.plantsPerCharacter;
             this.plantCount = data.plantsPerCharacter;
+            document.getElementById('plantCountInput').value = data.plantsPerCharacter;
+        } else if (data.managementCosts && data.managementCosts.plantsPerCharacter) {
+            // Manejar caso donde plantsPerCharacter está en managementCosts
+            this.plantCount = data.managementCosts.plantsPerCharacter;
+            document.getElementById('plantCountInput').value = this.plantCount;
         }
 
         if (data.characters) {
-            document.getElementById('characterCountInput').value = data.characters;
             this.characterCount = data.characters;
+            document.getElementById('characterCountInput').value = data.characters;
         }
 
         // Esperar un momento a que se renderice
@@ -335,27 +341,27 @@ class BerryUI {
             data.irrigationTimes.forEach(schedule => {
                 const berryName = schedule.berryName;
                 
-                if (schedule.plantingTime) {
+                if (schedule.plantingTime && schedule.plantingTime !== '-') {
                     const plantInput = document.getElementById(`plantTime_${berryName}`);
                     if (plantInput) plantInput.value = schedule.plantingTime;
                 }
                 
-                if (schedule.firstIrrigation) {
+                if (schedule.firstIrrigation && schedule.firstIrrigation !== '-') {
                     const firstInput = document.getElementById(`firstIrrigation_${berryName}`);
                     if (firstInput) firstInput.value = schedule.firstIrrigation;
                 }
                 
-                if (schedule.secondIrrigation) {
+                if (schedule.secondIrrigation && schedule.secondIrrigation !== '-') {
                     const secondInput = document.getElementById(`secondIrrigation_${berryName}`);
                     if (secondInput) secondInput.value = schedule.secondIrrigation;
                 }
                 
-                if (schedule.harvestTime) {
+                if (schedule.harvestTime && schedule.harvestTime !== '-') {
                     const harvestInput = document.getElementById(`harvestTime_${berryName}`);
                     if (harvestInput) harvestInput.value = schedule.harvestTime;
                 }
                 
-                if (schedule.harvestUnits) {
+                if (schedule.harvestUnits && schedule.harvestUnits !== 0) {
                     const unitsInput = document.getElementById(`harvestUnits_${berryName}`);
                     if (unitsInput) unitsInput.value = schedule.harvestUnits;
                 }
@@ -380,7 +386,7 @@ class BerryUI {
         }
 
         // Poblar costos de compra
-        if (data.purchaseCosts && Array.isArray(data.purchaseCosts)) {
+        if (data.purchaseCosts && Array.isArray(data.purchaseCosts) && data.purchaseCosts.length > 0) {
             const container = document.getElementById('purchaseCostsContainer');
             if (container) {
                 // Limpiar inputs existentes
@@ -396,27 +402,46 @@ class BerryUI {
                             <input type="number" class="form-control form-control-sm purchase-cost-input currency-input" 
                                    placeholder="0" min="0" step="1" value="${cost}">
                         </div>
-                        <button class="btn btn-sm btn-outline-${index === 0 ? 'primary add' : 'danger remove'}-cost-btn">
+                        <button class="btn btn-sm btn-outline-${index === 0 ? 'primary add-purchase-cost-btn' : 'danger remove-purchase-cost-btn'}">
                             ${index === 0 ? '+' : '-'}
                         </button>
                     `;
                     container.appendChild(inputGroup);
                 });
                 
-                // Re-setup event listeners
+                // Re-setup event listeners para inputs Y botones
                 this.setupExpenseInputListeners();
+                this.setupExpenseButtons();
             }
         }
 
         // Poblar costos de gestión
-        if (data.managementCosts && Array.isArray(data.managementCosts)) {
+        if (data.managementCosts) {
             const container = document.getElementById('managementCostsContainer');
             if (container) {
                 // Limpiar inputs existentes
                 container.innerHTML = '';
                 
+                // Manejar diferentes formatos de managementCosts
+                let costsArray = [];
+                if (Array.isArray(data.managementCosts)) {
+                    costsArray = data.managementCosts.filter(cost => cost > 0);
+                } else if (typeof data.managementCosts === 'object') {
+                    // Si es un objeto, extraer valores numéricos
+                    Object.values(data.managementCosts).forEach(value => {
+                        if (typeof value === 'number' && value > 0) {
+                            costsArray.push(value);
+                        }
+                    });
+                }
+                
+                // Si no hay costos, crear un input vacío
+                if (costsArray.length === 0) {
+                    costsArray = [0];
+                }
+                
                 // Crear inputs para cada costo
-                data.managementCosts.forEach((cost, index) => {
+                costsArray.forEach((cost, index) => {
                     const inputGroup = document.createElement('div');
                     inputGroup.className = 'cost-input-group';
                     inputGroup.innerHTML = `
@@ -425,20 +450,195 @@ class BerryUI {
                             <input type="number" class="form-control form-control-sm management-cost-input currency-input" 
                                    placeholder="0" min="0" step="1" value="${cost}">
                         </div>
-                        <button class="btn btn-sm btn-outline-${index === 0 ? 'primary add' : 'danger remove'}-cost-btn">
+                        <button class="btn btn-sm btn-outline-${index === 0 ? 'primary add-management-cost-btn' : 'danger remove-management-cost-btn'}">
                             ${index === 0 ? '+' : '-'}
                         </button>
                     `;
                     container.appendChild(inputGroup);
                 });
                 
-                // Re-setup event listeners
+                // Re-setup event listeners para inputs Y botones
                 this.setupExpenseInputListeners();
+                this.setupExpenseButtons();
             }
         }
 
-        // Recalcular todo
+        // Habilitar campos si están deshabilitados
+        this.enableFieldsAfterDataLoad();
+        
+        // Establecer valores para cálculos (asegurar que están establecidos)
+        this.setupCalculationValues(data);
+        
+        // Forzar actualización de la UI
+        this.updateUIAfterDataLoad();
+        
+        // Esperar un momento mayor para que el DOM se renderice completamente
+        await new Promise(resolve => setTimeout(resolve, 300));
+        
+        // Verificar que plantCount y characterCount están listos
+        if (!this.plantCount || !this.characterCount) {
+            const plantInput = document.getElementById('plantCountInput');
+            const charInput = document.getElementById('characterCountInput');
+            
+            if (plantInput && plantInput.value) {
+                this.plantCount = parseInt(plantInput.value) || 0;
+            }
+            if (charInput && charInput.value) {
+                this.characterCount = parseInt(charInput.value) || 0;
+            }
+        }
+        
+        // CRÍTICO: Forzar recálculo MÚLTIPLE para asegurar que todo se actualiza
+        this.forceRecalculateAllColumns();
+        
+        // Esperar un momento adicional antes del cálculo final
+        await new Promise(resolve => setTimeout(resolve, 100));
+        
+        // Recalcular todo una vez más para asegurar
         this.calculateAndRender();
+        
+        // Último recálculo después de 200ms más para casos edge
+        setTimeout(() => {
+            this.calculateAndRender();
+        }, 200);
+    }
+
+    /**
+     * Actualizar dropdown con sprite al cargar datos
+     */
+    async updateDropdownWithSprite(berryType) {
+        if (!berryType || berryType !== 'zanamas') return;
+        
+        const dropdownText = document.getElementById('dropdownText');
+        if (!dropdownText) return;
+        
+        try {
+            // Crear sprite para el dropdown
+            const traer = await fetch(`https://pokeapi.co/api/v2/item/leppa-berry/`);
+            const data = await traer.json();
+            const spriteUrl = data.sprites.default;
+            
+            // Crear imagen con clase CSS
+            const img = document.createElement('img');
+            img.src = spriteUrl;
+            img.alt = 'Leppa Berry';
+            img.className = 'dropdown-sprite';
+            
+            // Limpiar dropdown y agregar sprite + texto
+            dropdownText.innerHTML = '';
+            dropdownText.appendChild(img);
+            dropdownText.appendChild(document.createTextNode(window.languageManager.t('farming.calculator.leppa')));
+            
+        } catch (error) {
+            // Fallback sin sprite
+            dropdownText.textContent = window.languageManager.t('farming.calculator.leppa');
+        }
+    }
+
+    /**
+     * Establecer valores para cálculos al cargar datos
+     */
+    setupCalculationValues(data) {
+        // Establecer plantCount y characterCount para los cálculos
+        if (data.plantsPerCharacter) {
+            this.plantCount = data.plantsPerCharacter;
+        } else if (data.managementCosts && data.managementCosts.plantsPerCharacter) {
+            this.plantCount = data.managementCosts.plantsPerCharacter;
+        }
+        
+        if (data.characters) {
+            this.characterCount = data.characters;
+        }
+        
+        // Asegurar que los valores estén establecidos
+        if (!this.plantCount || !this.characterCount) {
+            const plantInput = document.getElementById('plantCountInput');
+            const charInput = document.getElementById('characterCountInput');
+            
+            if (plantInput && plantInput.value) {
+                this.plantCount = parseInt(plantInput.value) || 0;
+            }
+            if (charInput && charInput.value) {
+                this.characterCount = parseInt(charInput.value) || 0;
+            }
+        }
+    }
+
+    /**
+     * Habilitar campos después de cargar datos
+     */
+    enableFieldsAfterDataLoad() {
+        // Habilitar campos que podrían estar deshabilitados
+        const plantCountInput = document.getElementById('plantCountInput');
+        const characterCountInput = document.getElementById('characterCountInput');
+        
+        if (plantCountInput && plantCountInput.disabled) {
+            plantCountInput.disabled = false;
+        }
+        
+        if (characterCountInput && characterCountInput.disabled) {
+            characterCountInput.disabled = false;
+        }
+    }
+
+    /**
+     * Forzar recálculo explícito de todas las columnas al cargar datos
+     */
+    forceRecalculateAllColumns() {
+        // PASO 1: Verificar y establecer plantCount y characterCount
+        const plantInput = document.getElementById('plantCountInput');
+        const charInput = document.getElementById('characterCountInput');
+        
+        if (plantInput && plantInput.value) {
+            this.plantCount = parseInt(plantInput.value) || 0;
+        }
+        if (charInput && charInput.value) {
+            this.characterCount = parseInt(charInput.value) || 0;
+        }
+        
+        // Verificación de seguridad
+        if (!this.plantCount || !this.characterCount || this.plantCount <= 0 || this.characterCount <= 0) {
+            return;
+        }
+        
+        // PASO 2: Calcular conservación y zanamas INMEDIATAMENTE
+        this.calculateConservation();
+        
+        // PASO 3: Esperar un momento antes de calcular vendibles y ganancias
+        setTimeout(() => {
+            // Verificar que los elementos de conservación se actualizaron
+            const firstConservationElement = document.querySelector('[id^="conservation_"]');
+            
+            if (firstConservationElement && firstConservationElement.textContent !== '0' && firstConservationElement.textContent !== '') {
+                // Los valores se actualizaron, continuar con los cálculos
+                this.calculateSellable();
+                this.calculateProfits();
+                this.calculateExpenses();
+            } else {
+                // Intentar de nuevo después de un delay mayor
+                setTimeout(() => {
+                    this.calculateConservation();
+                    this.calculateSellable();
+                    this.calculateProfits();
+                    this.calculateExpenses();
+                }, 100);
+            }
+        }, 50);
+    }
+
+    /**
+     * Actualizar UI después de cargar datos
+     */
+    updateUIAfterDataLoad() {
+        // Mostrar el contenido principal si está oculto
+        const mainContent = document.getElementById('berryCalculatorMainContent');
+        if (mainContent && mainContent.style.display === 'none') {
+            mainContent.style.display = 'block';
+        }
+        
+        // NO necesitamos re-renderizar las tablas porque ya están renderizadas
+        // Las tablas se crean en handleBerrySelection() y se poblan con datos
+        // Solo necesitamos asegurarnos de que los elementos existen
     }
 
     /**
@@ -560,8 +760,6 @@ class BerryUI {
             const result = await window.authManager.deleteBerryCalculation(calculationName);
             
             if (result.success) {
-                console.log('✅ Calculation deleted:', calculationName);
-                
                 // Mostrar mensaje de éxito
                 alert(lm.getCurrentLanguage() === 'es' 
                     ? '✅ Cálculo eliminado correctamente'
@@ -570,13 +768,11 @@ class BerryUI {
                 // Re-renderizar la UI inicial para actualizar la lista
                 await this.renderInitialUI();
             } else {
-                console.error('❌ Delete error:', result.message);
                 alert(lm.getCurrentLanguage() === 'es' 
                     ? '❌ Error al eliminar el cálculo'
                     : '❌ Error deleting calculation');
             }
         } catch (error) {
-            console.error('❌ Delete error:', error);
             alert(lm.getCurrentLanguage() === 'es' 
                 ? '❌ Error al eliminar el cálculo'
                 : '❌ Error deleting calculation');
@@ -800,9 +996,8 @@ class BerryUI {
                     sprite.src = data.sprites.default;
                     sprite.alt = data.name;
                     sprite.style.display = 'block';
-                } catch (error) {
-                    console.error('Error loading berry sprite:', error);
-                }
+            } catch (error) {
+            }
             }
         }
     }
@@ -970,8 +1165,7 @@ class BerryUI {
                                     <input type="number" class="form-control form-control-sm purchase-cost-input currency-input" 
                                            placeholder="0" min="0" step="1">
                                 </div>
-                                <button class="btn btn-sm btn-outline-primary add-cost-btn" 
-                                        onclick="window.berryUI.addPurchaseCostInput()">+</button>
+                                <button class="btn btn-sm btn-outline-primary add-purchase-cost-btn" data-action="add-purchase">+</button>
                             </div>
                         </div>
                         <div class="summary-item total">
@@ -990,8 +1184,7 @@ class BerryUI {
                                     <input type="number" class="form-control form-control-sm management-cost-input currency-input" 
                                            placeholder="0" min="0" step="1">
                                 </div>
-                                <button class="btn btn-sm btn-outline-primary add-cost-btn" 
-                                        onclick="window.berryUI.addManagementCostInput()">+</button>
+                                <button class="btn btn-sm btn-outline-primary add-management-cost-btn" data-action="add-management">+</button>
                             </div>
                         </div>
                         <div class="summary-item total">
@@ -1014,6 +1207,9 @@ class BerryUI {
 
         // Configurar event listeners para inputs de gastos
         this.setupExpenseInputListeners();
+        
+        // Configurar botones de añadir/eliminar gastos
+        this.setupExpenseButtons();
     }
 
     // Cargar sprites de bayas desde API
@@ -1028,7 +1224,6 @@ class BerryUI {
                 sprite.src = data.sprites.default;
                 sprite.alt = data.name;
             } catch (error) {
-                console.error(`Error loading berry sprite for ${berryName}:`, error);
                 sprite.src = 'img/res/farm-icons/seeds/sweet.png'; // Fallback
             }
         }
@@ -1045,7 +1240,6 @@ class BerryUI {
             zanamasSprite.src = data.sprites.default;
             zanamasSprite.alt = data.name;
         } catch (error) {
-            console.error('Error loading Zanamas berry sprite:', error);
             zanamasSprite.src = 'img/res/farm-icons/seeds/sweet.png'; // Fallback
         }
     }
@@ -1255,7 +1449,9 @@ class BerryUI {
 
     // Calcular y renderizar resultados
     calculateAndRender() {
-        if (this.plantCount <= 0 || this.characterCount <= 0) return;
+        if (this.plantCount <= 0 || this.characterCount <= 0) {
+            return;
+        }
 
         this.calculateConservation();
         this.calculateSellable();
@@ -1428,7 +1624,6 @@ class BerryUI {
                 sprite.src = data.sprites.default;
                 sprite.alt = data.name;
             } catch (error) {
-                console.error(`Error loading berry sprite for ${berryName}:`, error);
                 sprite.src = 'img/res/farm-icons/seeds/sweet.png'; // Fallback
             }
         }
@@ -1477,6 +1672,75 @@ class BerryUI {
         });
     }
 
+    // Configurar botones de añadir/eliminar gastos usando EVENT DELEGATION
+    setupExpenseButtons() {
+        // Event delegation para contenedor de gastos de compra
+        const purchaseContainer = document.getElementById('purchaseCostsContainer');
+        if (purchaseContainer) {
+            // Remover listener anterior si existe (prevenir duplicados)
+            purchaseContainer.removeEventListener('click', this.handlePurchaseButtonClick);
+            // Bind para mantener contexto de 'this'
+            this.handlePurchaseButtonClick = this.handlePurchaseButtonClick.bind(this);
+            purchaseContainer.addEventListener('click', this.handlePurchaseButtonClick);
+        }
+
+        // Event delegation para contenedor de gastos de gestión
+        const managementContainer = document.getElementById('managementCostsContainer');
+        if (managementContainer) {
+            // Remover listener anterior si existe (prevenir duplicados)
+            managementContainer.removeEventListener('click', this.handleManagementButtonClick);
+            // Bind para mantener contexto de 'this'
+            this.handleManagementButtonClick = this.handleManagementButtonClick.bind(this);
+            managementContainer.addEventListener('click', this.handleManagementButtonClick);
+        }
+    }
+
+    // Handler para botones de gastos de compra
+    handlePurchaseButtonClick(e) {
+        const button = e.target.closest('button');
+        if (!button) return;
+
+        // Botón de añadir
+        if (button.classList.contains('add-purchase-cost-btn')) {
+            e.preventDefault();
+            this.addPurchaseCostInput();
+        }
+        // Botón de eliminar
+        else if (button.classList.contains('remove-purchase-cost-btn')) {
+            e.preventDefault();
+            const inputGroup = button.closest('.cost-input-group');
+            if (inputGroup) {
+                inputGroup.remove();
+                this.updatePurchaseCostsTotal();
+                this.calculateAndRender();
+                window.berryCalculator.scheduleAutoSave();
+            }
+        }
+    }
+
+    // Handler para botones de gastos de gestión
+    handleManagementButtonClick(e) {
+        const button = e.target.closest('button');
+        if (!button) return;
+
+        // Botón de añadir
+        if (button.classList.contains('add-management-cost-btn')) {
+            e.preventDefault();
+            this.addManagementCostInput();
+        }
+        // Botón de eliminar
+        else if (button.classList.contains('remove-management-cost-btn')) {
+            e.preventDefault();
+            const inputGroup = button.closest('.cost-input-group');
+            if (inputGroup) {
+                inputGroup.remove();
+                this.updateManagementCostsTotal();
+                this.calculateAndRender();
+                window.berryCalculator.scheduleAutoSave();
+            }
+        }
+    }
+
     // Añadir input de gasto de compra
     addPurchaseCostInput() {
         const container = document.getElementById('purchaseCostsContainer');
@@ -1488,17 +1752,21 @@ class BerryUI {
                 <input type="number" class="form-control form-control-sm purchase-cost-input currency-input" 
                        placeholder="0" min="0" step="1">
             </div>
-            <button class="btn btn-sm btn-outline-danger remove-cost-btn" 
-                    onclick="this.parentElement.remove(); window.berryUI.updatePurchaseCostsTotal();">-</button>
+            <button class="btn btn-sm btn-outline-danger remove-purchase-cost-btn">-</button>
         `;
         container.appendChild(newInputGroup);
         
-        // Configurar event listener para el nuevo input
+        // Configurar event listener SOLO para el nuevo input
         const newInput = newInputGroup.querySelector('.purchase-cost-input');
         newInput.addEventListener('input', () => {
             this.updatePurchaseCostsTotal();
             this.calculateAndRender();
+            window.berryCalculator.scheduleAutoSave();
         });
+        
+        // El botón usa event delegation, no necesita listener individual
+        // Hacer focus en el nuevo input
+        newInput.focus();
     }
 
     // Añadir input de gasto de gestión
@@ -1512,17 +1780,21 @@ class BerryUI {
                 <input type="number" class="form-control form-control-sm management-cost-input currency-input" 
                        placeholder="0" min="0" step="1">
             </div>
-            <button class="btn btn-sm btn-outline-danger remove-cost-btn" 
-                    onclick="this.parentElement.remove(); window.berryUI.updateManagementCostsTotal();">-</button>
+            <button class="btn btn-sm btn-outline-danger remove-management-cost-btn">-</button>
         `;
         container.appendChild(newInputGroup);
         
-        // Configurar event listener para el nuevo input
+        // Configurar event listener SOLO para el nuevo input
         const newInput = newInputGroup.querySelector('.management-cost-input');
         newInput.addEventListener('input', () => {
             this.updateManagementCostsTotal();
             this.calculateAndRender();
+            window.berryCalculator.scheduleAutoSave();
         });
+        
+        // El botón usa event delegation, no necesita listener individual
+        // Hacer focus en el nuevo input
+        newInput.focus();
     }
 
     // Actualizar total de gastos de compra

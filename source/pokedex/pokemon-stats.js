@@ -69,7 +69,6 @@ class PokemonStats {
             return effectiveness;
             
         } catch (error) {
-            console.error('Error calculating type effectiveness:', error);
             return {
                 '4x': [],
                 '2x': [],

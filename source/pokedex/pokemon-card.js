@@ -29,7 +29,6 @@ class PokemonCard {
             // Check if ability is from Gen V or earlier (Gen I-V = 1-5)
             const abilityGenId = parseInt(abilityData.generation.url.split('/').slice(-2, -1)[0]);
             if (abilityGenId > 5) {
-                console.warn(`Ability ${abilityName} is from Gen ${abilityGenId}, skipping`);
                 return null;
             }
             
@@ -37,7 +36,6 @@ class PokemonCard {
             const nameEntry = abilityData.names.find(entry => entry.language.name === lang);
             return nameEntry ? nameEntry.name : window.PokeUtils.capitalizeFirst(abilityName.replace('-', ' '));
         } catch (error) {
-            console.error('Error fetching ability name:', error);
             const abilityName = abilityUrl.split('/').slice(-2, -1)[0];
             return window.PokeUtils.capitalizeFirst(abilityName.replace('-', ' '));
         }
@@ -56,7 +54,6 @@ class PokemonCard {
             const nameEntry = itemData.names.find(entry => entry.language.name === lang);
             return nameEntry ? nameEntry.name : window.PokeUtils.capitalizeFirst(itemName.replace('-', ' '));
         } catch (error) {
-            console.error('Error fetching item name:', error);
             const itemName = itemUrl.split('/').slice(-2, -1)[0];
             return window.PokeUtils.capitalizeFirst(itemName.replace('-', ' '));
         }
@@ -119,7 +116,6 @@ class PokemonCard {
             this.initializeTypeEffectiveness();
             
         } catch (error) {
-            console.error('❌ Error in PokemonCard.render:', error);
             throw error;
         }
     }
@@ -326,12 +322,10 @@ class PokemonCard {
         const effectivenessContainer = document.getElementById('typeEffectiveness');
         
         if (!effectivenessContainer) {
-            console.error('❌ typeEffectiveness element not found in DOM');
             return;
         }
         
         if (!effectiveness || typeof effectiveness !== 'object') {
-            console.error('❌ effectiveness is not a valid object:', effectiveness);
             effectivenessContainer.innerHTML = `
                 <div class="error">
                     Error: Type effectiveness data is invalid
@@ -544,7 +538,6 @@ class PokemonCard {
             
             this.renderEvolutionChain(evolutionChain.chain);
         } catch (error) {
-            console.error('❌ Error loading evolution chain:', error);
             evolutionContainer.innerHTML = `
                 <div class="error">
                     Error loading evolution chain: ${error.message}
@@ -613,15 +606,12 @@ class PokemonCard {
     }
     
     async initializeTypeEffectiveness() {
-        
         try {
-            
             const pokemonStats = new PokemonStats(this.pokemon);
             const effectiveness = await pokemonStats.calculateTypeEffectiveness();
             
             this.renderTypeEffectiveness(effectiveness);
         } catch (error) {
-            console.error('❌ Error in initializeTypeEffectiveness:', error);
             const effectivenessContainer = document.getElementById('typeEffectiveness');
             if (effectivenessContainer) {
                 effectivenessContainer.innerHTML = `
@@ -685,7 +675,6 @@ class PokemonCard {
             const nameEntry = move.names.find(entry => entry.language.name === lang);
             return nameEntry ? nameEntry.name : window.PokeUtils.capitalizeFirst(move.name.replace('-', ' '));
         } catch (error) {
-            console.error('Error fetching move name:', error, move);
             return window.PokeUtils.capitalizeFirst(move.name.replace('-', ' '));
         }
     }

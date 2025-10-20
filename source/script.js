@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', initializeApp);
 
 async function initializeApp() {
     if (!window.authManager) {
-        console.error('❌ AuthManager not available');
         return;
     }
     
@@ -14,10 +13,7 @@ async function initializeApp() {
     
     // Precargar datos de movimientos y objetos de PokeAPI
     if (window.pokemonDataLoader) {
-        console.log('🚀 Iniciando precarga de datos de PokeAPI...');
-        window.pokemonDataLoader.preloadData().catch(err => {
-            console.error('⚠️ Error precargando datos:', err);
-        });
+        window.pokemonDataLoader.preloadData().catch(err => {});
     }
     
     initializeTabs();
@@ -540,6 +536,9 @@ function toggleTheme() {
     const isLight = document.body.classList.toggle('light-theme');
     updateThemeIcons(isLight);
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    
+    // Actualizar tablas dinámicamente
+    updateTablesTheme(isLight);
 }
 
 function loadSavedTheme() {
@@ -550,6 +549,9 @@ function loadSavedTheme() {
         document.body.classList.add('light-theme');
     }
     updateThemeIcons(isLight);
+    
+    // Actualizar tablas si ya existen en el DOM
+    updateTablesTheme(isLight);
 }
 
 function updateThemeIcons(isLight) {
@@ -558,6 +560,24 @@ function updateThemeIcons(isLight) {
     
     sunIcon.style.display = isLight ? 'none' : 'block';
     moonIcon.style.display = isLight ? 'block' : 'none';
+}
+
+/**
+ * Actualizar clases de tablas dinámicamente cuando cambia el tema
+ */
+function updateTablesTheme(isLight) {
+    // Actualizar TODAS las tablas con clase table-dark o table-light
+    document.querySelectorAll('table').forEach(table => {
+        if (isLight) {
+            // Cambiar a tema claro
+            table.classList.remove('table-dark');
+            table.classList.add('table-light');
+        } else {
+            // Cambiar a tema oscuro
+            table.classList.remove('table-light');
+            table.classList.add('table-dark');
+        }
+    });
 }
 
 // ===== MOBILE OVERLAY SYSTEM =====
@@ -817,7 +837,6 @@ async function initializeBerryCalculator() {
     try {
         await window.berryCalculator.init();
     } catch (error) {
-        console.error('❌ Berry Calculator error:', error);
     }
 }
 
@@ -826,7 +845,6 @@ async function initializePVPTeams() {
     try {
         await window.pvpTeams.init();
     } catch (error) {
-        console.error('❌ PVP Teams error:', error);
     }
 }
 
@@ -866,7 +884,6 @@ async function reRenderAuthenticationDependentComponents() {
             await window.pvpTeamsUI.updateTranslations();
         }
     } catch (error) {
-        console.error('❌ Error re-rendering auth dependent components:', error);
     }
 }
 
@@ -884,7 +901,6 @@ function initializeAuth() {
     if (loginForm) {
         loginForm.addEventListener('submit', handleLogin);
     } else {
-        console.error('❌ Login form not found');
     }
     
     // Register Form
@@ -894,7 +910,6 @@ function initializeAuth() {
         setupRegisterValidation();
         setupLoginValidation();
     } else {
-        console.error('❌ Register form not found');
     }
     
     // Logout Button
@@ -910,7 +925,6 @@ function initializeAuth() {
             document.getElementById('mainCard').style.display = 'none';
         });
     } else {
-        console.error('❌ Dropdown login button not found');
     }
     
     // User Pill Dropdown
@@ -1120,7 +1134,6 @@ async function handleLogin(e) {
             messageEl.textContent = result.message;
         }
     } catch (error) {
-        console.error('❌ Login error:', error);
         messageEl.className = 'auth-message error';
         messageEl.textContent = 'Error inesperado. Inténtalo de nuevo.';
     }
@@ -1159,7 +1172,6 @@ async function handleRegister(e) {
             messageEl.textContent = result.message;
         }
     } catch (error) {
-        console.error('❌ Register error:', error);
         messageEl.className = 'auth-message error';
         messageEl.textContent = 'Error inesperado. Inténtalo de nuevo.';
     }

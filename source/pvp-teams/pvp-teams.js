@@ -19,7 +19,6 @@ class PVPTeams {
             await window.pvpTeamsUI.renderInitialUI();
             this.isInitialized = true;
         } catch (error) {
-            console.error('❌ PVP Teams init error:', error);
         }
     }
 
@@ -39,7 +38,6 @@ class PVPTeams {
         const result = await window.authManager.loadPVPTeam(teamName);
         
         if (!result.success) {
-            console.error('❌ Load team error:', result.message);
             return false;
         }
         
@@ -76,7 +74,6 @@ class PVPTeams {
         
         // Validar que hay nombre válido antes de programar
         if (!this.currentTeam || !this.currentTeam.trim()) {
-            console.log('🚫 Auto-save cancelled: No valid team name');
             return;
         }
         
@@ -92,7 +89,6 @@ class PVPTeams {
         if (this.autoSaveTimeout) {
             clearTimeout(this.autoSaveTimeout);
             this.autoSaveTimeout = null;
-            console.log('🚫 Auto-save cancelled');
         }
     }
 
@@ -102,19 +98,16 @@ class PVPTeams {
     async performAutoSave() {
         // Validaciones múltiples antes de guardar
         if (this.isSaving) {
-            console.log('🚫 Auto-save skipped: Already saving');
             return;
         }
         
         if (!this.currentTeam || !this.currentTeam.trim()) {
-            console.log('🚫 Auto-save skipped: No valid team name');
             return;
         }
         
         // Verificar que el nombre en el input sigue siendo válido
         const nameInput = document.getElementById('teamNameInput');
         if (nameInput && (!nameInput.value || !nameInput.value.trim())) {
-            console.log('🚫 Auto-save skipped: Name input is empty');
             return;
         }
         
@@ -125,7 +118,6 @@ class PVPTeams {
             
             // Validación final: asegurar que el nombre está en los datos
             if (!teamData.teamName || !teamData.teamName.trim()) {
-                console.log('🚫 Auto-save skipped: No name in team data');
                 return;
             }
             
@@ -137,12 +129,10 @@ class PVPTeams {
             if (result.success) {
                 window.pvpTeamsUI.showSaveIndicator('success');
             } else {
-                console.error('❌ Auto-save error:', result.message);
                 window.pvpTeamsUI.showSaveIndicator('error');
             }
             
         } catch (error) {
-            console.error('❌ Auto-save error:', error);
             window.pvpTeamsUI.showSaveIndicator('error');
         } finally {
             this.isSaving = false;

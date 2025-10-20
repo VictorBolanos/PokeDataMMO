@@ -47,16 +47,11 @@ class PokemonDataLoader {
                 const batchPromises = batch.map(move => 
                     fetch(move.url)
                         .then(res => res.json())
-                        .catch(err => {
-                            console.warn(`⚠️ Error cargando ${move.name}:`, err);
-                            return null;
-                        })
+                        .catch(err => null)
                 );
                 
                 const batchResults = await Promise.all(batchPromises);
                 moves.push(...batchResults.filter(m => m !== null));
-                
-                console.log(`📊 Progreso: ${Math.min(i + batchSize, data.results.length)}/${data.results.length}`);
             }
             
             // Filtrar y formatear movimientos
@@ -76,12 +71,10 @@ class PokemonDataLoader {
                 }))
                 .sort((a, b) => a.displayName.localeCompare(b.displayName));
             
-            console.log(`✅ ${this.movesCache.length} movimientos cargados y cacheados`);
             this.isLoadingMoves = false;
             return this.movesCache;
             
         } catch (error) {
-            console.error('❌ Error cargando movimientos:', error);
             this.isLoadingMoves = false;
             return [];
         }
@@ -92,12 +85,10 @@ class PokemonDataLoader {
      */
     async loadAllItems() {
         if (this.itemsCache) {
-            console.log('✅ Items ya cargados desde caché');
             return this.itemsCache;
         }
 
         if (this.isLoadingItems) {
-            console.log('⏳ Items ya se están cargando...');
             while (this.isLoadingItems) {
                 await new Promise(resolve => setTimeout(resolve, 100));
             }
@@ -105,14 +96,11 @@ class PokemonDataLoader {
         }
 
         this.isLoadingItems = true;
-        console.log('🔄 Cargando objetos de PokeAPI...');
 
         try {
             // Obtener lista completa de items
             const response = await fetch(`https://pokeapi.co/api/v2/item?limit=${this.MAX_ITEM_ID}`);
             const data = await response.json();
-            
-            console.log(`📥 Cargando ${data.results.length} objetos...`);
             
             // Cargar detalles de items en lotes
             const items = [];
@@ -123,16 +111,11 @@ class PokemonDataLoader {
                 const batchPromises = batch.map(item => 
                     fetch(item.url)
                         .then(res => res.json())
-                        .catch(err => {
-                            console.warn(`⚠️ Error cargando ${item.name}:`, err);
-                            return null;
-                        })
+                        .catch(err => null)
                 );
                 
                 const batchResults = await Promise.all(batchPromises);
                 items.push(...batchResults.filter(i => i !== null));
-                
-                console.log(`📊 Progreso: ${Math.min(i + batchSize, data.results.length)}/${data.results.length}`);
             }
             
             // Filtrar items holdables Y items con categoría held-items
@@ -162,12 +145,10 @@ class PokemonDataLoader {
                 }))
                 .sort((a, b) => a.displayName.localeCompare(b.displayName));
             
-            console.log(`✅ ${this.itemsCache.length} objetos holdables y held-items cargados y cacheados`);
             this.isLoadingItems = false;
             return this.itemsCache;
             
         } catch (error) {
-            console.error('❌ Error cargando objetos:', error);
             this.isLoadingItems = false;
             return [];
         }
@@ -249,8 +230,6 @@ class PokemonDataLoader {
         
         // Re-ordenar alfabéticamente
         this.itemsCache.sort((a, b) => a.displayName.localeCompare(b.displayName));
-        
-        console.log('✅ Traducciones de items actualizadas');
     }
 
     /**
@@ -265,8 +244,6 @@ class PokemonDataLoader {
         
         // Re-ordenar alfabéticamente
         this.movesCache.sort((a, b) => a.displayName.localeCompare(b.displayName));
-        
-        console.log('✅ Traducciones de movimientos actualizadas');
     }
 
     /**
@@ -292,7 +269,6 @@ class PokemonDataLoader {
             
             return this.abilitiesCache[abilityName];
         } catch (error) {
-            console.error(`❌ Error cargando habilidad ${abilityName}:`, error);
             return {
                 name: abilityName,
                 displayName: window.PokeUtils.formatName(abilityName),
@@ -346,10 +322,7 @@ class PokemonDataLoader {
                 const batchPromises = batch.map(ability => 
                     fetch(ability.url)
                         .then(res => res.json())
-                        .catch(err => {
-                            console.warn(`⚠️ Error cargando habilidad ${ability.name}:`, err);
-                            return null;
-                        })
+                        .catch(err => null)
                 );
 
                 const batchResults = await Promise.all(batchPromises);
@@ -367,7 +340,6 @@ class PokemonDataLoader {
             this.isLoadingAbilities = false;
             return this.allAbilitiesCache;
         } catch (error) {
-            console.error('❌ Error cargando habilidades:', error);
             this.isLoadingAbilities = false;
             return [];
         }
@@ -395,8 +367,6 @@ class PokemonDataLoader {
             });
             this.allAbilitiesCache.sort((a, b) => a.displayName.localeCompare(b.displayName));
         }
-
-        console.log('✅ Traducciones de habilidades actualizadas');
     }
 
     /**
@@ -417,21 +387,13 @@ class PokemonDataLoader {
      * Precargar datos al inicio
      */
     async preloadData() {
-        console.log('🚀 Precargando datos de PokeAPI...');
         try {
             await Promise.all([
                 this.loadAllMoves(),
                 this.loadAllItems(),
                 this.loadAllAbilities()
             ]);
-            console.log('✅ Datos precargados completamente');
-            console.log('📊 Resumen:', {
-                moves: this.movesCache?.length || 0,
-                items: this.itemsCache?.length || 0,
-                abilities: this.allAbilitiesCache?.length || 0
-            });
         } catch (error) {
-            console.error('❌ Error en precarga:', error);
         }
     }
 }

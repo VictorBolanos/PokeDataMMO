@@ -151,7 +151,6 @@ class PVPTeamUI {
             const pokemonData = await window.pokemonBuilder.fetchPokemon(essentialData.id || essentialData.name);
             
             if (!pokemonData) {
-                console.error('❌ No se pudo cargar Pokémon:', essentialData.name);
                 return null;
             }
             
@@ -166,17 +165,7 @@ class PVPTeamUI {
             if (essentialData.nature) {
                 const natures = await window.pvpTeamData.loadNatures();
                 natureObject = natures.find(n => n.name === essentialData.nature);
-                if (!natureObject) {
-                    console.warn('⚠️ Naturaleza no encontrada:', essentialData.nature);
-                } else {
-                    console.log('✅ Naturaleza encontrada:', essentialData.nature, '→', natureObject);
-                }
             }
-            
-            // Debug: Verificar habilidad
-            console.log('🔍 Reconstruyendo Pokémon:', essentialData.name);
-            console.log('🔍 Habilidad guardada:', essentialData.ability);
-            console.log('🔍 Naturaleza guardada:', essentialData.nature);
             
             // Reconstruir objeto Pokémon completo
             const pokemon = {
@@ -215,7 +204,6 @@ class PVPTeamUI {
             return pokemon;
             
         } catch (error) {
-            console.error('❌ Error reconstruyendo Pokémon:', error);
             return null;
         }
     }
@@ -450,42 +438,30 @@ class PVPTeamUI {
      * Inicializa dropdowns personalizados (items y movimientos) para todos los slots presentes en DOM
      */
     initCustomDropdownsForAllCurrentSlots() {
-        console.log('🔧 initCustomDropdownsForAllCurrentSlots llamado');
-        
         // Items
         const itemWrappers = document.querySelectorAll('.custom-item-select-wrapper');
-        console.log('🔍 Encontrados', itemWrappers.length, 'wrappers de items');
         
         itemWrappers.forEach((wrapper, index) => {
             const slotIndex = parseInt(wrapper.dataset.slot);
             const selectedItem = this.currentTeam.pokemons?.[slotIndex]?.item || '';
-            console.log(`🔧 Inicializando item dropdown ${index}: slot=${slotIndex}, item=${selectedItem}`);
             
             if (window.customDropdowns && Number.isInteger(slotIndex)) {
                 window.customDropdowns.initItemSelect(slotIndex, selectedItem);
-            } else {
-                console.warn('⚠️ No se puede inicializar item dropdown:', { slotIndex, customDropdowns: !!window.customDropdowns });
             }
         });
 
         // Moves
         const moveWrappers = document.querySelectorAll('.custom-move-select-wrapper');
-        console.log('🔍 Encontrados', moveWrappers.length, 'wrappers de movimientos');
         
         moveWrappers.forEach((wrapper, index) => {
             const slotIndex = parseInt(wrapper.dataset.slot);
             const moveIndex = parseInt(wrapper.dataset.moveIndex);
             const selectedMove = this.currentTeam.pokemons?.[slotIndex]?.moves?.[moveIndex] || '';
-            console.log(`🔧 Inicializando move dropdown ${index}: slot=${slotIndex}, moveIndex=${moveIndex}, move=${selectedMove}`);
             
             if (window.customDropdowns && Number.isInteger(slotIndex) && Number.isInteger(moveIndex)) {
                 window.customDropdowns.initMoveSelect(slotIndex, moveIndex, selectedMove);
-            } else {
-                console.warn('⚠️ No se puede inicializar move dropdown:', { slotIndex, moveIndex, customDropdowns: !!window.customDropdowns });
             }
         });
-        
-        console.log('✅ initCustomDropdownsForAllCurrentSlots completado');
     }
 
     /**
@@ -762,9 +738,6 @@ class PVPTeamUI {
         // Poblar naturalezas
         const natureSelect = document.getElementById(`nature_${slotIndex}`);
         if (natureSelect) {
-            console.log('🔍 Poblando naturalezas para slot', slotIndex, 'Pokémon:', pokemon.name);
-            console.log('🔍 Naturaleza actual:', pokemon.nature);
-            
             const natures = await window.pvpTeamData.loadNatures();
             natures.forEach(nature => {
                 const option = document.createElement('option');
@@ -780,7 +753,6 @@ class PVPTeamUI {
                 
                 if (isSelected) {
                     option.selected = true;
-                    console.log('✅ Naturaleza seleccionada:', nature.name);
                 }
                 natureSelect.appendChild(option);
             });
@@ -789,9 +761,6 @@ class PVPTeamUI {
         // Poblar habilidades
         const abilitySelect = document.getElementById(`ability_${slotIndex}`);
         if (abilitySelect) {
-            console.log('🔍 Poblando habilidades para slot', slotIndex, 'Pokémon:', pokemon.name);
-            console.log('🔍 Habilidad actual:', pokemon.ability);
-
             // Cargar TODAS las habilidades para compatibilidad con PokeMMO
             const allAbilities = await window.pokemonDataLoader.loadAllAbilities();
 
@@ -804,7 +773,6 @@ class PVPTeamUI {
                 option.textContent = ability.displayName;
                 if (pokemon.ability === ability.name) {
                     option.selected = true;
-                    console.log('✅ Habilidad seleccionada:', ability.name);
                 }
                 abilitySelect.appendChild(option);
             });

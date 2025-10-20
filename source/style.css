@@ -1,19 +1,7 @@
 /* PokeDataMMO - CSS Ultra Optimizado (Bootstrap-First) */
 
 /* ===== VARIABLES DE TEMA DE COLOR ===== */
-:root {
-    /* Tema Estándar */
-    --primary-color-dark: #dc2626;
-    --primary-color-light: #dc2626;
-    --primary-hover-dark: #b91c1c;
-    --primary-hover-light: #b91c1c;
-    --primary-bg-dark: rgba(220, 38, 38, 0.2);
-    --primary-bg-light: rgba(220, 38, 38, 0.15);
-    --primary-border-dark: rgba(220, 38, 38, 0.4);
-    --primary-border-light: rgba(220, 38, 38, 0.3);
-}
-
-/* Tema Rojo */
+:root,
 [data-color-theme="red"] {
     --primary-color-dark: #dc2626;
     --primary-color-light: #dc2626;
@@ -188,13 +176,18 @@ body.light-theme {
     margin: 0 auto;
 }
 
-/* Tarjetas de características */
+/* Cards comunes (feature, highlight, summary) */
+.feature-card,
+.highlight-card,
+.summary-card {
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
 .feature-card {
     background: rgba(255, 255, 255, 0.05);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 15px;
     padding: 1.5rem;
-    transition: all 0.3s ease;
     backdrop-filter: blur(10px);
 }
 
@@ -236,13 +229,10 @@ body.light-theme {
     font-size: 0.9rem;
 }
 
-/* Tarjetas de destacados */
 .highlight-card {
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
     padding: 2rem 1.5rem;
-    transition: all 0.3s ease;
 }
 
 .highlight-card:hover {
@@ -289,43 +279,29 @@ body.light-theme .home-description {
     color: rgba(0, 0, 0, 0.7);
 }
 
-body.light-theme .feature-card {
+body.light-theme .feature-card,
+body.light-theme .highlight-card {
     background: rgba(0, 0, 0, 0.05);
     border-color: rgba(0, 0, 0, 0.1);
 }
 
-body.light-theme .feature-card:hover {
+body.light-theme .feature-card:hover,
+body.light-theme .highlight-card:hover {
     background: rgba(0, 0, 0, 0.08);
     border-color: var(--primary-color);
 }
 
-body.light-theme .feature-title {
-    color: #1a1a1a;
-}
-
-body.light-theme .feature-description {
-    color: rgba(0, 0, 0, 0.7);
-}
-
-body.light-theme .feature-list li {
-    color: rgba(0, 0, 0, 0.6);
-}
-
-body.light-theme .highlight-card {
-    background: rgba(0, 0, 0, 0.03);
-    border-color: rgba(0, 0, 0, 0.05);
-}
-
-body.light-theme .highlight-card:hover {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: var(--primary-color);
-}
-
+body.light-theme .feature-title,
 body.light-theme .highlight-card h4 {
     color: #1a1a1a;
 }
 
+body.light-theme .feature-description,
 body.light-theme .highlight-card p {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+body.light-theme .feature-list li {
     color: rgba(0, 0, 0, 0.6);
 }
 
@@ -579,39 +555,11 @@ body.light-theme .hamburger-menu-separator {
     position: relative;
 }
 
-.language-btn {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.8);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(2px);
-    padding: 0;
-    overflow: hidden;
-}
-
-.language-btn:hover {
-    background: rgba(0, 0, 0, 0.9);
-    border-color: rgba(255, 255, 255, 0.6);
-    transform: scale(1.05);
-}
-
 .language-icon {
     width: 26px;
     height: 26px;
     object-fit: cover;
-    transition: transform 0.3s ease;
     border-radius: 50%;
-}
-
-.language-btn:hover .language-icon {
-    transform: scale(1.1);
 }
 
 /* ===== THEME FEATURE ===== */
@@ -619,105 +567,36 @@ body.light-theme .hamburger-menu-separator {
     position: relative;
 }
 
-.theme-btn {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.8);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(2px);
-}
-
-.theme-btn:hover {
-    background: rgba(0, 0, 0, 0.9);
-    border-color: rgba(255, 255, 255, 0.6);
-    transform: scale(1.05);
-}
-
-.theme-btn svg {
-    transition: transform 0.3s ease;
-}
-
-.theme-btn:hover svg {
-    transform: scale(1.1);
-}
-
 /* ===== MUSIC PLAYER FEATURE ===== */
 .music-container {
     position: relative;
 }
 
-.music-btn {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.8);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(2px);
-}
-
-.music-btn:hover {
-    background: rgba(0, 0, 0, 0.9);
-    border-color: rgba(255, 255, 255, 0.6);
-    transform: scale(1.05);
-}
-
-.music-btn svg {
-    transition: transform 0.3s ease;
-}
-
-.music-btn:hover svg {
-    transform: scale(1.1);
-}
-
 .music-dropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    margin-top: 10px;
-    background: rgba(30, 30, 30, 0.95);
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(2px);
     padding: 13px;
     width: 308px;
     max-height: 385px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
-    z-index: 1001;
 }
 
-.music-dropdown.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-.music-header {
+/* Headers compartidos (music, wallpaper, dropdown) */
+.music-header,
+.wallpaper-header,
+.dropdown-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 9px;
-    padding-bottom: 7px;
+    padding-bottom: 10px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.music-header h6 {
+.music-header {
+    margin-bottom: 9px;
+    padding-bottom: 7px;
+}
+
+.music-header h6,
+.wallpaper-header h6,
+.dropdown-header h6 {
     color: white;
     font-weight: 600;
     margin: 0;
@@ -906,75 +785,15 @@ body.light-theme .hamburger-menu-separator {
     position: relative;
 }
 
-.wallpaper-btn {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.8);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(2px);
-}
-
-.wallpaper-btn:hover {
-    background: rgba(0, 0, 0, 0.9);
-    border-color: rgba(255, 255, 255, 0.6);
-    transform: scale(1.05);
-}
-
-.wallpaper-btn svg {
-    transition: transform 0.3s ease;
-}
-
-.wallpaper-btn:hover svg {
-    transform: scale(1.1);
-}
-
 .wallpaper-dropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    margin-top: 10px;
-    background: rgba(30, 30, 30, 0.95);
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(2px);
     padding: 20px;
     width: 400px;
     max-height: 500px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
-    z-index: 1001;
     overflow-x: hidden;
 }
 
-.wallpaper-dropdown.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
 .wallpaper-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.wallpaper-header h6 {
-    color: white;
-    font-weight: 600;
-    margin: 0;
 }
 
 .close-btn {
@@ -1262,8 +1081,8 @@ footer.footer-custom {
 }
 
 
-/* Selector Buttons */
-.selector-btn {
+/* === BOTONES CIRCULARES DEL HEADER (CONSOLIDADO) === */
+.selector-btn, .language-btn, .theme-btn, .music-btn, .wallpaper-btn {
     width: 45px;
     height: 45px;
     border-radius: 50%;
@@ -1276,21 +1095,24 @@ footer.footer-custom {
     align-items: center;
     justify-content: center;
     backdrop-filter: blur(2px);
+    padding: 0;
 }
 
-.selector-btn:hover {
+.selector-btn:hover, .language-btn:hover, .theme-btn:hover, .music-btn:hover, .wallpaper-btn:hover {
     background: rgba(0, 0, 0, 0.9);
     border-color: rgba(255, 255, 255, 0.6);
     transform: scale(1.05);
 }
 
-.selector-btn svg,
-.selector-btn img.selector-icon {
+.selector-btn svg, .selector-btn img.selector-icon,
+.language-btn svg, .theme-btn svg, .music-btn svg, .wallpaper-btn svg,
+.language-icon {
     transition: transform 0.3s ease;
 }
 
-.selector-btn:hover svg,
-.selector-btn:hover img.selector-icon {
+.selector-btn:hover svg, .selector-btn:hover img.selector-icon,
+.language-btn:hover svg, .theme-btn:hover svg, .music-btn:hover svg, .wallpaper-btn:hover svg,
+.language-btn:hover .language-icon {
     transform: scale(1.1);
 }
 
@@ -1320,8 +1142,12 @@ footer.footer-custom {
     transform: scale(1.05);
 }
 
-/* Font Dropdown */
-.font-dropdown {
+/* Dropdowns compartidos (font, color, wallpaper, music, user) */
+.font-dropdown,
+.color-dropdown,
+.wallpaper-dropdown,
+.music-dropdown,
+.user-dropdown {
     position: absolute;
     top: 100%;
     right: 0;
@@ -1331,9 +1157,6 @@ footer.footer-custom {
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(2px);
-    padding: 20px;
-    width: 300px;
-    max-height: 400px;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-10px);
@@ -1341,25 +1164,24 @@ footer.footer-custom {
     z-index: 1001;
 }
 
-.font-dropdown.show {
+.font-dropdown.show,
+.color-dropdown.show,
+.wallpaper-dropdown.show,
+.music-dropdown.show,
+.user-dropdown.show {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
 }
 
-.dropdown-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+.font-dropdown {
+    padding: 20px;
+    width: 300px;
+    max-height: 400px;
 }
 
-.dropdown-header h6 {
-    color: white;
-    font-weight: 600;
-    margin: 0;
+.dropdown-header {
+    margin-bottom: 15px;
 }
 
 .font-list {
@@ -1392,30 +1214,9 @@ footer.footer-custom {
     border-color: var(--primary-color);
 }
 
-/* Color Dropdown */
 .color-dropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    margin-top: 10px;
-    background: rgba(30, 30, 30, 0.95);
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(2px);
     padding: 15px;
     width: 180px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
-    z-index: 1001;
-}
-
-.color-dropdown.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
 }
 
 .color-grid {
@@ -1508,32 +1309,19 @@ body.light-theme .footer-text {
     color: rgba(0, 0, 0, 0.7);
 }
 
-/* Light Theme - Selectors */
-body.light-theme .selector-btn {
-    background: rgba(255, 255, 255, 0.8);
-    border-color: rgba(0, 0, 0, 0.3);
-}
-
-body.light-theme .selector-btn:hover {
-    background: rgba(255, 255, 255, 0.9);
-    border-color: rgba(0, 0, 0, 0.6);
-}
-
-body.light-theme .selector-btn svg path {
-    fill: #000;
-}
-
-body.light-theme .selector-btn img.selector-icon {
-    filter: brightness(0) invert(0);
-}
-
+/* Light theme - Dropdowns */
 body.light-theme .font-dropdown,
-body.light-theme .color-dropdown {
+body.light-theme .color-dropdown,
+body.light-theme .wallpaper-dropdown,
+body.light-theme .music-dropdown,
+body.light-theme .user-dropdown {
     background: rgba(255, 255, 255, 0.95);
     border-color: rgba(0, 0, 0, 0.1);
 }
 
-body.light-theme .dropdown-header h6 {
+body.light-theme .dropdown-header h6,
+body.light-theme .music-header h6,
+body.light-theme .wallpaper-header h6 {
     color: #000;
 }
 
@@ -1563,52 +1351,9 @@ body.light-theme .color-item.selected {
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
 }
 
-body.light-theme .theme-btn {
-    background: rgba(255, 255, 255, 0.8);
-    border-color: rgba(0, 0, 0, 0.3);
-}
+/* Botones tema claro - ya consolidado arriba */
 
-body.light-theme .theme-btn:hover {
-    background: rgba(255, 255, 255, 0.9);
-    border-color: rgba(0, 0, 0, 0.6);
-}
-
-body.light-theme .theme-btn svg path {
-    fill: #000;
-}
-
-body.light-theme .language-btn {
-    background: rgba(255, 255, 255, 0.8);
-    border-color: rgba(0, 0, 0, 0.3);
-}
-
-body.light-theme .language-btn:hover {
-    background: rgba(255, 255, 255, 0.9);
-    border-color: rgba(0, 0, 0, 0.6);
-}
-
-body.light-theme .wallpaper-btn {
-    background: rgba(255, 255, 255, 0.8);
-    border-color: rgba(0, 0, 0, 0.3);
-}
-
-body.light-theme .wallpaper-btn:hover {
-    background: rgba(255, 255, 255, 0.9);
-    border-color: rgba(0, 0, 0, 0.6);
-}
-
-body.light-theme .wallpaper-btn svg path {
-    fill: #000;
-}
-
-body.light-theme .wallpaper-dropdown {
-    background: rgba(255, 255, 255, 0.95);
-    border-color: rgba(0, 0, 0, 0.1);
-}
-
-body.light-theme .wallpaper-header h6 {
-    color: #000;
-}
+/* Wallpaper dropdown - ya consolidado */
 
 body.light-theme .close-btn {
     color: rgba(0, 0, 0, 0.6);
@@ -1702,33 +1447,13 @@ body.light-theme strong {
     color: #000;
 }
 
-body.light-theme .text-white {
+body.light-theme .text-white,
+body.light-theme .form-label.text-white,
+body.light-theme label.text-white {
     color: #000 !important;
 }
 
-/* ===== LIGHT THEME - MUSIC PLAYER ===== */
-body.light-theme .music-btn {
-    background: rgba(255, 255, 255, 0.8);
-    border-color: rgba(0, 0, 0, 0.3);
-}
-
-body.light-theme .music-btn:hover {
-    background: rgba(255, 255, 255, 0.9);
-    border-color: rgba(0, 0, 0, 0.6);
-}
-
-body.light-theme .music-btn svg path {
-    fill: #000;
-}
-
-body.light-theme .music-dropdown {
-    background: rgba(255, 255, 255, 0.95);
-    border-color: rgba(0, 0, 0, 0.1);
-}
-
-body.light-theme .music-header h6 {
-    color: #000;
-}
+/* Music dropdown - ya consolidado con dropdowns compartidos */
 
 body.light-theme .song-display {
     background: rgba(0, 0, 0, 0.05);
@@ -2211,7 +1936,11 @@ body.light-theme .playlist-item.active {
         font-size: 0.8rem;
     }
     
-    .theme-btn, .wallpaper-btn, .music-btn, .language-btn {
+    .selector-btn,
+    .theme-btn,
+    .wallpaper-btn,
+    .music-btn,
+    .language-btn {
         width: 40px;
         height: 40px;
     }
@@ -2406,7 +2135,7 @@ body.light-theme .playlist-item.active {
 
 /* Empty State */
 .pokemon-card-container .text-muted {
-    color: rgba(255, 255, 255, 0.7) !important;
+    color: rgba(255, 255, 255, 0.7);
 }
 
 .pokemon-card-container .text-muted h4 {
@@ -3174,17 +2903,11 @@ body.light-theme .playlist-item.active {
         margin: 20px auto 0 auto;
     }
     
-    .theme-btn {
-        width: 35px;
-        height: 35px;
-    }
-    
-    .wallpaper-btn {
-        width: 35px;
-        height: 35px;
-    }
-    
-    .music-btn {
+    .selector-btn,
+    .theme-btn,
+    .wallpaper-btn,
+    .music-btn,
+    .language-btn {
         width: 35px;
         height: 35px;
     }
@@ -3215,11 +2938,6 @@ body.light-theme .playlist-item.active {
     
     .footer-text {
         font-size: 0.8rem;
-    }
-    
-    .selector-btn {
-        width: 35px;
-        height: 35px;
     }
     
     .font-dropdown {
@@ -3453,17 +3171,11 @@ body.light-theme .playlist-item.active {
         margin: 20px auto 0 auto;
     }
     
-    .theme-btn {
-        width: 30px;
-        height: 30px;
-    }
-    
-    .wallpaper-btn {
-        width: 30px;
-        height: 30px;
-    }
-    
-    .music-btn {
+    .selector-btn,
+    .theme-btn,
+    .wallpaper-btn,
+    .music-btn,
+    .language-btn {
         width: 30px;
         height: 30px;
     }
@@ -3494,11 +3206,6 @@ body.light-theme .playlist-item.active {
     
     .footer-text {
         font-size: 0.75rem;
-    }
-    
-    .selector-btn {
-        width: 30px;
-        height: 30px;
     }
     
     .selector-btn svg {
@@ -3609,16 +3316,14 @@ body.light-theme .pokemon-card-section:hover {
     border-color: var(--primary-hover);
 }
 
-body.light-theme .section-title {
-    color: #1a1a1a;
-    border-bottom-color: rgba(0, 0, 0, 0.1);
-}
-
+/* Light theme - Textos (consolidado) */
 body.light-theme .pokemon-name,
 body.light-theme .evolution-name,
 body.light-theme .suggestion-name,
 body.light-theme .ability-name,
-body.light-theme .move-name {
+body.light-theme .move-name,
+body.light-theme .item-name,
+body.light-theme .pokemon-name-display {
     color: #1a1a1a;
 }
 
@@ -3627,7 +3332,8 @@ body.light-theme .suggestion-id {
     color: rgba(0, 0, 0, 0.7);
 }
 
-body.light-theme .info-section h4 {
+body.light-theme .info-section h4,
+body.light-theme .section-title {
     color: rgba(0, 0, 0, 0.8);
 }
 
@@ -3835,9 +3541,8 @@ body.light-theme .suggestion-name {
     color: #1a1a1a;
 }
 
-/* Light Theme - Empty State */
 body.light-theme .pokemon-card-container .text-muted {
-    color: rgba(0, 0, 0, 0.7) !important;
+    color: rgba(0, 0, 0, 0.7);
 }
 
 body.light-theme .pokemon-card-container .text-muted h4 {
@@ -3848,8 +3553,11 @@ body.light-theme .pokemon-card-container .text-muted p {
     color: rgba(0, 0, 0, 0.6);
 }
 
-/* ===== BERRY CALCULATOR STYLES ===== */
-.berry-calculator-container {
+/* ===== CARDS PRINCIPALES (CONSOLIDADO) ===== */
+.berry-calculator-container,
+.pvp-teams-container,
+.pokedex-container,
+.type-calculator-container {
     padding: 2rem;
     background: rgba(30, 30, 30, 0.6);
     border-radius: 20px;
@@ -3858,22 +3566,37 @@ body.light-theme .pokemon-card-container .text-muted p {
     backdrop-filter: blur(10px);
 }
 
-.berry-calculator-header {
+.berry-calculator-header,
+.pvp-teams-header,
+.pokedex-header,
+.type-calculator-header {
     text-align: center;
     margin-bottom: 2rem;
     padding-bottom: 1.5rem;
     border-bottom: 2px solid var(--primary-color);
 }
 
-.berry-calculator-header h2 {
+.berry-calculator-header h2,
+.pvp-teams-header h2,
+.pokedex-header h2,
+.type-calculator-header h2 {
     color: white;
     font-weight: 700;
     font-size: 2.2rem;
 }
 
-.berry-calculator-header .lead {
+.berry-calculator-header .lead,
+.pvp-teams-header .lead,
+.pokedex-header .lead,
+.type-calculator-header .lead {
     color: rgba(255, 255, 255, 0.8);
     font-size: 1.1rem;
+}
+
+/* Ajuste específico solo para pokedex y type-calculator */
+.pokedex-header h2,
+.type-calculator-header h2 {
+    font-size: 2.5rem;
 }
 
 .berry-calculator-controls {
@@ -3892,18 +3615,33 @@ body.light-theme .pokemon-card-container .text-muted p {
     letter-spacing: 0.5px;
 }
 
+/* Form controls compartidos */
 .berry-calculator-controls .form-select,
-.berry-calculator-controls .form-control {
+.berry-calculator-controls .form-control,
+.auth-input,
+#loadCalculationSelect,
+#loadTeamSelect,
+#calculationNameInput,
+#teamNameInput {
     background: rgba(255, 255, 255, 0.1);
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
     color: white;
-    font-weight: 500;
     transition: all 0.3s ease;
 }
 
+.berry-calculator-controls .form-select,
+.berry-calculator-controls .form-control {
+    font-weight: 500;
+}
+
 .berry-calculator-controls .form-select:focus,
-.berry-calculator-controls .form-control:focus {
+.berry-calculator-controls .form-control:focus,
+.auth-input:focus,
+#loadCalculationSelect:focus,
+#loadTeamSelect:focus,
+#calculationNameInput:focus,
+#teamNameInput:focus {
     background: rgba(255, 255, 255, 0.15);
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px var(--primary-bg);
@@ -3922,13 +3660,19 @@ body.light-theme .pokemon-card-container .text-muted p {
     background-color: rgb(100, 100, 100);
 }
 
-/* Placeholders para Berry Calculator */
-.berry-calculator-controls .form-control::placeholder {
-    color: rgba(255, 255, 255, 0.7) !important;
+/* Placeholders globales */
+.berry-calculator-controls .form-control::placeholder,
+.auth-input::placeholder,
+#calculationNameInput::placeholder,
+#teamNameInput::placeholder {
+    color: rgba(255, 255, 255, 0.7);
 }
 
-body.light-theme .berry-calculator-controls .form-control::placeholder {
-    color: rgba(0, 0, 0, 0.6) !important;
+body.light-theme .berry-calculator-controls .form-control::placeholder,
+body.light-theme .auth-input::placeholder,
+body.light-theme #calculationNameInput::placeholder,
+body.light-theme #teamNameInput::placeholder {
+    color: rgba(0, 0, 0, 0.6);
 }
 
 /* ===== DROPDOWN CUSTOM PARA BERRY CALCULATOR ===== */
@@ -4025,6 +3769,8 @@ body.light-theme .berry-calculator-controls .form-control::placeholder {
     width: 30px;
     height: 30px;
     object-fit: contain;
+    margin-right: 8px;
+    vertical-align: middle;
 }
 
 .dropdown-option-text {
@@ -4152,6 +3898,11 @@ body.light-theme .dropdown-option-text {
 .seed-info span {
     font-weight: 600;
     color: white;
+}
+
+body.light-theme .berry-info span,
+body.light-theme .seed-info span {
+    color: #000 !important;
 }
 
 /* Form Controls in Tables */
@@ -4447,22 +4198,33 @@ body.light-theme .dropdown-option-text {
     }
 }
 
-/* Light Theme Adjustments */
-body.light-theme .berry-calculator-container {
+/* === TEMA CLARO - CARDS PRINCIPALES (CONSOLIDADO) === */
+body.light-theme .berry-calculator-container,
+body.light-theme .pvp-teams-container,
+body.light-theme .pokedex-container,
+body.light-theme .type-calculator-container {
     background: rgba(255, 255, 255, 0.9);
     border: 4px solid var(--primary-color);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-body.light-theme .berry-calculator-header h2 {
+body.light-theme .berry-calculator-header h2,
+body.light-theme .pvp-teams-header h2,
+body.light-theme .pokedex-header h2,
+body.light-theme .type-calculator-header h2 {
     color: #1a1a1a;
 }
 
-body.light-theme .berry-calculator-header .lead {
+body.light-theme .berry-calculator-header .lead,
+body.light-theme .pvp-teams-header .lead,
+body.light-theme .pokedex-header .lead,
+body.light-theme .type-calculator-header .lead {
     color: rgba(0, 0, 0, 0.8);
 }
 
-body.light-theme .berry-calculator-controls {
+body.light-theme .berry-calculator-controls,
+body.light-theme .pvp-teams-load-new-controls,
+body.light-theme .berry-calculator-load-new-controls {
     background: rgba(0, 0, 0, 0.03);
     border-color: rgba(0, 0, 0, 0.1);
 }
@@ -4471,10 +4233,7 @@ body.light-theme .berry-calculator-controls .form-label {
     color: #1a1a1a;
 }
 
-body.light-theme .section-title {
-    color: #1a1a1a;
-    border-bottom-color: var(--primary-color);
-}
+/* Section title - ya consolidado arriba */
 
 
 /* ===== TYPE CALCULATOR CONTAINER - MISMO ESTILO QUE BERRY CALCULATOR ===== */
@@ -4524,79 +4283,26 @@ body.light-theme .type-calculator-header .lead {
     color: rgba(0, 0, 0, 0.8);
 }
 
-/* ===== POKEDEX CONTAINER - MISMO ESTILO QUE BERRY CALCULATOR ===== */
 .pokedex-container {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 20px;
-    padding: 2rem;
-    border: 4px solid var(--primary-color);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(10px);
     margin-bottom: 2rem;
-}
-
-.pokedex-header {
-    text-align: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 2px solid var(--primary-color);
-}
-
-.pokedex-header h2 {
-    color: white;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.pokedex-header .lead {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 1.1rem;
-    margin-bottom: 0;
-}
-
-/* Tema claro para Pokedex */
-body.light-theme .pokedex-container {
-    background: rgba(255, 255, 255, 0.9);
-    border: 4px solid var(--primary-color);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-body.light-theme .pokedex-header h2 {
-    color: #1a1a1a;
-}
-
-body.light-theme .pokedex-header .lead {
-    color: rgba(0, 0, 0, 0.8);
 }
 
 body.light-theme .irrigation-schedule-table .berry-sprite,
 body.light-theme .seeds-profits-table .seed-sprite {
-    filter: none !important;
+    filter: none;
 }
 
-/* Campos especiales */
-body.light-theme .loss-time {
-    color: #dc2626 !important;
-}
-
+body.light-theme .loss-time,
 body.light-theme .irrigation-schedule-table .loss-time,
 body.light-theme .seeds-profits-table .loss-time {
-    color: #dc2626 !important;
-}
-
-/* Asegurar que todos los elementos de texto en las tablas sean visibles */
-body.light-theme .irrigation-schedule-table *,
-body.light-theme .seeds-profits-table * {
-    color: inherit !important;
+    color: #dc2626;
 }
 
 body.light-theme .irrigation-schedule-table .table th,
 body.light-theme .irrigation-schedule-table .table td,
 body.light-theme .seeds-profits-table .table th,
 body.light-theme .seeds-profits-table .table td {
-    color: #212529 !important;
+    color: #212529;
 }
 
 body.light-theme .calculated-time {
@@ -4675,69 +4381,61 @@ body.light-theme .summary-item span:first-child {
     color: rgba(0, 0, 0, 0.8);
 }
 
-/* ===== BERRY CALCULATOR - ESTILOS OPTIMIZADOS PARA TEMA CLARO ===== */
+/* Light theme - Berry tables */
 body.light-theme .berry-calculator-container .table-dark {
-    background-color: transparent !important;
+    background-color: transparent;
 }
 
-/* Headers de tabla */
 body.light-theme .berry-calculator-container .table-dark thead th {
-    background-color: #e9ecef !important;
-    color: #495057 !important;
-    border-color: #dee2e6 !important;
+    background-color: #e9ecef;
+    color: #495057;
+    border-color: #dee2e6;
     font-weight: 600;
 }
 
-/* Filas de tabla - alternadas */
 body.light-theme .berry-calculator-container .table-dark tbody tr:nth-of-type(odd) {
-    background-color: #f8f9fa !important;
-    color: #212529 !important;
+    background-color: #f8f9fa;
+    color: #212529;
 }
 
 body.light-theme .berry-calculator-container .table-dark tbody tr:nth-of-type(even) {
-    background-color: #ffffff !important;
-    color: #212529 !important;
+    background-color: #ffffff;
+    color: #212529;
 }
 
-/* Hover effect */
 body.light-theme .berry-calculator-container .table-dark tbody tr:hover {
-    background-color: #e2e6ea !important;
+    background-color: #e2e6ea;
 }
 
-/* Celdas */
 body.light-theme .berry-calculator-container .table-dark td {
-    border-color: #dee2e6 !important;
-    color: #212529 !important;
+    border-color: #dee2e6;
+    color: #212529;
 }
 
-/* ===== FORM CONTROLS CONSOLIDADOS PARA TEMA CLARO ===== */
+/* Light theme - Berry form controls */
 body.light-theme .berry-calculator-container .form-control,
 body.light-theme .berry-calculator-container .form-select,
-body.light-theme .berry-calculator-container .table-dark .form-control,
-body.light-theme .berry-calculator-container .table-dark .form-select,
 body.light-theme .berry-calculator-controls .form-control,
 body.light-theme .berry-calculator-controls .form-select,
 body.light-theme .irrigation-schedule-table .form-control-sm,
 body.light-theme .seeds-profits-table .form-control-sm,
 body.light-theme .cost-input-group .form-control {
-    background-color: #ffffff !important;
-    border-color: #ced4da !important;
-    color: #212529 !important;
+    background-color: #ffffff;
+    border-color: #ced4da;
+    color: #212529;
 }
 
 body.light-theme .berry-calculator-container .form-control:focus,
 body.light-theme .berry-calculator-container .form-select:focus,
-body.light-theme .berry-calculator-container .table-dark .form-control:focus,
-body.light-theme .berry-calculator-container .table-dark .form-select:focus,
 body.light-theme .berry-calculator-controls .form-control:focus,
 body.light-theme .berry-calculator-controls .form-select:focus,
 body.light-theme .irrigation-schedule-table .form-control-sm:focus,
 body.light-theme .seeds-profits-table .form-control-sm:focus,
 body.light-theme .cost-input-group .form-control:focus {
-    background-color: #ffffff !important;
-    border-color: var(--primary-color) !important;
-    color: #212529 !important;
-    box-shadow: 0 0 0 0.2rem rgba(34, 197, 94, 0.25) !important;
+    background-color: #ffffff;
+    border-color: var(--primary-color);
+    color: #212529;
+    box-shadow: 0 0 0 0.2rem rgba(34, 197, 94, 0.25);
 }
 
 body.light-theme .summary-item span:last-child {
@@ -4753,26 +4451,25 @@ body.light-theme .summary-card.final-total .summary-item span:last-child {
     letter-spacing: 0.5px;
 }
 
-/* ===== ESTILOS DE VALORES PARA TEMA CLARO ===== */
+/* Light theme - Valores de stats */
 body.light-theme .harvest-amount {
-    color: #15803d !important;
+    color: #15803d;
 }
 
 body.light-theme .conservation-amount {
-    color: #b45309 !important;
+    color: #b45309;
 }
 
 body.light-theme .zanamas-amount {
-    color: #6d28d9 !important;
+    color: #6d28d9;
 }
 
 body.light-theme .sellable-amount {
-    color: #0891b2 !important;
+    color: #0891b2;
 }
 
 body.light-theme .profit-amount {
-    color: #059669 !important;
-    font-size: 1rem;
+    color: #059669;
 }
 
 /* ===== ESTILO MEJORADO DEL TOTAL FINAL EN TEMA CLARO ===== */
@@ -4824,41 +4521,61 @@ body.light-theme .summary-item.total {
     outline: none;
 }
 
+/* Botones de añadir/eliminar gastos - Estilos base */
 .add-cost-btn,
-.remove-cost-btn {
-    width: 32px;
-    height: 32px;
+.remove-cost-btn,
+.add-purchase-cost-btn,
+.remove-purchase-cost-btn,
+.add-management-cost-btn,
+.remove-management-cost-btn {
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 6px;
-    font-weight: 600;
-    font-size: 0.9rem;
+    border-radius: 8px;
+    font-weight: 900;          /* Más grueso */
+    font-size: 1.3rem;         /* Más grande */
     transition: all 0.3s ease;
+    border: 2px solid;
 }
 
-.add-cost-btn {
-    background: rgba(34, 197, 94, 0.2);
-    border-color: rgba(34, 197, 94, 0.3);
-    color: #22c55e;
+/* Botones de añadir - Usan el color primario del tema */
+.add-cost-btn,
+.add-purchase-cost-btn,
+.add-management-cost-btn {
+    background: var(--primary-bg-dark);
+    border-color: var(--primary-border-dark);
+    color: var(--primary-color-dark);
 }
 
-.add-cost-btn:hover {
-    background: rgba(34, 197, 94, 0.3);
-    border-color: #22c55e;
-    transform: scale(1.05);
+.add-cost-btn:hover,
+.add-purchase-cost-btn:hover,
+.add-management-cost-btn:hover {
+    background: var(--primary-color-dark);
+    border-color: var(--primary-color-dark);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.remove-cost-btn {
+/* Botones de eliminar - Rojo */
+.remove-cost-btn,
+.remove-purchase-cost-btn,
+.remove-management-cost-btn {
     background: rgba(239, 68, 68, 0.2);
     border-color: rgba(239, 68, 68, 0.3);
     color: #ef4444;
 }
 
-.remove-cost-btn:hover {
-    background: rgba(239, 68, 68, 0.3);
+.remove-cost-btn:hover,
+.remove-purchase-cost-btn:hover,
+.remove-management-cost-btn:hover {
+    background: #ef4444;
     border-color: #ef4444;
-    transform: scale(1.05);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.5);
 }
 
 /* Berry Info Small */
@@ -4880,6 +4597,11 @@ body.light-theme .summary-item.total {
 .berry-name {
     font-weight: 500;
     font-size: 0.85rem;
+    color: white;
+}
+
+body.light-theme .berry-name {
+    color: #000 !important;
 }
 
 .extraction-item {
@@ -4888,26 +4610,38 @@ body.light-theme .summary-item.total {
 }
 
 /* Light Theme Adjustments */
-body.light-theme .add-cost-btn {
-    background: rgba(21, 128, 61, 0.2);
-    border-color: rgba(21, 128, 61, 0.3);
-    color: #15803d;
+/* Tema claro - Botones de añadir usan el color primario del tema */
+body.light-theme .add-cost-btn,
+body.light-theme .add-purchase-cost-btn,
+body.light-theme .add-management-cost-btn {
+    background: var(--primary-bg-light);
+    border-color: var(--primary-border-light);
+    color: var(--primary-color-light);
 }
 
-body.light-theme .add-cost-btn:hover {
-    background: rgba(21, 128, 61, 0.3);
-    border-color: #15803d;
+body.light-theme .add-cost-btn:hover,
+body.light-theme .add-purchase-cost-btn:hover,
+body.light-theme .add-management-cost-btn:hover {
+    background: var(--primary-color-light);
+    border-color: var(--primary-color-light);
+    color: white;
 }
 
-body.light-theme .remove-cost-btn {
-    background: rgba(185, 28, 28, 0.2);
+/* Tema claro - Botones de eliminar */
+body.light-theme .remove-cost-btn,
+body.light-theme .remove-purchase-cost-btn,
+body.light-theme .remove-management-cost-btn {
+    background: rgba(185, 28, 28, 0.15);
     border-color: rgba(185, 28, 28, 0.3);
     color: #b91c1c;
 }
 
-body.light-theme .remove-cost-btn:hover {
-    background: rgba(185, 28, 28, 0.3);
+body.light-theme .remove-cost-btn:hover,
+body.light-theme .remove-purchase-cost-btn:hover,
+body.light-theme .remove-management-cost-btn:hover {
+    background: #b91c1c;
     border-color: #b91c1c;
+    color: white;
 }
 
 /* ===== CURRENCY INPUT STYLES ===== */
@@ -5035,30 +4769,9 @@ body.light-theme .currency-symbol {
     transform: translateY(2px);
 }
 
-/* User Dropdown */
 .user-dropdown {
-    position: absolute;
-    top: 100%;
-    right: 0;
-    margin-top: 10px;
-    background: rgba(30, 30, 30, 0.95);
-    border-radius: 15px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(2px);
     padding: 20px;
     width: 280px;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(-10px);
-    transition: all 0.3s ease;
-    z-index: 1001;
-}
-
-.user-dropdown.show {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
 }
 
 .user-info-section {
@@ -5285,25 +4998,12 @@ body.light-theme .user-pill-container.user-pill-logged-in .user-pill-btn {
 }
 
 .auth-input {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    color: white;
     padding: 12px 16px;
     font-size: 0.95rem;
-    transition: all 0.3s ease;
 }
 
 .auth-input:focus {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px var(--primary-bg);
-    outline: none;
     color: white;
-}
-
-.auth-input::placeholder {
-    color: rgba(255, 255, 255, 0.5);
 }
 
 .form-text {
@@ -5313,28 +5013,19 @@ body.light-theme .user-pill-container.user-pill-logged-in .user-pill-btn {
     display: block;
 }
 
-/* Optional text styling for dark theme */
 .text-muted {
-    color: rgba(255, 255, 255, 0.6) !important;
+    color: rgba(255, 255, 255, 0.6);
 }
 
-/* Required field asterisk styling - Más específico para sobrescribir Bootstrap */
+/* Required asterisk styling */
 .auth-form .form-label .text-danger,
-.form-label .text-danger {
-    color: #ff4444 !important;
-    font-weight: bold !important;
-    margin-left: 3px !important;
-    font-size: 1.1em !important;
-    display: inline !important;
-}
-
-/* Asegurar que los asteriscos se vean en todos los temas */
+.form-label .text-danger,
 body .text-danger,
 body.light-theme .text-danger {
     color: #ff4444 !important;
     font-weight: bold !important;
-    margin-left: 3px !important;
-    font-size: 1.1em !important;
+    margin-left: 3px;
+    font-size: 1.1em;
 }
 
 .auth-submit-btn {
@@ -5384,7 +5075,6 @@ body.light-theme .text-danger {
     color: #22c55e;
 }
 
-/* Light Theme - Authentication */
 body.light-theme .user-pill-btn {
     background: rgba(255, 255, 255, 0.8);
     border-color: rgba(0, 0, 0, 0.3);
@@ -5403,10 +5093,7 @@ body.light-theme .username-display {
     color: #000;
 }
 
-body.light-theme .user-dropdown {
-    background: rgba(255, 255, 255, 0.95);
-    border-color: rgba(0, 0, 0, 0.1);
-}
+/* User dropdown - ya consolidado */
 
 body.light-theme .user-info-section {
     border-bottom-color: rgba(0, 0, 0, 0.1);
@@ -5486,14 +5173,7 @@ body.light-theme .form-text {
 }
 
 body.light-theme .text-muted {
-    color: rgba(0, 0, 0, 0.6) !important;
-}
-
-body.light-theme .text-danger {
-    color: #ff4444 !important;
-    font-weight: bold;
-    margin-left: 3px;
-    font-size: 1.1em;
+    color: rgba(0, 0, 0, 0.6);
 }
 
 body.light-theme .auth-message.error {
@@ -5644,75 +5324,37 @@ body.light-theme .auth-message.success {
     }
 }
 
-/* Berry Calculator Load/New Controls */
-.berry-calculator-load-new-controls {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    padding: 1.5rem;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-}
-
-#loadCalculationSelect {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    color: white;
+/* Load selects específicos */
+#loadCalculationSelect,
+#loadTeamSelect {
     padding: 12px 16px;
     font-size: 0.95rem;
-    transition: all 0.3s ease;
     cursor: pointer;
 }
 
-#loadCalculationSelect:disabled {
+#loadCalculationSelect:disabled,
+#loadTeamSelect:disabled {
     background: rgba(255, 255, 255, 0.05);
     border-color: rgba(255, 255, 255, 0.1);
     color: rgba(255, 255, 255, 0.4);
     cursor: not-allowed;
 }
 
-#loadCalculationSelect:not(:disabled):hover {
+#loadCalculationSelect:not(:disabled):hover,
+#loadTeamSelect:not(:disabled):hover {
     background: rgba(255, 255, 255, 0.15);
     border-color: var(--primary-color);
 }
 
-#loadCalculationSelect:focus {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px var(--primary-bg);
-    outline: none;
-}
-
-#loadCalculationSelect option {
+#loadCalculationSelect option,
+#loadTeamSelect option {
     background: #1a1a1a;
     color: white;
     padding: 10px;
 }
 
-#newCalculationBtn {
-    background: var(--primary-color);
-    border: none;
-    border-radius: 10px;
-    padding: 12px 20px;
-    color: white;
-    font-weight: 600;
-    font-size: 0.95rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#newCalculationBtn:hover {
-    background: var(--primary-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-}
-
-#newCalculationBtn:active {
-    transform: translateY(0);
-}
-
+/* === NEW BUTTONS (CONSOLIDADO) === */
+#newCalculationBtn,
 #newTeamBtn {
     background: var(--primary-color);
     border: none;
@@ -5728,121 +5370,57 @@ body.light-theme .auth-message.success {
     justify-content: center;
 }
 
+#newCalculationBtn:hover,
 #newTeamBtn:hover {
     background: var(--primary-hover);
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
+#newCalculationBtn:active,
 #newTeamBtn:active {
     transform: translateY(0);
 }
 
-/* Calculation Name Input */
-#calculationNameInput {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    color: white;
-    padding: 12px 16px;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-}
-
-#calculationNameInput:focus {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px var(--primary-bg);
-    outline: none;
-}
-
-#calculationNameInput::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-}
-
-/* Light Theme - Berry Calculator */
+/* === TEMA CLARO - SAVE & LOAD CONTROLS === */
 body.light-theme .save-indicator {
     background: rgba(255, 255, 255, 0.95);
 }
 
-body.light-theme .berry-calculator-load-new-controls {
+body.light-theme .berry-calculator-load-new-controls,
+body.light-theme .pvp-teams-load-new-controls {
     background: rgba(0, 0, 0, 0.03);
     border-color: rgba(0, 0, 0, 0.1);
 }
 
-body.light-theme #loadCalculationSelect {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.2);
-    color: #1a1a1a;
-}
-
-body.light-theme #loadCalculationSelect:disabled {
-    background: rgba(0, 0, 0, 0.02);
-    border-color: rgba(0, 0, 0, 0.1);
-    color: rgba(0, 0, 0, 0.4);
-}
-
-body.light-theme #loadCalculationSelect:not(:disabled):hover {
-    background: rgba(0, 0, 0, 0.08);
-}
-
-body.light-theme #loadCalculationSelect:focus {
-    background: rgba(0, 0, 0, 0.08);
-}
-
-body.light-theme #loadCalculationSelect option {
-    background: #ffffff;
-    color: #1a1a1a;
-}
-
-body.light-theme #calculationNameInput {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.2);
-    color: #1a1a1a;
-}
-
-body.light-theme #calculationNameInput:focus {
-    background: rgba(0, 0, 0, 0.08);
-}
-
-body.light-theme #calculationNameInput::placeholder {
-    color: rgba(0, 0, 0, 0.5);
-}
-
-/* Team Name Input (PVP Teams) */
-#teamNameInput {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    color: white;
-    padding: 12px 16px;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-}
-
-#teamNameInput:focus {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px var(--primary-bg);
-    outline: none;
-}
-
-#teamNameInput::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-}
-
+/* Light theme - Load & Name inputs */
+body.light-theme #loadCalculationSelect,
+body.light-theme #loadTeamSelect,
+body.light-theme #calculationNameInput,
 body.light-theme #teamNameInput {
     background: rgba(0, 0, 0, 0.05);
     border-color: rgba(0, 0, 0, 0.2);
     color: #1a1a1a;
 }
 
+body.light-theme #loadCalculationSelect:disabled,
+body.light-theme #loadTeamSelect:disabled {
+    background: rgba(0, 0, 0, 0.02);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.4);
+}
+
+body.light-theme #loadCalculationSelect:not(:disabled):hover,
+body.light-theme #loadTeamSelect:not(:disabled):hover,
+body.light-theme #calculationNameInput:focus,
 body.light-theme #teamNameInput:focus {
     background: rgba(0, 0, 0, 0.08);
 }
 
-body.light-theme #teamNameInput::placeholder {
-    color: rgba(0, 0, 0, 0.5);
+body.light-theme #loadCalculationSelect option,
+body.light-theme #loadTeamSelect option {
+    background: #ffffff;
+    color: #1a1a1a;
 }
 
 /* ===== POKÉMON CALCULATOR TAB ===== */
@@ -5875,101 +5453,13 @@ body.light-theme .calculator-card {
     border-color: var(--primary-color);
 }
 
-/* ===== PVP TEAMS SYSTEM ===== */
-.pvp-teams-container {
-    padding: 2rem;
-    background: rgba(30, 30, 30, 0.6);
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    border: 4px solid var(--primary-color);
-    backdrop-filter: blur(10px);
-}
-
-.pvp-teams-header {
-    text-align: center;
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 2px solid var(--primary-color);
-}
-
-.pvp-teams-header h2 {
-    color: white;
-    font-weight: 700;
-    font-size: 2.2rem;
-}
-
-.pvp-teams-header .lead {
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 1.1rem;
-}
-
-/* PVP Teams Load/New Controls */
+/* === CONTROLES LOAD/NEW (CONSOLIDADO) === */
+.berry-calculator-load-new-controls,
 .pvp-teams-load-new-controls {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 15px;
     padding: 1.5rem;
     border: 2px solid rgba(255, 255, 255, 0.1);
-}
-
-/* Light Theme - PVP Teams */
-body.light-theme .pvp-teams-container {
-    background: rgba(255, 255, 255, 0.9);
-    border: 4px solid var(--primary-color);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-body.light-theme .pvp-teams-header h2 {
-    color: #1a1a1a;
-}
-
-body.light-theme .pvp-teams-header .lead {
-    color: rgba(0, 0, 0, 0.8);
-}
-
-body.light-theme .pvp-teams-load-new-controls {
-    background: rgba(0, 0, 0, 0.03);
-    border-color: rgba(0, 0, 0, 0.1);
-}
-
-.pvp-teams-load-new-controls {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 15px;
-    padding: 1.5rem;
-    border: 2px solid rgba(255, 255, 255, 0.1);
-}
-
-#loadTeamSelect {
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.2);
-    border-radius: 10px;
-    color: white;
-    padding: 12px 16px;
-    font-size: 0.95rem;
-    transition: all 0.3s ease;
-}
-
-#loadTeamSelect:disabled {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.4);
-    cursor: not-allowed;
-}
-
-#loadTeamSelect:not(:disabled):hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: var(--primary-color);
-}
-
-#loadTeamSelect:focus {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: var(--primary-color);
-    box-shadow: 0 0 0 3px var(--primary-bg);
-    outline: none;
-}
-
-#loadTeamSelect option {
-    background: #1a1a1a;
-    color: white;
 }
 
 /* Pokémon Team Grid (2x3) */
@@ -6198,7 +5688,7 @@ body.light-theme .btn-check:checked + .btn-outline-custom {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 5px;
-    color: white !important;
+    color: white;
     text-align: center;
     padding: 0.25rem;
     width: 100%;
@@ -6209,10 +5699,10 @@ body.light-theme .btn-check:checked + .btn-outline-custom {
     background: rgba(255, 255, 255, 0.15);
     border-color: var(--primary-color);
     outline: none;
-    color: white !important;
+    color: white;
 }
 
-/* Tema claro para tabla de estadísticas */
+/* Light theme - Pokemon stats table */
 body.light-theme .pokemon-stats-table th {
     color: rgba(0, 0, 0, 0.7);
 }
@@ -6229,130 +5719,55 @@ body.light-theme .pokemon-stats-table .base-stat {
     color: rgba(0, 0, 0, 0.6);
 }
 
-body.light-theme .pokemon-stats-table input {
-    background: rgba(0, 0, 0, 0.05) !important;
-    border-color: rgba(0, 0, 0, 0.2) !important;
-    color: #1a1a1a !important;
-}
-
-body.light-theme .pokemon-stats-table input:focus {
-    background: rgba(0, 0, 0, 0.08) !important;
-    border-color: var(--primary-color) !important;
-    color: #1a1a1a !important;
-}
-
-/* ESPECIFICIDAD MÁXIMA para inputs de número en tabla de stats */
-body.light-theme .pokemon-stats-table input[type="number"] {
-    background: rgba(0, 0, 0, 0.05) !important;
-    border-color: rgba(0, 0, 0, 0.2) !important;
-    color: #1a1a1a !important;
-}
-
-body.light-theme .pokemon-stats-table input[type="number"]:focus {
-    background: rgba(0, 0, 0, 0.08) !important;
-    border-color: var(--primary-color) !important;
-    color: #1a1a1a !important;
-}
-
-/* Asegurar que los inputs type="number" mantengan color blanco */
 .ev-input,
 .iv-input {
-    color: white !important;
-    background: rgba(255, 255, 255, 0.1) !important;
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: white;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .ev-input:focus,
 .iv-input:focus {
-    color: white !important;
-    background: rgba(255, 255, 255, 0.15) !important;
-    border-color: var(--primary-color) !important;
+    color: white;
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--primary-color);
 }
 
-/* Tema claro para inputs de EVs e IVs */
+/* Light theme - EV/IV inputs (consolidado único) */
 body.light-theme .ev-input,
 body.light-theme .iv-input {
-    color: #1a1a1a !important;
-    background: rgba(0, 0, 0, 0.05) !important;
-    border-color: rgba(0, 0, 0, 0.2) !important;
+    color: #1a1a1a;
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.2);
 }
 
 body.light-theme .ev-input:focus,
 body.light-theme .iv-input:focus {
-    color: #1a1a1a !important;
-    background: rgba(0, 0, 0, 0.08) !important;
-    border-color: var(--primary-color) !important;
+    color: #1a1a1a;
+    background: rgba(0, 0, 0, 0.08);
+    border-color: var(--primary-color);
 }
 
-/* MÁXIMA ESPECIFICIDAD - Sobrescribir cualquier conflicto */
-body.light-theme .pokemon-stats-table .ev-input,
-body.light-theme .pokemon-stats-table .iv-input,
-body.light-theme .pokemon-slot-card .ev-input,
-body.light-theme .pokemon-slot-card .iv-input {
-    color: #1a1a1a !important;
-    background: rgba(0, 0, 0, 0.05) !important;
-    border-color: rgba(0, 0, 0, 0.2) !important;
-}
-
-body.light-theme .pokemon-stats-table .ev-input:focus,
-body.light-theme .pokemon-stats-table .iv-input:focus,
-body.light-theme .pokemon-slot-card .ev-input:focus,
-body.light-theme .pokemon-slot-card .iv-input:focus {
-    color: #1a1a1a !important;
-    background: rgba(0, 0, 0, 0.08) !important;
-    border-color: var(--primary-color) !important;
-}
-
-/* NUCLEAR OPTION - Máxima especificidad posible */
-body.light-theme .pokemon-stats-table input.ev-input,
-body.light-theme .pokemon-stats-table input.iv-input,
-body.light-theme .pokemon-stats-table input[class*="ev"],
-body.light-theme .pokemon-stats-table input[class*="iv"] {
-    color: #1a1a1a !important;
-    background: rgba(0, 0, 0, 0.05) !important;
-    border-color: rgba(0, 0, 0, 0.2) !important;
-}
-
-body.light-theme .pokemon-stats-table input.ev-input:focus,
-body.light-theme .pokemon-stats-table input.iv-input:focus,
-body.light-theme .pokemon-stats-table input[class*="ev"]:focus,
-body.light-theme .pokemon-stats-table input[class*="iv"]:focus {
-    color: #1a1a1a !important;
-    background: rgba(0, 0, 0, 0.08) !important;
-    border-color: var(--primary-color) !important;
-}
-
-/* Estilos generales para inputs en PVP Teams - Tema claro */
+/* Light theme - PVP Teams inputs (consolidado) */
 body.light-theme .pokemon-slot-card input,
 body.light-theme .pokemon-slot-card .form-control,
 body.light-theme .pokemon-slot-card select,
-body.light-theme .pokemon-slot-card .form-select {
-    background: rgba(0, 0, 0, 0.05) !important;
-    border-color: rgba(0, 0, 0, 0.2) !important;
-    color: #1a1a1a !important;
+body.light-theme .pokemon-slot-card .form-select,
+body.light-theme .pokemon-stats-table input {
+    background: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.2);
+    color: #1a1a1a;
 }
 
 body.light-theme .pokemon-slot-card input:focus,
 body.light-theme .pokemon-slot-card .form-control:focus,
 body.light-theme .pokemon-slot-card select:focus,
-body.light-theme .pokemon-slot-card .form-select:focus {
-    background: rgba(0, 0, 0, 0.08) !important;
-    border-color: var(--primary-color) !important;
-    color: #1a1a1a !important;
-    box-shadow: 0 0 0 2px var(--primary-bg) !important;
-}
-
-/* Estilos específicos para inputs de número en PVP Teams */
-body.light-theme .pokemon-slot-card input[type="number"] {
-    background: rgba(0, 0, 0, 0.05) !important;
-    border-color: rgba(0, 0, 0, 0.2) !important;
-    color: #1a1a1a !important;
-}
-
-body.light-theme .pokemon-slot-card input[type="number"]:focus {
-    background: rgba(0, 0, 0, 0.08) !important;
-    border-color: var(--primary-color) !important;
-    color: #1a1a1a !important;
+body.light-theme .pokemon-slot-card .form-select:focus,
+body.light-theme .pokemon-stats-table input:focus {
+    background: rgba(0, 0, 0, 0.08);
+    border-color: var(--primary-color);
+    color: #1a1a1a;
+    box-shadow: 0 0 0 2px var(--primary-bg);
 }
 
 /* EV Total Display */
@@ -6366,7 +5781,7 @@ body.light-theme .pokemon-slot-card input[type="number"]:focus {
 
 /* EV Total Display - Tema claro */
 body.light-theme .ev-total-display {
-    color: rgba(0, 0, 0, 0.7) !important;
+    color: rgba(0, 0, 0, 0.7);
 }
 
 .ev-total-number {
@@ -6377,7 +5792,7 @@ body.light-theme .ev-total-display {
 
 /* EV Total Number - Tema claro */
 body.light-theme .ev-total-number {
-    color: #16a34a !important; /* Verde más oscuro para tema claro */
+    color: #16a34a;
 }
 
 /* Pokémon Attributes Section */
@@ -6397,7 +5812,7 @@ body.light-theme .ev-total-number {
     background: rgba(255, 255, 255, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 8px;
-    color: white !important;
+    color: white;
     padding: 0.4rem;
     font-size: 0.8rem;
     transition: all 0.3s ease;
@@ -6407,20 +5822,11 @@ body.light-theme .ev-total-number {
     background: rgba(255, 255, 255, 0.15);
     border-color: var(--primary-color);
     outline: none;
-    color: white !important;
 }
 
 .pokemon-attributes-section select option {
     background: #1a1a1a;
     color: white;
-}
-
-/* Asegurar color blanco en todos los estados del select */
-.pokemon-attributes-section select:active,
-.pokemon-attributes-section select:focus,
-.pokemon-attributes-section select:checked,
-.pokemon-attributes-section select:selected {
-    color: white !important;
 }
 
 /* ===== CUSTOM DROPDOWNS (MOVES & ITEMS) ===== */
@@ -6774,7 +6180,7 @@ body.light-theme .custom-select-no-results {
     background: rgba(255, 255, 255, 0.1);
     border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 10px;
-    color: white !important;
+    color: white;
     padding: 12px 16px;
     font-size: 0.95rem;
     transition: all 0.3s ease;
@@ -6785,7 +6191,7 @@ body.light-theme .custom-select-no-results {
     border-color: var(--primary-color);
     box-shadow: 0 0 0 3px var(--primary-bg);
     outline: none;
-    color: white !important;
+    color: white;
 }
 
 .pokemon-modal-search::placeholder {
@@ -6835,29 +6241,6 @@ body.light-theme .custom-select-no-results {
     font-size: 0.95rem;
 }
 
-/* Light Theme - PVP Teams */
-body.light-theme .pvp-teams-load-new-controls {
-    background: rgba(0, 0, 0, 0.03);
-    border-color: rgba(0, 0, 0, 0.1);
-}
-
-body.light-theme #loadTeamSelect {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.2);
-    color: #1a1a1a;
-}
-
-body.light-theme #loadTeamSelect:disabled {
-    background: rgba(0, 0, 0, 0.02);
-    border-color: rgba(0, 0, 0, 0.1);
-    color: rgba(0, 0, 0, 0.4);
-}
-
-body.light-theme #loadTeamSelect option {
-    background: #ffffff;
-    color: #1a1a1a;
-}
-
 body.light-theme .pokemon-slot-card {
     background: rgba(255, 255, 255, 0.5);
     border-color: rgba(0, 0, 0, 0.2);
@@ -6887,26 +6270,12 @@ body.light-theme .pokemon-slot-card.empty:hover .add-pokemon-text {
     color: var(--primary-color);
 }
 
-body.light-theme .pokemon-name-display {
-    color: #1a1a1a;
-}
-
-/* Estilos adicionales para elementos de texto en PVP Teams - Tema claro */
-body.light-theme .pokemon-slot-card .pokemon-name-display,
-body.light-theme .pokemon-slot-card .pokemon-type,
-body.light-theme .pokemon-slot-card .pokemon-ability,
-body.light-theme .pokemon-slot-card .pokemon-item,
-body.light-theme .pokemon-slot-card .pokemon-move,
-body.light-theme .pokemon-slot-card .stat-name,
-body.light-theme .pokemon-slot-card .stat-value,
-body.light-theme .pokemon-slot-card .nature-name {
-    color: #1a1a1a !important;
-}
+/* PVP text elements - ya consolidado */
 
 body.light-theme .pokemon-slot-card .pokemon-type-badge {
-    background: rgba(0, 0, 0, 0.1) !important;
-    color: #1a1a1a !important;
-    border: 1px solid rgba(0, 0, 0, 0.2) !important;
+    background: rgba(0, 0, 0, 0.1);
+    color: #1a1a1a;
+    border: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 body.light-theme .ev-total-display {
@@ -6917,30 +6286,7 @@ body.light-theme .form-label-sm {
     color: rgba(0, 0, 0, 0.8);
 }
 
-body.light-theme .pokemon-attributes-section select,
-body.light-theme .moves-grid select {
-    background: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.2);
-    color: #1a1a1a !important;
-}
-
-body.light-theme .pokemon-attributes-section select:focus,
-body.light-theme .moves-grid select:focus {
-    background: rgba(0, 0, 0, 0.08);
-    color: #1a1a1a !important;
-}
-
-body.light-theme .pokemon-attributes-section select:active,
-body.light-theme .pokemon-attributes-section select:checked,
-body.light-theme .pokemon-attributes-section select:selected {
-    color: #1a1a1a !important;
-}
-
-body.light-theme .pokemon-attributes-section select option,
-body.light-theme .moves-grid select option {
-    background: #ffffff;
-    color: #1a1a1a;
-}
+/* Light theme - PVP selects - ya consolidado arriba */
 
 body.light-theme .pokemon-search-modal-content {
     background: rgba(255, 255, 255, 0.95);
@@ -6953,12 +6299,12 @@ body.light-theme .pokemon-search-modal .modal-header h5 {
 body.light-theme .pokemon-modal-search {
     background: rgba(0, 0, 0, 0.05);
     border-color: rgba(0, 0, 0, 0.2);
-    color: #1a1a1a !important;
+    color: #1a1a1a;
 }
 
 body.light-theme .pokemon-modal-search:focus {
     background: rgba(0, 0, 0, 0.08);
-    color: #1a1a1a !important;
+    color: #1a1a1a;
 }
 
 body.light-theme .pokemon-modal-search::placeholder {
