@@ -434,7 +434,7 @@ class CustomDropdowns {
     }
 
     /**
-     * Posicionar dropdown correctamente con position: fixed
+     * Posicionar dropdown correctamente con detección inteligente de espacio
      */
     positionDropdown(dropdown) {
         // Encontrar el trigger correspondiente
@@ -451,11 +451,15 @@ class CustomDropdowns {
         const dropdownHeight = 300; // max-height del dropdown
         const dropdownWidth = Math.max(triggerRect.width, 250); // Ancho mínimo
         
+        // 🎯 DETECCIÓN INTELIGENTE DE ESPACIO DISPONIBLE
+        const spaceBelow = viewportHeight - triggerRect.bottom - 20; // Espacio disponible abajo
+        const spaceAbove = triggerRect.top - 20; // Espacio disponible arriba
+        
         // Calcular posición horizontal
         let left = triggerRect.left;
         
         // Si no cabe a la derecha, ajustar hacia la izquierda
-        if (left + dropdownWidth > viewportWidth) {
+        if (left + dropdownWidth > viewportWidth - 10) {
             left = viewportWidth - dropdownWidth - 10;
         }
         
@@ -464,14 +468,40 @@ class CustomDropdowns {
             left = 10;
         }
         
-        // Calcular posición vertical
-        let top = triggerRect.bottom + 4; // 4px de separación
-        let opensUpward = false;
+        // 🎯 DECISIÓN: PVP DROPDOWNS SIEMPRE ARRIBA
+        let top, opensUpward;
         
-        // Si no cabe abajo, mostrar arriba
-        if (top + dropdownHeight > viewportHeight - 10) {
-            top = triggerRect.top - dropdownHeight - 4;
+        // 🎯 PVP DROPDOWNS: FORZAR ARRIBA SIEMPRE
+        const isPvpDropdown = dropdown.classList.contains('custom-move-select-dropdown') || 
+                             dropdown.classList.contains('custom-item-select-dropdown');
+        
+        console.log(`🔍 Debug: Dropdown classes = ${dropdown.className}, isPvpDropdown = ${isPvpDropdown}`);
+        
+        if (isPvpDropdown) {
+            // PVP: SIEMPRE ARRIBA
             opensUpward = true;
+            top = triggerRect.top - dropdownHeight - 8; // 8px de separación hacia arriba
+        } else {
+            // Otros dropdowns: lógica normal
+            const isBottomRow = triggerRect.bottom > viewportHeight * 0.6;
+            if (isBottomRow || spaceBelow < dropdownHeight || spaceAbove > spaceBelow) {
+                opensUpward = true;
+                top = triggerRect.top - dropdownHeight - 8;
+            } else {
+                opensUpward = false;
+                top = triggerRect.bottom + 8;
+            }
+        }
+        
+        // 🎯 AJUSTE DE ALTURA SI NO CABE COMPLETO
+        let finalHeight = dropdownHeight;
+        if (opensUpward && top < 10) {
+            // No cabe arriba, ajustar altura
+            finalHeight = Math.min(dropdownHeight, triggerRect.top - 20);
+            top = triggerRect.top - finalHeight - 8;
+        } else if (!opensUpward && top + dropdownHeight > viewportHeight - 10) {
+            // No cabe abajo, ajustar altura
+            finalHeight = Math.min(dropdownHeight, viewportHeight - top - 20);
         }
         
         // Asegurar que no se salga por arriba
@@ -479,12 +509,19 @@ class CustomDropdowns {
             top = 10;
         }
         
-        // Aplicar posición fixed para estar por encima de todo
+        // 🎯 APLICAR POSICIONAMIENTO
         dropdown.style.position = 'fixed';
         dropdown.style.top = `${top}px`;
         dropdown.style.left = `${left}px`;
         dropdown.style.width = `${dropdownWidth}px`;
+        dropdown.style.maxHeight = `${finalHeight}px`;
         dropdown.style.zIndex = '10000'; // Z-index alto para estar por encima
+        
+        // 🎯 AÑADIR CLASE PARA ESTILOS DIRECCIONALES (opcional)
+        dropdown.classList.remove('dropdown-opens-upward', 'dropdown-opens-downward');
+        dropdown.classList.add(opensUpward ? 'dropdown-opens-upward' : 'dropdown-opens-downward');
+        
+        console.log(`🎯 PVP Dropdown ${isPvpDropdown ? 'FORZADO ARRIBA' : 'NORMAL'}: ${opensUpward ? 'ARRIBA' : 'ABAJO'}`);
     }
 
 

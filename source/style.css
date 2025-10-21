@@ -967,7 +967,6 @@ body.light-theme .hamburger-menu-separator {
 .tab-content-area {
     background: rgba(30, 30, 30, 0.6);
     min-height: calc(100vh - 300px);
-    overflow-y: auto;
 }
 
 .tab-content {
@@ -5910,6 +5909,19 @@ body.light-theme .ev-total-number {
 
 /* ===== CUSTOM DROPDOWNS (MOVES & ITEMS) ===== */
 
+/* Estilos direccionales para dropdowns */
+.custom-move-select-dropdown.dropdown-opens-upward,
+.custom-item-select-dropdown.dropdown-opens-upward {
+    /* Animación suave cuando se abre hacia arriba */
+    transform-origin: bottom center;
+}
+
+.custom-move-select-dropdown.dropdown-opens-downward,
+.custom-item-select-dropdown.dropdown-opens-downward {
+    /* Animación suave cuando se abre hacia abajo */
+    transform-origin: top center;
+}
+
 /* Move Select Wrapper */
 .custom-move-select-wrapper,
 .custom-item-select-wrapper {
@@ -5961,7 +5973,6 @@ body.light-theme .ev-total-number {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     z-index: 10000 !important; /* Z-index muy alto */
     max-height: 300px;
-    overflow-y: auto;
     backdrop-filter: blur(10px);
     /* Remover posicionamiento absoluto que causaba problemas */
     top: auto !important;
@@ -5969,6 +5980,8 @@ body.light-theme .ev-total-number {
     right: auto !important;
     bottom: auto !important;
     width: auto !important;
+
+    margin-bottom: 100px;
 }
 
 /* Search Input */
