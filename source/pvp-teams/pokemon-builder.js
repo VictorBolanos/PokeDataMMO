@@ -331,128 +331,58 @@ class PokemonBuilder {
     }
     
     /**
-     * Seleccionar Pokémon desde resultados de búsqueda
+     * Seleccionar Pokémon desde búsqueda (SIMPLIFICADO - usa selectPokemon)
      */
     async selectPokemonFromSearch(pokemonName, slotIndex) {
+        console.log(`🔍 DEBUG: selectPokemonFromSearch llamado con:`, pokemonName, slotIndex);
+        
         try {
-            const pokemonData = await this.fetchPokemon(pokemonName);
-            
-            if (pokemonData) {
-                // Extraer stats base
-                const baseStats = {};
-                pokemonData.stats.forEach(stat => {
-                    baseStats[stat.stat.name] = stat.base_stat;
-                });
-                
-                // Crear objeto Pokémon
-                const pokemon = {
-                    id: pokemonData.id,
-                    name: pokemonData.name,
-                    sprite: pokemonData.sprites.front_default,
-                    baseStats: baseStats,
-                    evs: {
-                        hp: 0,
-                        attack: 0,
-                        defense: 0,
-                        'special-attack': 0,
-                        'special-defense': 0,
-                        speed: 0
-                    },
-                    ivs: {
-                        hp: 31,
-                        attack: 31,
-                        defense: 31,
-                        'special-attack': 31,
-                        'special-defense': 31,
-                        speed: 31
-                    },
-                    finalStats: {},
-                    nature: null,
-                    ability: pokemonData.abilities[0]?.ability.name || null,
-                    item: null,
-                    moves: [null, null, null, null],
-                    availableAbilities: pokemonData.abilities.map(a => ({
-                        name: a.ability.name,
-                        is_hidden: a.is_hidden
-                    })),
-                    // FILTRAR: Solo movimientos de Gen I-V (sin Fairy type)
-                    availableMoves: pokemonData.moves
-                        .filter(m => {
-                            // Filtrar solo movimientos aprendidos en Gen V o anteriores
-                            const learnedInGenV = m.version_group_details.some(vg => {
-                                const versionName = vg.version_group.name;
-                                return ['red-blue', 'yellow', 'gold-silver', 'crystal', 
-                                        'ruby-sapphire', 'emerald', 'firered-leafgreen',
-                                        'diamond-pearl', 'platinum', 'heartgold-soulsilver',
-                                        'black-white', 'black-2-white-2'].includes(versionName);
-                            });
-                            return learnedInGenV;
-                        })
-                        .slice(0, 80)  // Limitar a 80 moves más comunes
-                        .map(m => m.move.name)
-                };
-                
-                // Calcular stats finales
-                pokemon.finalStats = window.pvpTeamData.calculateAllStats(
-                    pokemon.baseStats,
-                    pokemon.evs,
-                    pokemon.ivs,
-                    null
-                );
-                
-                // Cerrar modal
-                document.querySelector('.pokemon-search-modal')?.remove();
-                
-                // Actualizar en el equipo
-                window.pvpTeamsUI.updatePokemonSlot(slotIndex, pokemon);
-            }
+            // ✅ SOLUCIÓN: Usar el mismo método que funciona
+            await this.selectPokemon(pokemonName, slotIndex);
         } catch (error) {
+            console.error('❌ Error seleccionando Pokémon desde búsqueda:', error);
         }
     }
 
-    /**
-     * Fetch Pokémon data from API
-     */
-    async fetchPokemon(idOrName) {
-        // Verificar cache
-        if (this.searchCache.has(idOrName)) {
-            return this.searchCache.get(idOrName);
-        }
-        
-        try {
-            const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${idOrName}`);
-            const data = await response.json();
-            
-            // Guardar en cache
-            this.searchCache.set(idOrName, data);
-            this.searchCache.set(data.id, data);
-            this.searchCache.set(data.name, data);
-            
-            return data;
-        } catch (error) {
-            throw error;
-        }
-    }
+    // ✅ CÓDIGO MUERTO ELIMINADO: fetchPokemon ya no se usa
 
     /**
      * Seleccionar Pokémon y agregarlo al slot
      */
     async selectPokemon(pokemonId, slotIndex) {
+        console.log(`🔍 DEBUG: selectPokemon iniciado - pokemonId: ${pokemonId}, slotIndex: ${slotIndex}`);
+        
         try {
-            const pokemonData = await this.fetchPokemon(pokemonId);
+            // Obtener datos de pokemon.js (para habilidades, movimientos y stats base)
+            const localData = window.pokemonDataLoader.getPokemonData(pokemonId);
             
-            // Extraer stats base
-            const baseStats = {};
-            pokemonData.stats.forEach(stat => {
-                baseStats[stat.stat.name] = stat.base_stat;
-            });
+            console.log(`🔍 DEBUG: selectPokemon - localData para ${pokemonId}:`, localData);
             
-            // Crear objeto Pokémon
+            if (!localData) {
+                console.error(`❌ No se encontró Pokémon #${pokemonId} en pokemon.js`);
+                return;
+            }
+            
+            // Obtener sprite directamente (sin fetch a PokeAPI)
+            const pokemonIdNum = parseInt(localData.id);
+            const sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonIdNum}.png`;
+            
+            // 🎯 USAR STATS BASE DE pokemon.js (YA NO NECESITAMOS PokeAPI)
+            const baseStats = {
+                'hp': localData.baseStats.hp,
+                'attack': localData.baseStats.attack,
+                'defense': localData.baseStats.defense,
+                'special-attack': localData.baseStats.specialAttack,
+                'special-defense': localData.baseStats.specialDefense,
+                'speed': localData.baseStats.speed
+            };
+            
+            // Crear objeto Pokémon usando SOLO datos locales
             const pokemon = {
-                id: pokemonData.id,
-                name: pokemonData.name,
-                sprite: pokemonData.sprites.front_default,
-                baseStats: baseStats,
+                id: pokemonIdNum,
+                name: localData.name,
+                sprite: sprite,
+                baseStats: baseStats,  // 👈 De pokemon.js (local)
                 evs: {
                     hp: 0,
                     attack: 0,
@@ -471,29 +401,26 @@ class PokemonBuilder {
                 },
                 finalStats: {},
                 nature: null,
-                ability: pokemonData.abilities[0]?.ability.name || null,
+                ability: localData.abilities[0] || null,
                 item: null,
                 moves: [null, null, null, null],
-                    availableAbilities: pokemonData.abilities.map(a => ({
-                        name: a.ability.name,
-                        is_hidden: a.is_hidden
-                    })),
-                    // FILTRAR: Solo movimientos de Gen I-V (sin Fairy type)
-                    availableMoves: pokemonData.moves
-                        .filter(m => {
-                            // Filtrar solo movimientos aprendidos en Gen V o anteriores
-                            const learnedInGenV = m.version_group_details.some(vg => {
-                                const versionName = vg.version_group.name;
-                                return ['red-blue', 'yellow', 'gold-silver', 'crystal', 
-                                        'ruby-sapphire', 'emerald', 'firered-leafgreen',
-                                        'diamond-pearl', 'platinum', 'heartgold-soulsilver',
-                                        'black-white', 'black-2-white-2'].includes(versionName);
-                            });
-                            return learnedInGenV;
-                        })
-                        .slice(0, 80)  // Limitar a 80 moves más comunes
-                        .map(m => m.move.name)
-                };
+                // USAR DATOS DE pokemon.js
+                availableAbilities: (() => {
+                    console.log(`🔍 DEBUG: localData.abilities:`, localData.abilities);
+                    if (!localData.abilities || !Array.isArray(localData.abilities)) {
+                        console.error(`❌ localData.abilities no es un array válido:`, localData.abilities);
+                        return [];
+                    }
+                    const mapped = localData.abilities.map(abilityName => ({
+                        name: abilityName,
+                        is_hidden: false // No diferenciamos hidden en datos locales
+                    }));
+                    console.log(`🔍 DEBUG: availableAbilities mapeadas:`, mapped);
+                    return mapped;
+                })(),
+                // USAR MOVIMIENTOS DE pokemon.js
+                availableMoves: localData.moves
+            };
             
             // Calcular stats finales
             pokemon.finalStats = window.pvpTeamData.calculateAllStats(
@@ -504,12 +431,16 @@ class PokemonBuilder {
             );
             
             // Cerrar modal
+            console.log(`🔍 DEBUG: Cerrando modal de búsqueda`);
             document.querySelector('.pokemon-search-modal')?.remove();
             
             // Actualizar en el equipo
+            console.log(`🔍 DEBUG: Llamando updatePokemonSlot(${slotIndex}, ${pokemon.name})`);
             window.pvpTeamsUI.updatePokemonSlot(slotIndex, pokemon);
+            console.log(`🔍 DEBUG: selectPokemon completado exitosamente`);
             
         } catch (error) {
+            console.error('❌ Error seleccionando Pokémon:', error);
         }
     }
 

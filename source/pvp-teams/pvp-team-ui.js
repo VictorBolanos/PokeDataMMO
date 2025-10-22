@@ -146,19 +146,28 @@ class PVPTeamUI {
      * Reconstruir objeto Pokémon completo desde datos esenciales guardados
      */
     async reconstructPokemon(essentialData) {
+        console.log(`🔍 DEBUG: reconstructPokemon llamado con:`, essentialData);
+        
         try {
-            // Obtener datos completos del Pokémon desde la API
-            const pokemonData = await window.pokemonBuilder.fetchPokemon(essentialData.id || essentialData.name);
+            // ✅ SOLUCIÓN: Usar SOLO datos locales (pokemon.js) - NO API
+            const localData = window.pokemonDataLoader.getPokemonData(essentialData.id || essentialData.name);
             
-            if (!pokemonData) {
+            if (!localData) {
+                console.error(`❌ No se encontró ${essentialData.name || essentialData.id} en pokemon.js`);
                 return null;
             }
             
-            // Extraer base stats
-            const baseStats = {};
-            pokemonData.stats.forEach(stat => {
-                baseStats[stat.stat.name] = stat.base_stat;
-            });
+            console.log(`🔍 DEBUG: reconstructPokemon - localData.abilities:`, localData.abilities);
+            
+            // Usar baseStats de pokemon.js (LOCAL)
+            const baseStats = {
+                'hp': localData.baseStats.hp,
+                'attack': localData.baseStats.attack,
+                'defense': localData.baseStats.defense,
+                'special-attack': localData.baseStats.specialAttack,
+                'special-defense': localData.baseStats.specialDefense,
+                'speed': localData.baseStats.speed
+            };
             
             // Buscar la naturaleza completa
             let natureObject = null;
@@ -167,12 +176,16 @@ class PVPTeamUI {
                 natureObject = natures.find(n => n.name === essentialData.nature);
             }
             
-            // Reconstruir objeto Pokémon completo
+            // Obtener sprite directamente (sin API)
+            const pokemonIdNum = parseInt(localData.id);
+            const sprite = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonIdNum}.png`;
+            
+            // Reconstruir objeto Pokémon completo USANDO SOLO DATOS LOCALES
             const pokemon = {
-                id: pokemonData.id,
-                name: pokemonData.name,
-                sprite: pokemonData.sprites.front_default,
-                baseStats: baseStats,
+                id: pokemonIdNum,
+                name: localData.name,
+                sprite: sprite,
+                baseStats: baseStats,  // 👈 De pokemon.js (local)
                 evs: essentialData.evs || {
                     hp: 0, attack: 0, defense: 0,
                     'special-attack': 0, 'special-defense': 0, speed: 0
@@ -182,28 +195,16 @@ class PVPTeamUI {
                     'special-attack': 31, 'special-defense': 31, speed: 31
                 },
                 nature: natureObject,
-                ability: essentialData.ability || pokemonData.abilities[0]?.ability.name || null,
+                ability: essentialData.ability || localData.abilities[0] || null,
                 item: essentialData.item || null,
                 moves: essentialData.moves || [null, null, null, null],
-                availableAbilities: pokemonData.abilities.map(a => ({
-                    name: a.ability.name,
-                    is_hidden: a.is_hidden
+                // ✅ USAR DATOS DE pokemon.js
+                availableAbilities: localData.abilities.map(abilityName => ({
+                    name: abilityName,
+                    is_hidden: false
                 })),
-                // FILTRAR: Solo movimientos de Gen I-V (sin Fairy type)
-                availableMoves: pokemonData.moves
-                    .filter(m => {
-                        // Filtrar solo movimientos aprendidos en Gen V o anteriores
-                        const learnedInGenV = m.version_group_details.some(vg => {
-                            const versionName = vg.version_group.name;
-                            return ['red-blue', 'yellow', 'gold-silver', 'crystal', 
-                                    'ruby-sapphire', 'emerald', 'firered-leafgreen',
-                                    'diamond-pearl', 'platinum', 'heartgold-soulsilver',
-                                    'black-white', 'black-2-white-2'].includes(versionName);
-                        });
-                        return learnedInGenV;
-                    })
-                    .slice(0, 80)  // Limitar a 80 moves más comunes
-                    .map(m => m.move.name),
+                // ✅ USAR MOVIMIENTOS DE pokemon.js
+                availableMoves: localData.moves,
                 finalStats: {}
             };
             
@@ -215,9 +216,17 @@ class PVPTeamUI {
                 natureObject
             );
             
+            console.log(`🔍 DEBUG: reconstructPokemon resultado final:`, {
+                name: pokemon.name,
+                availableAbilities: pokemon.availableAbilities,
+                availableMoves: pokemon.availableMoves,
+                abilitiesLength: pokemon.availableAbilities?.length
+            });
+            
             return pokemon;
             
         } catch (error) {
+            console.error('❌ Error reconstruyendo Pokémon:', error);
             return null;
         }
     }
@@ -234,13 +243,23 @@ class PVPTeamUI {
         
         for (let i = 0; i < pokemons.length && i < 6; i++) {
             if (pokemons[i] && pokemons[i].id) {
-                // Si no tiene baseStats, son datos esenciales -> reconstruir
-                if (!pokemons[i].baseStats) {
+                console.log(`🔍 DEBUG: ensureSixSlots - Pokémon ${i}:`, {
+                    id: pokemons[i].id,
+                    name: pokemons[i].name,
+                    hasBaseStats: !!pokemons[i].baseStats,
+                    hasAvailableAbilities: !!pokemons[i].availableAbilities,
+                    hasAvailableMoves: !!pokemons[i].availableMoves
+                });
+                
+                // ✅ SOLUCIÓN: Siempre reconstruir si faltan availableAbilities o availableMoves
+                if (!pokemons[i].baseStats || !pokemons[i].availableAbilities || !pokemons[i].availableMoves) {
+                    console.log(`🔍 DEBUG: Reconstruyendo Pokémon ${i} (${pokemons[i].name})`);
                     reconstructPromises.push(
                         this.reconstructPokemon(pokemons[i]).then(result => ({ index: i, pokemon: result }))
                     );
                 } else {
-                    // Ya es un objeto completo
+                    console.log(`🔍 DEBUG: Usando Pokémon ${i} (${pokemons[i].name}) sin reconstruir`);
+                    // Ya es un objeto completo con todas las propiedades
                     sixSlots[i] = pokemons[i];
                 }
             }
@@ -250,6 +269,11 @@ class PVPTeamUI {
         if (reconstructPromises.length > 0) {
             const results = await Promise.all(reconstructPromises);
             results.forEach(result => {
+                console.log(`🔍 DEBUG: Asignando Pokémon reconstruido ${result.index}:`, {
+                    name: result.pokemon.name,
+                    availableAbilities: result.pokemon.availableAbilities,
+                    abilitiesLength: result.pokemon.availableAbilities?.length
+                });
                 sixSlots[result.index] = result.pokemon;
             });
         }
@@ -783,6 +807,8 @@ class PVPTeamUI {
      * Actualizar slot de Pokémon
      */
     async updatePokemonSlot(slotIndex, pokemon) {
+        console.log(`🔍 DEBUG: updatePokemonSlot(${slotIndex}) iniciado para ${pokemon.name}`);
+        
         this.currentTeam.pokemons[slotIndex] = pokemon;
 
         // Re-renderizar grid
@@ -790,7 +816,9 @@ class PVPTeamUI {
         if (grid) {
             const slots = grid.children;
             if (slots[slotIndex]) {
+                console.log(`🔍 DEBUG: Re-renderizando card para slot ${slotIndex}`);
                 slots[slotIndex].outerHTML = window.pokemonBuilder.renderPokemonCard(pokemon, slotIndex);
+                console.log(`🔍 DEBUG: Card re-renderizada`);
             }
         }
 
@@ -801,7 +829,9 @@ class PVPTeamUI {
         this.syncAllLevelRadioButtons(window.pvpTeamData.getSelectedLevel());
 
         // Poblar dropdowns para este Pokémon
+        console.log(`🔍 DEBUG: Llamando populateDropdownsForSlot(${slotIndex})`);
         await this.populateDropdownsForSlot(slotIndex, pokemon);
+        console.log(`🔍 DEBUG: populateDropdownsForSlot(${slotIndex}) completado`);
 
         // Auto-save
         window.pvpTeams.scheduleAutoSave();
@@ -834,24 +864,37 @@ class PVPTeamUI {
             });
         }
 
-        // Poblar habilidades
+        // Poblar habilidades - SOLO las del Pokémon específico
         const abilitySelect = document.getElementById(`ability_${slotIndex}`);
-        if (abilitySelect) {
-            // Cargar TODAS las habilidades para compatibilidad con PokeMMO
-            const allAbilities = await window.pokemonDataLoader.loadAllAbilities();
-
+        console.log(`🔍 DEBUG: populateDropdownsForSlot(${slotIndex})`, {
+            pokemonName: pokemon.name,
+            availableAbilities: pokemon.availableAbilities,
+            abilitySelectFound: !!abilitySelect
+        });
+        
+        if (abilitySelect && pokemon.availableAbilities) {
+            console.log(`🔍 DEBUG: Poblando habilidades para ${pokemon.name}...`);
+            
             // Limpia y añade placeholder
             abilitySelect.innerHTML = '<option value="">--</option>';
 
-            allAbilities.forEach(ability => {
+            // Cargar SOLO las habilidades específicas del Pokémon
+            const pokemonAbilities = await window.pokemonDataLoader.loadAbilities(pokemon.availableAbilities);
+            console.log(`🔍 DEBUG: pokemonAbilities cargadas:`, pokemonAbilities);
+
+            pokemonAbilities.forEach(ability => {
                 const option = document.createElement('option');
                 option.value = ability.name;
-                option.textContent = ability.displayName;
+                option.textContent = ability.displayName + (ability.is_hidden ? ' 💎' : '');
                 if (pokemon.ability === ability.name) {
                     option.selected = true;
                 }
                 abilitySelect.appendChild(option);
             });
+            
+            console.log(`🔍 DEBUG: Habilidades agregadas. Total opciones:`, abilitySelect.children.length);
+        } else {
+            console.log(`❌ DEBUG: No se pudo poblar habilidades - abilitySelect:`, abilitySelect, 'availableAbilities:', pokemon.availableAbilities);
         }
 
         // Poblar movimientos

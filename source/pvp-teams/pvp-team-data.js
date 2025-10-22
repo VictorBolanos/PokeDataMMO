@@ -12,39 +12,46 @@ class PVPTeamData {
         // Stats order
         this.statsOrder = ['hp', 'attack', 'defense', 'special-attack', 'special-defense', 'speed'];
         
-        // Naturalezas cache (se cargará de PokeAPI)
+        // Naturalezas cache (se cargará de natures.js)
         this.naturesCache = null;
     }
 
     /**
-     * Cargar naturalezas desde PokeAPI
+     * Cargar naturalezas desde archivo local (natures.js)
      */
     async loadNatures() {
         if (this.naturesCache) return this.naturesCache;
 
         try {
-            const response = await fetch('https://pokeapi.co/api/v2/nature?limit=25');
-            const data = await response.json();
+            // Verificar que naturesData esté disponible
+            if (typeof naturesData === 'undefined') {
+                console.error('❌ ERROR CRÍTICO: naturesData NO está definido');
+                console.error('❌ Asegúrate de que data/natures.js está cargado en index.html');
+                return [];
+            }
+
+            // Obtener idioma actual
+            const currentLang = window.languageManager?.getCurrentLanguage() || 'es';
             
-            this.naturesCache = await Promise.all(
-                data.results.map(async (nature) => {
-                    const detailResponse = await fetch(nature.url);
-                    const detail = await detailResponse.json();
-                    return {
-                        name: detail.name,
-                        displayName: this.getTranslatedNatureName(detail),
-                        increased_stat: detail.increased_stat?.name || null,
-                        decreased_stat: detail.decreased_stat?.name || null,
-                        names: detail.names // Guardar para traducción dinámica
-                    };
-                })
-            );
+            // Transformar datos locales al formato requerido
+            this.naturesCache = naturesData.map(nature => ({
+                name: nature.EnglishName.toLowerCase(), // nombre en inglés en minúsculas
+                displayName: currentLang === 'es' ? nature.SpanishName : nature.EnglishName,
+                increased_stat: nature.increased_stat,
+                decreased_stat: nature.decreased_stat,
+                // Mantener nombres para traducción dinámica
+                names: [
+                    { language: { name: 'en' }, name: nature.EnglishName },
+                    { language: { name: 'es' }, name: nature.SpanishName }
+                ]
+            }));
             
             // Ordenar alfabéticamente por displayName
             this.naturesCache.sort((a, b) => a.displayName.localeCompare(b.displayName));
             
             return this.naturesCache;
         } catch (error) {
+            console.error('❌ Error cargando naturalezas:', error);
             return [];
         }
     }
@@ -204,7 +211,10 @@ class PVPTeamData {
             nature: null,
             ability: null,
             item: null,
-            moves: [null, null, null, null]
+            moves: [null, null, null, null],
+            // ✅ SOLUCIÓN: Agregar propiedades faltantes
+            availableAbilities: [],
+            availableMoves: []
         };
     }
 

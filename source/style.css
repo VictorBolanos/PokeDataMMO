@@ -5971,7 +5971,7 @@ body.light-theme .ev-total-number {
     border: 2px solid var(--primary-color);
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    z-index: 10000 !important; /* Z-index muy alto */
+    z-index: 99999 !important; /* Z-index ULTRA ALTO para estar por encima de todo */
     max-height: 300px;
     backdrop-filter: blur(10px);
     /* Remover posicionamiento absoluto que causaba problemas */

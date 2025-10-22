@@ -51,11 +51,6 @@ class CustomDropdowns {
             };
         }
 
-        // ✅ FILTRO CRÍTICO: No renderizar movimientos tipo Fairy (Gen VI+)
-        if (move.type === 'fairy') {
-            return ''; // Devolver vacío para que no se renderice
-        }
-
         const typeIcon = window.pokemonDataLoader.getTypeIcon(move.type);
         const className = isTrigger ? 'custom-move-option-trigger' : 'custom-move-option';
         
@@ -120,9 +115,12 @@ class CustomDropdowns {
 
         const className = isTrigger ? 'custom-item-option-trigger' : 'custom-item-option';
         
+        // Usar el sprite correcto (ya viene formateado desde loadAllItems)
+        const spriteUrl = item.sprite || `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${item.spriteName || 'unknown'}.png`;
+        
         return `
             <div class="${className}" data-item-name="${item.name}">
-                <img src="${item.sprite}" alt="${item.displayName}" class="item-sprite">
+                <img src="${spriteUrl}" alt="${item.displayName}" class="item-sprite" onerror="this.src='img/res/poke-types/box/type-normal-box-icon.png'">
                 <span class="item-name">${item.displayName}</span>
             </div>
         `;
@@ -151,8 +149,20 @@ class CustomDropdowns {
         const finalSearchInput = document.getElementById(`moveSearch_${slotIndex}_${moveIndex}`);
         const finalOptionsContainer = document.getElementById(`moveOptions_${slotIndex}_${moveIndex}`);
 
-        // Cargar movimientos
-        const moves = await window.pokemonDataLoader.loadAllMoves();
+        // Obtener movimientos específicos del Pokémon
+        const pokemon = window.pvpTeamsUI?.currentTeam?.pokemons?.[slotIndex];
+        let moves = [];
+        
+        if (pokemon && pokemon.availableMoves) {
+            // Usar SOLO los movimientos del Pokémon específico
+            const allMoves = await window.pokemonDataLoader.loadAllMoves();
+            moves = allMoves.filter(move => 
+                pokemon.availableMoves.includes(move.name)
+            );
+        } else {
+            // Fallback: cargar todos si no hay Pokémon específico
+            moves = await window.pokemonDataLoader.loadAllMoves();
+        }
 
         // Renderizar opciones iniciales
         this.renderMoveOptions(finalOptionsContainer, moves);
@@ -163,11 +173,15 @@ class CustomDropdowns {
             this.toggleDropdown(finalDropdown);
         });
 
-        // Búsqueda
+        // Búsqueda - Solo en los movimientos del Pokémon
         if (finalSearchInput) {
             finalSearchInput.addEventListener('input', (e) => {
-                const query = e.target.value;
-                const filtered = query ? window.pokemonDataLoader.searchMoves(query) : moves;
+                const query = e.target.value.toLowerCase();
+                const filtered = moves.filter(move => 
+                    move.displayName.toLowerCase().includes(query) ||
+                    move.name.toLowerCase().includes(query) ||
+                    move.type.toLowerCase().includes(query)
+                );
                 this.renderMoveOptions(finalOptionsContainer, filtered);
             });
         }
@@ -176,18 +190,17 @@ class CustomDropdowns {
         document.addEventListener('click', (e) => {
             if (!finalDropdown.contains(e.target) && !finalTrigger.contains(e.target)) {
                 finalDropdown.style.display = 'none';
+                // Limpiar eventos de scroll/resize
+                if (finalDropdown._cleanupFunction && typeof finalDropdown._cleanupFunction === 'function') {
+                    finalDropdown._cleanupFunction();
+                    delete finalDropdown._cleanupFunction;
+                }
+                // Limpiar del body cuando se cierra
+                if (finalDropdown.parentNode === document.body) {
+                    finalDropdown.parentNode.removeChild(finalDropdown);
+                }
             }
         });
-
-        // Reposicionar dropdown cuando se hace scroll o resize
-        const repositionHandler = () => {
-            if (finalDropdown.style.display === 'block') {
-                this.positionDropdown(finalDropdown);
-            }
-        };
-        
-        window.addEventListener('scroll', repositionHandler, true);
-        window.addEventListener('resize', repositionHandler);
     }
 
     /**
@@ -209,6 +222,7 @@ class CustomDropdowns {
         container.querySelectorAll('.custom-move-option').forEach(option => {
             option.addEventListener('click', (e) => {
                 const moveName = e.currentTarget.dataset.moveName;
+                // ✅ SOLUCIÓN: Pasar el container (que tiene el ID correcto)
                 this.selectMove(container, moveName);
             });
         });
@@ -218,9 +232,28 @@ class CustomDropdowns {
      * Seleccionar movimiento
      */
     selectMove(container, moveName) {
-        const wrapper = container.closest('.custom-move-select-wrapper');
-        const slotIndex = parseInt(wrapper.dataset.slot);
-        const moveIndex = parseInt(wrapper.dataset.moveIndex);
+        console.log(`🔍 DEBUG: selectMove llamado con:`, container, moveName);
+        
+        // ✅ SOLUCIÓN EFECTIVA: Extraer slotIndex y moveIndex del ID del container
+        const containerId = container.id;
+        console.log(`🔍 DEBUG: containerId:`, containerId);
+        
+        if (!containerId || !containerId.startsWith('moveOptions_')) {
+            console.error(`❌ ERROR: Container ID inválido:`, containerId);
+            return;
+        }
+        
+        // Extraer slotIndex y moveIndex del ID: "moveOptions_0_1" -> slotIndex=0, moveIndex=1
+        const parts = containerId.split('_');
+        if (parts.length !== 3) {
+            console.error(`❌ ERROR: Formato de ID inválido:`, containerId);
+            return;
+        }
+        
+        const slotIndex = parseInt(parts[1]);
+        const moveIndex = parseInt(parts[2]);
+        
+        console.log(`🔍 DEBUG: slotIndex: ${slotIndex}, moveIndex: ${moveIndex}`);
         
         const trigger = document.getElementById(`moveSelectTrigger_${slotIndex}_${moveIndex}`);
         const dropdown = document.getElementById(`moveSelectDropdown_${slotIndex}_${moveIndex}`);
@@ -238,12 +271,25 @@ class CustomDropdowns {
         // Cerrar dropdown
         if (dropdown) {
             dropdown.style.display = 'none';
+            // Limpiar eventos de scroll/resize
+            if (dropdown._cleanupFunction && typeof dropdown._cleanupFunction === 'function') {
+                dropdown._cleanupFunction();
+                delete dropdown._cleanupFunction;
+            }
+            // Limpiar del body cuando se cierra
+            if (dropdown.parentNode === document.body) {
+                dropdown.parentNode.removeChild(dropdown);
+            }
         }
         
         // Actualizar datos en PVP Teams UI
         if (window.pvpTeamsUI) {
+            console.log(`🔍 DEBUG: Actualizando movimiento ${moveIndex} del slot ${slotIndex} a: ${moveName}`);
             window.pvpTeamsUI.currentTeam.pokemons[slotIndex].moves[moveIndex] = moveName;
             window.pvpTeams.scheduleAutoSave();
+            console.log(`🔍 DEBUG: Movimiento actualizado exitosamente`);
+        } else {
+            console.error(`❌ ERROR: window.pvpTeamsUI no está disponible`);
         }
     }
 
@@ -324,24 +370,29 @@ class CustomDropdowns {
         document.addEventListener('click', (e) => {
             if (!finalDropdown.contains(e.target) && !finalTrigger.contains(e.target)) {
                 finalDropdown.style.display = 'none';
+                // Limpiar eventos de scroll/resize
+                if (finalDropdown._cleanupFunction && typeof finalDropdown._cleanupFunction === 'function') {
+                    finalDropdown._cleanupFunction();
+                    delete finalDropdown._cleanupFunction;
+                }
+                // Limpiar del body cuando se cierra
+                if (finalDropdown.parentNode === document.body) {
+                    finalDropdown.parentNode.removeChild(finalDropdown);
+                }
             }
         });
-
-        // Reposicionar dropdown cuando se hace scroll o resize
-        const repositionHandler = () => {
-            if (finalDropdown.style.display === 'block') {
-                this.positionDropdown(finalDropdown);
-            }
-        };
-        
-        window.addEventListener('scroll', repositionHandler, true);
-        window.addEventListener('resize', repositionHandler);
     }
 
     /**
      * Renderizar opciones de objetos
      */
     renderItemOptions(container, items) {
+        // Guardar slotIndex en el container antes de cualquier manipulación
+        if (!container.dataset.slotIndex) {
+            const slotIndex = container.id.replace('itemOptions_', '');
+            container.dataset.slotIndex = slotIndex;
+        }
+        
         if (items.length === 0) {
             container.innerHTML = `
                 <div class="custom-select-no-results">
@@ -369,7 +420,19 @@ class CustomDropdowns {
      */
     selectItem(container, itemName) {
         const wrapper = container.closest('.custom-item-select-wrapper');
-        const slotIndex = parseInt(wrapper.dataset.slot);
+        
+        let slotIndex;
+        
+        if (wrapper && wrapper.dataset.slot) {
+            // Método normal: desde el wrapper
+            slotIndex = parseInt(wrapper.dataset.slot);
+        } else if (container.dataset.slotIndex) {
+            // Método fallback: desde el container
+            slotIndex = parseInt(container.dataset.slotIndex);
+        } else {
+            console.error('❌ No se encontró slotIndex en ningún lugar');
+            return;
+        }
         
         const trigger = document.getElementById(`itemSelectTrigger_${slotIndex}`);
         const dropdown = document.getElementById(`itemSelectDropdown_${slotIndex}`);
@@ -387,6 +450,15 @@ class CustomDropdowns {
         // Cerrar dropdown
         if (dropdown) {
             dropdown.style.display = 'none';
+            // Limpiar eventos de scroll/resize
+            if (dropdown._cleanupFunction && typeof dropdown._cleanupFunction === 'function') {
+                dropdown._cleanupFunction();
+                delete dropdown._cleanupFunction;
+            }
+            // Limpiar del body cuando se cierra
+            if (dropdown.parentNode === document.body) {
+                dropdown.parentNode.removeChild(dropdown);
+            }
         }
         
         // Actualizar datos en PVP Teams UI
@@ -397,63 +469,122 @@ class CustomDropdowns {
     }
 
     /**
-     * Toggle dropdown
+     * Toggle dropdown - VERSIÓN SIMPLE SIN BUCLES
      */
     toggleDropdown(dropdown) {
         // Cerrar otros dropdowns abiertos
         document.querySelectorAll('.custom-move-select-dropdown, .custom-item-select-dropdown').forEach(d => {
             if (d !== dropdown) {
                 d.style.display = 'none';
+                // Remover del body si está ahí
+                if (d.parentNode === document.body) {
+                    d.parentNode.removeChild(d);
+                }
             }
         });
 
         // Toggle actual dropdown
-        const isCurrentlyHidden = dropdown.style.display === 'none';
+        const isCurrentlyHidden = dropdown.style.display === 'none' || dropdown.style.display === '';
         
         if (isCurrentlyHidden) {
-            // Abrir dropdown
-            // Posicionar correctamente antes de mostrar
-            this.positionDropdown(dropdown);
+            // 🎯 GUARDAR POSICIÓN DEL TRIGGER ANTES DE MOVER
+            const triggerId = dropdown.id.replace('Dropdown', 'Trigger');
+            const trigger = document.getElementById(triggerId);
+            if (trigger) {
+                const triggerRect = trigger.getBoundingClientRect();
+                // Guardar posición en el dropdown para usarla después
+                dropdown.dataset.triggerRect = JSON.stringify({
+                    top: triggerRect.top,
+                    left: triggerRect.left,
+                    bottom: triggerRect.bottom,
+                    width: triggerRect.width,
+                    height: triggerRect.height
+                });
+            }
             
-            // Mostrar con requestAnimationFrame para asegurar posicionamiento
-            requestAnimationFrame(() => {
-                dropdown.style.display = 'block';
+            // 🎯 MOVER DROPDOWN AL BODY para evitar overflow: hidden
+            if (dropdown.parentNode !== document.body) {
+                document.body.appendChild(dropdown);
+            }
+            
+            // Abrir dropdown
+            this.positionDropdown(dropdown);
+            dropdown.style.display = 'block';
+            
+            // Focus en el input de búsqueda después de mostrar
+            setTimeout(() => {
+                const searchInput = dropdown.querySelector('.custom-select-search-input');
+                if (searchInput) {
+                    searchInput.focus();
+                }
                 
-                // Focus en el input de búsqueda después de mostrar
-                setTimeout(() => {
-                    const searchInput = dropdown.querySelector('.custom-select-search-input');
-                    if (searchInput) {
-                        searchInput.focus();
+                // 🎯 AÑADIR REPOSICIONAMIENTO DINÁMICO
+                const repositionHandler = () => {
+                    if (dropdown.style.display === 'block') {
+                        // Actualizar posición del trigger
+                        const triggerId = dropdown.id.replace('Dropdown', 'Trigger');
+                        const trigger = document.getElementById(triggerId);
+                        if (trigger) {
+                            const newTriggerRect = trigger.getBoundingClientRect();
+                            dropdown.dataset.triggerRect = JSON.stringify({
+                                top: newTriggerRect.top,
+                                left: newTriggerRect.left,
+                                bottom: newTriggerRect.bottom,
+                                width: newTriggerRect.width,
+                                height: newTriggerRect.height
+                            });
+                            this.positionDropdown(dropdown);
+                        }
                     }
-                }, 50);
-            });
+                };
+                
+                window.addEventListener('scroll', repositionHandler, { passive: true });
+                window.addEventListener('resize', repositionHandler);
+                
+                // Limpiar eventos cuando se cierre el dropdown
+                const cleanup = () => {
+                    window.removeEventListener('scroll', repositionHandler);
+                    window.removeEventListener('resize', repositionHandler);
+                };
+                
+                // Limpiar después de 30 segundos o cuando se cierre
+                setTimeout(cleanup, 30000);
+                dropdown._cleanupFunction = cleanup;
+            }, 100);
         } else {
-            // Cerrar dropdown
             dropdown.style.display = 'none';
+            
+            // Limpiar eventos de scroll/resize
+            if (dropdown._cleanupFunction && typeof dropdown._cleanupFunction === 'function') {
+                dropdown._cleanupFunction();
+                delete dropdown._cleanupFunction;
+            }
         }
     }
 
     /**
-     * Posicionar dropdown correctamente con detección inteligente de espacio
+     * Posicionar dropdown - VERSIÓN SIMPLE: PVP SIEMPRE ARRIBA
      */
     positionDropdown(dropdown) {
-        // Encontrar el trigger correspondiente
-        const triggerId = dropdown.id.replace('Dropdown', 'Trigger');
-        const trigger = document.getElementById(triggerId);
-        
-        if (!trigger) {
-            return;
+        // 🎯 USAR POSICIÓN GUARDADA DEL TRIGGER
+        let triggerRect;
+        if (dropdown.dataset.triggerRect) {
+            triggerRect = JSON.parse(dropdown.dataset.triggerRect);
+        } else {
+            // Fallback: buscar trigger si no hay posición guardada
+            const triggerId = dropdown.id.replace('Dropdown', 'Trigger');
+            const trigger = document.getElementById(triggerId);
+            
+            if (!trigger) {
+                return;
+            }
+            
+            triggerRect = trigger.getBoundingClientRect();
         }
-
-        const triggerRect = trigger.getBoundingClientRect();
         const viewportHeight = window.innerHeight;
         const viewportWidth = window.innerWidth;
-        const dropdownHeight = 300; // max-height del dropdown
-        const dropdownWidth = Math.max(triggerRect.width, 250); // Ancho mínimo
-        
-        // 🎯 DETECCIÓN INTELIGENTE DE ESPACIO DISPONIBLE
-        const spaceBelow = viewportHeight - triggerRect.bottom - 20; // Espacio disponible abajo
-        const spaceAbove = triggerRect.top - 20; // Espacio disponible arriba
+        const dropdownHeight = 300;
+        const dropdownWidth = Math.max(triggerRect.width, 250);
         
         // Calcular posición horizontal
         let left = triggerRect.left;
@@ -468,40 +599,34 @@ class CustomDropdowns {
             left = 10;
         }
         
-        // 🎯 DECISIÓN: PVP DROPDOWNS SIEMPRE ARRIBA
-        let top, opensUpward;
-        
-        // 🎯 PVP DROPDOWNS: FORZAR ARRIBA SIEMPRE
+        // 🎯 PVP DROPDOWNS: SIEMPRE ARRIBA
         const isPvpDropdown = dropdown.classList.contains('custom-move-select-dropdown') || 
                              dropdown.classList.contains('custom-item-select-dropdown');
         
-        console.log(`🔍 Debug: Dropdown classes = ${dropdown.className}, isPvpDropdown = ${isPvpDropdown}`);
-        
+        let top;
         if (isPvpDropdown) {
             // PVP: SIEMPRE ARRIBA
-            opensUpward = true;
-            top = triggerRect.top - dropdownHeight - 8; // 8px de separación hacia arriba
+            top = triggerRect.top - dropdownHeight - 8;
+            
+            // Si no cabe arriba, ajustar altura
+            if (top < 10) {
+                const maxHeight = triggerRect.top - 20;
+                dropdown.style.maxHeight = `${maxHeight}px`;
+                top = triggerRect.top - maxHeight - 8;
+            }
         } else {
             // Otros dropdowns: lógica normal
-            const isBottomRow = triggerRect.bottom > viewportHeight * 0.6;
-            if (isBottomRow || spaceBelow < dropdownHeight || spaceAbove > spaceBelow) {
-                opensUpward = true;
-                top = triggerRect.top - dropdownHeight - 8;
-            } else {
-                opensUpward = false;
+            const spaceBelow = viewportHeight - triggerRect.bottom - 20;
+            if (spaceBelow >= dropdownHeight) {
                 top = triggerRect.bottom + 8;
+            } else {
+                top = triggerRect.top - dropdownHeight - 8;
+                if (top < 10) {
+                    const maxHeight = triggerRect.top - 20;
+                    dropdown.style.maxHeight = `${maxHeight}px`;
+                    top = triggerRect.top - maxHeight - 8;
+                }
             }
-        }
-        
-        // 🎯 AJUSTE DE ALTURA SI NO CABE COMPLETO
-        let finalHeight = dropdownHeight;
-        if (opensUpward && top < 10) {
-            // No cabe arriba, ajustar altura
-            finalHeight = Math.min(dropdownHeight, triggerRect.top - 20);
-            top = triggerRect.top - finalHeight - 8;
-        } else if (!opensUpward && top + dropdownHeight > viewportHeight - 10) {
-            // No cabe abajo, ajustar altura
-            finalHeight = Math.min(dropdownHeight, viewportHeight - top - 20);
         }
         
         // Asegurar que no se salga por arriba
@@ -509,21 +634,24 @@ class CustomDropdowns {
             top = 10;
         }
         
-        // 🎯 APLICAR POSICIONAMIENTO
-        dropdown.style.position = 'fixed';
-        dropdown.style.top = `${top}px`;
-        dropdown.style.left = `${left}px`;
-        dropdown.style.width = `${dropdownWidth}px`;
-        dropdown.style.maxHeight = `${finalHeight}px`;
-        dropdown.style.zIndex = '10000'; // Z-index alto para estar por encima
+        // Aplicar posicionamiento CON FORZADO MÁXIMO
+        dropdown.style.setProperty('position', 'fixed', 'important');
+        dropdown.style.setProperty('top', `${top}px`, 'important');
+        dropdown.style.setProperty('left', `${left}px`, 'important');
+        dropdown.style.setProperty('width', `${dropdownWidth}px`, 'important');
+        dropdown.style.setProperty('min-height', '200px', 'important');
+        dropdown.style.setProperty('background-color', 'rgba(30, 30, 30, 0.98)', 'important');
+        dropdown.style.setProperty('border', '2px solid var(--primary-color)', 'important');
+        dropdown.style.setProperty('z-index', '99999', 'important');
+        dropdown.style.setProperty('transform', 'none', 'important');
+        dropdown.style.setProperty('margin', '0', 'important');
+        dropdown.style.setProperty('padding', '0', 'important');
         
-        // 🎯 AÑADIR CLASE PARA ESTILOS DIRECCIONALES (opcional)
+        // Añadir clase para estilos direccionales
         dropdown.classList.remove('dropdown-opens-upward', 'dropdown-opens-downward');
+        const opensUpward = isPvpDropdown || top < triggerRect.top;
         dropdown.classList.add(opensUpward ? 'dropdown-opens-upward' : 'dropdown-opens-downward');
-        
-        console.log(`🎯 PVP Dropdown ${isPvpDropdown ? 'FORZADO ARRIBA' : 'NORMAL'}: ${opensUpward ? 'ARRIBA' : 'ABAJO'}`);
     }
-
 
     /**
      * Re-renderizar todos los dropdowns con traducciones actualizadas
@@ -621,4 +749,3 @@ class CustomDropdowns {
 
 // Exportar instancia global
 window.customDropdowns = new CustomDropdowns();
-
