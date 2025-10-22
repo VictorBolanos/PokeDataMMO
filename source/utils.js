@@ -58,12 +58,28 @@ function debounce(func, wait) {
 }
 
 /**
+ * Obtener la base URL del proyecto
+ * @returns {string} Base URL
+ */
+function getBaseURL() {
+    // Obtener la ruta base del proyecto (sin index.html)
+    let basePath = window.location.pathname;
+    if (basePath.endsWith('index.html')) {
+        basePath = basePath.replace('index.html', '');
+    } else if (!basePath.endsWith('/')) {
+        basePath = basePath.substring(0, basePath.lastIndexOf('/') + 1);
+    }
+    return window.location.origin + basePath;
+}
+
+/**
  * Obtener icono de tipo Pokémon
  * @param {string} typeName - Nombre del tipo
- * @returns {string} Ruta del icono
+ * @returns {string} Ruta absoluta del icono
  */
 function getTypeIcon(typeName) {
-    return `img/res/poke-types/box/type-${typeName}-box-icon.png`;
+    // Usar ruta absoluta desde la raíz para evitar problemas de cache y compatibilidad cross-browser
+    return `${getBaseURL()}img/res/poke-types/box/type-${typeName.toLowerCase()}-box-icon.png`;
 }
 
 /**
@@ -110,6 +126,7 @@ window.PokeUtils = {
     formatName,
     getTranslatedName,
     debounce,
+    getBaseURL,
     getTypeIcon,
     translateTypeName
 };

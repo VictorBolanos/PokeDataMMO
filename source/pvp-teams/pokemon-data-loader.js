@@ -251,10 +251,10 @@ class PokemonDataLoader {
     }
 
     /**
-     * Obtener icono de tipo
+     * Obtener icono de tipo (usa la función global de PokeUtils)
      */
     getTypeIcon(typeName) {
-        return `img/res/poke-types/box/type-${typeName}-box-icon.png`;
+        return window.PokeUtils.getTypeIcon(typeName);
     }
 
     /**

@@ -339,7 +339,7 @@ class PokemonCard {
             
             const typesHTML = types.map(type => `
                 <div class="pokedex-effectiveness-type-box" data-type="${type}" data-multiplier="${multiplier}">
-                    <img src="img/res/poke-types/box/type-${type}-box-icon.png" alt="${type}">
+                    <img src="${window.PokeUtils.getTypeIcon(type)}" alt="${type}">
                 </div>
             `).join('');
             

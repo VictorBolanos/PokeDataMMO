@@ -120,7 +120,7 @@ class CustomDropdowns {
             item = items.find(i => i.name === item) || { 
                 name: item, 
                 displayName: window.PokeUtils.formatName(item),
-                sprite: 'img/res/poke-types/box/type-normal-box-icon.png' // Placeholder
+                sprite: window.PokeUtils.getTypeIcon('normal') // Placeholder usando función centralizada
             };
         }
 
@@ -128,10 +128,11 @@ class CustomDropdowns {
         
         // Usar el sprite correcto (ya viene formateado desde loadAllItems)
         const spriteUrl = item.sprite || `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${item.spriteName || 'unknown'}.png`;
+        const fallbackIcon = window.PokeUtils.getTypeIcon('normal');
         
         return `
             <div class="${className}" data-item-name="${item.name}">
-                <img src="${spriteUrl}" alt="${item.displayName}" class="item-sprite" onerror="this.src='img/res/poke-types/box/type-normal-box-icon.png'">
+                <img src="${spriteUrl}" alt="${item.displayName}" class="item-sprite" onerror="this.src='${fallbackIcon}'">
                 <span class="item-name">${item.displayName}</span>
             </div>
         `;
