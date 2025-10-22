@@ -58,7 +58,7 @@ class PokemonDataLoader {
                     return true;
                 })
                 .map(move => ({
-                    id: parseInt(move.id),
+                    id: move.id, // Mantener como string para soportar IDs alfanuméricos (ej: "237a" para Hidden Power)
                     name: move.EnglishName,
                     spanishName: move.SpanishName,
                     displayName: currentLang === 'es' ? move.SpanishName : move.EnglishName,
@@ -305,8 +305,14 @@ class PokemonDataLoader {
     updateMoveTranslations() {
         if (!this.movesCache) return;
         
+        const currentLang = window.languageManager?.getCurrentLanguage() || 'es';
+        
         this.movesCache.forEach(move => {
-            move.displayName = this.getTranslatedMoveName(move);
+            // Actualizar displayName base
+            move.displayName = currentLang === 'es' ? move.spanishName : move.name;
+            
+            // Para Hidden Power, NO modificar displayName aquí
+            // Se manejará en renderMoveOption() del custom-dropdowns.js
         });
         
         // Re-ordenar alfabéticamente
@@ -317,16 +323,12 @@ class PokemonDataLoader {
      * Obtener datos de un Pokémon desde pokemon.js
      */
     getPokemonData(pokemonIdOrName) {
-        console.log(`🔍 DEBUG: getPokemonData llamado con:`, pokemonIdOrName);
-        
         // Verificar que pokemonData esté disponible
         if (typeof pokemonData === 'undefined') {
             console.error('❌ ERROR CRÍTICO: pokemonData NO está definido');
             console.error('❌ Asegúrate de que data/pokemon.js está cargado en index.html');
             return null;
         }
-
-        console.log(`🔍 DEBUG: pokemonData disponible, buscando Pokémon...`);
 
         // Buscar por ID o nombre
         const pokemon = pokemonData.find(p => {
@@ -341,13 +343,6 @@ class PokemonDataLoader {
             return null;
         }
 
-        console.log(`🔍 DEBUG: Pokémon encontrado:`, {
-            id: pokemon.id,
-            name: pokemon.name,
-            abilities: pokemon.abilities,
-            abilitiesLength: pokemon.abilities?.length
-        });
-
         return pokemon;
     }
 
@@ -355,11 +350,8 @@ class PokemonDataLoader {
      * Cargar habilidad individual desde abilities.js (LOCAL)
      */
     async loadAbility(abilityName, isHidden = false) {
-        console.log(`🔍 DEBUG: loadAbility(${abilityName}, ${isHidden})`);
-        
         // Si ya está en caché, devolver
         if (this.abilitiesCache[abilityName]) {
-            console.log(`🔍 DEBUG: Habilidad ${abilityName} encontrada en caché`);
             return this.abilitiesCache[abilityName];
         }
 
@@ -404,7 +396,6 @@ class PokemonDataLoader {
                 is_hidden: isHidden
             };
             
-            console.log(`🔍 DEBUG: Habilidad ${abilityName} cargada:`, this.abilitiesCache[abilityName]);
             return this.abilitiesCache[abilityName];
         } catch (error) {
             console.error(`❌ Error cargando habilidad "${abilityName}":`, error);
@@ -421,22 +412,16 @@ class PokemonDataLoader {
      * Cargar múltiples habilidades
      */
     async loadAbilities(abilityData) {
-        console.log(`🔍 DEBUG: loadAbilities llamado con:`, abilityData);
-        
         const promises = abilityData.map(data => {
             // Si es un string, mantener compatibilidad
             if (typeof data === 'string') {
-                console.log(`🔍 DEBUG: Cargando habilidad string: ${data}`);
                 return this.loadAbility(data);
             }
             // Si es un objeto con name e is_hidden
-            console.log(`🔍 DEBUG: Cargando habilidad objeto:`, data);
             return this.loadAbility(data.name, data.is_hidden);
         });
         
-        const results = await Promise.all(promises);
-        console.log(`🔍 DEBUG: loadAbilities resultados:`, results);
-        return results;
+        return await Promise.all(promises);
     }
 
 
@@ -494,6 +479,11 @@ class PokemonDataLoader {
         // También actualizar naturalezas
         if (window.pvpTeamData) {
             window.pvpTeamData.updateNatureTranslations();
+        }
+        
+        // Actualizar UI de PVP Teams si está activa
+        if (window.pvpTeamsUI && window.pvpTeamsUI.updateTranslations) {
+            window.pvpTeamsUI.updateTranslations();
         }
     }
 

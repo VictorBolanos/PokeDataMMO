@@ -66,12 +66,51 @@ function getTypeIcon(typeName) {
     return `img/res/poke-types/box/type-${typeName}-box-icon.png`;
 }
 
+/**
+ * Traducir nombre de tipo Pokémon
+ * @param {string} typeNameEn - Nombre del tipo en inglés
+ * @returns {string} Nombre del tipo traducido
+ */
+function translateTypeName(typeNameEn) {
+    if (!typeNameEn) return '';
+    
+    const currentLang = window.languageManager?.getCurrentLanguage() || 'es';
+    
+    if (currentLang === 'en') {
+        return formatName(typeNameEn);
+    }
+    
+    // Traducciones de tipos al español
+    const typeTranslations = {
+        'normal': 'Normal',
+        'fighting': 'Lucha',
+        'flying': 'Volador',
+        'poison': 'Veneno',
+        'ground': 'Tierra',
+        'rock': 'Roca',
+        'bug': 'Bicho',
+        'ghost': 'Fantasma',
+        'steel': 'Acero',
+        'fire': 'Fuego',
+        'water': 'Agua',
+        'grass': 'Planta',
+        'electric': 'Eléctrico',
+        'psychic': 'Psíquico',
+        'ice': 'Hielo',
+        'dragon': 'Dragón',
+        'dark': 'Siniestro'
+    };
+    
+    return typeTranslations[typeNameEn.toLowerCase()] || formatName(typeNameEn);
+}
+
 // Exportar funciones globalmente
 window.PokeUtils = {
     capitalizeFirst,
     formatName,
     getTranslatedName,
     debounce,
-    getTypeIcon
+    getTypeIcon,
+    translateTypeName
 };
 

@@ -334,10 +334,7 @@ class PokemonBuilder {
      * Seleccionar Pokémon desde búsqueda (SIMPLIFICADO - usa selectPokemon)
      */
     async selectPokemonFromSearch(pokemonName, slotIndex) {
-        console.log(`🔍 DEBUG: selectPokemonFromSearch llamado con:`, pokemonName, slotIndex);
-        
         try {
-            // ✅ SOLUCIÓN: Usar el mismo método que funciona
             await this.selectPokemon(pokemonName, slotIndex);
         } catch (error) {
             console.error('❌ Error seleccionando Pokémon desde búsqueda:', error);
@@ -350,13 +347,9 @@ class PokemonBuilder {
      * Seleccionar Pokémon y agregarlo al slot
      */
     async selectPokemon(pokemonId, slotIndex) {
-        console.log(`🔍 DEBUG: selectPokemon iniciado - pokemonId: ${pokemonId}, slotIndex: ${slotIndex}`);
-        
         try {
             // Obtener datos de pokemon.js (para habilidades, movimientos y stats base)
             const localData = window.pokemonDataLoader.getPokemonData(pokemonId);
-            
-            console.log(`🔍 DEBUG: selectPokemon - localData para ${pokemonId}:`, localData);
             
             if (!localData) {
                 console.error(`❌ No se encontró Pokémon #${pokemonId} en pokemon.js`);
@@ -406,17 +399,14 @@ class PokemonBuilder {
                 moves: [null, null, null, null],
                 // USAR DATOS DE pokemon.js
                 availableAbilities: (() => {
-                    console.log(`🔍 DEBUG: localData.abilities:`, localData.abilities);
                     if (!localData.abilities || !Array.isArray(localData.abilities)) {
                         console.error(`❌ localData.abilities no es un array válido:`, localData.abilities);
                         return [];
                     }
-                    const mapped = localData.abilities.map(abilityName => ({
+                    return localData.abilities.map(abilityName => ({
                         name: abilityName,
                         is_hidden: false // No diferenciamos hidden en datos locales
                     }));
-                    console.log(`🔍 DEBUG: availableAbilities mapeadas:`, mapped);
-                    return mapped;
                 })(),
                 // USAR MOVIMIENTOS DE pokemon.js
                 availableMoves: localData.moves
@@ -431,13 +421,10 @@ class PokemonBuilder {
             );
             
             // Cerrar modal
-            console.log(`🔍 DEBUG: Cerrando modal de búsqueda`);
             document.querySelector('.pokemon-search-modal')?.remove();
             
             // Actualizar en el equipo
-            console.log(`🔍 DEBUG: Llamando updatePokemonSlot(${slotIndex}, ${pokemon.name})`);
             window.pvpTeamsUI.updatePokemonSlot(slotIndex, pokemon);
-            console.log(`🔍 DEBUG: selectPokemon completado exitosamente`);
             
         } catch (error) {
             console.error('❌ Error seleccionando Pokémon:', error);

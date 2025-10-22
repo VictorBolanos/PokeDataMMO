@@ -42,9 +42,10 @@ class CustomDropdowns {
      */
     renderMoveOption(move, isTrigger = false) {
         if (typeof move === 'string') {
-            // Buscar el movimiento en la caché
+            // Buscar el movimiento en la caché POR ID
             const moves = window.pokemonDataLoader.movesCache || [];
-            move = moves.find(m => m.name === move) || { 
+            move = moves.find(m => m.id === move || m.name === move) || { 
+                id: move,
                 name: move, 
                 displayName: window.PokeUtils.formatName(move),
                 type: 'normal'
@@ -54,9 +55,19 @@ class CustomDropdowns {
         const typeIcon = window.pokemonDataLoader.getTypeIcon(move.type);
         const className = isTrigger ? 'custom-move-option-trigger' : 'custom-move-option';
         
+        // Para Hidden Power, mostrar el tipo en el nombre
+        let displayName = move.displayName;
+        if (move.name === 'Hidden Power' && move.type && move.type.toLowerCase() !== 'normal') {
+            const currentLang = window.languageManager?.getCurrentLanguage() || 'es';
+            const typeTranslated = window.PokeUtils.translateTypeName(move.type);
+            displayName = currentLang === 'es' 
+                ? `Poder Oculto [${typeTranslated}]` 
+                : `Hidden Power [${typeTranslated}]`;
+        }
+        
         return `
-            <div class="${className}" data-move-name="${move.name}">
-                <span class="move-name">${move.displayName}</span>
+            <div class="${className}" data-move-id="${move.id}">
+                <span class="move-name">${displayName}</span>
                 <img src="${typeIcon}" 
                      alt="${move.type}" 
                      class="move-type-icon" 
@@ -156,9 +167,16 @@ class CustomDropdowns {
         if (pokemon && pokemon.availableMoves) {
             // Usar SOLO los movimientos del Pokémon específico
             const allMoves = await window.pokemonDataLoader.loadAllMoves();
-            moves = allMoves.filter(move => 
-                pokemon.availableMoves.includes(move.name)
-            );
+            const hasHiddenPower = pokemon.availableMoves.includes('Hidden Power');
+            
+            moves = allMoves.filter(move => {
+                // Si puede aprender Hidden Power, mostrar TODAS las variantes
+                if (hasHiddenPower && move.name === 'Hidden Power') {
+                    return true;
+                }
+                // Para el resto, filtrar normalmente
+                return pokemon.availableMoves.includes(move.name);
+            });
         } else {
             // Fallback: cargar todos si no hay Pokémon específico
             moves = await window.pokemonDataLoader.loadAllMoves();
@@ -221,22 +239,19 @@ class CustomDropdowns {
         // Agregar eventos de click
         container.querySelectorAll('.custom-move-option').forEach(option => {
             option.addEventListener('click', (e) => {
-                const moveName = e.currentTarget.dataset.moveName;
-                // ✅ SOLUCIÓN: Pasar el container (que tiene el ID correcto)
-                this.selectMove(container, moveName);
+                const moveId = e.currentTarget.dataset.moveId;
+                // ✅ SOLUCIÓN: Pasar el container y el ID del movimiento
+                this.selectMove(container, moveId);
             });
         });
     }
 
     /**
-     * Seleccionar movimiento
+     * Seleccionar movimiento (ahora usa IDs para soportar Hidden Power)
      */
-    selectMove(container, moveName) {
-        console.log(`🔍 DEBUG: selectMove llamado con:`, container, moveName);
-        
-        // ✅ SOLUCIÓN EFECTIVA: Extraer slotIndex y moveIndex del ID del container
+    selectMove(container, moveId) {
+        // Extraer slotIndex y moveIndex del ID del container
         const containerId = container.id;
-        console.log(`🔍 DEBUG: containerId:`, containerId);
         
         if (!containerId || !containerId.startsWith('moveOptions_')) {
             console.error(`❌ ERROR: Container ID inválido:`, containerId);
@@ -253,13 +268,11 @@ class CustomDropdowns {
         const slotIndex = parseInt(parts[1]);
         const moveIndex = parseInt(parts[2]);
         
-        console.log(`🔍 DEBUG: slotIndex: ${slotIndex}, moveIndex: ${moveIndex}`);
-        
         const trigger = document.getElementById(`moveSelectTrigger_${slotIndex}_${moveIndex}`);
         const dropdown = document.getElementById(`moveSelectDropdown_${slotIndex}_${moveIndex}`);
         
-        // Actualizar trigger
-        const move = window.pokemonDataLoader.movesCache.find(m => m.name === moveName);
+        // Buscar movimiento por ID
+        const move = window.pokemonDataLoader.movesCache.find(m => m.id == moveId);
         if (move && trigger) {
             trigger.innerHTML = this.renderMoveOption(move, true) + `
                 <svg class="custom-select-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none">
@@ -282,14 +295,10 @@ class CustomDropdowns {
             }
         }
         
-        // Actualizar datos en PVP Teams UI
-        if (window.pvpTeamsUI) {
-            console.log(`🔍 DEBUG: Actualizando movimiento ${moveIndex} del slot ${slotIndex} a: ${moveName}`);
-            window.pvpTeamsUI.currentTeam.pokemons[slotIndex].moves[moveIndex] = moveName;
+        // Actualizar datos en PVP Teams UI - GUARDAR EL ID
+        if (window.pvpTeamsUI && move) {
+            window.pvpTeamsUI.currentTeam.pokemons[slotIndex].moves[moveIndex] = moveId;
             window.pvpTeams.scheduleAutoSave();
-            console.log(`🔍 DEBUG: Movimiento actualizado exitosamente`);
-        } else {
-            console.error(`❌ ERROR: window.pvpTeamsUI no está disponible`);
         }
     }
 
@@ -658,17 +667,19 @@ class CustomDropdowns {
      */
     async updateAllDropdownTranslations() {
         // Re-renderizar dropdowns de items
-        document.querySelectorAll('.custom-item-select-wrapper').forEach(async wrapper => {
+        const itemWrappers = document.querySelectorAll('.custom-item-select-wrapper');
+        for (const wrapper of itemWrappers) {
             const slotIndex = parseInt(wrapper.dataset.slot);
             await this.updateItemDropdownTranslation(slotIndex);
-        });
+        }
         
         // Re-renderizar dropdowns de movimientos
-        document.querySelectorAll('.custom-move-select-wrapper').forEach(async wrapper => {
+        const moveWrappers = document.querySelectorAll('.custom-move-select-wrapper');
+        for (const wrapper of moveWrappers) {
             const slotIndex = parseInt(wrapper.dataset.slot);
             const moveIndex = parseInt(wrapper.dataset.moveIndex);
             await this.updateMoveDropdownTranslation(slotIndex, moveIndex);
-        });
+        }
     }
 
     /**
@@ -716,12 +727,12 @@ class CustomDropdowns {
         
         if (!trigger || !optionsContainer) return;
         
-        // Obtener valor actual
-        const currentMoveName = window.pvpTeamsUI?.currentTeam?.pokemons?.[slotIndex]?.moves?.[moveIndex];
+        // Obtener valor actual (ahora es el ID del movimiento)
+        const currentMoveId = window.pvpTeamsUI?.currentTeam?.pokemons?.[slotIndex]?.moves?.[moveIndex];
         
         // Actualizar trigger si hay movimiento seleccionado
-        if (currentMoveName) {
-            const move = window.pokemonDataLoader.movesCache.find(m => m.name === currentMoveName);
+        if (currentMoveId) {
+            const move = window.pokemonDataLoader.movesCache.find(m => m.id == currentMoveId);
             if (move) {
                 trigger.innerHTML = this.renderMoveOption(move, true) + `
                     <svg class="custom-select-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none">

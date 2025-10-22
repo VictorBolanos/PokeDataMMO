@@ -146,8 +146,6 @@ class PVPTeamUI {
      * Reconstruir objeto Pokémon completo desde datos esenciales guardados
      */
     async reconstructPokemon(essentialData) {
-        console.log(`🔍 DEBUG: reconstructPokemon llamado con:`, essentialData);
-        
         try {
             // ✅ SOLUCIÓN: Usar SOLO datos locales (pokemon.js) - NO API
             const localData = window.pokemonDataLoader.getPokemonData(essentialData.id || essentialData.name);
@@ -156,8 +154,6 @@ class PVPTeamUI {
                 console.error(`❌ No se encontró ${essentialData.name || essentialData.id} en pokemon.js`);
                 return null;
             }
-            
-            console.log(`🔍 DEBUG: reconstructPokemon - localData.abilities:`, localData.abilities);
             
             // Usar baseStats de pokemon.js (LOCAL)
             const baseStats = {
@@ -173,7 +169,11 @@ class PVPTeamUI {
             let natureObject = null;
             if (essentialData.nature) {
                 const natures = await window.pvpTeamData.loadNatures();
-                natureObject = natures.find(n => n.name === essentialData.nature);
+                // Buscar naturaleza (puede venir en formato lowercase o normal)
+                natureObject = natures.find(n => 
+                    n.name === essentialData.nature || 
+                    n.name.toLowerCase() === essentialData.nature.toLowerCase()
+                );
             }
             
             // Obtener sprite directamente (sin API)
@@ -215,13 +215,6 @@ class PVPTeamUI {
                 pokemon.ivs,
                 natureObject
             );
-            
-            console.log(`🔍 DEBUG: reconstructPokemon resultado final:`, {
-                name: pokemon.name,
-                availableAbilities: pokemon.availableAbilities,
-                availableMoves: pokemon.availableMoves,
-                abilitiesLength: pokemon.availableAbilities?.length
-            });
             
             return pokemon;
             
@@ -419,9 +412,10 @@ class PVPTeamUI {
         // Sincronizar radio buttons de nivel al cargar
         this.syncAllLevelRadioButtons(window.pvpTeamData.getSelectedLevel());
         
-        // Si hay datos, poblar dropdowns
-        if (data && data.pokemons) {
-            await this.populateDropdowns(data.pokemons);
+        // 🔧 FIX CRÍTICO: Poblar dropdowns con DATOS RECONSTRUIDOS (this.currentTeam.pokemons)
+        // NO con datos crudos de BD (data.pokemons) que no tienen availableAbilities
+        if (this.currentTeam && this.currentTeam.pokemons) {
+            await this.populateDropdowns(this.currentTeam.pokemons);
         }
         
         // Actualizar totales de EVs para todos los Pokémon
@@ -829,9 +823,7 @@ class PVPTeamUI {
         this.syncAllLevelRadioButtons(window.pvpTeamData.getSelectedLevel());
 
         // Poblar dropdowns para este Pokémon
-        console.log(`🔍 DEBUG: Llamando populateDropdownsForSlot(${slotIndex})`);
         await this.populateDropdownsForSlot(slotIndex, pokemon);
-        console.log(`🔍 DEBUG: populateDropdownsForSlot(${slotIndex}) completado`);
 
         // Auto-save
         window.pvpTeams.scheduleAutoSave();
@@ -866,21 +858,13 @@ class PVPTeamUI {
 
         // Poblar habilidades - SOLO las del Pokémon específico
         const abilitySelect = document.getElementById(`ability_${slotIndex}`);
-        console.log(`🔍 DEBUG: populateDropdownsForSlot(${slotIndex})`, {
-            pokemonName: pokemon.name,
-            availableAbilities: pokemon.availableAbilities,
-            abilitySelectFound: !!abilitySelect
-        });
         
         if (abilitySelect && pokemon.availableAbilities) {
-            console.log(`🔍 DEBUG: Poblando habilidades para ${pokemon.name}...`);
-            
             // Limpia y añade placeholder
             abilitySelect.innerHTML = '<option value="">--</option>';
 
             // Cargar SOLO las habilidades específicas del Pokémon
             const pokemonAbilities = await window.pokemonDataLoader.loadAbilities(pokemon.availableAbilities);
-            console.log(`🔍 DEBUG: pokemonAbilities cargadas:`, pokemonAbilities);
 
             pokemonAbilities.forEach(ability => {
                 const option = document.createElement('option');
@@ -891,10 +875,6 @@ class PVPTeamUI {
                 }
                 abilitySelect.appendChild(option);
             });
-            
-            console.log(`🔍 DEBUG: Habilidades agregadas. Total opciones:`, abilitySelect.children.length);
-        } else {
-            console.log(`❌ DEBUG: No se pudo poblar habilidades - abilitySelect:`, abilitySelect, 'availableAbilities:', pokemon.availableAbilities);
         }
 
         // Poblar movimientos
