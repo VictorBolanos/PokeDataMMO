@@ -5,6 +5,66 @@ class CustomDropdowns {
     }
 
     /**
+     * Formatear nombre de forma segura
+     */
+    safeFormatName(name) {
+        if (!name) return '';
+        // Si PokeUtils está disponible, usarlo
+        if (window.PokeUtils && typeof window.PokeUtils.formatName === 'function') {
+            return window.PokeUtils.formatName(name);
+        }
+        // Fallback: capitalizar manualmente
+        return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    }
+
+    /**
+     * Traducir tipo de Pokémon usando language-manager
+     */
+    translatePokemonType(typeName) {
+        if (!typeName) return '';
+        
+        const currentLang = window.languageManager?.getCurrentLanguage() || 'es';
+        const typeKey = typeName.toLowerCase();
+        
+        // Obtener traducción del language-manager
+        const typeTranslations = window.languageManager?.translations?.[currentLang]?.types;
+        if (typeTranslations && typeTranslations[typeKey]) {
+            return typeTranslations[typeKey];
+        }
+        
+        // Fallback: usar safeFormatName
+        return this.safeFormatName(typeName);
+    }
+
+    /**
+     * Limpiar dropdown existente antes de reinicializar
+     */
+    cleanupDropdown(slotIndex, moveIndex, type) {
+        const prefix = type === 'move' ? `moveSelect` : `itemSelect`;
+        const suffix = type === 'move' ? `_${slotIndex}_${moveIndex}` : `_${slotIndex}`;
+        
+        // Remover listeners específicos de este dropdown
+        const trigger = document.getElementById(`${prefix}Trigger${suffix}`);
+        const dropdown = document.getElementById(`${prefix}Dropdown${suffix}`);
+        
+        if (trigger) {
+            const newTrigger = trigger.cloneNode(true);
+            trigger.parentNode.replaceChild(newTrigger, trigger);
+        }
+        
+        if (dropdown) {
+            const newDropdown = dropdown.cloneNode(true);
+            dropdown.parentNode.replaceChild(newDropdown, dropdown);
+        }
+        
+        // Limpiar del body si existe
+        const existingDropdown = document.querySelector(`#${prefix}Dropdown${suffix}`);
+        if (existingDropdown && existingDropdown.parentNode === document.body) {
+            existingDropdown.parentNode.removeChild(existingDropdown);
+        }
+    }
+
+    /**
      * Renderizar dropdown de movimientos
      */
     renderMoveSelect(slotIndex, moveIndex, selectedMove = '') {
@@ -47,7 +107,7 @@ class CustomDropdowns {
             move = moves.find(m => m.id === move || m.name === move) || { 
                 id: move,
                 name: move, 
-                displayName: window.PokeUtils.formatName(move),
+                displayName: this.safeFormatName(move),
                 type: 'normal'
             };
         }
@@ -55,11 +115,13 @@ class CustomDropdowns {
         const typeIcon = window.pokemonDataLoader.getTypeIcon(move.type);
         const className = isTrigger ? 'custom-move-option-trigger' : 'custom-move-option';
         
+        // ✅ SOLUCIÓN: Siempre calcular el nombre correcto según el idioma actual
+        const currentLang = window.languageManager?.getCurrentLanguage() || 'es';
+        let displayName = currentLang === 'es' ? move.spanishName : move.name;
+        
         // Para Hidden Power, mostrar el tipo en el nombre
-        let displayName = move.displayName;
         if (move.name === 'Hidden Power' && move.type && move.type.toLowerCase() !== 'normal') {
-            const currentLang = window.languageManager?.getCurrentLanguage() || 'es';
-            const typeTranslated = window.PokeUtils.translateTypeName(move.type);
+            const typeTranslated = this.translatePokemonType(move.type);
             displayName = currentLang === 'es' 
                 ? `Poder Oculto [${typeTranslated}]` 
                 : `Hidden Power [${typeTranslated}]`;
@@ -71,7 +133,7 @@ class CustomDropdowns {
                 <img src="${typeIcon}" 
                      alt="${move.type}" 
                      class="move-type-icon" 
-                     title="${window.PokeUtils.formatName(move.type)}"
+                     title="${this.translatePokemonType(move.type)}"
                      onerror="this.style.display='none'">
             </div>
         `;
@@ -119,8 +181,8 @@ class CustomDropdowns {
             const items = window.pokemonDataLoader.itemsCache || [];
             item = items.find(i => i.name === item) || { 
                 name: item, 
-                displayName: window.PokeUtils.formatName(item),
-                sprite: window.PokeUtils.getTypeIcon('normal') // Placeholder usando función centralizada
+                displayName: this.safeFormatName(item),
+                sprite: 'img/res/poke-types/box/type-normal-box-icon.png' // Placeholder
             };
         }
 
@@ -128,11 +190,10 @@ class CustomDropdowns {
         
         // Usar el sprite correcto (ya viene formateado desde loadAllItems)
         const spriteUrl = item.sprite || `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${item.spriteName || 'unknown'}.png`;
-        const fallbackIcon = window.PokeUtils.getTypeIcon('normal');
         
         return `
             <div class="${className}" data-item-name="${item.name}">
-                <img src="${spriteUrl}" alt="${item.displayName}" class="item-sprite" onerror="this.src='${fallbackIcon}'">
+                <img src="${spriteUrl}" alt="${item.displayName}" class="item-sprite" onerror="this.src='img/res/poke-types/box/type-normal-box-icon.png'">
                 <span class="item-name">${item.displayName}</span>
             </div>
         `;
@@ -149,11 +210,8 @@ class CustomDropdowns {
 
         if (!trigger || !dropdown) return;
 
-        // ✅ SOLUCIÓN: Remover listeners existentes para evitar duplicados
-        const newTrigger = trigger.cloneNode(true);
-        trigger.parentNode.replaceChild(newTrigger, trigger);
-        const newDropdown = dropdown.cloneNode(true);
-        dropdown.parentNode.replaceChild(newDropdown, dropdown);
+        // ✅ SOLUCIÓN: Limpiar listeners existentes y elementos
+        this.cleanupDropdown(slotIndex, moveIndex, 'move');
         
         // Actualizar referencias
         const finalTrigger = document.getElementById(`moveSelectTrigger_${slotIndex}_${moveIndex}`);
@@ -196,28 +254,46 @@ class CustomDropdowns {
         if (finalSearchInput) {
             finalSearchInput.addEventListener('input', (e) => {
                 const query = e.target.value.toLowerCase();
-                const filtered = moves.filter(move => 
-                    move.displayName.toLowerCase().includes(query) ||
-                    move.name.toLowerCase().includes(query) ||
-                    move.type.toLowerCase().includes(query)
-                );
+                const currentLang = window.languageManager?.getCurrentLanguage() || 'es';
+                
+                const filtered = moves.filter(move => {
+                    // Usar el nombre correcto según el idioma actual
+                    const displayName = currentLang === 'es' ? move.spanishName : move.name;
+                    
+                    return displayName.toLowerCase().includes(query) ||
+                           move.name.toLowerCase().includes(query) ||
+                           move.spanishName.toLowerCase().includes(query) ||
+                           move.type.toLowerCase().includes(query);
+                });
                 this.renderMoveOptions(finalOptionsContainer, filtered);
             });
         }
 
+        // ✅ SOLUCIÓN: Cerrar dropdown al perder foco (comportamiento estándar)
+        let closeDropdown = () => {
+            finalDropdown.style.display = 'none';
+            // Limpiar eventos de scroll/resize
+            if (finalDropdown._cleanupFunction && typeof finalDropdown._cleanupFunction === 'function') {
+                finalDropdown._cleanupFunction();
+                delete finalDropdown._cleanupFunction;
+            }
+            // Limpiar del body cuando se cierra
+            if (finalDropdown.parentNode === document.body) {
+                finalDropdown.parentNode.removeChild(finalDropdown);
+            }
+        };
+
         // Cerrar al hacer click fuera
         document.addEventListener('click', (e) => {
             if (!finalDropdown.contains(e.target) && !finalTrigger.contains(e.target)) {
-                finalDropdown.style.display = 'none';
-                // Limpiar eventos de scroll/resize
-                if (finalDropdown._cleanupFunction && typeof finalDropdown._cleanupFunction === 'function') {
-                    finalDropdown._cleanupFunction();
-                    delete finalDropdown._cleanupFunction;
-                }
-                // Limpiar del body cuando se cierra
-                if (finalDropdown.parentNode === document.body) {
-                    finalDropdown.parentNode.removeChild(finalDropdown);
-                }
+                closeDropdown();
+            }
+        });
+
+        // ✅ SOLUCIÓN: Sistema simplificado - solo cerrar al cambiar idioma
+        window.addEventListener('languageChanged', () => {
+            if (finalDropdown.style.display === 'block') {
+                closeDropdown();
             }
         });
     }
@@ -298,8 +374,11 @@ class CustomDropdowns {
         
         // Actualizar datos en PVP Teams UI - GUARDAR EL ID
         if (window.pvpTeamsUI && move) {
+            console.log(`🎯 [MOVE] Movimiento seleccionado: ${move.displayName} (ID: ${moveId}, Tipo: ${move.type})`);
             window.pvpTeamsUI.currentTeam.pokemons[slotIndex].moves[moveIndex] = moveId;
             window.pvpTeams.scheduleAutoSave();
+        } else {
+            console.error(`❌ ERROR: window.pvpTeamsUI no está disponible o movimiento no encontrado`);
         }
     }
 
@@ -316,11 +395,8 @@ class CustomDropdowns {
             return;
         }
 
-        // ✅ SOLUCIÓN: Remover listeners existentes para evitar duplicados
-        const newTrigger = trigger.cloneNode(true);
-        trigger.parentNode.replaceChild(newTrigger, trigger);
-        const newDropdown = dropdown.cloneNode(true);
-        dropdown.parentNode.replaceChild(newDropdown, dropdown);
+        // ✅ SOLUCIÓN: Limpiar listeners existentes y elementos
+        this.cleanupDropdown(slotIndex, null, 'item');
         
         // Actualizar referencias
         const finalTrigger = document.getElementById(`itemSelectTrigger_${slotIndex}`);
@@ -376,19 +452,31 @@ class CustomDropdowns {
             });
         }
 
+        // ✅ SOLUCIÓN: Cerrar dropdown al perder foco (comportamiento estándar)
+        let closeDropdown = () => {
+            finalDropdown.style.display = 'none';
+            // Limpiar eventos de scroll/resize
+            if (finalDropdown._cleanupFunction && typeof finalDropdown._cleanupFunction === 'function') {
+                finalDropdown._cleanupFunction();
+                delete finalDropdown._cleanupFunction;
+            }
+            // Limpiar del body cuando se cierra
+            if (finalDropdown.parentNode === document.body) {
+                finalDropdown.parentNode.removeChild(finalDropdown);
+            }
+        };
+
         // Cerrar al hacer click fuera
         document.addEventListener('click', (e) => {
             if (!finalDropdown.contains(e.target) && !finalTrigger.contains(e.target)) {
-                finalDropdown.style.display = 'none';
-                // Limpiar eventos de scroll/resize
-                if (finalDropdown._cleanupFunction && typeof finalDropdown._cleanupFunction === 'function') {
-                    finalDropdown._cleanupFunction();
-                    delete finalDropdown._cleanupFunction;
-                }
-                // Limpiar del body cuando se cierra
-                if (finalDropdown.parentNode === document.body) {
-                    finalDropdown.parentNode.removeChild(finalDropdown);
-                }
+                closeDropdown();
+            }
+        });
+
+        // ✅ SOLUCIÓN: Sistema simplificado - solo cerrar al cambiar idioma
+        window.addEventListener('languageChanged', () => {
+            if (finalDropdown.style.display === 'block') {
+                closeDropdown();
             }
         });
     }
@@ -667,20 +755,25 @@ class CustomDropdowns {
      * Re-renderizar todos los dropdowns con traducciones actualizadas
      */
     async updateAllDropdownTranslations() {
-        // Re-renderizar dropdowns de items
         const itemWrappers = document.querySelectorAll('.custom-item-select-wrapper');
-        for (const wrapper of itemWrappers) {
+        const moveWrappers = document.querySelectorAll('.custom-move-select-wrapper');
+        
+        console.log(`🔄 [DROPDOWN] Actualizando ${itemWrappers.length} dropdowns de items y ${moveWrappers.length} dropdowns de movimientos`);
+        
+        // Re-renderizar dropdowns de items
+        itemWrappers.forEach(async wrapper => {
             const slotIndex = parseInt(wrapper.dataset.slot);
             await this.updateItemDropdownTranslation(slotIndex);
-        }
+        });
         
         // Re-renderizar dropdowns de movimientos
-        const moveWrappers = document.querySelectorAll('.custom-move-select-wrapper');
-        for (const wrapper of moveWrappers) {
+        moveWrappers.forEach(async wrapper => {
             const slotIndex = parseInt(wrapper.dataset.slot);
             const moveIndex = parseInt(wrapper.dataset.moveIndex);
             await this.updateMoveDropdownTranslation(slotIndex, moveIndex);
-        }
+        });
+        
+        console.log(`✅ [DROPDOWN] Actualización de dropdowns completada`);
     }
 
     /**
@@ -727,35 +820,51 @@ class CustomDropdowns {
         const optionsContainer = document.getElementById(`moveOptions_${slotIndex}_${moveIndex}`);
         
         if (!trigger || !optionsContainer) return;
-        
+
         // Obtener valor actual (ahora es el ID del movimiento)
         const currentMoveId = window.pvpTeamsUI?.currentTeam?.pokemons?.[slotIndex]?.moves?.[moveIndex];
         
         // Actualizar trigger si hay movimiento seleccionado
         if (currentMoveId) {
-            const move = window.pokemonDataLoader.movesCache.find(m => m.id == currentMoveId);
+            // Buscar por ID primero, luego por nombre (para compatibilidad con datos antiguos)
+            let move = window.pokemonDataLoader.movesCache.find(m => m.id == currentMoveId);
+            
+            if (!move) {
+                // Si no se encuentra por ID, buscar por nombre (datos antiguos)
+                move = window.pokemonDataLoader.movesCache.find(m => 
+                    m.name === currentMoveId || 
+                    m.spanishName === currentMoveId ||
+                    m.displayName === currentMoveId
+                );
+            }
+            
             if (move) {
                 trigger.innerHTML = this.renderMoveOption(move, true) + `
                     <svg class="custom-select-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none">
                         <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 `;
+            } else {
+                console.warn(`⚠️ [ERROR] Movimiento con ID/nombre "${currentMoveId}" no encontrado en caché`);
             }
         } else {
             // Actualizar placeholder
             const placeholder = trigger.querySelector('.custom-select-placeholder');
             if (placeholder) {
-                placeholder.textContent = 
-                    window.languageManager.getCurrentLanguage() === 'es' ? 'Seleccionar movimiento...' : 'Select move...';
+                const currentLang = window.languageManager.getCurrentLanguage();
+                placeholder.textContent = currentLang === 'es' ? 'Seleccionar movimiento...' : 'Select move...';
             }
         }
         
-        // Re-renderizar opciones si el dropdown está visible
-        const dropdown = document.getElementById(`moveSelectDropdown_${slotIndex}_${moveIndex}`);
-        if (dropdown && dropdown.style.display === 'block') {
-            const moves = window.pokemonDataLoader.movesCache || [];
-            this.renderMoveOptions(optionsContainer, moves);
+        // Actualizar placeholder del input de búsqueda
+        const searchInput = document.getElementById(`moveSearch_${slotIndex}_${moveIndex}`);
+        if (searchInput) {
+            const currentLang = window.languageManager.getCurrentLanguage();
+            searchInput.placeholder = currentLang === 'es' ? 'Buscar...' : 'Search...';
         }
+        
+        // ✅ SIMPLIFICADO: Los dropdowns se cierran automáticamente al cambiar idioma
+        // No necesitamos re-renderizar opciones aquí
     }
 }
 

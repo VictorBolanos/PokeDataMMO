@@ -5,6 +5,19 @@ class PokemonBuilder {
     }
 
     /**
+     * Formatear nombre de forma segura
+     */
+    safeFormatName(name) {
+        if (!name) return '';
+        // Si PokeUtils está disponible, usarlo
+        if (window.PokeUtils && typeof window.PokeUtils.formatName === 'function') {
+            return window.PokeUtils.formatName(name);
+        }
+        // Fallback: capitalizar manualmente
+        return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    }
+
+    /**
      * Renderizar card de Pokémon vacío (con botón +)
      */
     renderEmptyCard(slotIndex) {
@@ -40,7 +53,7 @@ class PokemonBuilder {
                 <div class="pokemon-card-header">
                     <img src="${pokemon.sprite}" alt="${pokemon.name}" class="pokemon-sprite-large">
                     <div class="pokemon-card-title">
-                        <h5 class="pokemon-name-display">${window.PokeUtils.formatName(pokemon.name)}</h5>
+                        <h5 class="pokemon-name-display">${this.safeFormatName(pokemon.name)}</h5>
                         
                         <!-- Level Selector (inline con el nombre) -->
                         <div class="level-selector-inline">
@@ -127,7 +140,7 @@ class PokemonBuilder {
                     <div class="row g-2">
                         <div class="col-md-12">
                             <label class="form-label-sm">${lm.getCurrentLanguage() === 'es' ? 'Objeto' : 'Item'}</label>
-                            ${window.customDropdowns.renderItemSelect(slotIndex, pokemon.item)}
+                            ${window.customDropdowns?.renderItemSelect(slotIndex, pokemon.item) || '<div class="custom-item-select-wrapper" data-slot="' + slotIndex + '"><div class="custom-item-select-trigger">Seleccionar objeto...</div></div>'}
                         </div>
                     </div>
                 </div>
@@ -137,7 +150,8 @@ class PokemonBuilder {
                     <label class="form-label-sm mb-2">${lm.getCurrentLanguage() === 'es' ? 'Movimientos' : 'Moves'}</label>
                     <div class="moves-grid">
                         ${[0, 1, 2, 3].map(moveIndex => 
-                            window.customDropdowns.renderMoveSelect(slotIndex, moveIndex, pokemon.moves[moveIndex] || '')
+                            window.customDropdowns?.renderMoveSelect(slotIndex, moveIndex, pokemon.moves[moveIndex] || '') || 
+                            '<div class="custom-move-select-wrapper" data-slot="' + slotIndex + '" data-move-index="' + moveIndex + '"><div class="custom-move-select-trigger">Seleccionar movimiento...</div></div>'
                         ).join('')}
                     </div>
                 </div>
@@ -299,7 +313,7 @@ class PokemonBuilder {
                          onerror="this.src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png'">
                 </div>
                 <div class="pokemon-result-info">
-                    <div class="pokemon-result-name">${window.PokeUtils.formatName(pokemon.name)}</div>
+                    <div class="pokemon-result-name">${this.safeFormatName(pokemon.name)}</div>
                     <div class="pokemon-result-id">#${pokemon.id}</div>
                 </div>
             </div>
@@ -347,6 +361,8 @@ class PokemonBuilder {
      * Seleccionar Pokémon y agregarlo al slot
      */
     async selectPokemon(pokemonId, slotIndex) {
+        console.log(`🆕 [NEW] Creando nuevo Pokémon en slot ${slotIndex}: ${pokemonId}`);
+        
         try {
             // Obtener datos de pokemon.js (para habilidades, movimientos y stats base)
             const localData = window.pokemonDataLoader.getPokemonData(pokemonId);
@@ -419,6 +435,12 @@ class PokemonBuilder {
                 pokemon.ivs,
                 null
             );
+            
+            console.log(`✅ [NEW] Pokémon creado:`, {
+                name: pokemon.name,
+                ability: pokemon.ability,
+                availableAbilities: pokemon.availableAbilities
+            });
             
             // Cerrar modal
             document.querySelector('.pokemon-search-modal')?.remove();

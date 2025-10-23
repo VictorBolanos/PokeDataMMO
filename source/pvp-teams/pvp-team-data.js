@@ -17,6 +17,17 @@ class PVPTeamData {
     }
 
     /**
+     * Obtener nombre traducido de forma segura
+     */
+    safeGetTranslatedName(obj, fallbackName) {
+        if (window.PokeUtils && typeof window.PokeUtils.getTranslatedName === 'function') {
+            return window.PokeUtils.getTranslatedName(obj, fallbackName);
+        }
+        // Fallback simple
+        return fallbackName || obj?.name || '';
+    }
+
+    /**
      * Cargar naturalezas desde archivo local (natures.js)
      */
     async loadNatures() {
@@ -60,14 +71,20 @@ class PVPTeamData {
      * Obtener nombre traducido de naturaleza
      */
     getTranslatedNatureName(nature) {
-        return window.PokeUtils.getTranslatedName(nature, nature?.name);
+        return this.safeGetTranslatedName(nature, nature?.name);
     }
 
     /**
      * Actualizar traducciones de naturalezas
      */
     updateNatureTranslations() {
-        if (!this.naturesCache) return;
+        if (!this.naturesCache) {
+            console.log('⚠️ [TRANSLATE] No hay naturalezas en caché para traducir');
+            return;
+        }
+        
+        const currentLang = window.languageManager?.getCurrentLanguage() || 'es';
+        console.log(`🌐 [TRANSLATE] Actualizando ${this.naturesCache.length} naturalezas a idioma: ${currentLang}`);
         
         this.naturesCache.forEach(nature => {
             nature.displayName = this.getTranslatedNatureName(nature);
@@ -75,6 +92,7 @@ class PVPTeamData {
         
         // Re-ordenar alfabéticamente
         this.naturesCache.sort((a, b) => a.displayName.localeCompare(b.displayName));
+        console.log(`✅ [TRANSLATE] Naturalezas actualizadas y reordenadas`);
     }
 
 

@@ -146,6 +146,8 @@ class PVPTeamUI {
      * Reconstruir objeto Pokémon completo desde datos esenciales guardados
      */
     async reconstructPokemon(essentialData) {
+        console.log(`📦 [LOAD] Reconstruyendo Pokémon:`, essentialData.name || essentialData.id);
+        
         try {
             // ✅ SOLUCIÓN: Usar SOLO datos locales (pokemon.js) - NO API
             const localData = window.pokemonDataLoader.getPokemonData(essentialData.id || essentialData.name);
@@ -154,6 +156,8 @@ class PVPTeamUI {
                 console.error(`❌ No se encontró ${essentialData.name || essentialData.id} en pokemon.js`);
                 return null;
             }
+            
+            console.log(`📦 [LOAD] Datos locales obtenidos. Habilidades disponibles:`, localData.abilities);
             
             // Usar baseStats de pokemon.js (LOCAL)
             const baseStats = {
@@ -174,6 +178,10 @@ class PVPTeamUI {
                     n.name === essentialData.nature || 
                     n.name.toLowerCase() === essentialData.nature.toLowerCase()
                 );
+                console.log(`📦 [LOAD] Naturaleza cargada:`, {
+                    saved: essentialData.nature,
+                    found: natureObject ? natureObject.name : 'NO ENCONTRADA'
+                });
             }
             
             // Obtener sprite directamente (sin API)
@@ -197,7 +205,7 @@ class PVPTeamUI {
                 nature: natureObject,
                 ability: essentialData.ability || localData.abilities[0] || null,
                 item: essentialData.item || null,
-                moves: essentialData.moves || [null, null, null, null],
+                moves: await this.convertMoveNamesToIds(essentialData.moves || [null, null, null, null]),
                 // ✅ USAR DATOS DE pokemon.js
                 availableAbilities: localData.abilities.map(abilityName => ({
                     name: abilityName,
@@ -216,12 +224,57 @@ class PVPTeamUI {
                 natureObject
             );
             
+            console.log(`✅ [LOAD] Pokémon reconstruido exitosamente:`, {
+                name: pokemon.name,
+                ability: pokemon.ability,
+                availableAbilities: pokemon.availableAbilities,
+                nature: pokemon.nature?.name || 'none',
+                item: pokemon.item || 'none'
+            });
+            
             return pokemon;
             
         } catch (error) {
             console.error('❌ Error reconstruyendo Pokémon:', error);
             return null;
         }
+    }
+
+    /**
+     * Convertir nombres de movimientos a IDs para compatibilidad con datos guardados
+     */
+    async convertMoveNamesToIds(moves) {
+        if (!moves || !Array.isArray(moves)) {
+            return [null, null, null, null];
+        }
+        
+        // Asegurar que tenemos la caché de movimientos cargada
+        await window.pokemonDataLoader.loadAllMoves();
+        const movesCache = window.pokemonDataLoader.movesCache || [];
+        
+        return moves.map(moveName => {
+            if (!moveName) return null;
+            
+            // Si ya es un ID numérico o alfanumérico, devolverlo tal como está
+            if (typeof moveName === 'string' && /^\d+[a-z]?$/.test(moveName)) {
+                return moveName;
+            }
+            
+            // Buscar por nombre (inglés o español)
+            const move = movesCache.find(m => 
+                m.name === moveName || 
+                m.spanishName === moveName ||
+                m.displayName === moveName
+            );
+            
+            if (move) {
+                console.log(`🔄 [CONVERT] Movimiento "${moveName}" → ID "${move.id}"`);
+                return move.id;
+            }
+            
+            console.warn(`⚠️ [CONVERT] Movimiento "${moveName}" no encontrado en caché`);
+            return null;
+        });
     }
 
     /**
@@ -236,37 +289,22 @@ class PVPTeamUI {
         
         for (let i = 0; i < pokemons.length && i < 6; i++) {
             if (pokemons[i] && pokemons[i].id) {
-                console.log(`🔍 DEBUG: ensureSixSlots - Pokémon ${i}:`, {
-                    id: pokemons[i].id,
-                    name: pokemons[i].name,
-                    hasBaseStats: !!pokemons[i].baseStats,
-                    hasAvailableAbilities: !!pokemons[i].availableAbilities,
-                    hasAvailableMoves: !!pokemons[i].availableMoves
-                });
-                
-                // ✅ SOLUCIÓN: Siempre reconstruir si faltan availableAbilities o availableMoves
+                // Siempre reconstruir si faltan availableAbilities o availableMoves
                 if (!pokemons[i].baseStats || !pokemons[i].availableAbilities || !pokemons[i].availableMoves) {
-                    console.log(`🔍 DEBUG: Reconstruyendo Pokémon ${i} (${pokemons[i].name})`);
                     reconstructPromises.push(
                         this.reconstructPokemon(pokemons[i]).then(result => ({ index: i, pokemon: result }))
                     );
                 } else {
-                    console.log(`🔍 DEBUG: Usando Pokémon ${i} (${pokemons[i].name}) sin reconstruir`);
                     // Ya es un objeto completo con todas las propiedades
                     sixSlots[i] = pokemons[i];
                 }
             }
         }
         
-        // ✅ CARGA EN PARALELO: Esperar a que TODOS terminen simultáneamente
+        // Esperar a que todos los Pokémon se reconstruyan en paralelo
         if (reconstructPromises.length > 0) {
             const results = await Promise.all(reconstructPromises);
             results.forEach(result => {
-                console.log(`🔍 DEBUG: Asignando Pokémon reconstruido ${result.index}:`, {
-                    name: result.pokemon.name,
-                    availableAbilities: result.pokemon.availableAbilities,
-                    abilitiesLength: result.pokemon.availableAbilities?.length
-                });
                 sixSlots[result.index] = result.pokemon;
             });
         }
@@ -415,6 +453,7 @@ class PVPTeamUI {
         // 🔧 FIX CRÍTICO: Poblar dropdowns con DATOS RECONSTRUIDOS (this.currentTeam.pokemons)
         // NO con datos crudos de BD (data.pokemons) que no tienen availableAbilities
         if (this.currentTeam && this.currentTeam.pokemons) {
+            console.log(`📋 [LOAD] Poblando dropdowns con datos reconstruidos...`);
             await this.populateDropdowns(this.currentTeam.pokemons);
         }
         
@@ -801,8 +840,6 @@ class PVPTeamUI {
      * Actualizar slot de Pokémon
      */
     async updatePokemonSlot(slotIndex, pokemon) {
-        console.log(`🔍 DEBUG: updatePokemonSlot(${slotIndex}) iniciado para ${pokemon.name}`);
-        
         this.currentTeam.pokemons[slotIndex] = pokemon;
 
         // Re-renderizar grid
@@ -810,9 +847,7 @@ class PVPTeamUI {
         if (grid) {
             const slots = grid.children;
             if (slots[slotIndex]) {
-                console.log(`🔍 DEBUG: Re-renderizando card para slot ${slotIndex}`);
                 slots[slotIndex].outerHTML = window.pokemonBuilder.renderPokemonCard(pokemon, slotIndex);
-                console.log(`🔍 DEBUG: Card re-renderizada`);
             }
         }
 
@@ -858,6 +893,11 @@ class PVPTeamUI {
 
         // Poblar habilidades - SOLO las del Pokémon específico
         const abilitySelect = document.getElementById(`ability_${slotIndex}`);
+        console.log(`🎯 [DROPDOWN] Poblando habilidades slot ${slotIndex}:`, {
+            pokemon: pokemon.name,
+            availableAbilities: pokemon.availableAbilities,
+            currentAbility: pokemon.ability
+        });
         
         if (abilitySelect && pokemon.availableAbilities) {
             // Limpia y añade placeholder
@@ -872,8 +912,16 @@ class PVPTeamUI {
                 option.textContent = ability.displayName + (ability.is_hidden ? ' 💎' : '');
                 if (pokemon.ability === ability.name) {
                     option.selected = true;
+                    console.log(`✅ [DROPDOWN] Habilidad seleccionada: ${ability.displayName}`);
                 }
                 abilitySelect.appendChild(option);
+            });
+            
+            console.log(`✅ [DROPDOWN] ${pokemonAbilities.length} habilidades cargadas para ${pokemon.name}`);
+        } else {
+            console.error(`❌ [DROPDOWN] ERROR - No se pudo poblar habilidades:`, {
+                abilitySelectExists: !!abilitySelect,
+                availableAbilities: pokemon.availableAbilities
             });
         }
 
@@ -974,56 +1022,69 @@ class PVPTeamUI {
      * Recopilar datos del equipo actual (SOLO datos esenciales)
      */
     collectTeamData() {
+        console.log(`💾 [SAVE] Recopilando datos del equipo...`);
+        
         // Filtrar solo Pokémon válidos y extraer SOLO datos esenciales
         const essentialPokemons = this.currentTeam.pokemons
             .filter(p => p && p.id)
-            .map(pokemon => ({
-                // 1. Qué Pokémon es
-                id: pokemon.id,
-                name: pokemon.name,
+            .map(pokemon => {
+                const essentialData = {
+                    // 1. Qué Pokémon es
+                    id: pokemon.id,
+                    name: pokemon.name,
+                    
+                    // 2. Nivel (50 o 100)
+                    level: window.pvpTeamData.getSelectedLevel(),
+                    
+                    // 3. Todos los EVs
+                    evs: {
+                        hp: pokemon.evs.hp || 0,
+                        attack: pokemon.evs.attack || 0,
+                        defense: pokemon.evs.defense || 0,
+                        'special-attack': pokemon.evs['special-attack'] || 0,
+                        'special-defense': pokemon.evs['special-defense'] || 0,
+                        speed: pokemon.evs.speed || 0
+                    },
+                    
+                    // 4. Todos los IVs
+                    ivs: {
+                        hp: pokemon.ivs.hp || 31,
+                        attack: pokemon.ivs.attack || 31,
+                        defense: pokemon.ivs.defense || 31,
+                        'special-attack': pokemon.ivs['special-attack'] || 31,
+                        'special-defense': pokemon.ivs['special-defense'] || 31,
+                        speed: pokemon.ivs.speed || 31
+                    },
+                    
+                    // 5. Naturaleza
+                    nature: pokemon.nature ? (pokemon.nature.name || pokemon.nature) : null,
+                    
+                    // 6. Habilidad
+                    ability: pokemon.ability || null,
+                    
+                    // 7. Objeto
+                    item: pokemon.item || null,
+                    
+                    // 8. Los 4 movimientos
+                    moves: [
+                        pokemon.moves[0] || null,
+                        pokemon.moves[1] || null,
+                        pokemon.moves[2] || null,
+                        pokemon.moves[3] || null
+                    ]
+                    
+                    // ❌ NO guardamos: baseStats, sprite, availableAbilities, availableMoves, finalStats
+                };
                 
-                // 2. Nivel (50 o 100)
-                level: window.pvpTeamData.getSelectedLevel(),
+                console.log(`💾 [SAVE] ${pokemon.name}:`, {
+                    nature: essentialData.nature,
+                    ability: essentialData.ability,
+                    item: essentialData.item,
+                    level: essentialData.level
+                });
                 
-                // 3. Todos los EVs
-                evs: {
-                    hp: pokemon.evs.hp || 0,
-                    attack: pokemon.evs.attack || 0,
-                    defense: pokemon.evs.defense || 0,
-                    'special-attack': pokemon.evs['special-attack'] || 0,
-                    'special-defense': pokemon.evs['special-defense'] || 0,
-                    speed: pokemon.evs.speed || 0
-                },
-                
-                // 4. Todos los IVs
-                ivs: {
-                    hp: pokemon.ivs.hp || 31,
-                    attack: pokemon.ivs.attack || 31,
-                    defense: pokemon.ivs.defense || 31,
-                    'special-attack': pokemon.ivs['special-attack'] || 31,
-                    'special-defense': pokemon.ivs['special-defense'] || 31,
-                    speed: pokemon.ivs.speed || 31
-                },
-                
-                // 5. Naturaleza
-                nature: pokemon.nature ? (pokemon.nature.name || pokemon.nature) : null,
-                
-                // 6. Habilidad
-                ability: pokemon.ability || null,
-                
-                // 7. Objeto
-                item: pokemon.item || null,
-                
-                // 8. Los 4 movimientos
-                moves: [
-                    pokemon.moves[0] || null,
-                    pokemon.moves[1] || null,
-                    pokemon.moves[2] || null,
-                    pokemon.moves[3] || null
-                ]
-                
-                // ❌ NO guardamos: baseStats, sprite, availableAbilities, availableMoves, finalStats
-            }));
+                return essentialData;
+            });
         
         return {
             teamName: this.currentTeam.teamName,

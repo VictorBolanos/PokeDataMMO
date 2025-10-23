@@ -129,7 +129,7 @@ class TypeChart {
             button.className = 'type-button';
             button.dataset.type = type;
             button.innerHTML = `
-                <img src="${window.PokeUtils.getTypeIcon(type)}" alt="${typeData[type].name}">
+                <img src="img/res/poke-types/box/${typeData[type].icon}" alt="${typeData[type].name}">
             `;
             firstRow.appendChild(button);
         });
@@ -140,7 +140,7 @@ class TypeChart {
             button.className = 'type-button';
             button.dataset.type = type;
             button.innerHTML = `
-                <img src="${window.PokeUtils.getTypeIcon(type)}" alt="${typeData[type].name}">
+                <img src="img/res/poke-types/box/${typeData[type].icon}" alt="${typeData[type].name}">
             `;
             secondRow.appendChild(button);
         });
@@ -227,7 +227,7 @@ class TypeChart {
         this.types.forEach(type => {
             const headerCell = document.createElement('div');
             headerCell.className = 'type-chart-cell type-chart-header';
-            headerCell.innerHTML = `<img src="${window.PokeUtils.getTypeIcon(type)}" alt="${typeData[type].name}">`;
+            headerCell.innerHTML = `<img src="img/res/poke-types/box/${typeData[type].icon}" alt="${typeData[type].name}">`;
             headerRow.appendChild(headerCell);
         });
         
@@ -241,7 +241,7 @@ class TypeChart {
         // Type name cell
         const typeCell = document.createElement('div');
         typeCell.className = 'type-chart-cell type-chart-header';
-        typeCell.innerHTML = `<img src="${window.PokeUtils.getTypeIcon(attackingType)}" alt="${typeData[attackingType].name}">`;
+        typeCell.innerHTML = `<img src="img/res/poke-types/box/${typeData[attackingType].icon}" alt="${typeData[attackingType].name}">`;
         row.appendChild(typeCell);
         
         // Effectiveness cells
@@ -377,7 +377,7 @@ class TypeChart {
             const typeElement = document.createElement('div');
             typeElement.className = 'effectiveness-type';
             typeElement.innerHTML = `
-                <img src="${window.PokeUtils.getTypeIcon(type)}" alt="${typeData[type].name}">
+                <img src="img/res/poke-types/box/${typeData[type].icon}" alt="${typeData[type].name}">
             `;
             list.appendChild(typeElement);
         });

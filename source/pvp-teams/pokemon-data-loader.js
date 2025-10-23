@@ -16,6 +16,30 @@ class PokemonDataLoader {
     }
 
     /**
+     * Formatear nombre de forma segura
+     */
+    safeFormatName(name) {
+        if (!name) return '';
+        // Si PokeUtils está disponible, usarlo
+        if (window.PokeUtils && typeof window.PokeUtils.formatName === 'function') {
+            return window.PokeUtils.formatName(name);
+        }
+        // Fallback: capitalizar manualmente
+        return name.charAt(0).toUpperCase() + name.slice(1).toLowerCase();
+    }
+
+    /**
+     * Obtener nombre traducido de forma segura
+     */
+    safeGetTranslatedName(obj, fallbackName) {
+        if (window.PokeUtils && typeof window.PokeUtils.getTranslatedName === 'function') {
+            return window.PokeUtils.getTranslatedName(obj, fallbackName);
+        }
+        // Fallback simple
+        return fallbackName || obj?.name || '';
+    }
+
+    /**
      * Cargar todos los movimientos (Gen 1-5)
      */
     async loadAllMoves() {
@@ -251,17 +275,23 @@ class PokemonDataLoader {
     }
 
     /**
-     * Obtener icono de tipo (usa la función global de PokeUtils)
+     * Obtener icono de tipo
      */
     getTypeIcon(typeName) {
-        return window.PokeUtils.getTypeIcon(typeName);
+        return `img/res/poke-types/box/type-${typeName}-box-icon.png`;
     }
 
     /**
      * Obtener nombre traducido de movimiento
      */
     getTranslatedMoveName(move) {
-        return window.PokeUtils.getTranslatedName(move, move?.name);
+        // Para datos locales, usar directamente spanishName o name
+        const currentLang = window.languageManager?.getCurrentLanguage() || 'es';
+        if (move.spanishName) {
+            return currentLang === 'es' ? move.spanishName : move.name;
+        }
+        // Fallback para compatibilidad
+        return this.safeGetTranslatedName(move, move?.name);
     }
 
     /**
@@ -274,7 +304,7 @@ class PokemonDataLoader {
         }
         
         // Fallback para compatibilidad con API
-        return window.PokeUtils.getTranslatedName(item, item?.name);
+        return this.safeGetTranslatedName(item, item?.name);
     }
 
     /**
@@ -303,20 +333,28 @@ class PokemonDataLoader {
      * Actualizar traducciones de movimientos cacheados
      */
     updateMoveTranslations() {
-        if (!this.movesCache) return;
+        if (!this.movesCache) {
+            console.log('⚠️ [TRANSLATE] No hay movimientos en caché para traducir');
+            return;
+        }
         
         const currentLang = window.languageManager?.getCurrentLanguage() || 'es';
+        console.log(`🌐 [TRANSLATE] Actualizando ${this.movesCache.length} movimientos a idioma: ${currentLang}`);
         
         this.movesCache.forEach(move => {
-            // Actualizar displayName base
-            move.displayName = currentLang === 'es' ? move.spanishName : move.name;
+            const oldDisplayName = move.displayName;
+            // Usar directamente spanishName o name según el idioma
+            move.displayName = currentLang === 'es' ? (move.spanishName || move.name) : move.name;
             
-            // Para Hidden Power, NO modificar displayName aquí
-            // Se manejará en renderMoveOption() del custom-dropdowns.js
+            // Log solo para los primeros 3 movimientos como ejemplo
+            if (this.movesCache.indexOf(move) < 3) {
+                console.log(`🌐 [TRANSLATE] "${oldDisplayName}" → "${move.displayName}"`);
+            }
         });
         
         // Re-ordenar alfabéticamente
         this.movesCache.sort((a, b) => a.displayName.localeCompare(b.displayName));
+        console.log(`✅ [TRANSLATE] Movimientos actualizados y reordenados`);
     }
 
     /**
@@ -361,7 +399,7 @@ class PokemonDataLoader {
                 console.error('❌ abilitiesData NO está definido');
                 return {
                     name: abilityName,
-                    displayName: window.PokeUtils.formatName(abilityName),
+                    displayName: this.safeFormatName(abilityName),
                     names: [],
                     is_hidden: isHidden
                 };
@@ -376,7 +414,7 @@ class PokemonDataLoader {
                 console.warn(`⚠️ Habilidad no encontrada en abilities.js: "${abilityName}"`);
                 return {
                     name: abilityName,
-                    displayName: window.PokeUtils.formatName(abilityName),
+                    displayName: this.safeFormatName(abilityName),
                     names: [],
                     is_hidden: isHidden
                 };
@@ -401,7 +439,7 @@ class PokemonDataLoader {
             console.error(`❌ Error cargando habilidad "${abilityName}":`, error);
             return {
                 name: abilityName,
-                displayName: window.PokeUtils.formatName(abilityName),
+                displayName: this.safeFormatName(abilityName),
                 names: [],
                 is_hidden: isHidden
             };
@@ -429,7 +467,7 @@ class PokemonDataLoader {
      * Obtener nombre traducido de habilidad
      */
     getTranslatedAbilityName(ability) {
-        return window.PokeUtils.getTranslatedName(ability, ability?.name);
+        return this.safeGetTranslatedName(ability, ability?.name);
     }
 
     /**
@@ -479,11 +517,6 @@ class PokemonDataLoader {
         // También actualizar naturalezas
         if (window.pvpTeamData) {
             window.pvpTeamData.updateNatureTranslations();
-        }
-        
-        // Actualizar UI de PVP Teams si está activa
-        if (window.pvpTeamsUI && window.pvpTeamsUI.updateTranslations) {
-            window.pvpTeamsUI.updateTranslations();
         }
     }
 

@@ -285,6 +285,9 @@ async function toggleLanguage() {
         window.pokemonDataLoader.updateAllTranslations();
     }
     
+    // ✅ SOLUCIÓN: Disparar evento para cerrar dropdowns abiertos
+    window.dispatchEvent(new CustomEvent('languageChanged'));
+    
     await translateUI();
 }
 

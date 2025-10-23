@@ -8085,17 +8085,6 @@ const movesData = [
         "pp": 10
     },
     {
-        "id": "719",
-        "EnglishName": "10,000,000 Volt Thunderbolt",
-        "SpanishName": "10,000,000 Volt Thunderbolt",
-        "description": "Description not available",
-        "type": "Electric",
-        "category": "Special",
-        "power": 195,
-        "accuracy": null,
-        "pp": 1
-    },
-    {
         "id": "720",
         "EnglishName": "Mind Blown",
         "SpanishName": "Cabeza Sorpresa",
