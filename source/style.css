@@ -7223,7 +7223,7 @@ body.light-theme .suggestion-info strong {
 }
 
 /* Responsive - PVP Teams */
-@media (max-width: 768px) {
+@media (max-width: 1300px) {
     .pokemon-team-grid {
         grid-template-columns: 1fr;
         gap: 1rem;
