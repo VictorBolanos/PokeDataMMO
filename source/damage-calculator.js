@@ -551,20 +551,20 @@ class DamageCalculator {
             
             select.innerHTML = `<option value="">${isSpanish ? 'Seleccionar...' : 'Select...'}</option>`;
             
-            abilities.forEach(abilityName => {
+            abilities.forEach(abilityObj => {
                 const option = document.createElement('option');
-                option.value = abilityName;
+                option.value = abilityObj.name;
                 
                 // Buscar traducción de la habilidad
                 if (typeof abilitiesData !== 'undefined') {
                     const abilityData = abilitiesData.find(a => 
-                        a.EnglishName.toLowerCase() === abilityName.toLowerCase()
+                        a.EnglishName.toLowerCase() === abilityObj.name.toLowerCase()
                     );
                     option.textContent = isSpanish && abilityData 
                         ? abilityData.SpanishName 
-                        : abilityName;
+                        : abilityObj.name;
                 } else {
-                    option.textContent = abilityName;
+                    option.textContent = abilityObj.name;
                 }
                 
                 select.appendChild(option);

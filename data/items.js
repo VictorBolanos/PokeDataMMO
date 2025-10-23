@@ -1994,7 +1994,7 @@ const itemsData = [
     {
         "id": "1700",
         "EnglishName": "Punching Glove",
-        "SpanishName": "Guante Boxeo",
+        "SpanishName": "Manoplas de Boxeo",
         "description": null
     },
     {

@@ -195,13 +195,13 @@ class PVPTeamUI {
                     'special-attack': 31, 'special-defense': 31, speed: 31
                 },
                 nature: natureObject,
-                ability: essentialData.ability || localData.abilities[0] || null,
+                ability: essentialData.ability || localData.abilities[0]?.name || null,
                 item: essentialData.item || null,
                 moves: await this.convertMoveNamesToIds(essentialData.moves || [null, null, null, null]),
                 // ✅ USAR DATOS DE pokemon.js
-                availableAbilities: localData.abilities.map(abilityName => ({
-                    name: abilityName,
-                    is_hidden: false
+                availableAbilities: localData.abilities.map(abilityObj => ({
+                    name: abilityObj.name,
+                    is_hidden: abilityObj.hidden
                 })),
                 // ✅ USAR MOVIMIENTOS DE pokemon.js
                 availableMoves: localData.moves,

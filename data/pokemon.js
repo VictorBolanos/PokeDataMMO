@@ -5,9 +5,7 @@ const pokemonData = [
         "type": [
             "None"
         ],
-        "abilities": [
-            "Select a Pok\u00e9mon"
-        ],
+        "abilities": [{"name":"Select a Pok\\u00e9mon","hidden":false}],
         "moves": [
             ""
         ],
@@ -30,10 +28,7 @@ const pokemonData = [
             "Grass",
             "Poison"
         ],
-        "abilities": [
-            "Overgrow",
-            "Chlorophyll"
-        ],
+        "abilities": [{"name":"Overgrow","hidden":false},{"name":"Chlorophyll","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -139,10 +134,7 @@ const pokemonData = [
             "Grass",
             "Poison"
         ],
-        "abilities": [
-            "Overgrow",
-            "Chlorophyll"
-        ],
+        "abilities": [{"name":"Overgrow","hidden":false},{"name":"Chlorophyll","hidden":false}],
         "moves": [
             "Vine Whip",
             "Tackle",
@@ -249,10 +241,7 @@ const pokemonData = [
             "Grass",
             "Poison"
         ],
-        "abilities": [
-            "Overgrow",
-            "Chlorophyll"
-        ],
+        "abilities": [{"name":"Overgrow","hidden":false},{"name":"Chlorophyll","hidden":false}],
         "moves": [
             "Vine Whip",
             "Tackle",
@@ -367,9 +356,7 @@ const pokemonData = [
     //         "Grass",
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Thick Fat"
-    //     ],
+    //     "abilities": [{"name":"//         Thick Fat\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Cut",
@@ -458,10 +445,7 @@ const pokemonData = [
     //         "Grass",
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Overgrow",
-    //         "Chlorophyll"
-    //     ],
+    //     "abilities": [{"name":"//         Overgrow","hidden":false},{"name":"//         Chlorophyll\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 80,
@@ -482,10 +466,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Blaze",
-            "Solar Power"
-        ],
+        "abilities": [{"name":"Blaze","hidden":false},{"name":"Solar Power","hidden":false}],
         "moves": [
             "Scratch",
             "Growl",
@@ -611,10 +592,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Blaze",
-            "Solar Power"
-        ],
+        "abilities": [{"name":"Blaze","hidden":false},{"name":"Solar Power","hidden":false}],
 
         "moves": [
             "Scratch",
@@ -742,10 +720,7 @@ const pokemonData = [
             "Fire",
             "Flying"
         ],
-        "abilities": [
-            "Blaze",
-            "Solar Power"
-        ],
+        "abilities": [{"name":"Blaze","hidden":false},{"name":"Solar Power","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -892,9 +867,7 @@ const pokemonData = [
     //         "Fire",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Tough Claws"
-    //     ],
+    //     "abilities": [{"name":"//         Tough Claws\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Thunder Punch",
@@ -1000,9 +973,7 @@ const pokemonData = [
     //         "Fire",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Drought"
-    //     ],
+    //     "abilities": [{"name":"//         Drought\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Thunder Punch",
@@ -1108,10 +1079,7 @@ const pokemonData = [
     //         "Fire",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Blaze",
-    //         "Solar Power"
-    //     ],
+    //     "abilities": [{"name":"//         Blaze","hidden":false},{"name":"//         Solar Power\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 78,
@@ -1132,10 +1100,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Torrent",
-            "Rain Dish"
-        ],
+        "abilities": [{"name":"Torrent","hidden":false},{"name":"Rain Dish","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -1257,10 +1222,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Torrent",
-            "Rain Dish"
-        ],
+        "abilities": [{"name":"Torrent","hidden":false},{"name":"Rain Dish","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -1382,10 +1344,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Torrent",
-            "Rain Dish"
-        ],
+        "abilities": [{"name":"Torrent","hidden":false},{"name":"Rain Dish","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -1522,9 +1481,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Mega Launcher"
-    //     ],
+    //     "abilities": [{"name":"//         Mega Launcher\r\n    //","hidden":false}],
     //     "moves": [
     //         "Ice Punch",
     //         "Headbutt",
@@ -1619,10 +1576,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Torrent",
-    //         "Rain Dish"
-    //     ],
+    //     "abilities": [{"name":"//         Torrent","hidden":false},{"name":"//         Rain Dish\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 79,
@@ -1643,10 +1597,7 @@ const pokemonData = [
         "type": [
             "Bug"
         ],
-        "abilities": [
-            "Shield Dust",
-            "Run Away"
-        ],
+        "abilities": [{"name":"Shield Dust","hidden":false},{"name":"Run Away","hidden":false}],
         "moves": [
             "Tackle",
             "String Shot",
@@ -1673,9 +1624,7 @@ const pokemonData = [
         "type": [
             "Bug"
         ],
-        "abilities": [
-            "Shed Skin"
-        ],
+        "abilities": [{"name":"Shed Skin","hidden":false}],
         "moves": [
             "String Shot",
             "Harden",
@@ -1704,10 +1653,7 @@ const pokemonData = [
             "Bug",
             "Flying"
         ],
-        "abilities": [
-            "Compound Eyes",
-            "Tinted Lens"
-        ],
+        "abilities": [{"name":"Compound Eyes","hidden":false},{"name":"Tinted Lens","hidden":false}],
         "moves": [
             "Gust",
             "Tackle",
@@ -1811,10 +1757,7 @@ const pokemonData = [
     //         "Bug",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Compound Eyes",
-    //         "Tinted Lens"
-    //     ],
+    //     "abilities": [{"name":"//         Compound Eyes","hidden":false},{"name":"//         Tinted Lens\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 60,
@@ -1836,10 +1779,7 @@ const pokemonData = [
             "Bug",
             "Poison"
         ],
-        "abilities": [
-            "Shield Dust",
-            "Run Away"
-        ],
+        "abilities": [{"name":"Shield Dust","hidden":false},{"name":"Run Away","hidden":false}],
         "moves": [
             "Poison Sting",
             "String Shot",
@@ -1866,9 +1806,7 @@ const pokemonData = [
             "Bug",
             "Poison"
         ],
-        "abilities": [
-            "Shed Skin"
-        ],
+        "abilities": [{"name":"Shed Skin","hidden":false}],
         "moves": [
             "String Shot",
             "Harden",
@@ -1897,10 +1835,7 @@ const pokemonData = [
             "Bug",
             "Poison"
         ],
-        "abilities": [
-            "Swarm",
-            "Sniper"
-        ],
+        "abilities": [{"name":"Swarm","hidden":false},{"name":"Sniper","hidden":false}],
         "moves": [
             "Fury Attack",
             "Peck",
@@ -2001,9 +1936,7 @@ const pokemonData = [
     //         "Bug",
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Adaptability"
-    //     ],
+    //     "abilities": [{"name":"//         Adaptability\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Cut",
@@ -2090,11 +2023,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Keen Eye",
-            "Tangled Feet",
-            "Big Pecks"
-        ],
+        "abilities": [{"name":"Keen Eye","hidden":false},{"name":"Tangled Feet","hidden":false},{"name":"Big Pecks","hidden":false}],
         "moves": [
             "Tackle",
             "Sand-Attack",
@@ -2179,11 +2108,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Keen Eye",
-            "Tangled Feet",
-            "Big Pecks"
-        ],
+        "abilities": [{"name":"Keen Eye","hidden":false},{"name":"Tangled Feet","hidden":false},{"name":"Big Pecks","hidden":false}],
         "moves": [
             "Gust",
             "Sand-Attack",
@@ -2269,11 +2194,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Keen Eye",
-            "Tangled Feet",
-            "Big Pecks"
-        ],
+        "abilities": [{"name":"Keen Eye","hidden":false},{"name":"Tangled Feet","hidden":false},{"name":"Big Pecks","hidden":false}],
         "moves": [
             "Gust",
             "Sand-Attack",
@@ -2359,9 +2280,7 @@ const pokemonData = [
     //         "Normal",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "No Guard"
-    //     ],
+    //     "abilities": [{"name":"//         No Guard\r\n    //","hidden":false}],
     //     "moves": [
     //         "Razor Wind",
     //         "Gust",
@@ -2431,11 +2350,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Run Away",
-            "Guts",
-            "Hustle"
-        ],
+        "abilities": [{"name":"Run Away","hidden":false},{"name":"Guts","hidden":false},{"name":"Hustle","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -2538,11 +2453,7 @@ const pokemonData = [
     //         "Dark",
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Gluttony",
-    //         "Hustle",
-    //         "Thick Fat"
-    //     ],
+    //     "abilities": [{"name":"//         Gluttony","hidden":false},{"name":"//         Hustle","hidden":false},{"name":"//         Thick Fat\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -2627,11 +2538,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Run Away",
-            "Guts",
-            "Hustle"
-        ],
+        "abilities": [{"name":"Run Away","hidden":false},{"name":"Guts","hidden":false},{"name":"Hustle","hidden":false}],
         "moves": [
             "Swords Dance",
             "Tackle",
@@ -2742,11 +2649,7 @@ const pokemonData = [
     //         "Dark",
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Gluttony",
-    //         "Hustle",
-    //         "Thick Fat"
-    //     ],
+    //     "abilities": [{"name":"//         Gluttony","hidden":false},{"name":"//         Hustle","hidden":false},{"name":"//         Thick Fat\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Headbutt",
@@ -2836,11 +2739,7 @@ const pokemonData = [
     //         "Dark",
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Gluttony",
-    //         "Hustle",
-    //         "Thick Fat"
-    //     ],
+    //     "abilities": [{"name":"//         Gluttony","hidden":false},{"name":"//         Hustle","hidden":false},{"name":"//         Thick Fat\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Tackle",
@@ -2926,10 +2825,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Keen Eye",
-            "Sniper"
-        ],
+        "abilities": [{"name":"Keen Eye","hidden":false},{"name":"Sniper","hidden":false}],
         "moves": [
             "Growl",
             "Peck",
@@ -3021,10 +2917,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Keen Eye",
-            "Sniper"
-        ],
+        "abilities": [{"name":"Keen Eye","hidden":false},{"name":"Sniper","hidden":false}],
         "moves": [
             "Leer",
             "Growl",
@@ -3117,11 +3010,7 @@ const pokemonData = [
         "type": [
             "Poison"
         ],
-        "abilities": [
-            "Intimidate",
-            "Shed Skin",
-            "Unnerve"
-        ],
+        "abilities": [{"name":"Intimidate","hidden":false},{"name":"Shed Skin","hidden":false},{"name":"Unnerve","hidden":false}],
         "moves": [
             "Wrap",
             "Leer",
@@ -3223,11 +3112,7 @@ const pokemonData = [
         "type": [
             "Poison"
         ],
-        "abilities": [
-            "Intimidate",
-            "Shed Skin",
-            "Unnerve"
-        ],
+        "abilities": [{"name":"Intimidate","hidden":false},{"name":"Shed Skin","hidden":false},{"name":"Unnerve","hidden":false}],
         "moves": [
             "Wrap",
             "Poison Sting",
@@ -3336,10 +3221,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Static",
-            "Lightning Rod"
-        ],
+        "abilities": [{"name":"Static","hidden":false},{"name":"Lightning Rod","hidden":false}],
         "moves": [
             "Tail Whip",
             "Growl",
@@ -3475,10 +3357,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Static",
-    //         "Lightning Rod"
-    //     ],
+    //     "abilities": [{"name":"//         Static","hidden":false},{"name":"//         Lightning Rod\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Slam",
@@ -3555,10 +3434,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Static",
-    //         "Lightning Rod"
-    //     ],
+    //     "abilities": [{"name":"//         Static","hidden":false},{"name":"//         Lightning Rod\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Slam",
@@ -3635,10 +3511,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Static",
-    //         "Lightning Rod"
-    //     ],
+    //     "abilities": [{"name":"//         Static","hidden":false},{"name":"//         Lightning Rod\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Slam",
@@ -3715,10 +3588,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Static",
-    //         "Lightning Rod"
-    //     ],
+    //     "abilities": [{"name":"//         Static","hidden":false},{"name":"//         Lightning Rod\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Slam",
@@ -3795,10 +3665,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Static",
-    //         "Lightning Rod"
-    //     ],
+    //     "abilities": [{"name":"//         Static","hidden":false},{"name":"//         Lightning Rod\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Slam",
@@ -3875,10 +3742,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Static",
-    //         "Lightning Rod"
-    //     ],
+    //     "abilities": [{"name":"//         Static","hidden":false},{"name":"//         Lightning Rod\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Slam",
@@ -3954,10 +3818,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Static",
-    //         "Lightning Rod"
-    //     ],
+    //     "abilities": [{"name":"//         Static","hidden":false},{"name":"//         Lightning Rod\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Pay Day",
@@ -4056,10 +3917,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Static",
-    //         "Lightning Rod"
-    //     ],
+    //     "abilities": [{"name":"//         Static","hidden":false},{"name":"//         Lightning Rod\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Pay Day",
@@ -4158,10 +4016,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Static",
-    //         "Lightning Rod"
-    //     ],
+    //     "abilities": [{"name":"//         Static","hidden":false},{"name":"//         Lightning Rod\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Pay Day",
@@ -4271,10 +4126,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Static",
-    //         "Lightning Rod"
-    //     ],
+    //     "abilities": [{"name":"//         Static","hidden":false},{"name":"//         Lightning Rod\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Pay Day",
@@ -4373,10 +4225,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Static",
-    //         "Lightning Rod"
-    //     ],
+    //     "abilities": [{"name":"//         Static","hidden":false},{"name":"//         Lightning Rod\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Pay Day",
@@ -4485,10 +4334,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Static",
-    //         "Lightning Rod"
-    //     ],
+    //     "abilities": [{"name":"//         Static","hidden":false},{"name":"//         Lightning Rod\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Pay Day",
@@ -4587,10 +4433,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Static",
-    //         "Lightning Rod"
-    //     ],
+    //     "abilities": [{"name":"//         Static","hidden":false},{"name":"//         Lightning Rod\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Pay Day",
@@ -4689,10 +4532,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Static",
-    //         "Lightning Rod"
-    //     ],
+    //     "abilities": [{"name":"//         Static","hidden":false},{"name":"//         Lightning Rod\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pay Day",
     //         "Thunder Punch",
@@ -4744,10 +4584,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Static",
-    //         "Lightning Rod"
-    //     ],
+    //     "abilities": [{"name":"//         Static","hidden":false},{"name":"//         Lightning Rod\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Pay Day",
@@ -4831,10 +4668,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Static",
-    //         "Lightning Rod"
-    //     ],
+    //     "abilities": [{"name":"//         Static","hidden":false},{"name":"//         Lightning Rod\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 35,
@@ -4855,10 +4689,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Static",
-            "Lightning Rod"
-        ],
+        "abilities": [{"name":"Static","hidden":false},{"name":"Lightning Rod","hidden":false}],
         "moves": [
             "Thunder Punch",
             "Slam",
@@ -4999,9 +4830,7 @@ const pokemonData = [
     //         "Electric",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Surge Surfer"
-    //     ],
+    //     "abilities": [{"name":"//         Surge Surfer\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Pay Day",
@@ -5119,10 +4948,7 @@ const pokemonData = [
         "type": [
             "Ground"
         ],
-        "abilities": [
-            "Sand Veil",
-            "Sand Rush"
-        ],
+        "abilities": [{"name":"Sand Veil","hidden":false},{"name":"Sand Rush","hidden":false}],
         "moves": [
             "Scratch",
             "Defense Curl",
@@ -5230,10 +5056,7 @@ const pokemonData = [
     //         "Ice",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Snow Cloak",
-    //         "Snow Plow"
-    //     ],
+    //     "abilities": [{"name":"//         Snow Cloak","hidden":false},{"name":"//         Snow Plow\r\n    //","hidden":false}],
     //     "moves": [
     //         "Ice Punch",
     //         "Scratch",
@@ -5338,10 +5161,7 @@ const pokemonData = [
         "type": [
             "Ground"
         ],
-        "abilities": [
-            "Sand Veil",
-            "Sand Rush"
-        ],
+        "abilities": [{"name":"Sand Veil","hidden":false},{"name":"Sand Rush","hidden":false}],
         "moves": [
             "Scratch",
             "Sand-Attack",
@@ -5457,10 +5277,7 @@ const pokemonData = [
     //         "Ice",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Snow Cloak",
-    //         "Snow Plow"
-    //     ],
+    //     "abilities": [{"name":"//         Snow Cloak","hidden":false},{"name":"//         Snow Plow\r\n    //","hidden":false}],
     //     "moves": [
     //         "Ice Punch",
     //         "Scratch",
@@ -5566,11 +5383,7 @@ const pokemonData = [
         "type": [
             "Poison"
         ],
-        "abilities": [
-            "Poison Point",
-            "Rivalry",
-            "Hustle"
-        ],
+        "abilities": [{"name":"Poison Point","hidden":false},{"name":"Rivalry","hidden":false},{"name":"Hustle","hidden":false}],
         "moves": [
             "Scratch",
             "Tackle",
@@ -5669,11 +5482,7 @@ const pokemonData = [
         "type": [
             "Poison"
         ],
-        "abilities": [
-            "Poison Point",
-            "Rivalry",
-            "Hustle"
-        ],
+        "abilities": [{"name":"Poison Point","hidden":false},{"name":"Rivalry","hidden":false},{"name":"Hustle","hidden":false}],
         "moves": [
             "Scratch",
             "Tackle",
@@ -5776,11 +5585,7 @@ const pokemonData = [
             "Poison",
             "Ground"
         ],
-        "abilities": [
-            "Poison Point",
-            "Rivalry",
-            "Sheer Force"
-        ],
+        "abilities": [{"name":"Poison Point","hidden":false},{"name":"Rivalry","hidden":false},{"name":"Sheer Force","hidden":false}],
         "moves": [
             "Scratch",
             "Double Kick",
@@ -5929,11 +5734,7 @@ const pokemonData = [
         "type": [
             "Poison"
         ],
-        "abilities": [
-            "Poison Point",
-            "Rivalry",
-            "Hustle"
-        ],
+        "abilities": [{"name":"Poison Point","hidden":false},{"name":"Rivalry","hidden":false},{"name":"Hustle","hidden":false}],
         "moves": [
             "Tackle",
             "Leer",
@@ -6031,11 +5832,7 @@ const pokemonData = [
         "type": [
             "Poison"
         ],
-        "abilities": [
-            "Poison Point",
-            "Rivalry",
-            "Hustle"
-        ],
+        "abilities": [{"name":"Poison Point","hidden":false},{"name":"Rivalry","hidden":false},{"name":"Hustle","hidden":false}],
         "moves": [
             "Tackle",
             "Leer",
@@ -6138,11 +5935,7 @@ const pokemonData = [
             "Poison",
             "Ground"
         ],
-        "abilities": [
-            "Poison Point",
-            "Rivalry",
-            "Sheer Force"
-        ],
+        "abilities": [{"name":"Poison Point","hidden":false},{"name":"Rivalry","hidden":false},{"name":"Sheer Force","hidden":false}],
         "moves": [
             "Double Kick",
             "Horn Attack",
@@ -6290,11 +6083,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Cute Charm",
-            "Magic Guard",
-            "Friend Guard"
-        ],
+        "abilities": [{"name":"Cute Charm","hidden":false},{"name":"Magic Guard","hidden":false},{"name":"Friend Guard","hidden":false}],
         "moves": [
             "Pound",
             "Growl",
@@ -6463,11 +6252,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Cute Charm",
-            "Magic Guard",
-            "Unaware"
-        ],
+        "abilities": [{"name":"Cute Charm","hidden":false},{"name":"Magic Guard","hidden":false},{"name":"Unaware","hidden":false}],
         "moves": [
             "Pound",
             "Double Slap",
@@ -6636,10 +6421,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Flash Fire",
-            "Drought"
-        ],
+        "abilities": [{"name":"Flash Fire","hidden":false},{"name":"Drought","hidden":false}],
         "moves": [
             "Tail Whip",
             "Ember",
@@ -6741,10 +6523,7 @@ const pokemonData = [
     //     "type": [
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Snow Cloak",
-    //         "Snow Warning"
-    //     ],
+    //     "abilities": [{"name":"//         Snow Cloak","hidden":false},{"name":"//         Snow Warning\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -6838,10 +6617,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Flash Fire",
-            "Drought"
-        ],
+        "abilities": [{"name":"Flash Fire","hidden":false},{"name":"Drought","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -6953,10 +6729,7 @@ const pokemonData = [
     //         "Ice",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Snow Cloak",
-    //         "Snow Warning"
-    //     ],
+    //     "abilities": [{"name":"//         Snow Cloak","hidden":false},{"name":"//         Snow Warning\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -7057,11 +6830,7 @@ const pokemonData = [
             "Normal"
             // "Fairy"
         ],
-        "abilities": [
-            "Cute Charm",
-            "Competitive",
-            "Friend Guard"
-        ],
+        "abilities": [{"name":"Cute Charm","hidden":false},{"name":"Competitive","hidden":false},{"name":"Friend Guard","hidden":false}],
         "moves": [
             "Pound",
             "Sing",
@@ -7227,11 +6996,7 @@ const pokemonData = [
             "Normal"
             // "Fairy"
         ],
-        "abilities": [
-            "Cute Charm",
-            "Competitive",
-            "Frisk"
-        ],
+        "abilities": [{"name":"Cute Charm","hidden":false},{"name":"Competitive","hidden":false},{"name":"Frisk","hidden":false}],
         "moves": [
             "Pound",
             "Double Slap",
@@ -7399,10 +7164,7 @@ const pokemonData = [
             "Poison",
             "Flying"
         ],
-        "abilities": [
-            "Inner Focus",
-            "Infiltrator"
-        ],
+        "abilities": [{"name":"Inner Focus","hidden":false},{"name":"Infiltrator","hidden":false}],
         "moves": [
             "Absorb",
             "Supersonic",
@@ -7503,10 +7265,7 @@ const pokemonData = [
             "Poison",
             "Flying"
         ],
-        "abilities": [
-            "Inner Focus",
-            "Infiltrator"
-        ],
+        "abilities": [{"name":"Inner Focus","hidden":false},{"name":"Infiltrator","hidden":false}],
         "moves": [
             "Bite",
             "Supersonic",
@@ -7613,10 +7372,7 @@ const pokemonData = [
             "Grass",
             "Poison"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Run Away"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Run Away","hidden":false}],
         "moves": [
             "Absorb",
             "Growth",
@@ -7699,10 +7455,7 @@ const pokemonData = [
             "Grass",
             "Poison"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Stench"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Stench","hidden":false}],
         "moves": [
             "Acid",
             "Absorb",
@@ -7787,10 +7540,7 @@ const pokemonData = [
             "Grass",
             "Poison"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Effect Spore"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Effect Spore","hidden":false}],
         "moves": [
             "Acid",
             "Absorb",
@@ -7881,11 +7631,7 @@ const pokemonData = [
             "Bug",
             "Grass"
         ],
-        "abilities": [
-            "Effect Spore",
-            "Dry Skin",
-            "Damp"
-        ],
+        "abilities": [{"name":"Effect Spore","hidden":false},{"name":"Dry Skin","hidden":false},{"name":"Damp","hidden":false}],
         "moves": [
             "Scratch",
             "Sleep Powder",
@@ -7991,11 +7737,7 @@ const pokemonData = [
             "Bug",
             "Grass"
         ],
-        "abilities": [
-            "Effect Spore",
-            "Dry Skin",
-            "Damp"
-        ],
+        "abilities": [{"name":"Effect Spore","hidden":false},{"name":"Dry Skin","hidden":false},{"name":"Damp","hidden":false}],
         "moves": [
             "Scratch",
             "Absorb",
@@ -8103,11 +7845,7 @@ const pokemonData = [
             "Bug",
             "Poison"
         ],
-        "abilities": [
-            "Compound Eyes",
-            "Tinted Lens",
-            "Run Away"
-        ],
+        "abilities": [{"name":"Compound Eyes","hidden":false},{"name":"Tinted Lens","hidden":false},{"name":"Run Away","hidden":false}],
         "moves": [
             "Tackle",
             "Disable",
@@ -8197,11 +7935,7 @@ const pokemonData = [
             "Bug",
             "Poison"
         ],
-        "abilities": [
-            "Shield Dust",
-            "Tinted Lens",
-            "Wonder Skin"
-        ],
+        "abilities": [{"name":"Shield Dust","hidden":false},{"name":"Tinted Lens","hidden":false},{"name":"Wonder Skin","hidden":false}],
         "moves": [
             "Tackle",
             "Supersonic",
@@ -8307,11 +8041,7 @@ const pokemonData = [
         "type": [
             "Ground"
         ],
-        "abilities": [
-            "Sand Veil",
-            "Arena Trap",
-            "Sand Force"
-        ],
+        "abilities": [{"name":"Sand Veil","hidden":false},{"name":"Arena Trap","hidden":false},{"name":"Sand Force","hidden":false}],
         "moves": [
             "Scratch",
             "Sand-Attack",
@@ -8408,11 +8138,7 @@ const pokemonData = [
     //         "Ground",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Sand Veil",
-    //         "Tangling Hair",
-    //         "Sand Force"
-    //     ],
+    //     "abilities": [{"name":"//         Sand Veil","hidden":false},{"name":"//         Tangling Hair","hidden":false},{"name":"//         Sand Force\r\n    //","hidden":false}],
     //     "moves": [
     //         "Scratch",
     //         "Swords Dance",
@@ -8510,11 +8236,7 @@ const pokemonData = [
         "type": [
             "Ground"
         ],
-        "abilities": [
-            "Sand Veil",
-            "Arena Trap",
-            "Sand Force"
-        ],
+        "abilities": [{"name":"Sand Veil","hidden":false},{"name":"Arena Trap","hidden":false},{"name":"Sand Force","hidden":false}],
         "moves": [
             "Scratch",
             "Sand-Attack",
@@ -8616,11 +8338,7 @@ const pokemonData = [
     //         "Ground",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Sand Veil",
-    //         "Tangling Hair",
-    //         "Sand Force"
-    //     ],
+    //     "abilities": [{"name":"//         Sand Veil","hidden":false},{"name":"//         Tangling Hair","hidden":false},{"name":"//         Sand Force\r\n    //","hidden":false}],
     //     "moves": [
     //         "Scratch",
     //         "Swords Dance",
@@ -8718,11 +8436,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Pickup",
-            "Technician",
-            "Unnerve"
-        ],
+        "abilities": [{"name":"Pickup","hidden":false},{"name":"Technician","hidden":false},{"name":"Unnerve","hidden":false}],
         "moves": [
             "Scratch",
             "Growl",
@@ -8846,11 +8560,7 @@ const pokemonData = [
     //     "type": [
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Pickup",
-    //         "Technician",
-    //         "Rattled"
-    //     ],
+    //     "abilities": [{"name":"//         Pickup","hidden":false},{"name":"//         Technician","hidden":false},{"name":"//         Rattled\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pay Day",
     //         "Scratch",
@@ -8963,11 +8673,7 @@ const pokemonData = [
     //     "type": [
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Pickup",
-    //         "Tough Claws",
-    //         "Unnerve"
-    //     ],
+    //     "abilities": [{"name":"//         Pickup","hidden":false},{"name":"//         Tough Claws","hidden":false},{"name":"//         Unnerve\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pay Day",
     //         "Scratch",
@@ -9063,11 +8769,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Pickup",
-    //         "Technician",
-    //         "Unnerve"
-    //     ],
+    //     "abilities": [{"name":"//         Pickup","hidden":false},{"name":"//         Technician","hidden":false},{"name":"//         Unnerve\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 40,
@@ -9088,11 +8790,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Limber",
-            "Technician",
-            "Unnerve"
-        ],
+        "abilities": [{"name":"Limber","hidden":false},{"name":"Technician","hidden":false},{"name":"Unnerve","hidden":false}],
         "moves": [
             "Scratch",
             "Bite",
@@ -9222,11 +8920,7 @@ const pokemonData = [
     //     "type": [
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Fur Coat",
-    //         "Technician",
-    //         "Rattled"
-    //     ],
+    //     "abilities": [{"name":"//         Fur Coat","hidden":false},{"name":"//         Technician","hidden":false},{"name":"//         Rattled\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pay Day",
     //         "Scratch",
@@ -9341,11 +9035,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Damp",
-            "Cloud Nine",
-            "Swift Swim"
-        ],
+        "abilities": [{"name":"Damp","hidden":false},{"name":"Cloud Nine","hidden":false},{"name":"Swift Swim","hidden":false}],
         "moves": [
             "Scratch",
             "Tail Whip",
@@ -9478,11 +9168,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Damp",
-            "Cloud Nine",
-            "Swift Swim"
-        ],
+        "abilities": [{"name":"Damp","hidden":false},{"name":"Cloud Nine","hidden":false},{"name":"Swift Swim","hidden":false}],
         "moves": [
             "Scratch",
             "Tail Whip",
@@ -9626,11 +9312,7 @@ const pokemonData = [
         "type": [
             "Fighting"
         ],
-        "abilities": [
-            "Vital Spirit",
-            "Anger Point",
-            "Defiant"
-        ],
+        "abilities": [{"name":"Vital Spirit","hidden":false},{"name":"Anger Point","hidden":false},{"name":"Defiant","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -9761,11 +9443,7 @@ const pokemonData = [
         "type": [
             "Fighting"
         ],
-        "abilities": [
-            "Vital Spirit",
-            "Anger Point",
-            "Defiant"
-        ],
+        "abilities": [{"name":"Vital Spirit","hidden":false},{"name":"Anger Point","hidden":false},{"name":"Defiant","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -9902,11 +9580,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Intimidate",
-            "Flash Fire",
-            "Justified"
-        ],
+        "abilities": [{"name":"Intimidate","hidden":false},{"name":"Flash Fire","hidden":false},{"name":"Justified","hidden":false}],
         "moves": [
             "Leer",
             "Bite",
@@ -10002,11 +9676,7 @@ const pokemonData = [
     //         "Fire",
     //         "Rock"
     //     ],
-    //     "abilities": [
-    //         "Intimidate",
-    //         "Flash Fire",
-    //         "Rock Head"
-    //     ],
+    //     "abilities": [{"name":"//         Intimidate","hidden":false},{"name":"//         Flash Fire","hidden":false},{"name":"//         Rock Head\r\n    //","hidden":false}],
     //     "moves": [
     //         "Double Kick",
     //         "Body Slam",
@@ -10078,11 +9748,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Intimidate",
-            "Flash Fire",
-            "Justified"
-        ],
+        "abilities": [{"name":"Intimidate","hidden":false},{"name":"Flash Fire","hidden":false},{"name":"Justified","hidden":false}],
         "moves": [
             "Take Down",
             "Leer",
@@ -10191,11 +9857,7 @@ const pokemonData = [
     //         "Fire",
     //         "Rock"
     //     ],
-    //     "abilities": [
-    //         "Intimidate",
-    //         "Flash Fire",
-    //         "Rock Head"
-    //     ],
+    //     "abilities": [{"name":"//         Intimidate","hidden":false},{"name":"//         Flash Fire","hidden":false},{"name":"//         Rock Head\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Take Down",
@@ -10275,11 +9937,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Water Absorb",
-            "Damp",
-            "Swift Swim"
-        ],
+        "abilities": [{"name":"Water Absorb","hidden":false},{"name":"Damp","hidden":false},{"name":"Swift Swim","hidden":false}],
         "moves": [
             "Water Gun",
             "Hypnosis",
@@ -10373,11 +10031,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Water Absorb",
-            "Damp",
-            "Swift Swim"
-        ],
+        "abilities": [{"name":"Water Absorb","hidden":false},{"name":"Damp","hidden":false},{"name":"Swift Swim","hidden":false}],
         "moves": [
             "Pound",
             "Water Gun",
@@ -10490,11 +10144,7 @@ const pokemonData = [
             "Water",
             "Fighting"
         ],
-        "abilities": [
-            "Water Absorb",
-            "Damp",
-            "Swift Swim"
-        ],
+        "abilities": [{"name":"Water Absorb","hidden":false},{"name":"Damp","hidden":false},{"name":"Swift Swim","hidden":false}],
         "moves": [
             "Pound",
             "Double Slap",
@@ -10624,11 +10274,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Synchronize",
-            "Inner Focus",
-            "Magic Guard"
-        ],
+        "abilities": [{"name":"Synchronize","hidden":false},{"name":"Inner Focus","hidden":false},{"name":"Magic Guard","hidden":false}],
         "moves": [
             "Teleport",
             "Confusion",
@@ -10744,11 +10390,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Synchronize",
-            "Inner Focus",
-            "Magic Guard"
-        ],
+        "abilities": [{"name":"Synchronize","hidden":false},{"name":"Inner Focus","hidden":false},{"name":"Magic Guard","hidden":false}],
         "moves": [
             "Disable",
             "Confusion",
@@ -10875,11 +10517,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Synchronize",
-            "Inner Focus",
-            "Magic Guard"
-        ],
+        "abilities": [{"name":"Synchronize","hidden":false},{"name":"Inner Focus","hidden":false},{"name":"Magic Guard","hidden":false}],
         "moves": [
             "Disable",
             "Confusion",
@@ -11012,9 +10650,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Trace"
-    //     ],
+    //     "abilities": [{"name":"//         Trace\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -11117,11 +10753,7 @@ const pokemonData = [
         "type": [
             "Fighting"
         ],
-        "abilities": [
-            "Guts",
-            "No Guard",
-            "Steadfast"
-        ],
+        "abilities": [{"name":"Guts","hidden":false},{"name":"No Guard","hidden":false},{"name":"Steadfast","hidden":false}],
         "moves": [
             "Leer",
             "Low Kick",
@@ -11237,11 +10869,7 @@ const pokemonData = [
         "type": [
             "Fighting"
         ],
-        "abilities": [
-            "Guts",
-            "No Guard",
-            "Steadfast"
-        ],
+        "abilities": [{"name":"Guts","hidden":false},{"name":"No Guard","hidden":false},{"name":"Steadfast","hidden":false}],
         "moves": [
             "Karate Chop",
             "Leer",
@@ -11358,11 +10986,7 @@ const pokemonData = [
         "type": [
             "Fighting"
         ],
-        "abilities": [
-            "Guts",
-            "No Guard",
-            "Steadfast"
-        ],
+        "abilities": [{"name":"Guts","hidden":false},{"name":"No Guard","hidden":false},{"name":"Steadfast","hidden":false}],
         "moves": [
             "Karate Chop",
             "Leer",
@@ -11488,11 +11112,7 @@ const pokemonData = [
     //     "type": [
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Guts",
-    //         "No Guard",
-    //         "Steadfast"
-    //     ],
+    //     "abilities": [{"name":"//         Guts","hidden":false},{"name":"//         No Guard","hidden":false},{"name":"//         Steadfast\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 90,
@@ -11514,10 +11134,7 @@ const pokemonData = [
             "Grass",
             "Poison"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Gluttony"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Gluttony","hidden":false}],
         "moves": [
             "Vine Whip",
             "Growth",
@@ -11611,10 +11228,7 @@ const pokemonData = [
             "Grass",
             "Poison"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Gluttony"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Gluttony","hidden":false}],
         "moves": [
             "Vine Whip",
             "Wrap",
@@ -11709,10 +11323,7 @@ const pokemonData = [
             "Grass",
             "Poison"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Gluttony"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Gluttony","hidden":false}],
         "moves": [
             "Vine Whip",
             "Wrap",
@@ -11817,11 +11428,7 @@ const pokemonData = [
             "Water",
             "Poison"
         ],
-        "abilities": [
-            "Clear Body",
-            "Liquid Ooze",
-            "Rain Dish"
-        ],
+        "abilities": [{"name":"Clear Body","hidden":false},{"name":"Liquid Ooze","hidden":false},{"name":"Rain Dish","hidden":false}],
         "moves": [
             "Poison Sting",
             "Water Gun",
@@ -11928,11 +11535,7 @@ const pokemonData = [
             "Water",
             "Poison"
         ],
-        "abilities": [
-            "Clear Body",
-            "Liquid Ooze",
-            "Rain Dish"
-        ],
+        "abilities": [{"name":"Clear Body","hidden":false},{"name":"Liquid Ooze","hidden":false},{"name":"Rain Dish","hidden":false}],
         "moves": [
             "Wrap",
             "Poison Sting",
@@ -12042,11 +11645,7 @@ const pokemonData = [
             "Rock",
             "Ground"
         ],
-        "abilities": [
-            "Rock Head",
-            "Sturdy",
-            "Sand Veil"
-        ],
+        "abilities": [{"name":"Rock Head","hidden":false},{"name":"Sturdy","hidden":false},{"name":"Sand Veil","hidden":false}],
         "moves": [
             "Tackle",
             "Defense Curl",
@@ -12152,11 +11751,7 @@ const pokemonData = [
     //         "Rock",
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Magnet Pull",
-    //         "Sturdy",
-    //         "Galvanize"
-    //     ],
+    //     "abilities": [{"name":"//         Magnet Pull","hidden":false},{"name":"//         Sturdy","hidden":false},{"name":"//         Galvanize\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Thunder Punch",
@@ -12250,11 +11845,7 @@ const pokemonData = [
             "Rock",
             "Ground"
         ],
-        "abilities": [
-            "Rock Head",
-            "Sturdy",
-            "Sand Veil"
-        ],
+        "abilities": [{"name":"Rock Head","hidden":false},{"name":"Sturdy","hidden":false},{"name":"Sand Veil","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Tackle",
@@ -12360,11 +11951,7 @@ const pokemonData = [
     //         "Rock",
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Magnet Pull",
-    //         "Sturdy",
-    //         "Galvanize"
-    //     ],
+    //     "abilities": [{"name":"//         Magnet Pull","hidden":false},{"name":"//         Sturdy","hidden":false},{"name":"//         Galvanize\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Thunder Punch",
@@ -12453,11 +12040,7 @@ const pokemonData = [
             "Rock",
             "Ground"
         ],
-        "abilities": [
-            "Rock Head",
-            "Sturdy",
-            "Sand Veil"
-        ],
+        "abilities": [{"name":"Rock Head","hidden":false},{"name":"Sturdy","hidden":false},{"name":"Sand Veil","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Tackle",
@@ -12571,11 +12154,7 @@ const pokemonData = [
     //         "Rock",
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Magnet Pull",
-    //         "Sturdy",
-    //         "Galvanize"
-    //     ],
+    //     "abilities": [{"name":"//         Magnet Pull","hidden":false},{"name":"//         Sturdy","hidden":false},{"name":"//         Galvanize\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -12672,11 +12251,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Run Away",
-            "Flash Fire",
-            "Flame Body"
-        ],
+        "abilities": [{"name":"Run Away","hidden":false},{"name":"Flash Fire","hidden":false},{"name":"Flame Body","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -12760,11 +12335,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Run Away",
-    //         "Pastel Veil",
-    //         "Anticipation"
-    //     ],
+    //     "abilities": [{"name":"//         Run Away","hidden":false},{"name":"//         Pastel Veil","hidden":false},{"name":"//         Anticipation\r\n    //","hidden":false}],
     //     "moves": [
     //         "Stomp",
     //         "Double Kick",
@@ -12831,11 +12402,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Run Away",
-            "Flash Fire",
-            "Flame Body"
-        ],
+        "abilities": [{"name":"Run Away","hidden":false},{"name":"Flash Fire","hidden":false},{"name":"Flame Body","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -12932,11 +12499,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Run Away",
-    //         "Pastel Veil",
-    //         "Anticipation"
-    //     ],
+    //     "abilities": [{"name":"//         Run Away","hidden":false},{"name":"//         Pastel Veil","hidden":false},{"name":"//         Anticipation\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pay Day",
     //         "Swords Dance",
@@ -13014,11 +12577,7 @@ const pokemonData = [
             "Water",
             "Psychic"
         ],
-        "abilities": [
-            "Oblivious",
-            "Own Tempo",
-            "Regenerator"
-        ],
+        "abilities": [{"name":"Oblivious","hidden":false},{"name":"Own Tempo","hidden":false},{"name":"Regenerator","hidden":false}],
         "moves": [
             "Tackle",
             "Curse",
@@ -13145,11 +12704,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Gluttony",
-    //         "Own Tempo",
-    //         "Regenerator"
-    //     ],
+    //     "abilities": [{"name":"//         Gluttony","hidden":false},{"name":"//         Own Tempo","hidden":false},{"name":"//         Regenerator\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pay Day",
     //         "Stomp",
@@ -13250,11 +12805,7 @@ const pokemonData = [
             "Water",
             "Psychic"
         ],
-        "abilities": [
-            "Oblivious",
-            "Own Tempo",
-            "Regenerator"
-        ],
+        "abilities": [{"name":"Oblivious","hidden":false},{"name":"Own Tempo","hidden":false},{"name":"Regenerator","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -13404,9 +12955,7 @@ const pokemonData = [
     //         "Water",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Shell Armor"
-    //     ],
+    //     "abilities": [{"name":"//         Shell Armor\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pay Day",
     //         "Ice Punch",
@@ -13517,11 +13066,7 @@ const pokemonData = [
     //         "Poison",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Quick Draw",
-    //         "Own Tempo",
-    //         "Regenerator"
-    //     ],
+    //     "abilities": [{"name":"//         Quick Draw","hidden":false},{"name":"//         Own Tempo","hidden":false},{"name":"//         Regenerator\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Pay Day",
@@ -13647,11 +13192,7 @@ const pokemonData = [
             "Electric",
             "Steel"
         ],
-        "abilities": [
-            "Magnet Pull",
-            "Sturdy",
-            "Analytic"
-        ],
+        "abilities": [{"name":"Magnet Pull","hidden":false},{"name":"Sturdy","hidden":false},{"name":"Analytic","hidden":false}],
         "moves": [
             "Tackle",
             "Supersonic",
@@ -13741,11 +13282,7 @@ const pokemonData = [
             "Electric",
             "Steel"
         ],
-        "abilities": [
-            "Magnet Pull",
-            "Sturdy",
-            "Analytic"
-        ],
+        "abilities": [{"name":"Magnet Pull","hidden":false},{"name":"Sturdy","hidden":false},{"name":"Analytic","hidden":false}],
         "moves": [
             "Tackle",
             "Supersonic",
@@ -13839,11 +13376,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Keen Eye",
-            "Inner Focus",
-            "Defiant"
-        ],
+        "abilities": [{"name":"Keen Eye","hidden":false},{"name":"Inner Focus","hidden":false},{"name":"Defiant","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Leer",
@@ -13955,10 +13488,7 @@ const pokemonData = [
     //     "type": [
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Steadfast",
-    //         "Scrappy"
-    //     ],
+    //     "abilities": [{"name":"//         Steadfast","hidden":false},{"name":"//         Scrappy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Slam",
@@ -14031,11 +13561,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Run Away",
-            "Early Bird",
-            "Tangled Feet"
-        ],
+        "abilities": [{"name":"Run Away","hidden":false},{"name":"Early Bird","hidden":false},{"name":"Tangled Feet","hidden":false}],
         "moves": [
             "Growl",
             "Peck",
@@ -14125,11 +13651,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Run Away",
-            "Early Bird",
-            "Tangled Feet"
-        ],
+        "abilities": [{"name":"Run Away","hidden":false},{"name":"Early Bird","hidden":false},{"name":"Tangled Feet","hidden":false}],
         "moves": [
             "Growl",
             "Peck",
@@ -14221,11 +13743,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Thick Fat",
-            "Hydration",
-            "Ice Body"
-        ],
+        "abilities": [{"name":"Thick Fat","hidden":false},{"name":"Hydration","hidden":false},{"name":"Ice Body","hidden":false}],
         "moves": [
             "Headbutt",
             "Growl",
@@ -14320,11 +13838,7 @@ const pokemonData = [
             "Water",
             "Ice"
         ],
-        "abilities": [
-            "Thick Fat",
-            "Hydration",
-            "Ice Body"
-        ],
+        "abilities": [{"name":"Thick Fat","hidden":false},{"name":"Hydration","hidden":false},{"name":"Ice Body","hidden":false}],
         "moves": [
             "Headbutt",
             "Growl",
@@ -14424,11 +13938,7 @@ const pokemonData = [
         "type": [
             "Poison"
         ],
-        "abilities": [
-            "Stench",
-            "Sticky Hold",
-            "Poison Touch"
-        ],
+        "abilities": [{"name":"Stench","hidden":false},{"name":"Sticky Hold","hidden":false},{"name":"Poison Touch","hidden":false}],
         "moves": [
             "Pound",
             "Poison Gas",
@@ -14541,11 +14051,7 @@ const pokemonData = [
     //         "Poison",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Poison Touch",
-    //         "Gluttony",
-    //         "Power of Alchemy"
-    //     ],
+    //     "abilities": [{"name":"//         Poison Touch","hidden":false},{"name":"//         Gluttony","hidden":false},{"name":"//         Power of Alchemy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Fire Punch",
@@ -14664,11 +14170,7 @@ const pokemonData = [
         "type": [
             "Poison"
         ],
-        "abilities": [
-            "Stench",
-            "Sticky Hold",
-            "Poison Touch"
-        ],
+        "abilities": [{"name":"Stench","hidden":false},{"name":"Sticky Hold","hidden":false},{"name":"Poison Touch","hidden":false}],
         "moves": [
             "Pound",
             "Harden",
@@ -14794,11 +14296,7 @@ const pokemonData = [
     //         "Poison",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Poison Touch",
-    //         "Gluttony",
-    //         "Power of Alchemy"
-    //     ],
+    //     "abilities": [{"name":"//         Poison Touch","hidden":false},{"name":"//         Gluttony","hidden":false},{"name":"//         Power of Alchemy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Fire Punch",
@@ -14915,11 +14413,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Shell Armor",
-            "Skill Link",
-            "Overcoat"
-        ],
+        "abilities": [{"name":"Shell Armor","hidden":false},{"name":"Skill Link","hidden":false},{"name":"Overcoat","hidden":false}],
         "moves": [
             "Tackle",
             "Water Gun",
@@ -15011,11 +14505,7 @@ const pokemonData = [
             "Water",
             "Ice"
         ],
-        "abilities": [
-            "Shell Armor",
-            "Skill Link",
-            "Overcoat"
-        ],
+        "abilities": [{"name":"Shell Armor","hidden":false},{"name":"Skill Link","hidden":false},{"name":"Overcoat","hidden":false}],
         "moves": [
             "Tackle",
             "Leer",
@@ -15120,9 +14610,7 @@ const pokemonData = [
             "Ghost",
             "Poison"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Hypnosis",
             "Confuse Ray",
@@ -15234,9 +14722,7 @@ const pokemonData = [
             "Ghost",
             "Poison"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Hypnosis",
             "Confuse Ray",
@@ -15354,9 +14840,7 @@ const pokemonData = [
             "Ghost",
             "Poison"
         ],
-        "abilities": [
-            "Cursed Body"
-        ],
+        "abilities": [{"name":"Cursed Body","hidden":false}],
         "moves": [
             "Hypnosis",
             "Confuse Ray",
@@ -15498,9 +14982,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Shadow Tag"
-    //     ],
+    //     "abilities": [{"name":"//         Shadow Tag\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -15610,9 +15092,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Cursed Body"
-    //     ],
+    //     "abilities": [{"name":"//         Cursed Body\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 60,
@@ -15634,11 +15114,7 @@ const pokemonData = [
             "Rock",
             "Ground"
         ],
-        "abilities": [
-            "Rock Head",
-            "Sturdy",
-            "Weak Armor"
-        ],
+        "abilities": [{"name":"Rock Head","hidden":false},{"name":"Sturdy","hidden":false},{"name":"Weak Armor","hidden":false}],
         "moves": [
             "Bind",
             "Tackle",
@@ -15740,11 +15216,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Insomnia",
-            "Forewarn",
-            "Inner Focus"
-        ],
+        "abilities": [{"name":"Insomnia","hidden":false},{"name":"Forewarn","hidden":false},{"name":"Inner Focus","hidden":false}],
         "moves": [
             "Pound",
             "Hypnosis",
@@ -15873,11 +15345,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Insomnia",
-            "Forewarn",
-            "Inner Focus"
-        ],
+        "abilities": [{"name":"Insomnia","hidden":false},{"name":"Forewarn","hidden":false},{"name":"Inner Focus","hidden":false}],
         "moves": [
             "Pound",
             "Disable",
@@ -16012,11 +15480,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Hyper Cutter",
-            "Shell Armor",
-            "Sheer Force"
-        ],
+        "abilities": [{"name":"Hyper Cutter","hidden":false},{"name":"Shell Armor","hidden":false},{"name":"Sheer Force","hidden":false}],
         "moves": [
             "Leer",
             "Water Gun",
@@ -16118,11 +15582,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Hyper Cutter",
-            "Shell Armor",
-            "Sheer Force"
-        ],
+        "abilities": [{"name":"Hyper Cutter","hidden":false},{"name":"Shell Armor","hidden":false},{"name":"Sheer Force","hidden":false}],
         "moves": [
             "Vice Grip",
             "Leer",
@@ -16230,11 +15690,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Hyper Cutter",
-    //         "Shell Armor",
-    //         "Sheer Force"
-    //     ],
+    //     "abilities": [{"name":"//         Hyper Cutter","hidden":false},{"name":"//         Shell Armor","hidden":false},{"name":"//         Sheer Force\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 55,
@@ -16255,11 +15711,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Soundproof",
-            "Static",
-            "Aftermath"
-        ],
+        "abilities": [{"name":"Soundproof","hidden":false},{"name":"Static","hidden":false},{"name":"Aftermath","hidden":false}],
         "moves": [
             "Tackle",
             "Charge",
@@ -16343,11 +15795,7 @@ const pokemonData = [
     //         "Electric",
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Soundproof",
-    //         "Static",
-    //         "Aftermath"
-    //     ],
+    //     "abilities": [{"name":"//         Soundproof","hidden":false},{"name":"//         Static","hidden":false},{"name":"//         Aftermath\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -16412,11 +15860,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Soundproof",
-            "Static",
-            "Aftermath"
-        ],
+        "abilities": [{"name":"Soundproof","hidden":false},{"name":"Static","hidden":false},{"name":"Aftermath","hidden":false}],
         "moves": [
             "Tackle",
             "Sonic Boom",
@@ -16503,11 +15947,7 @@ const pokemonData = [
     //         "Electric",
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Soundproof",
-    //         "Static",
-    //         "Aftermath"
-    //     ],
+    //     "abilities": [{"name":"//         Soundproof","hidden":false},{"name":"//         Static","hidden":false},{"name":"//         Aftermath\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -16574,10 +16014,7 @@ const pokemonData = [
             "Grass",
             "Psychic"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Harvest"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Harvest","hidden":false}],
         "moves": [
             "Absorb",
             "Hypnosis",
@@ -16677,10 +16114,7 @@ const pokemonData = [
             "Grass",
             "Psychic"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Harvest"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Harvest","hidden":false}],
         "moves": [
             "Stomp",
             "Absorb",
@@ -16795,10 +16229,7 @@ const pokemonData = [
     //         "Grass",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Frisk",
-    //         "Harvest"
-    //     ],
+    //     "abilities": [{"name":"//         Frisk","hidden":false},{"name":"//         Harvest\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Headbutt",
@@ -16903,11 +16334,7 @@ const pokemonData = [
         "type": [
             "Ground"
         ],
-        "abilities": [
-            "Rock Head",
-            "Lightning Rod",
-            "Battle Armor"
-        ],
+        "abilities": [{"name":"Rock Head","hidden":false},{"name":"Lightning Rod","hidden":false},{"name":"Battle Armor","hidden":false}],
         "moves": [
             "Growl",
             "Mud-Slap",
@@ -17020,11 +16447,7 @@ const pokemonData = [
         "type": [
             "Ground"
         ],
-        "abilities": [
-            "Rock Head",
-            "Lightning Rod",
-            "Battle Armor"
-        ],
+        "abilities": [{"name":"Rock Head","hidden":false},{"name":"Lightning Rod","hidden":false},{"name":"Battle Armor","hidden":false}],
         "moves": [
             "Headbutt",
             "Tail Whip",
@@ -17145,11 +16568,7 @@ const pokemonData = [
     //         "Fire",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Cursed Body",
-    //         "Lightning Rod",
-    //         "Rock Head"
-    //     ],
+    //     "abilities": [{"name":"//         Cursed Body","hidden":false},{"name":"//         Lightning Rod","hidden":false},{"name":"//         Rock Head\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -17269,11 +16688,7 @@ const pokemonData = [
     //         "Fire",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Cursed Body",
-    //         "Lightning Rod",
-    //         "Rock Head"
-    //     ],
+    //     "abilities": [{"name":"//         Cursed Body","hidden":false},{"name":"//         Lightning Rod","hidden":false},{"name":"//         Rock Head\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Thunder Punch",
@@ -17374,11 +16789,7 @@ const pokemonData = [
         "type": [
             "Fighting"
         ],
-        "abilities": [
-            "Limber",
-            "Reckless",
-            "Unburden"
-        ],
+        "abilities": [{"name":"Limber","hidden":false},{"name":"Reckless","hidden":false},{"name":"Unburden","hidden":false}],
         "moves": [
             "Double Kick",
             "Mega Kick",
@@ -17492,11 +16903,7 @@ const pokemonData = [
         "type": [
             "Fighting"
         ],
-        "abilities": [
-            "Keen Eye",
-            "Iron Fist",
-            "Inner Focus"
-        ],
+        "abilities": [{"name":"Keen Eye","hidden":false},{"name":"Iron Fist","hidden":false},{"name":"Inner Focus","hidden":false}],
         "moves": [
             "Comet Punch",
             "Tackle",
@@ -17608,11 +17015,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Own Tempo",
-            "Oblivious",
-            "Cloud Nine"
-        ],
+        "abilities": [{"name":"Own Tempo","hidden":false},{"name":"Oblivious","hidden":false},{"name":"Cloud Nine","hidden":false}],
         "moves": [
             "Defense Curl",
             "Lick",
@@ -17748,11 +17151,7 @@ const pokemonData = [
         "type": [
             "Poison"
         ],
-        "abilities": [
-            "Levitate",
-            "Reactive Gas",
-            "Stench"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false},{"name":"Reactive Gas","hidden":false},{"name":"Stench","hidden":false}],
         "moves": [
             "Tackle",
             "Poison Gas",
@@ -17844,11 +17243,7 @@ const pokemonData = [
         "type": [
             "Poison"
         ],
-        "abilities": [
-            "Levitate",
-            "Reactive Gas",
-            "Stench"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false},{"name":"Reactive Gas","hidden":false},{"name":"Stench","hidden":false}],
         "moves": [
             "Tackle",
             "Smoke Screen",
@@ -17945,11 +17340,7 @@ const pokemonData = [
     //         "Poison",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Levitate",
-    //         "Reactive Gas",
-    //         "Misty Surge"
-    //     ],
+    //     "abilities": [{"name":"//         Levitate","hidden":false},{"name":"//         Reactive Gas","hidden":false},{"name":"//         Misty Surge\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Flamethrower",
@@ -18032,11 +17423,7 @@ const pokemonData = [
             "Ground",
             "Rock"
         ],
-        "abilities": [
-            "Lightning Rod",
-            "Rock Head",
-            "Reckless"
-        ],
+        "abilities": [{"name":"Lightning Rod","hidden":false},{"name":"Rock Head","hidden":false},{"name":"Reckless","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Horn Attack",
@@ -18157,11 +17544,7 @@ const pokemonData = [
             "Ground",
             "Rock"
         ],
-        "abilities": [
-            "Lightning Rod",
-            "Rock Head",
-            "Reckless"
-        ],
+        "abilities": [{"name":"Lightning Rod","hidden":false},{"name":"Rock Head","hidden":false},{"name":"Reckless","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Horn Attack",
@@ -18314,11 +17697,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Natural Cure",
-            "Serene Grace",
-            "Healer"
-        ],
+        "abilities": [{"name":"Natural Cure","hidden":false},{"name":"Serene Grace","hidden":false},{"name":"Healer","hidden":false}],
         "moves": [
             "Pound",
             "Double-Edge",
@@ -18471,11 +17850,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Leaf Guard",
-            "Regenerator"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Leaf Guard","hidden":false},{"name":"Regenerator","hidden":false}],
         "moves": [
             "Bind",
             "Absorb",
@@ -18576,11 +17951,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Early Bird",
-            "Scrappy",
-            "Inner Focus"
-        ],
+        "abilities": [{"name":"Early Bird","hidden":false},{"name":"Scrappy","hidden":false},{"name":"Inner Focus","hidden":false}],
         "moves": [
             "Pound",
             "Comet Punch",
@@ -18719,9 +18090,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Parental Bond"
-    //     ],
+    //     "abilities": [{"name":"//         Parental Bond\r\n    //","hidden":false}],
     //     "moves": [
     //         "Comet Punch",
     //         "Mega Punch",
@@ -18836,11 +18205,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Sniper",
-            "Damp"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Sniper","hidden":false},{"name":"Damp","hidden":false}],
         "moves": [
             "Leer",
             "Water Gun",
@@ -18927,11 +18292,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Poison Point",
-            "Sniper",
-            "Damp"
-        ],
+        "abilities": [{"name":"Poison Point","hidden":false},{"name":"Sniper","hidden":false},{"name":"Damp","hidden":false}],
         "moves": [
             "Leer",
             "Water Gun",
@@ -19020,11 +18381,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Water Veil",
-            "Lightning Rod"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Water Veil","hidden":false},{"name":"Lightning Rod","hidden":false}],
         "moves": [
             "Tail Whip",
             "Peck",
@@ -19117,11 +18474,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Water Veil",
-            "Lightning Rod"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Water Veil","hidden":false},{"name":"Lightning Rod","hidden":false}],
         "moves": [
             "Tail Whip",
             "Supersonic",
@@ -19215,11 +18568,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Illuminate",
-            "Natural Cure",
-            "Analytic"
-        ],
+        "abilities": [{"name":"Illuminate","hidden":false},{"name":"Natural Cure","hidden":false},{"name":"Analytic","hidden":false}],
         "moves": [
             "Tackle",
             "Harden",
@@ -19315,11 +18664,7 @@ const pokemonData = [
             "Water",
             "Psychic"
         ],
-        "abilities": [
-            "Illuminate",
-            "Natural Cure",
-            "Analytic"
-        ],
+        "abilities": [{"name":"Illuminate","hidden":false},{"name":"Natural Cure","hidden":false},{"name":"Analytic","hidden":false}],
         "moves": [
             "Tackle",
             "Water Gun",
@@ -19431,11 +18776,7 @@ const pokemonData = [
             "Psychic"
             // "Fairy"
         ],
-        "abilities": [
-            "Soundproof",
-            // "Filter",
-            "Technician"
-        ],
+        "abilities": [{"name":"Soundproof","hidden":false},{"name":"// Filter","hidden":false},{"name":"Technician","hidden":false}],
         "moves": [
             "Confusion",
             "Barrier",
@@ -19577,11 +18918,7 @@ const pokemonData = [
     //         "Ice",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Vital Spirit",
-    //         "Screen Cleaner",
-    //         "Ice Body"
-    //     ],
+    //     "abilities": [{"name":"//         Vital Spirit","hidden":false},{"name":"//         Screen Cleaner","hidden":false},{"name":"//         Ice Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Mega Punch",
@@ -19693,11 +19030,7 @@ const pokemonData = [
             "Bug",
             "Flying"
         ],
-        "abilities": [
-            "Swarm",
-            "Technician",
-            "Steadfast"
-        ],
+        "abilities": [{"name":"Swarm","hidden":false},{"name":"Technician","hidden":false},{"name":"Steadfast","hidden":false}],
         "moves": [
             "Leer",
             "Quick Attack",
@@ -19800,11 +19133,7 @@ const pokemonData = [
             "Ice",
             "Psychic"
         ],
-        "abilities": [
-            "Oblivious",
-            "Forewarn",
-            "Dry Skin"
-        ],
+        "abilities": [{"name":"Oblivious","hidden":false},{"name":"Forewarn","hidden":false},{"name":"Dry Skin","hidden":false}],
         "moves": [
             "Pound",
             "Lick",
@@ -19938,10 +19267,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Static",
-            "Vital Spirit"
-        ],
+        "abilities": [{"name":"Static","hidden":false},{"name":"Vital Spirit","hidden":false}],
         "moves": [
             "Leer",
             "Thunder Shock",
@@ -20055,10 +19381,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Flame Body",
-            "Vital Spirit"
-        ],
+        "abilities": [{"name":"Flame Body","hidden":false},{"name":"Vital Spirit","hidden":false}],
         "moves": [
             "Leer",
             "Ember",
@@ -20169,11 +19492,7 @@ const pokemonData = [
         "type": [
             "Bug"
         ],
-        "abilities": [
-            "Hyper Cutter",
-            "Mold Breaker",
-            "Moxie"
-        ],
+        "abilities": [{"name":"Hyper Cutter","hidden":false},{"name":"Mold Breaker","hidden":false},{"name":"Moxie","hidden":false}],
         "moves": [
             "Vice Grip",
             "Harden",
@@ -20278,9 +19597,7 @@ const pokemonData = [
     //         "Bug",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Aerilate"
-    //     ],
+    //     "abilities": [{"name":"//         Aerilate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Vise Grip",
     //         "Guillotine",
@@ -20371,11 +19688,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Intimidate",
-            "Anger Point",
-            "Sheer Force"
-        ],
+        "abilities": [{"name":"Intimidate","hidden":false},{"name":"Anger Point","hidden":false},{"name":"Sheer Force","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -20484,11 +19797,7 @@ const pokemonData = [
     //     "type": [
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Intimidate",
-    //         "Anger Point",
-    //         "Cud Chew"
-    //     ],
+    //     "abilities": [{"name":"//         Intimidate","hidden":false},{"name":"//         Anger Point","hidden":false},{"name":"//         Cud Chew\r\n    //","hidden":false}],
     //     "moves": [
     //         "Double Kick",
     //         "Headbutt",
@@ -20557,11 +19866,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Intimidate",
-    //         "Anger Point",
-    //         "Cud Chew"
-    //     ],
+    //     "abilities": [{"name":"//         Intimidate","hidden":false},{"name":"//         Anger Point","hidden":false},{"name":"//         Cud Chew\r\n    //","hidden":false}],
     //     "moves": [
     //         "Double Kick",
     //         "Headbutt",
@@ -20634,11 +19939,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Intimidate",
-    //         "Anger Point",
-    //         "Cud Chew"
-    //     ],
+    //     "abilities": [{"name":"//         Intimidate","hidden":false},{"name":"//         Anger Point","hidden":false},{"name":"//         Cud Chew\r\n    //","hidden":false}],
     //     "moves": [
     //         "Double Kick",
     //         "Headbutt",
@@ -20709,10 +20010,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Rattled"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Rattled","hidden":false}],
         "moves": [
             "Splash",
             "Tackle",
@@ -20743,10 +20041,7 @@ const pokemonData = [
             "Water",
             "Flying"
         ],
-        "abilities": [
-            "Intimidate",
-            "Moxie"
-        ],
+        "abilities": [{"name":"Intimidate","hidden":false},{"name":"Moxie","hidden":false}],
         "moves": [
             "Bind",
             "Tackle",
@@ -20863,9 +20158,7 @@ const pokemonData = [
     //         "Water",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Mold Breaker"
-    //     ],
+    //     "abilities": [{"name":"//         Mold Breaker\r\n    //","hidden":false}],
     //     "moves": [
     //         "Bind",
     //         "Headbutt",
@@ -20958,11 +20251,7 @@ const pokemonData = [
             "Water",
             "Ice"
         ],
-        "abilities": [
-            "Water Absorb",
-            "Shell Armor",
-            "Hydration"
-        ],
+        "abilities": [{"name":"Water Absorb","hidden":false},{"name":"Shell Armor","hidden":false},{"name":"Hydration","hidden":false}],
         "moves": [
             "Growl",
             "Sing",
@@ -21080,11 +20369,7 @@ const pokemonData = [
     //         "Water",
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Water Absorb",
-    //         "Shell Armor",
-    //         "Hydration"
-    //     ],
+    //     "abilities": [{"name":"//         Water Absorb","hidden":false},{"name":"//         Shell Armor","hidden":false},{"name":"//         Hydration\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 130,
@@ -21105,10 +20390,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Limber",
-            "Imposter"
-        ],
+        "abilities": [{"name":"Limber","hidden":false},{"name":"Imposter","hidden":false}],
         "moves": [
             "Transform"
         ],
@@ -21130,11 +20412,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Run Away",
-            "Adaptability",
-            "Anticipation"
-        ],
+        "abilities": [{"name":"Run Away","hidden":false},{"name":"Adaptability","hidden":false},{"name":"Anticipation","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -21225,11 +20503,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Run Away",
-    //         "Adaptability",
-    //         "Anticipation"
-    //     ],
+    //     "abilities": [{"name":"//         Run Away","hidden":false},{"name":"//         Adaptability","hidden":false},{"name":"//         Anticipation\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pay Day",
     //         "Double Kick",
@@ -21281,11 +20555,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Run Away",
-    //         "Adaptability",
-    //         "Anticipation"
-    //     ],
+    //     "abilities": [{"name":"//         Run Away","hidden":false},{"name":"//         Adaptability","hidden":false},{"name":"//         Anticipation\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 55,
@@ -21306,10 +20576,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Water Absorb",
-            "Hydration"
-        ],
+        "abilities": [{"name":"Water Absorb","hidden":false},{"name":"Hydration","hidden":false}],
         "moves": [
             "Tackle",
             "Take Down",
@@ -21427,10 +20694,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Volt Absorb",
-            "Quick Feet"
-        ],
+        "abilities": [{"name":"Volt Absorb","hidden":false},{"name":"Quick Feet","hidden":false}],
         "moves": [
             "Tackle",
             "Take Down",
@@ -21545,10 +20809,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Flash Fire",
-            "Guts"
-        ],
+        "abilities": [{"name":"Flash Fire","hidden":false},{"name":"Guts","hidden":false}],
         "moves": [
             "Tackle",
             "Take Down",
@@ -21661,11 +20922,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Trace",
-            "Download",
-            "Analytic"
-        ],
+        "abilities": [{"name":"Trace","hidden":false},{"name":"Download","hidden":false},{"name":"Analytic","hidden":false}],
         "moves": [
             "Tackle",
             "Sharpen",
@@ -21769,11 +21026,7 @@ const pokemonData = [
             "Rock",
             "Water"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Shell Armor",
-            "Weak Armor"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Shell Armor","hidden":false},{"name":"Weak Armor","hidden":false}],
         "moves": [
             "Withdraw",
             "Constrict",
@@ -21875,11 +21128,7 @@ const pokemonData = [
             "Rock",
             "Water"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Shell Armor",
-            "Weak Armor"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Shell Armor","hidden":false},{"name":"Weak Armor","hidden":false}],
         "moves": [
             "Horn Attack",
             "Bite",
@@ -21989,11 +21238,7 @@ const pokemonData = [
             "Rock",
             "Water"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Battle Armor",
-            "Weak Armor"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Battle Armor","hidden":false},{"name":"Weak Armor","hidden":false}],
         "moves": [
             "Scratch",
             "Harden",
@@ -22093,11 +21338,7 @@ const pokemonData = [
             "Rock",
             "Water"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Battle Armor",
-            "Weak Armor"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Battle Armor","hidden":false},{"name":"Weak Armor","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -22216,11 +21457,7 @@ const pokemonData = [
             "Rock",
             "Flying"
         ],
-        "abilities": [
-            "Rock Head",
-            "Pressure",
-            "Unnerve"
-        ],
+        "abilities": [{"name":"Rock Head","hidden":false},{"name":"Pressure","hidden":false},{"name":"Unnerve","hidden":false}],
         "moves": [
             "Wing Attack",
             "Bite",
@@ -22329,9 +21566,7 @@ const pokemonData = [
     //         "Rock",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Tough Claws"
-    //     ],
+    //     "abilities": [{"name":"//         Tough Claws\r\n    //","hidden":false}],
     //     "moves": [
     //         "Wing Attack",
     //         "Whirlwind",
@@ -22431,11 +21666,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Immunity",
-            "Thick Fat",
-            "Gluttony"
-        ],
+        "abilities": [{"name":"Immunity","hidden":false},{"name":"Thick Fat","hidden":false},{"name":"Gluttony","hidden":false}],
         "moves": [
             "Headbutt",
             "Tackle",
@@ -22584,11 +21815,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Immunity",
-    //         "Thick Fat",
-    //         "Gluttony"
-    //     ],
+    //     "abilities": [{"name":"//         Immunity","hidden":false},{"name":"//         Thick Fat","hidden":false},{"name":"//         Gluttony\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 160,
@@ -22610,9 +21837,7 @@ const pokemonData = [
             "Ice",
             "Flying"
         ],
-        "abilities": [
-            "Pressure"
-        ],
+        "abilities": [{"name":"Pressure","hidden":false}],
         "moves": [
             "Gust",
             "Mist",
@@ -22729,9 +21954,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Competitive"
-    //     ],
+    //     "abilities": [{"name":"//         Competitive\r\n    //","hidden":false}],
     //     "moves": [
     //         "Gust",
     //         "Fly",
@@ -22810,9 +22033,7 @@ const pokemonData = [
             "Electric",
             "Flying"
         ],
-        "abilities": [
-            "Pressure"
-        ],
+        "abilities": [{"name":"Pressure","hidden":false}],
         "moves": [
             "Peck",
             "ThunderShock",
@@ -22928,9 +22149,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Defiant"
-    //     ],
+    //     "abilities": [{"name":"//         Defiant\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Mega Kick",
@@ -23011,9 +22230,7 @@ const pokemonData = [
             "Fire",
             "Flying"
         ],
-        "abilities": [
-            "Pressure"
-        ],
+        "abilities": [{"name":"Pressure","hidden":false}],
         "moves": [
             "Gust",
             "Wing Attack",
@@ -23128,9 +22345,7 @@ const pokemonData = [
     //         "Dark",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Berserk"
-    //     ],
+    //     "abilities": [{"name":"//         Berserk\r\n    //","hidden":false}],
     //     "moves": [
     //         "Gust",
     //         "Wing Attack",
@@ -23203,10 +22418,7 @@ const pokemonData = [
         "type": [
             "Dragon"
         ],
-        "abilities": [
-            "Shed Skin",
-            "Marvel Scale"
-        ],
+        "abilities": [{"name":"Shed Skin","hidden":false},{"name":"Marvel Scale","hidden":false}],
         "moves": [
             "Wrap",
             "Leer",
@@ -23306,10 +22518,7 @@ const pokemonData = [
         "type": [
             "Dragon"
         ],
-        "abilities": [
-            "Shed Skin",
-            "Marvel Scale"
-        ],
+        "abilities": [{"name":"Shed Skin","hidden":false},{"name":"Marvel Scale","hidden":false}],
         "moves": [
             "Wrap",
             "Leer",
@@ -23411,10 +22620,7 @@ const pokemonData = [
             "Dragon",
             "Flying"
         ],
-        "abilities": [
-            "Inner Focus",
-            "Multiscale"
-        ],
+        "abilities": [{"name":"Inner Focus","hidden":false},{"name":"Multiscale","hidden":false}],
         "moves": [
             "Fire Punch",
             "Thunder Punch",
@@ -23559,10 +22765,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Pressure",
-    //         "Unnerve"
-    //     ],
+    //     "abilities": [{"name":"//         Pressure","hidden":false},{"name":"//         Unnerve\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Pay Day",
@@ -23746,9 +22949,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Steadfast"
-    //     ],
+    //     "abilities": [{"name":"//         Steadfast\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pay Day",
     //         "Fire Punch",
@@ -23884,9 +23085,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Insomnia"
-    //     ],
+    //     "abilities": [{"name":"//         Insomnia\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pay Day",
     //         "Fire Punch",
@@ -24022,9 +23221,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Synchronize"
-    //     ],
+    //     "abilities": [{"name":"//         Synchronize\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Mega Punch",
@@ -24407,10 +23604,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Overgrow",
-            "Leaf Guard"
-        ],
+        "abilities": [{"name":"Overgrow","hidden":false},{"name":"Leaf Guard","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -24501,10 +23695,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Overgrow",
-            "Leaf Guard"
-        ],
+        "abilities": [{"name":"Overgrow","hidden":false},{"name":"Leaf Guard","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -24597,10 +23788,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Overgrow",
-            "Leaf Guard"
-        ],
+        "abilities": [{"name":"Overgrow","hidden":false},{"name":"Leaf Guard","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -24701,10 +23889,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Blaze",
-            "Flash Fire"
-        ],
+        "abilities": [{"name":"Blaze","hidden":false},{"name":"Flash Fire","hidden":false}],
         "moves": [
             "Tackle",
             "Leer",
@@ -24797,10 +23982,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Blaze",
-            "Flash Fire"
-        ],
+        "abilities": [{"name":"Blaze","hidden":false},{"name":"Flash Fire","hidden":false}],
         "moves": [
             "Tackle",
             "Leer",
@@ -24899,10 +24081,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Blaze",
-            "Flash Fire"
-        ],
+        "abilities": [{"name":"Blaze","hidden":false},{"name":"Flash Fire","hidden":false}],
         "moves": [
             "Tackle",
             "Double-Edge",
@@ -25024,10 +24203,7 @@ const pokemonData = [
     //         "Fire",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Blaze",
-    //         "Frisk"
-    //     ],
+    //     "abilities": [{"name":"//         Blaze","hidden":false},{"name":"//         Frisk\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Thunder Punch",
@@ -25110,10 +24286,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Torrent",
-            "Sheer Force"
-        ],
+        "abilities": [{"name":"Torrent","hidden":false},{"name":"Sheer Force","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -25224,10 +24397,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Torrent",
-            "Sheer Force"
-        ],
+        "abilities": [{"name":"Torrent","hidden":false},{"name":"Sheer Force","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -25343,10 +24513,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Torrent",
-            "Sheer Force"
-        ],
+        "abilities": [{"name":"Torrent","hidden":false},{"name":"Sheer Force","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -25473,11 +24640,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Run Away",
-            "Keen Eye",
-            "Frisk"
-        ],
+        "abilities": [{"name":"Run Away","hidden":false},{"name":"Keen Eye","hidden":false},{"name":"Frisk","hidden":false}],
         "moves": [
             "Scratch",
             "Tackle",
@@ -25590,11 +24753,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Run Away",
-            "Keen Eye",
-            "Frisk"
-        ],
+        "abilities": [{"name":"Run Away","hidden":false},{"name":"Keen Eye","hidden":false},{"name":"Frisk","hidden":false}],
         "moves": [
             "Scratch",
             "Agility",
@@ -25711,11 +24870,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Insomnia",
-            "Keen Eye",
-            "Tinted Lens"
-        ],
+        "abilities": [{"name":"Insomnia","hidden":false},{"name":"Keen Eye","hidden":false},{"name":"Tinted Lens","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -25818,11 +24973,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Insomnia",
-            "Keen Eye",
-            "Tinted Lens"
-        ],
+        "abilities": [{"name":"Insomnia","hidden":false},{"name":"Keen Eye","hidden":false},{"name":"Tinted Lens","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -25928,11 +25079,7 @@ const pokemonData = [
             "Bug",
             "Flying"
         ],
-        "abilities": [
-            "Swarm",
-            "Early Bird",
-            "Rattled"
-        ],
+        "abilities": [{"name":"Swarm","hidden":false},{"name":"Early Bird","hidden":false},{"name":"Rattled","hidden":false}],
         "moves": [
             "Tackle",
             "Supersonic",
@@ -26027,11 +25174,7 @@ const pokemonData = [
             "Bug",
             "Flying"
         ],
-        "abilities": [
-            "Swarm",
-            "Early Bird",
-            "Iron Fist"
-        ],
+        "abilities": [{"name":"Swarm","hidden":false},{"name":"Early Bird","hidden":false},{"name":"Iron Fist","hidden":false}],
         "moves": [
             "Tackle",
             "Supersonic",
@@ -26132,11 +25275,7 @@ const pokemonData = [
             "Bug",
             "Poison"
         ],
-        "abilities": [
-            "Swarm",
-            "Insomnia",
-            "Sniper"
-        ],
+        "abilities": [{"name":"Swarm","hidden":false},{"name":"Insomnia","hidden":false},{"name":"Sniper","hidden":false}],
         "moves": [
             "Poison Sting",
             "String Shot",
@@ -26227,11 +25366,7 @@ const pokemonData = [
             "Bug",
             "Poison"
         ],
-        "abilities": [
-            "Swarm",
-            "Insomnia",
-            "Sniper"
-        ],
+        "abilities": [{"name":"Swarm","hidden":false},{"name":"Insomnia","hidden":false},{"name":"Sniper","hidden":false}],
         "moves": [
             "Swords Dance",
             "Poison Sting",
@@ -26326,10 +25461,7 @@ const pokemonData = [
             "Poison",
             "Flying"
         ],
-        "abilities": [
-            "Inner Focus",
-            "Infiltrator"
-        ],
+        "abilities": [{"name":"Inner Focus","hidden":false},{"name":"Infiltrator","hidden":false}],
         "moves": [
             "Bite",
             "Supersonic",
@@ -26438,11 +25570,7 @@ const pokemonData = [
             "Water",
             "Electric"
         ],
-        "abilities": [
-            "Volt Absorb",
-            "Illuminate",
-            "Water Absorb"
-        ],
+        "abilities": [{"name":"Volt Absorb","hidden":false},{"name":"Illuminate","hidden":false},{"name":"Water Absorb","hidden":false}],
         "moves": [
             "Supersonic",
             "Water Gun",
@@ -26531,11 +25659,7 @@ const pokemonData = [
             "Water",
             "Electric"
         ],
-        "abilities": [
-            "Volt Absorb",
-            "Illuminate",
-            "Water Absorb"
-        ],
+        "abilities": [{"name":"Volt Absorb","hidden":false},{"name":"Illuminate","hidden":false},{"name":"Water Absorb","hidden":false}],
         "moves": [
             "Supersonic",
             "Water Gun",
@@ -26629,10 +25753,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Static",
-            "Lightning Rod"
-        ],
+        "abilities": [{"name":"Static","hidden":false},{"name":"Lightning Rod","hidden":false}],
         "moves": [
             "Tail Whip",
             "Thunder Shock",
@@ -26740,11 +25861,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Cute Charm",
-            "Magic Guard",
-            "Friend Guard"
-        ],
+        "abilities": [{"name":"Cute Charm","hidden":false},{"name":"Magic Guard","hidden":false},{"name":"Friend Guard","hidden":false}],
         "moves": [
             "Pound",
             "Splash",
@@ -26868,11 +25985,7 @@ const pokemonData = [
             "Normal"
             // "Fairy"
         ],
-        "abilities": [
-            "Cute Charm",
-            "Competitive",
-            "Friend Guard"
-        ],
+        "abilities": [{"name":"Cute Charm","hidden":false},{"name":"Competitive","hidden":false},{"name":"Friend Guard","hidden":false}],
         "moves": [
             "Pound",
             "Sing",
@@ -26985,11 +26098,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Hustle",
-            "Serene Grace",
-            "Super Luck"
-        ],
+        "abilities": [{"name":"Hustle","hidden":false},{"name":"Serene Grace","hidden":false},{"name":"Super Luck","hidden":false}],
         "moves": [
             "Pound",
             "Growl",
@@ -27109,11 +26218,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Hustle",
-            "Serene Grace",
-            "Super Luck"
-        ],
+        "abilities": [{"name":"Hustle","hidden":false},{"name":"Serene Grace","hidden":false},{"name":"Super Luck","hidden":false}],
         "moves": [
             "Pound",
             "Growl",
@@ -27253,11 +26358,7 @@ const pokemonData = [
             "Psychic",
             "Flying"
         ],
-        "abilities": [
-            "Synchronize",
-            "Early Bird",
-            "Magic Bounce"
-        ],
+        "abilities": [{"name":"Synchronize","hidden":false},{"name":"Early Bird","hidden":false},{"name":"Magic Bounce","hidden":false}],
         "moves": [
             "Leer",
             "Peck",
@@ -27370,11 +26471,7 @@ const pokemonData = [
             "Psychic",
             "Flying"
         ],
-        "abilities": [
-            "Synchronize",
-            "Early Bird",
-            "Magic Bounce"
-        ],
+        "abilities": [{"name":"Synchronize","hidden":false},{"name":"Early Bird","hidden":false},{"name":"Magic Bounce","hidden":false}],
         "moves": [
             "Leer",
             "Peck",
@@ -27491,10 +26588,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Static",
-            "Plus"
-        ],
+        "abilities": [{"name":"Static","hidden":false},{"name":"Plus","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -27580,10 +26674,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Static",
-            "Plus"
-        ],
+        "abilities": [{"name":"Static","hidden":false},{"name":"Plus","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -27682,10 +26773,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Static",
-            "Plus"
-        ],
+        "abilities": [{"name":"Static","hidden":false},{"name":"Plus","hidden":false}],
         "moves": [
             "Fire Punch",
             "Tackle",
@@ -27794,9 +26882,7 @@ const pokemonData = [
     //         "Electric",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Mold Breaker"
-    //     ],
+    //     "abilities": [{"name":"//         Mold Breaker\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Thunder Punch",
@@ -27882,10 +26968,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Healer"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Healer","hidden":false}],
         "moves": [
             "Acid",
             "Absorb",
@@ -27981,11 +27064,7 @@ const pokemonData = [
             "Water"
             // "Fairy"
         ],
-        "abilities": [
-            "Thick Fat",
-            "Huge Power",
-            "Sap Sipper"
-        ],
+        "abilities": [{"name":"Thick Fat","hidden":false},{"name":"Huge Power","hidden":false},{"name":"Sap Sipper","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -28105,11 +27184,7 @@ const pokemonData = [
             "Water"
             // "Fairy"
         ],
-        "abilities": [
-            "Thick Fat",
-            "Huge Power",
-            "Sap Sipper"
-        ],
+        "abilities": [{"name":"Thick Fat","hidden":false},{"name":"Huge Power","hidden":false},{"name":"Sap Sipper","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -28232,11 +27307,7 @@ const pokemonData = [
         "type": [
             "Rock"
         ],
-        "abilities": [
-            "Sturdy",
-            "Rock Head",
-            "Rattled"
-        ],
+        "abilities": [{"name":"Sturdy","hidden":false},{"name":"Rock Head","hidden":false},{"name":"Rattled","hidden":false}],
         "moves": [
             "Slam",
             "Low Kick",
@@ -28348,11 +27419,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Water Absorb",
-            "Damp",
-            "Drizzle"
-        ],
+        "abilities": [{"name":"Water Absorb","hidden":false},{"name":"Damp","hidden":false},{"name":"Drizzle","hidden":false}],
         "moves": [
             "Pound",
             "Double Slap",
@@ -28475,11 +27542,7 @@ const pokemonData = [
             "Grass",
             "Flying"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Leaf Guard",
-            "Infiltrator"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Leaf Guard","hidden":false},{"name":"Infiltrator","hidden":false}],
         "moves": [
             "Absorb",
             "Splash",
@@ -28577,11 +27640,7 @@ const pokemonData = [
             "Grass",
             "Flying"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Leaf Guard",
-            "Infiltrator"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Leaf Guard","hidden":false},{"name":"Infiltrator","hidden":false}],
         "moves": [
             "Absorb",
             "Tackle",
@@ -28679,11 +27738,7 @@ const pokemonData = [
             "Grass",
             "Flying"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Leaf Guard",
-            "Infiltrator"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Leaf Guard","hidden":false},{"name":"Infiltrator","hidden":false}],
         "moves": [
             "Absorb",
             "Tackle",
@@ -28783,11 +27838,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Run Away",
-            "Pickup",
-            "Skill Link"
-        ],
+        "abilities": [{"name":"Run Away","hidden":false},{"name":"Pickup","hidden":false},{"name":"Skill Link","hidden":false}],
         "moves": [
             "Scratch",
             "Tail Whip",
@@ -28912,11 +27963,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Solar Power",
-            "Early Bird"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Solar Power","hidden":false},{"name":"Early Bird","hidden":false}],
         "moves": [
             "Absorb",
             "Growth",
@@ -28997,11 +28044,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Solar Power",
-            "Early Bird"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Solar Power","hidden":false},{"name":"Early Bird","hidden":false}],
         "moves": [
             "Pound",
             "Absorb",
@@ -29087,11 +28130,7 @@ const pokemonData = [
             "Bug",
             "Flying"
         ],
-        "abilities": [
-            "Speed Boost",
-            "Compound Eyes",
-            "Frisk"
-        ],
+        "abilities": [{"name":"Speed Boost","hidden":false},{"name":"Compound Eyes","hidden":false},{"name":"Frisk","hidden":false}],
         "moves": [
             "Tackle",
             "Foresight",
@@ -29178,11 +28217,7 @@ const pokemonData = [
             "Water",
             "Ground"
         ],
-        "abilities": [
-            "Damp",
-            "Water Absorb",
-            "Unaware"
-        ],
+        "abilities": [{"name":"Damp","hidden":false},{"name":"Water Absorb","hidden":false},{"name":"Unaware","hidden":false}],
         "moves": [
             "Tail Whip",
             "Water Gun",
@@ -29288,11 +28323,7 @@ const pokemonData = [
     //         "Poison",
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Poison Point",
-    //         "Water Absorb",
-    //         "Unaware"
-    //     ],
+    //     "abilities": [{"name":"//         Poison Point","hidden":false},{"name":"//         Water Absorb","hidden":false},{"name":"//         Unaware\r\n    //","hidden":false}],
     //     "moves": [
     //         "Slam",
     //         "Double Kick",
@@ -29373,11 +28404,7 @@ const pokemonData = [
             "Water",
             "Ground"
         ],
-        "abilities": [
-            "Damp",
-            "Water Absorb",
-            "Unaware"
-        ],
+        "abilities": [{"name":"Damp","hidden":false},{"name":"Water Absorb","hidden":false},{"name":"Unaware","hidden":false}],
         "moves": [
             "Tail Whip",
             "Water Gun",
@@ -29496,10 +28523,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Synchronize",
-            "Magic Bounce"
-        ],
+        "abilities": [{"name":"Synchronize","hidden":false},{"name":"Magic Bounce","hidden":false}],
         "moves": [
             "Tackle",
             "Take Down",
@@ -29623,10 +28647,7 @@ const pokemonData = [
         "type": [
             "Dark"
         ],
-        "abilities": [
-            "Synchronize",
-            "Inner Focus"
-        ],
+        "abilities": [{"name":"Synchronize","hidden":false},{"name":"Inner Focus","hidden":false}],
         "moves": [
             "Tackle",
             "Take Down",
@@ -29753,11 +28774,7 @@ const pokemonData = [
             "Dark",
             "Flying"
         ],
-        "abilities": [
-            "Insomnia",
-            "Super Luck",
-            "Prankster"
-        ],
+        "abilities": [{"name":"Insomnia","hidden":false},{"name":"Super Luck","hidden":false},{"name":"Prankster","hidden":false}],
         "moves": [
             "Peck",
             "Astonish",
@@ -29875,11 +28892,7 @@ const pokemonData = [
             "Water",
             "Psychic"
         ],
-        "abilities": [
-            "Oblivious",
-            "Own Tempo",
-            "Regenerator"
-        ],
+        "abilities": [{"name":"Oblivious","hidden":false},{"name":"Own Tempo","hidden":false},{"name":"Regenerator","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -30005,11 +29018,7 @@ const pokemonData = [
     //         "Poison",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Curious Medicine",
-    //         "Own Tempo",
-    //         "Regenerator"
-    //     ],
+    //     "abilities": [{"name":"//         Curious Medicine","hidden":false},{"name":"//         Own Tempo","hidden":false},{"name":"//         Regenerator\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Pay Day",
@@ -30138,9 +29147,7 @@ const pokemonData = [
         "type": [
             "Ghost"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Growl",
             "Psywave",
@@ -30263,9 +29270,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Hidden Power"
         ],
@@ -30287,10 +29292,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Shadow Tag",
-            "Telepathy"
-        ],
+        "abilities": [{"name":"Shadow Tag","hidden":false},{"name":"Telepathy","hidden":false}],
         "moves": [
             "Counter",
             "Amnesia",
@@ -30323,11 +29325,7 @@ const pokemonData = [
             "Normal",
             "Psychic"
         ],
-        "abilities": [
-            "Inner Focus",
-            "Early Bird",
-            "Sap Sipper"
-        ],
+        "abilities": [{"name":"Inner Focus","hidden":false},{"name":"Early Bird","hidden":false},{"name":"Sap Sipper","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -30449,10 +29447,7 @@ const pokemonData = [
         "type": [
             "Bug"
         ],
-        "abilities": [
-            "Sturdy",
-            "Overcoat"
-        ],
+        "abilities": [{"name":"Sturdy","hidden":false},{"name":"Overcoat","hidden":false}],
         "moves": [
             "Tackle",
             "Protect",
@@ -30550,10 +29545,7 @@ const pokemonData = [
             "Bug",
             "Steel"
         ],
-        "abilities": [
-            "Sturdy",
-            "Overcoat"
-        ],
+        "abilities": [{"name":"Sturdy","hidden":false},{"name":"Overcoat","hidden":false}],
         "moves": [
             "Tackle",
             "Selfdestruct",
@@ -30668,11 +29660,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Serene Grace",
-            "Run Away",
-            "Rattled"
-        ],
+        "abilities": [{"name":"Serene Grace","hidden":false},{"name":"Run Away","hidden":false},{"name":"Rattled","hidden":false}],
         "moves": [
             "Rage",
             "Defense Curl",
@@ -30798,11 +29786,7 @@ const pokemonData = [
             "Ground",
             "Flying"
         ],
-        "abilities": [
-            "Hyper Cutter",
-            "Sand Veil",
-            "Immunity"
-        ],
+        "abilities": [{"name":"Hyper Cutter","hidden":false},{"name":"Sand Veil","hidden":false},{"name":"Immunity","hidden":false}],
         "moves": [
             "Poison Sting",
             "Sand-Attack",
@@ -30922,11 +29906,7 @@ const pokemonData = [
             "Steel",
             "Ground"
         ],
-        "abilities": [
-            "Rock Head",
-            "Sturdy",
-            "Sheer Force"
-        ],
+        "abilities": [{"name":"Rock Head","hidden":false},{"name":"Sturdy","hidden":false},{"name":"Sheer Force","hidden":false}],
         "moves": [
             "Bind",
             "Tackle",
@@ -31041,9 +30021,7 @@ const pokemonData = [
     //         "Steel",
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Sand Force"
-    //     ],
+    //     "abilities": [{"name":"//         Sand Force\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Bind",
@@ -31133,11 +30111,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Intimidate",
-            "Run Away",
-            "Rattled"
-        ],
+        "abilities": [{"name":"Intimidate","hidden":false},{"name":"Run Away","hidden":false},{"name":"Rattled","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -31254,11 +30228,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Intimidate",
-            "Quick Feet",
-            "Rattled"
-        ],
+        "abilities": [{"name":"Intimidate","hidden":false},{"name":"Quick Feet","hidden":false},{"name":"Rattled","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -31386,11 +30356,7 @@ const pokemonData = [
             "Water",
             "Poison"
         ],
-        "abilities": [
-            "Poison Point",
-            "Swift Swim",
-            "Intimidate"
-        ],
+        "abilities": [{"name":"Poison Point","hidden":false},{"name":"Swift Swim","hidden":false},{"name":"Intimidate","hidden":false}],
         "moves": [
             "Tackle",
             "Poison Sting",
@@ -31501,11 +30467,7 @@ const pokemonData = [
     //         "Dark",
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Poison Point",
-    //         "Swift Swim",
-    //         "Intimidate"
-    //     ],
+    //     "abilities": [{"name":"//         Poison Point","hidden":false},{"name":"//         Swift Swim","hidden":false},{"name":"//         Intimidate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Tackle",
@@ -31588,11 +30550,7 @@ const pokemonData = [
             "Bug",
             "Steel"
         ],
-        "abilities": [
-            "Swarm",
-            "Technician",
-            "Light Metal"
-        ],
+        "abilities": [{"name":"Swarm","hidden":false},{"name":"Technician","hidden":false},{"name":"Light Metal","hidden":false}],
         "moves": [
             "Wing Attack",
             "Leer",
@@ -31707,9 +30665,7 @@ const pokemonData = [
     //         "Bug",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Technician"
-    //     ],
+    //     "abilities": [{"name":"//         Technician\r\n    //","hidden":false}],
     //     "moves": [
     //         "Razor Wind",
     //         "Swords Dance",
@@ -31794,11 +30750,7 @@ const pokemonData = [
             "Bug",
             "Rock"
         ],
-        "abilities": [
-            "Sturdy",
-            "Gluttony",
-            "Contrary"
-        ],
+        "abilities": [{"name":"Sturdy","hidden":false},{"name":"Gluttony","hidden":false},{"name":"Contrary","hidden":false}],
         "moves": [
             "Wrap",
             "Withdraw",
@@ -31900,11 +30852,7 @@ const pokemonData = [
             "Bug",
             "Fighting"
         ],
-        "abilities": [
-            "Swarm",
-            "Guts",
-            "Moxie"
-        ],
+        "abilities": [{"name":"Swarm","hidden":false},{"name":"Guts","hidden":false},{"name":"Moxie","hidden":false}],
         "moves": [
             "Horn Attack",
             "Tackle",
@@ -32016,9 +30964,7 @@ const pokemonData = [
     //         "Bug",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Skill Link"
-    //     ],
+    //     "abilities": [{"name":"//         Skill Link\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Cut",
@@ -32116,11 +31062,7 @@ const pokemonData = [
             "Dark",
             "Ice"
         ],
-        "abilities": [
-            "Inner Focus",
-            "Keen Eye",
-            "Pickpocket"
-        ],
+        "abilities": [{"name":"Inner Focus","hidden":false},{"name":"Keen Eye","hidden":false},{"name":"Pickpocket","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -32252,11 +31194,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Inner Focus",
-    //         "Keen Eye",
-    //         "Pickpocket"
-    //     ],
+    //     "abilities": [{"name":"//         Inner Focus","hidden":false},{"name":"//         Keen Eye","hidden":false},{"name":"//         Pickpocket\r\n    //","hidden":false}],
     //     "moves": [
     //         "Scratch",
     //         "Swords Dance",
@@ -32334,11 +31272,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Pickup",
-            "Quick Feet",
-            "Honey Gather"
-        ],
+        "abilities": [{"name":"Pickup","hidden":false},{"name":"Quick Feet","hidden":false},{"name":"Honey Gather","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -32454,11 +31388,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Guts",
-            "Quick Feet",
-            "Unnerve"
-        ],
+        "abilities": [{"name":"Guts","hidden":false},{"name":"Quick Feet","hidden":false},{"name":"Unnerve","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -32582,11 +31512,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Magma Armor",
-            "Flame Body",
-            "Weak Armor"
-        ],
+        "abilities": [{"name":"Magma Armor","hidden":false},{"name":"Flame Body","hidden":false},{"name":"Weak Armor","hidden":false}],
         "moves": [
             "Smog",
             "Yawn",
@@ -32673,11 +31599,7 @@ const pokemonData = [
             "Fire",
             "Rock"
         ],
-        "abilities": [
-            "Magma Armor",
-            "Flame Body",
-            "Weak Armor"
-        ],
+        "abilities": [{"name":"Magma Armor","hidden":false},{"name":"Flame Body","hidden":false},{"name":"Weak Armor","hidden":false}],
         "moves": [
             "Ember",
             "Rock Throw",
@@ -32778,11 +31700,7 @@ const pokemonData = [
             "Ice",
             "Ground"
         ],
-        "abilities": [
-            "Oblivious",
-            "Snow Cloak",
-            "Thick Fat"
-        ],
+        "abilities": [{"name":"Oblivious","hidden":false},{"name":"Snow Cloak","hidden":false},{"name":"Thick Fat","hidden":false}],
         "moves": [
             "Tackle",
             "Mud-Slap",
@@ -32872,11 +31790,7 @@ const pokemonData = [
             "Ice",
             "Ground"
         ],
-        "abilities": [
-            "Oblivious",
-            "Snow Cloak",
-            "Thick Fat"
-        ],
+        "abilities": [{"name":"Oblivious","hidden":false},{"name":"Snow Cloak","hidden":false},{"name":"Thick Fat","hidden":false}],
         "moves": [
             "Horn Attack",
             "Tackle",
@@ -32975,11 +31889,7 @@ const pokemonData = [
             "Water",
             "Rock"
         ],
-        "abilities": [
-            "Hustle",
-            "Natural Cure",
-            "Regenerator"
-        ],
+        "abilities": [{"name":"Hustle","hidden":false},{"name":"Natural Cure","hidden":false},{"name":"Regenerator","hidden":false}],
         "moves": [
             "Tackle",
             "Harden",
@@ -33089,10 +31999,7 @@ const pokemonData = [
     //     "type": [
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Weak Armor",
-    //         "Cursed Body"
-    //     ],
+    //     "abilities": [{"name":"//         Weak Armor","hidden":false},{"name":"//         Cursed Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -33181,11 +32088,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Hustle",
-            "Sniper",
-            "Moody"
-        ],
+        "abilities": [{"name":"Hustle","hidden":false},{"name":"Sniper","hidden":false},{"name":"Moody","hidden":false}],
         "moves": [
             "Water Gun",
             "Helping Hand",
@@ -33281,11 +32184,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Suction Cups",
-            "Sniper",
-            "Moody"
-        ],
+        "abilities": [{"name":"Suction Cups","hidden":false},{"name":"Sniper","hidden":false},{"name":"Moody","hidden":false}],
         "moves": [
             "Wrap",
             "Water Gun",
@@ -33393,11 +32292,7 @@ const pokemonData = [
             "Ice",
             "Flying"
         ],
-        "abilities": [
-            "Vital Spirit",
-            "Hustle",
-            "Insomnia"
-        ],
+        "abilities": [{"name":"Vital Spirit","hidden":false},{"name":"Hustle","hidden":false},{"name":"Insomnia","hidden":false}],
         "moves": [
             "Present",
             "Drill Peck",
@@ -33506,11 +32401,7 @@ const pokemonData = [
             "Water",
             "Flying"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Water Absorb",
-            "Water Veil"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Water Absorb","hidden":false},{"name":"Water Veil","hidden":false}],
         "moves": [
             "Wing Attack",
             "Tackle",
@@ -33618,11 +32509,7 @@ const pokemonData = [
             "Steel",
             "Flying"
         ],
-        "abilities": [
-            "Keen Eye",
-            "Sturdy",
-            "Weak Armor"
-        ],
+        "abilities": [{"name":"Keen Eye","hidden":false},{"name":"Sturdy","hidden":false},{"name":"Weak Armor","hidden":false}],
         "moves": [
             "Leer",
             "Peck",
@@ -33723,11 +32610,7 @@ const pokemonData = [
             "Dark",
             "Fire"
         ],
-        "abilities": [
-            "Early Bird",
-            "Flash Fire",
-            "Unnerve"
-        ],
+        "abilities": [{"name":"Early Bird","hidden":false},{"name":"Flash Fire","hidden":false},{"name":"Unnerve","hidden":false}],
         "moves": [
             "Leer",
             "Ember",
@@ -33836,11 +32719,7 @@ const pokemonData = [
             "Dark",
             "Fire"
         ],
-        "abilities": [
-            "Early Bird",
-            "Flash Fire",
-            "Unnerve"
-        ],
+        "abilities": [{"name":"Early Bird","hidden":false},{"name":"Flash Fire","hidden":false},{"name":"Unnerve","hidden":false}],
         "moves": [
             "Leer",
             "Ember",
@@ -33952,9 +32831,7 @@ const pokemonData = [
     //         "Dark",
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Solar Power"
-    //     ],
+    //     "abilities": [{"name":"//         Solar Power\r\n    //","hidden":false}],
     //     "moves": [
     //         "Leer",
     //         "Bite",
@@ -34041,11 +32918,7 @@ const pokemonData = [
             "Water",
             "Dragon"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Sniper",
-            "Damp"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Sniper","hidden":false},{"name":"Damp","hidden":false}],
         "moves": [
             "Leer",
             "Water Gun",
@@ -34141,10 +33014,7 @@ const pokemonData = [
         "type": [
             "Ground"
         ],
-        "abilities": [
-            "Pickup",
-            "Sand Veil"
-        ],
+        "abilities": [{"name":"Pickup","hidden":false},{"name":"Sand Veil","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -34236,10 +33106,7 @@ const pokemonData = [
         "type": [
             "Ground"
         ],
-        "abilities": [
-            "Sturdy",
-            "Sand Veil"
-        ],
+        "abilities": [{"name":"Sturdy","hidden":false},{"name":"Sand Veil","hidden":false}],
         "moves": [
             "Horn Attack",
             "Growl",
@@ -34351,11 +33218,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Trace",
-            "Download",
-            "Analytic"
-        ],
+        "abilities": [{"name":"Trace","hidden":false},{"name":"Download","hidden":false},{"name":"Analytic","hidden":false}],
         "moves": [
             "Tackle",
             "Defense Curl",
@@ -34460,11 +33323,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Intimidate",
-            "Frisk",
-            "Sap Sipper"
-        ],
+        "abilities": [{"name":"Intimidate","hidden":false},{"name":"Frisk","hidden":false},{"name":"Sap Sipper","hidden":false}],
         "moves": [
             "Tackle",
             "Me First",
@@ -34583,11 +33442,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Own Tempo",
-            "Technician",
-            "Moody"
-        ],
+        "abilities": [{"name":"Own Tempo","hidden":false},{"name":"Technician","hidden":false},{"name":"Moody","hidden":false}],
         "moves": [
             "Muddy Water",
             "Hyper Voice",
@@ -35154,11 +34009,7 @@ const pokemonData = [
         "type": [
             "Fighting"
         ],
-        "abilities": [
-            "Guts",
-            "Steadfast",
-            "Vital Spirit"
-        ],
+        "abilities": [{"name":"Guts","hidden":false},{"name":"Steadfast","hidden":false},{"name":"Vital Spirit","hidden":false}],
         "moves": [
             "Tackle",
             "Focus Energy",
@@ -35242,11 +34093,7 @@ const pokemonData = [
         "type": [
             "Fighting"
         ],
-        "abilities": [
-            "Intimidate",
-            "Technician",
-            "Steadfast"
-        ],
+        "abilities": [{"name":"Intimidate","hidden":false},{"name":"Technician","hidden":false},{"name":"Steadfast","hidden":false}],
         "moves": [
             "Rolling Kick",
             "Tackle",
@@ -35354,11 +34201,7 @@ const pokemonData = [
             "Ice",
             "Psychic"
         ],
-        "abilities": [
-            "Oblivious",
-            "Forewarn",
-            "Hydration"
-        ],
+        "abilities": [{"name":"Oblivious","hidden":false},{"name":"Forewarn","hidden":false},{"name":"Hydration","hidden":false}],
         "moves": [
             "Pound",
             "Lick",
@@ -35468,10 +34311,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Static",
-            "Vital Spirit"
-        ],
+        "abilities": [{"name":"Static","hidden":false},{"name":"Vital Spirit","hidden":false}],
         "moves": [
             "Leer",
             "Quick Attack",
@@ -35569,10 +34409,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Flame Body",
-            "Vital Spirit"
-        ],
+        "abilities": [{"name":"Flame Body","hidden":false},{"name":"Vital Spirit","hidden":false}],
         "moves": [
             "Leer",
             "Smog",
@@ -35667,11 +34504,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Thick Fat",
-            "Scrappy",
-            "Sap Sipper"
-        ],
+        "abilities": [{"name":"Thick Fat","hidden":false},{"name":"Scrappy","hidden":false},{"name":"Sap Sipper","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -35784,11 +34617,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Natural Cure",
-            "Serene Grace",
-            "Healer"
-        ],
+        "abilities": [{"name":"Natural Cure","hidden":false},{"name":"Serene Grace","hidden":false},{"name":"Healer","hidden":false}],
         "moves": [
             "Pound",
             "Double-Edge",
@@ -35944,10 +34773,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Pressure",
-            "Inner Focus"
-        ],
+        "abilities": [{"name":"Pressure","hidden":false},{"name":"Inner Focus","hidden":false}],
         "moves": [
             "Leer",
             "Bite",
@@ -36036,10 +34862,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Pressure",
-            "Inner Focus"
-        ],
+        "abilities": [{"name":"Pressure","hidden":false},{"name":"Inner Focus","hidden":false}],
         "moves": [
             "Leer",
             "Bite",
@@ -36129,10 +34952,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Pressure",
-            "Inner Focus"
-        ],
+        "abilities": [{"name":"Pressure","hidden":false},{"name":"Inner Focus","hidden":false}],
         "moves": [
             "Cut",
             "Gust",
@@ -36233,10 +35053,7 @@ const pokemonData = [
             "Rock",
             "Ground"
         ],
-        "abilities": [
-            "Guts",
-            "Sand Veil"
-        ],
+        "abilities": [{"name":"Guts","hidden":false},{"name":"Sand Veil","hidden":false}],
         "moves": [
             "Tackle",
             "Leer",
@@ -36335,9 +35152,7 @@ const pokemonData = [
             "Rock",
             "Ground"
         ],
-        "abilities": [
-            "Shed Skin"
-        ],
+        "abilities": [{"name":"Shed Skin","hidden":false}],
         "moves": [
             "Tackle",
             "Leer",
@@ -36442,10 +35257,7 @@ const pokemonData = [
             "Rock",
             "Dark"
         ],
-        "abilities": [
-            "Sand Stream",
-            "Unnerve"
-        ],
+        "abilities": [{"name":"Sand Stream","hidden":false},{"name":"Unnerve","hidden":false}],
         "moves": [
             "Tackle",
             "Leer",
@@ -36598,9 +35410,7 @@ const pokemonData = [
     //         "Rock",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Sand Stream"
-    //     ],
+    //     "abilities": [{"name":"//         Sand Stream\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -36712,10 +35522,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Pressure",
-    //         "Multiscale"
-    //     ],
+    //     "abilities": [{"name":"//         Pressure","hidden":false},{"name":"//         Multiscale\r\n    //","hidden":false}],
     //     "moves": [
     //         "Gust",
     //         "Whirlwind",
@@ -36846,10 +35653,7 @@ const pokemonData = [
     //         "Fire",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Pressure",
-    //         "Regenerator"
-    //     ],
+    //     "abilities": [{"name":"//         Pressure","hidden":false},{"name":"//         Regenerator\r\n    //","hidden":false}],
     //     "moves": [
     //         "Gust",
     //         "Whirlwind",
@@ -36969,9 +35773,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Natural Cure"
-    //     ],
+    //     "abilities": [{"name":"//         Natural Cure\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Cut",
@@ -37096,10 +35898,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Overgrow",
-            "Unburden"
-        ],
+        "abilities": [{"name":"Overgrow","hidden":false},{"name":"Unburden","hidden":false}],
         "moves": [
             "Pound",
             "Leer",
@@ -37203,10 +36002,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Overgrow",
-            "Unburden"
-        ],
+        "abilities": [{"name":"Overgrow","hidden":false},{"name":"Unburden","hidden":false}],
         "moves": [
             "Pound",
             "Leer",
@@ -37314,10 +36110,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Overgrow",
-            "Unburden"
-        ],
+        "abilities": [{"name":"Overgrow","hidden":false},{"name":"Unburden","hidden":false}],
         "moves": [
             "Pound",
             "Leer",
@@ -37440,9 +36233,7 @@ const pokemonData = [
     //         "Grass",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Lightning Rod"
-    //     ],
+    //     "abilities": [{"name":"//         Lightning Rod\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Thunder Punch",
@@ -37544,10 +36335,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Blaze",
-            "Speed Boost"
-        ],
+        "abilities": [{"name":"Blaze","hidden":false},{"name":"Speed Boost","hidden":false}],
         "moves": [
             "Scratch",
             "Growl",
@@ -37647,10 +36435,7 @@ const pokemonData = [
             "Fire",
             "Fighting"
         ],
-        "abilities": [
-            "Blaze",
-            "Speed Boost"
-        ],
+        "abilities": [{"name":"Blaze","hidden":false},{"name":"Speed Boost","hidden":false}],
         "moves": [
             "Scratch",
             "Sand-Attack",
@@ -37763,10 +36548,7 @@ const pokemonData = [
             "Fire",
             "Fighting"
         ],
-        "abilities": [
-            "Blaze"
-            // "Speed Boost"
-        ],
+        "abilities": [{"name":"Blaze\r\n            // Speed Boost","hidden":false}],
         "moves": [
             "Fire Punch",
             "Scratch",
@@ -37895,9 +36677,7 @@ const pokemonData = [
     //         "Fire",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Speed Boost"
-    //     ],
+    //     "abilities": [{"name":"//         Speed Boost\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Thunder Punch",
@@ -37999,10 +36779,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Torrent",
-            "Damp"
-        ],
+        "abilities": [{"name":"Torrent","hidden":false},{"name":"Damp","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -38100,10 +36877,7 @@ const pokemonData = [
             "Water",
             "Ground"
         ],
-        "abilities": [
-            "Torrent",
-            "Damp"
-        ],
+        "abilities": [{"name":"Torrent","hidden":false},{"name":"Damp","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -38213,10 +36987,7 @@ const pokemonData = [
             "Water",
             "Ground"
         ],
-        "abilities": [
-            "Torrent",
-            "Damp"
-        ],
+        "abilities": [{"name":"Torrent","hidden":false},{"name":"Damp","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -38336,9 +37107,7 @@ const pokemonData = [
     //         "Water",
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Swift Swim"
-    //     ],
+    //     "abilities": [{"name":"//         Swift Swim\r\n    //","hidden":false}],
     //     "moves": [
     //         "Ice Punch",
     //         "Tackle",
@@ -38429,11 +37198,7 @@ const pokemonData = [
         "type": [
             "Dark"
         ],
-        "abilities": [
-            "Run Away",
-            "Quick Feet",
-            "Rattled"
-        ],
+        "abilities": [{"name":"Run Away","hidden":false},{"name":"Quick Feet","hidden":false},{"name":"Rattled","hidden":false}],
         "moves": [
             "Tackle",
             "Howl",
@@ -38523,11 +37288,7 @@ const pokemonData = [
         "type": [
             "Dark"
         ],
-        "abilities": [
-            "Intimidate",
-            "Quick Feet",
-            "Moxie"
-        ],
+        "abilities": [{"name":"Intimidate","hidden":false},{"name":"Quick Feet","hidden":false},{"name":"Moxie","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Tackle",
@@ -38620,11 +37381,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Pickup",
-            "Gluttony",
-            "Quick Feet"
-        ],
+        "abilities": [{"name":"Pickup","hidden":false},{"name":"Gluttony","hidden":false},{"name":"Quick Feet","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -38726,11 +37483,7 @@ const pokemonData = [
     //         "Dark",
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Pickup",
-    //         "Gluttony",
-    //         "Quick Feet"
-    //     ],
+    //     "abilities": [{"name":"//         Pickup","hidden":false},{"name":"//         Gluttony","hidden":false},{"name":"//         Quick Feet\r\n    //","hidden":false}],
     //     "moves": [
     //         "Sand Attack",
     //         "Headbutt",
@@ -38808,11 +37561,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Pickup",
-            "Gluttony",
-            "Quick Feet"
-        ],
+        "abilities": [{"name":"Pickup","hidden":false},{"name":"Gluttony","hidden":false},{"name":"Quick Feet","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Tackle",
@@ -38923,11 +37672,7 @@ const pokemonData = [
     //         "Dark",
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Pickup",
-    //         "Gluttony",
-    //         "Quick Feet"
-    //     ],
+    //     "abilities": [{"name":"//         Pickup","hidden":false},{"name":"//         Gluttony","hidden":false},{"name":"//         Quick Feet\r\n    //","hidden":false}],
     //     "moves": [
     //         "Sand Attack",
     //         "Headbutt",
@@ -39012,10 +37757,7 @@ const pokemonData = [
         "type": [
             "Bug"
         ],
-        "abilities": [
-            "Shield Dust",
-            "Run Away"
-        ],
+        "abilities": [{"name":"Shield Dust","hidden":false},{"name":"Run Away","hidden":false}],
         "moves": [
             "Tackle",
             "Poison Sting",
@@ -39043,9 +37785,7 @@ const pokemonData = [
         "type": [
             "Bug"
         ],
-        "abilities": [
-            "Shed Skin"
-        ],
+        "abilities": [{"name":"Shed Skin","hidden":false}],
         "moves": [
             "Harden",
             "String Shot",
@@ -39076,10 +37816,7 @@ const pokemonData = [
             "Bug",
             "Flying"
         ],
-        "abilities": [
-            "Swarm",
-            "Rivalry"
-        ],
+        "abilities": [{"name":"Swarm","hidden":false},{"name":"Rivalry","hidden":false}],
         "moves": [
             "Gust",
             "Absorb",
@@ -39162,9 +37899,7 @@ const pokemonData = [
         "type": [
             "Bug"
         ],
-        "abilities": [
-            "Shed Skin"
-        ],
+        "abilities": [{"name":"Shed Skin","hidden":false}],
         "moves": [
             "Harden",
             "String Shot",
@@ -39195,10 +37930,7 @@ const pokemonData = [
             "Bug",
             "Poison"
         ],
-        "abilities": [
-            "Shield Dust",
-            "Compound Eyes"
-        ],
+        "abilities": [{"name":"Shield Dust","hidden":false},{"name":"Compound Eyes","hidden":false}],
         "moves": [
             "Gust",
             "Confusion",
@@ -39285,11 +38017,7 @@ const pokemonData = [
             "Water",
             "Grass"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Rain Dish",
-            "Own Tempo"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Rain Dish","hidden":false},{"name":"Own Tempo","hidden":false}],
         "moves": [
             "Growl",
             "Astonish",
@@ -39373,11 +38101,7 @@ const pokemonData = [
             "Water",
             "Grass"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Rain Dish",
-            "Own Tempo"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Rain Dish","hidden":false},{"name":"Own Tempo","hidden":false}],
         "moves": [
             "Growl",
             "Water Gun",
@@ -39488,11 +38212,7 @@ const pokemonData = [
             "Water",
             "Grass"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Rain Dish",
-            "Own Tempo"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Rain Dish","hidden":false},{"name":"Own Tempo","hidden":false}],
         "moves": [
             "Growl",
             "Mist",
@@ -39611,11 +38331,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Early Bird",
-            "Pickpocket"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Early Bird","hidden":false},{"name":"Pickpocket","hidden":false}],
         "moves": [
             "Tackle",
             "Harden",
@@ -39707,11 +38423,7 @@ const pokemonData = [
             "Grass",
             "Dark"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Early Bird",
-            "Pickpocket"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Early Bird","hidden":false},{"name":"Pickpocket","hidden":false}],
         "moves": [
             "Pound",
             "Tackle",
@@ -39831,11 +38543,7 @@ const pokemonData = [
             "Grass",
             "Dark"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Wind Rider",
-            "Pickpocket"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Wind Rider","hidden":false},{"name":"Pickpocket","hidden":false}],
         "moves": [
             "Pound",
             "Whirlwind",
@@ -39972,10 +38680,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Guts",
-            "Scrappy"
-        ],
+        "abilities": [{"name":"Guts","hidden":false},{"name":"Scrappy","hidden":false}],
         "moves": [
             "Growl",
             "Peck",
@@ -40057,10 +38762,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Guts",
-            "Scrappy"
-        ],
+        "abilities": [{"name":"Guts","hidden":false},{"name":"Scrappy","hidden":false}],
         "moves": [
             "Growl",
             "Peck",
@@ -40144,11 +38846,7 @@ const pokemonData = [
             "Water",
             "Flying"
         ],
-        "abilities": [
-            "Keen Eye",
-            "Hydration",
-            "Rain Dish"
-        ],
+        "abilities": [{"name":"Keen Eye","hidden":false},{"name":"Hydration","hidden":false},{"name":"Rain Dish","hidden":false}],
         "moves": [
             "Growl",
             "Water Gun",
@@ -40239,11 +38937,7 @@ const pokemonData = [
             "Water",
             "Flying"
         ],
-        "abilities": [
-            "Keen Eye",
-            "Drizzle",
-            "Rain Dish"
-        ],
+        "abilities": [{"name":"Keen Eye","hidden":false},{"name":"Drizzle","hidden":false},{"name":"Rain Dish","hidden":false}],
         "moves": [
             "Wing Attack",
             "Growl",
@@ -40349,11 +39043,7 @@ const pokemonData = [
             "Psychic"
             // "Fairy"
         ],
-        "abilities": [
-            "Synchronize",
-            "Trace",
-            "Telepathy"
-        ],
+        "abilities": [{"name":"Synchronize","hidden":false},{"name":"Trace","hidden":false},{"name":"Telepathy","hidden":false}],
         "moves": [
             "Growl",
             "Double Team",
@@ -40473,11 +39163,7 @@ const pokemonData = [
             "Psychic"
             // "Fairy"
         ],
-        "abilities": [
-            "Synchronize",
-            "Trace",
-            "Telepathy"
-        ],
+        "abilities": [{"name":"Synchronize","hidden":false},{"name":"Trace","hidden":false},{"name":"Telepathy","hidden":false}],
         "moves": [
             "Growl",
             "Confusion",
@@ -40599,11 +39285,7 @@ const pokemonData = [
             "Psychic"
             // "Fairy"
         ],
-        "abilities": [
-            "Synchronize",
-            "Trace",
-            "Telepathy"
-        ],
+        "abilities": [{"name":"Synchronize","hidden":false},{"name":"Trace","hidden":false},{"name":"Telepathy","hidden":false}],
         "moves": [
             "Growl",
             "Confusion",
@@ -40734,9 +39416,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Pixilate"
-    //     ],
+    //     "abilities": [{"name":"//         Pixilate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -40840,10 +39520,7 @@ const pokemonData = [
             "Bug",
             "Water"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Rain Dish"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Rain Dish","hidden":false}],
         "moves": [
             "Bubble",
             "Water Gun",
@@ -40932,10 +39609,7 @@ const pokemonData = [
             "Bug",
             "Flying"
         ],
-        "abilities": [
-            "Intimidate",
-            "Unnerve"
-        ],
+        "abilities": [{"name":"Intimidate","hidden":false},{"name":"Unnerve","hidden":false}],
         "moves": [
             "Whirlwind",
             "Quick Attack",
@@ -41045,11 +39719,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Effect Spore",
-            "Poison Heal",
-            "Quick Feet"
-        ],
+        "abilities": [{"name":"Effect Spore","hidden":false},{"name":"Poison Heal","hidden":false},{"name":"Quick Feet","hidden":false}],
         "moves": [
             "Tackle",
             "Absorb",
@@ -41131,11 +39801,7 @@ const pokemonData = [
             "Grass",
             "Fighting"
         ],
-        "abilities": [
-            "Effect Spore",
-            "Poison Heal",
-            "Technician"
-        ],
+        "abilities": [{"name":"Effect Spore","hidden":false},{"name":"Poison Heal","hidden":false},{"name":"Technician","hidden":false}],
         "moves": [
             "Tackle",
             "Absorb",
@@ -41256,9 +39922,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Truant"
-        ],
+        "abilities": [{"name":"Truant","hidden":false}],
         "moves": [
             "Scratch",
             "Yawn",
@@ -41370,9 +40034,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Vital Spirit"
-        ],
+        "abilities": [{"name":"Vital Spirit","hidden":false}],
         "moves": [
             "Scratch",
             "Focus Energy",
@@ -41503,9 +40165,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Truant"
-        ],
+        "abilities": [{"name":"Truant","hidden":false}],
         "moves": [
             "Swagger",
             "Encore",
@@ -41646,10 +40306,7 @@ const pokemonData = [
             "Bug",
             "Ground"
         ],
-        "abilities": [
-            "Compound Eyes",
-            "Run Away"
-        ],
+        "abilities": [{"name":"Compound Eyes","hidden":false},{"name":"Run Away","hidden":false}],
         "moves": [
             "Scratch",
             "Sand-Attack",
@@ -41724,10 +40381,7 @@ const pokemonData = [
             "Bug",
             "Flying"
         ],
-        "abilities": [
-            "Speed Boost",
-            "Infiltrator"
-        ],
+        "abilities": [{"name":"Speed Boost","hidden":false},{"name":"Infiltrator","hidden":false}],
         "moves": [
             "Scratch",
             "Sand-Attack",
@@ -41820,9 +40474,7 @@ const pokemonData = [
             "Bug",
             "Ghost"
         ],
-        "abilities": [
-            "Wonder Guard"
-        ],
+        "abilities": [{"name":"Wonder Guard","hidden":false}],
         "moves": [
             "Scratch",
             "Sand-Attack",
@@ -41919,10 +40571,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Soundproof",
-            "Rattled"
-        ],
+        "abilities": [{"name":"Soundproof","hidden":false},{"name":"Rattled","hidden":false}],
         "moves": [
             "Pound",
             "Astonish",
@@ -42015,10 +40664,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Soundproof",
-            "Scrappy"
-        ],
+        "abilities": [{"name":"Soundproof","hidden":false},{"name":"Scrappy","hidden":false}],
         "moves": [
             "Pound",
             "Bite",
@@ -42124,10 +40770,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Soundproof",
-            "Scrappy"
-        ],
+        "abilities": [{"name":"Soundproof","hidden":false},{"name":"Scrappy","hidden":false}],
         "moves": [
             "Pound",
             "Bite",
@@ -42246,11 +40889,7 @@ const pokemonData = [
         "type": [
             "Fighting"
         ],
-        "abilities": [
-            "Thick Fat",
-            "Guts",
-            "Sheer Force"
-        ],
+        "abilities": [{"name":"Thick Fat","hidden":false},{"name":"Guts","hidden":false},{"name":"Sheer Force","hidden":false}],
         "moves": [
             "Tackle",
             "Focus Energy",
@@ -42363,11 +41002,7 @@ const pokemonData = [
         "type": [
             "Fighting"
         ],
-        "abilities": [
-            "Thick Fat",
-            "Guts",
-            "Sheer Force"
-        ],
+        "abilities": [{"name":"Thick Fat","hidden":false},{"name":"Guts","hidden":false},{"name":"Sheer Force","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Tackle",
@@ -42487,11 +41122,7 @@ const pokemonData = [
             "Normal"
             // "Fairy"
         ],
-        "abilities": [
-            "Thick Fat",
-            "Huge Power",
-            "Sap Sipper"
-        ],
+        "abilities": [{"name":"Thick Fat","hidden":false},{"name":"Huge Power","hidden":false},{"name":"Sap Sipper","hidden":false}],
         "moves": [
             "Tail Whip",
             "Water Gun",
@@ -42582,11 +41213,7 @@ const pokemonData = [
         "type": [
             "Rock"
         ],
-        "abilities": [
-            "Sturdy",
-            "Magnet Pull",
-            "Sand Force"
-        ],
+        "abilities": [{"name":"Sturdy","hidden":false},{"name":"Magnet Pull","hidden":false},{"name":"Sand Force","hidden":false}],
         "moves": [
             "Tackle",
             "Harden",
@@ -42678,11 +41305,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Cute Charm",
-            "Normalize",
-            "Wonder Skin"
-        ],
+        "abilities": [{"name":"Cute Charm","hidden":false},{"name":"Normalize","hidden":false},{"name":"Wonder Skin","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -42786,11 +41409,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Cute Charm",
-            "Normalize",
-            "Wonder Skin"
-        ],
+        "abilities": [{"name":"Cute Charm","hidden":false},{"name":"Normalize","hidden":false},{"name":"Wonder Skin","hidden":false}],
         "moves": [
             "Double Slap",
             "Growl",
@@ -42900,11 +41519,7 @@ const pokemonData = [
             "Dark",
             "Ghost"
         ],
-        "abilities": [
-            "Keen Eye",
-            "Stall",
-            "Prankster"
-        ],
+        "abilities": [{"name":"Keen Eye","hidden":false},{"name":"Stall","hidden":false},{"name":"Prankster","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -43054,9 +41669,7 @@ const pokemonData = [
     //         "Dark",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Magic Bounce"
-    //     ],
+    //     "abilities": [{"name":"//         Magic Bounce\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -43172,11 +41785,7 @@ const pokemonData = [
             "Steel"
             // "Fairy"
         ],
-        "abilities": [
-            "Hyper Cutter",
-            "Intimidate",
-            "Sheer Force"
-        ],
+        "abilities": [{"name":"Hyper Cutter","hidden":false},{"name":"Intimidate","hidden":false},{"name":"Sheer Force","hidden":false}],
         "moves": [
             "Growl",
             "Taunt",
@@ -43298,9 +41907,7 @@ const pokemonData = [
     //         "Steel",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Huge Power"
-    //     ],
+    //     "abilities": [{"name":"//         Huge Power\r\n    //","hidden":false}],
     //     "moves": [
     //         "Ice Punch",
     //         "Thunder Punch",
@@ -43414,11 +42021,7 @@ const pokemonData = [
             "Steel",
             "Rock"
         ],
-        "abilities": [
-            "Sturdy",
-            "Rock Head",
-            "Heavy Metal"
-        ],
+        "abilities": [{"name":"Sturdy","hidden":false},{"name":"Rock Head","hidden":false},{"name":"Heavy Metal","hidden":false}],
         "moves": [
             "Tackle",
             "Harden",
@@ -43512,11 +42115,7 @@ const pokemonData = [
             "Steel",
             "Rock"
         ],
-        "abilities": [
-            "Sturdy",
-            "Rock Head",
-            "Heavy Metal"
-        ],
+        "abilities": [{"name":"Sturdy","hidden":false},{"name":"Rock Head","hidden":false},{"name":"Heavy Metal","hidden":false}],
         "moves": [
             "Headbutt",
             "Tackle",
@@ -43612,11 +42211,7 @@ const pokemonData = [
             "Steel",
             "Rock"
         ],
-        "abilities": [
-            "Sturdy",
-            "Rock Head",
-            "Heavy Metal"
-        ],
+        "abilities": [{"name":"Sturdy","hidden":false},{"name":"Rock Head","hidden":false},{"name":"Heavy Metal","hidden":false}],
         "moves": [
             "Headbutt",
             "Tackle",
@@ -43748,9 +42343,7 @@ const pokemonData = [
     //     "type": [
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Filter"
-    //     ],
+    //     "abilities": [{"name":"//         Filter\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -43865,10 +42458,7 @@ const pokemonData = [
             "Fighting",
             "Psychic"
         ],
-        "abilities": [
-            "Pure Power",
-            "Telepathy"
-        ],
+        "abilities": [{"name":"Pure Power","hidden":false},{"name":"Telepathy","hidden":false}],
         "moves": [
             "Bide",
             "Pound",
@@ -43994,10 +42584,7 @@ const pokemonData = [
             "Fighting",
             "Psychic"
         ],
-        "abilities": [
-            "Pure Power",
-            "Telepathy"
-        ],
+        "abilities": [{"name":"Pure Power","hidden":false},{"name":"Telepathy","hidden":false}],
         "moves": [
             "Fire Punch",
             "Ice Punch",
@@ -44127,9 +42714,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Pure Power"
-    //     ],
+    //     "abilities": [{"name":"//         Pure Power\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -44226,11 +42811,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Static",
-            "Lightning Rod",
-            "Minus"
-        ],
+        "abilities": [{"name":"Static","hidden":false},{"name":"Lightning Rod","hidden":false},{"name":"Minus","hidden":false}],
         "moves": [
             "Tackle",
             "Thunder Wave",
@@ -44313,11 +42894,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Static",
-            "Lightning Rod",
-            "Minus"
-        ],
+        "abilities": [{"name":"Static","hidden":false},{"name":"Lightning Rod","hidden":false},{"name":"Minus","hidden":false}],
         "moves": [
             "Tackle",
             "Leer",
@@ -44406,9 +42983,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Intimidate"
-    //     ],
+    //     "abilities": [{"name":"//         Intimidate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Leer",
@@ -44481,10 +43056,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Plus",
-            "Lightning Rod"
-        ],
+        "abilities": [{"name":"Plus","hidden":false},{"name":"Lightning Rod","hidden":false}],
         "moves": [
             "Growl",
             "Thunder Wave",
@@ -44581,10 +43153,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Minus",
-            "Volt Absorb"
-        ],
+        "abilities": [{"name":"Minus","hidden":false},{"name":"Volt Absorb","hidden":false}],
         "moves": [
             "Growl",
             "Thunder Wave",
@@ -44681,11 +43250,7 @@ const pokemonData = [
         "type": [
             "Bug"
         ],
-        "abilities": [
-            "Illuminate",
-            "Swarm",
-            "Prankster"
-        ],
+        "abilities": [{"name":"Illuminate","hidden":false},{"name":"Swarm","hidden":false},{"name":"Prankster","hidden":false}],
         "moves": [
             "Tackle",
             "Flash",
@@ -44779,11 +43344,7 @@ const pokemonData = [
         "type": [
             "Bug"
         ],
-        "abilities": [
-            "Oblivious",
-            "Tinted Lens",
-            "Prankster"
-        ],
+        "abilities": [{"name":"Oblivious","hidden":false},{"name":"Tinted Lens","hidden":false},{"name":"Prankster","hidden":false}],
         "moves": [
             "Tackle",
             "Sweet Scent",
@@ -44882,11 +43443,7 @@ const pokemonData = [
             "Grass",
             "Poison"
         ],
-        "abilities": [
-            "Natural Cure",
-            "Poison Point",
-            "Leaf Guard"
-        ],
+        "abilities": [{"name":"Natural Cure","hidden":false},{"name":"Poison Point","hidden":false},{"name":"Leaf Guard","hidden":false}],
         "moves": [
             "Poison Sting",
             "Absorb",
@@ -44980,11 +43537,7 @@ const pokemonData = [
         "type": [
             "Poison"
         ],
-        "abilities": [
-            "Liquid Ooze",
-            "Sticky Hold",
-            "Gluttony"
-        ],
+        "abilities": [{"name":"Liquid Ooze","hidden":false},{"name":"Sticky Hold","hidden":false},{"name":"Gluttony","hidden":false}],
         "moves": [
             "Pound",
             "Yawn",
@@ -45085,11 +43638,7 @@ const pokemonData = [
         "type": [
             "Poison"
         ],
-        "abilities": [
-            "Liquid Ooze",
-            "Sticky Hold",
-            "Gluttony"
-        ],
+        "abilities": [{"name":"Liquid Ooze","hidden":false},{"name":"Sticky Hold","hidden":false},{"name":"Gluttony","hidden":false}],
         "moves": [
             "Pound",
             "Sludge",
@@ -45199,10 +43748,7 @@ const pokemonData = [
             "Water",
             "Dark"
         ],
-        "abilities": [
-            "Rough Skin",
-            "Speed Boost"
-        ],
+        "abilities": [{"name":"Rough Skin","hidden":false},{"name":"Speed Boost","hidden":false}],
         "moves": [
             "Leer",
             "Bite",
@@ -45290,10 +43836,7 @@ const pokemonData = [
             "Water",
             "Dark"
         ],
-        "abilities": [
-            "Rough Skin",
-            "Speed Boost"
-        ],
+        "abilities": [{"name":"Rough Skin","hidden":false},{"name":"Speed Boost","hidden":false}],
         "moves": [
             "Leer",
             "Bite",
@@ -45396,9 +43939,7 @@ const pokemonData = [
     //         "Water",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Strong Jaw"
-    //     ],
+    //     "abilities": [{"name":"//         Strong Jaw\r\n    //","hidden":false}],
     //     "moves": [
     //         "Leer",
     //         "Bite",
@@ -45484,11 +44025,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Water Veil",
-            "Oblivious",
-            "Pressure"
-        ],
+        "abilities": [{"name":"Water Veil","hidden":false},{"name":"Oblivious","hidden":false},{"name":"Pressure","hidden":false}],
         "moves": [
             "Splash",
             "Growl",
@@ -45575,11 +44112,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Water Veil",
-            "Oblivious",
-            "Pressure"
-        ],
+        "abilities": [{"name":"Water Veil","hidden":false},{"name":"Oblivious","hidden":false},{"name":"Pressure","hidden":false}],
         "moves": [
             "Growl",
             "Water Gun",
@@ -45672,11 +44205,7 @@ const pokemonData = [
             "Fire",
             "Ground"
         ],
-        "abilities": [
-            "Oblivious",
-            "Simple",
-            "Own Tempo"
-        ],
+        "abilities": [{"name":"Oblivious","hidden":false},{"name":"Simple","hidden":false},{"name":"Own Tempo","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -45776,11 +44305,7 @@ const pokemonData = [
             "Fire",
             "Ground"
         ],
-        "abilities": [
-            "Magma Armor",
-            "Solid Rock",
-            "Anger Point"
-        ],
+        "abilities": [{"name":"Magma Armor","hidden":false},{"name":"Solid Rock","hidden":false},{"name":"Anger Point","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -45890,9 +44415,7 @@ const pokemonData = [
     //         "Fire",
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Sheer Force"
-    //     ],
+    //     "abilities": [{"name":"//         Sheer Force\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -45974,11 +44497,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "White Smoke",
-            "Drought",
-            "Shell Armor"
-        ],
+        "abilities": [{"name":"White Smoke","hidden":false},{"name":"Drought","hidden":false},{"name":"Shell Armor","hidden":false}],
         "moves": [
             "Ember",
             "Smog",
@@ -46081,11 +44600,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Thick Fat",
-            "Own Tempo",
-            "Gluttony"
-        ],
+        "abilities": [{"name":"Thick Fat","hidden":false},{"name":"Own Tempo","hidden":false},{"name":"Gluttony","hidden":false}],
         "moves": [
             "Splash",
             "Confusion",
@@ -46190,11 +44705,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Thick Fat",
-            "Own Tempo",
-            "Gluttony"
-        ],
+        "abilities": [{"name":"Thick Fat","hidden":false},{"name":"Own Tempo","hidden":false},{"name":"Gluttony","hidden":false}],
         "moves": [
             "Psybeam",
             "Psywave",
@@ -46327,11 +44838,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Own Tempo",
-            "Tangled Feet",
-            "Contrary"
-        ],
+        "abilities": [{"name":"Own Tempo","hidden":false},{"name":"Tangled Feet","hidden":false},{"name":"Contrary","hidden":false}],
         "moves": [
             "Tackle",
             "Copycat",
@@ -46451,11 +44958,7 @@ const pokemonData = [
         "type": [
             "Ground"
         ],
-        "abilities": [
-            "Hyper Cutter",
-            "Arena Trap",
-            "Sheer Force"
-        ],
+        "abilities": [{"name":"Hyper Cutter","hidden":false},{"name":"Arena Trap","hidden":false},{"name":"Sheer Force","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Bite",
@@ -46534,9 +45037,7 @@ const pokemonData = [
             "Ground",
             "Dragon"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Bite",
@@ -46638,9 +45139,7 @@ const pokemonData = [
             "Ground",
             "Dragon"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Bite",
@@ -46755,10 +45254,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Sand Veil",
-            "Water Absorb"
-        ],
+        "abilities": [{"name":"Sand Veil","hidden":false},{"name":"Water Absorb","hidden":false}],
         "moves": [
             "Poison Sting",
             "Leer",
@@ -46873,10 +45369,7 @@ const pokemonData = [
             "Grass",
             "Dark"
         ],
-        "abilities": [
-            "Sand Veil",
-            "Water Absorb"
-        ],
+        "abilities": [{"name":"Sand Veil","hidden":false},{"name":"Water Absorb","hidden":false}],
         "moves": [
             "Poison Sting",
             "Leer",
@@ -47002,10 +45495,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Natural Cure",
-            "Cloud Nine"
-        ],
+        "abilities": [{"name":"Natural Cure","hidden":false},{"name":"Cloud Nine","hidden":false}],
         "moves": [
             "Growl",
             "Peck",
@@ -47100,10 +45590,7 @@ const pokemonData = [
             "Dragon",
             "Flying"
         ],
-        "abilities": [
-            "Natural Cure",
-            "Cloud Nine"
-        ],
+        "abilities": [{"name":"Natural Cure","hidden":false},{"name":"Cloud Nine","hidden":false}],
         "moves": [
             "Growl",
             "Sing",
@@ -47215,9 +45702,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Pixilate"
-    //     ],
+    //     "abilities": [{"name":"//         Pixilate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Fury Attack",
@@ -47308,10 +45793,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Immunity",
-            "Toxic Boost"
-        ],
+        "abilities": [{"name":"Immunity","hidden":false},{"name":"Toxic Boost","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -47451,10 +45933,7 @@ const pokemonData = [
         "type": [
             "Poison"
         ],
-        "abilities": [
-            "Shed Skin",
-            "Infiltrator"
-        ],
+        "abilities": [{"name":"Shed Skin","hidden":false},{"name":"Infiltrator","hidden":false}],
         "moves": [
             "Wrap",
             "Swagger",
@@ -47567,9 +46046,7 @@ const pokemonData = [
             "Rock",
             "Psychic"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Tackle",
             "Rock Throw",
@@ -47679,9 +46156,7 @@ const pokemonData = [
             "Rock",
             "Psychic"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Tackle",
             "Rock Throw",
@@ -47795,11 +46270,7 @@ const pokemonData = [
             "Water",
             "Ground"
         ],
-        "abilities": [
-            "Oblivious",
-            "Anticipation",
-            "Hydration"
-        ],
+        "abilities": [{"name":"Oblivious","hidden":false},{"name":"Anticipation","hidden":false},{"name":"Hydration","hidden":false}],
         "moves": [
             "Water Gun",
             "Mud-Slap",
@@ -47886,11 +46357,7 @@ const pokemonData = [
             "Water",
             "Ground"
         ],
-        "abilities": [
-            "Oblivious",
-            "Anticipation",
-            "Hydration"
-        ],
+        "abilities": [{"name":"Oblivious","hidden":false},{"name":"Anticipation","hidden":false},{"name":"Hydration","hidden":false}],
         "moves": [
             "Thrash",
             "Water Gun",
@@ -47990,11 +46457,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Hyper Cutter",
-            "Shell Armor",
-            "Adaptability"
-        ],
+        "abilities": [{"name":"Hyper Cutter","hidden":false},{"name":"Shell Armor","hidden":false},{"name":"Adaptability","hidden":false}],
         "moves": [
             "Water Gun",
             "Harden",
@@ -48097,11 +46560,7 @@ const pokemonData = [
             "Water",
             "Dark"
         ],
-        "abilities": [
-            "Hyper Cutter",
-            "Shell Armor",
-            "Adaptability"
-        ],
+        "abilities": [{"name":"Hyper Cutter","hidden":false},{"name":"Shell Armor","hidden":false},{"name":"Adaptability","hidden":false}],
         "moves": [
             "Vice Grip",
             "Leer",
@@ -48217,9 +46676,7 @@ const pokemonData = [
             "Ground",
             "Psychic"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Confusion",
             "Harden",
@@ -48319,9 +46776,7 @@ const pokemonData = [
             "Ground",
             "Psychic"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Hyper Beam",
             "Confusion",
@@ -48431,10 +46886,7 @@ const pokemonData = [
             "Rock",
             "Grass"
         ],
-        "abilities": [
-            "Suction Cups",
-            "Storm Drain"
-        ],
+        "abilities": [{"name":"Suction Cups","hidden":false},{"name":"Storm Drain","hidden":false}],
         "moves": [
             "Constrict",
             "Astonish",
@@ -48521,10 +46973,7 @@ const pokemonData = [
             "Rock",
             "Grass"
         ],
-        "abilities": [
-            "Suction Cups",
-            "Storm Drain"
-        ],
+        "abilities": [{"name":"Suction Cups","hidden":false},{"name":"Storm Drain","hidden":false}],
         "moves": [
             "Acid",
             "Constrict",
@@ -48621,10 +47070,7 @@ const pokemonData = [
             "Rock",
             "Bug"
         ],
-        "abilities": [
-            "Battle Armor",
-            "Swift Swim"
-        ],
+        "abilities": [{"name":"Battle Armor","hidden":false},{"name":"Swift Swim","hidden":false}],
         "moves": [
             "Scratch",
             "Harden",
@@ -48711,10 +47157,7 @@ const pokemonData = [
             "Rock",
             "Bug"
         ],
-        "abilities": [
-            "Battle Armor",
-            "Swift Swim"
-        ],
+        "abilities": [{"name":"Battle Armor","hidden":false},{"name":"Swift Swim","hidden":false}],
         "moves": [
             "Scratch",
             "Water Gun",
@@ -48813,11 +47256,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Oblivious",
-            "Adaptability"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Oblivious","hidden":false},{"name":"Adaptability","hidden":false}],
         "moves": [
             "Splash",
             "Tackle",
@@ -48888,11 +47327,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Marvel Scale",
-            "Competitive",
-            "Cute Charm"
-        ],
+        "abilities": [{"name":"Marvel Scale","hidden":false},{"name":"Competitive","hidden":false},{"name":"Cute Charm","hidden":false}],
         "moves": [
             "Tackle",
             "Wrap",
@@ -48990,9 +47425,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Forecast"
-        ],
+        "abilities": [{"name":"Forecast","hidden":false}],
         "moves": [
             "Tackle",
             "Ember",
@@ -49082,9 +47515,7 @@ const pokemonData = [
     //     "type": [
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Forecast"
-    //     ],
+    //     "abilities": [{"name":"//         Forecast\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -49176,9 +47607,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Forecast"
-    //     ],
+    //     "abilities": [{"name":"//         Forecast\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -49270,9 +47699,7 @@ const pokemonData = [
     //     "type": [
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Forecast"
-    //     ],
+    //     "abilities": [{"name":"//         Forecast\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -49364,10 +47791,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Color Change",
-            "Protean"
-        ],
+        "abilities": [{"name":"Color Change","hidden":false},{"name":"Protean","hidden":false}],
         "moves": [
             "Scratch",
             "Tail Whip",
@@ -49498,11 +47922,7 @@ const pokemonData = [
         "type": [
             "Ghost"
         ],
-        "abilities": [
-            "Insomnia",
-            "Frisk",
-            "Cursed Body"
-        ],
+        "abilities": [{"name":"Insomnia","hidden":false},{"name":"Frisk","hidden":false},{"name":"Cursed Body","hidden":false}],
         "moves": [
             "Knock Off",
             "Screech",
@@ -49604,11 +48024,7 @@ const pokemonData = [
         "type": [
             "Ghost"
         ],
-        "abilities": [
-            "Insomnia",
-            "Frisk",
-            "Cursed Body"
-        ],
+        "abilities": [{"name":"Insomnia","hidden":false},{"name":"Frisk","hidden":false},{"name":"Cursed Body","hidden":false}],
         "moves": [
             "Night Shade",
             "Screech",
@@ -49717,9 +48133,7 @@ const pokemonData = [
     //     "type": [
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Prankster"
-    //     ],
+    //     "abilities": [{"name":"//         Prankster\r\n    //","hidden":false}],
     //     "moves": [
     //         "Hyper Beam",
     //         "Thunderbolt",
@@ -49808,10 +48222,7 @@ const pokemonData = [
         "type": [
             "Ghost"
         ],
-        "abilities": [
-            "Levitate",
-            "Frisk"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false},{"name":"Frisk","hidden":false}],
         "moves": [
             "Leer",
             "Night Shade",
@@ -49911,10 +48322,7 @@ const pokemonData = [
         "type": [
             "Ghost"
         ],
-        "abilities": [
-            "Pressure",
-            "Frisk"
-        ],
+        "abilities": [{"name":"Pressure","hidden":false},{"name":"Frisk","hidden":false}],
         "moves": [
             "Fire Punch",
             "Ice Punch",
@@ -50036,11 +48444,7 @@ const pokemonData = [
             "Grass",
             "Flying"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Solar Power",
-            "Harvest"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Solar Power","hidden":false},{"name":"Harvest","hidden":false}],
         "moves": [
             "Gust",
             "Leer",
@@ -50145,9 +48549,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Wrap",
             "Growl",
@@ -50256,11 +48658,7 @@ const pokemonData = [
         "type": [
             "Dark"
         ],
-        "abilities": [
-            "Pressure",
-            "Super Luck",
-            "Justified"
-        ],
+        "abilities": [{"name":"Pressure","hidden":false},{"name":"Super Luck","hidden":false},{"name":"Justified","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -50387,9 +48785,7 @@ const pokemonData = [
     //     "type": [
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Magic Bounce"
-    //     ],
+    //     "abilities": [{"name":"//         Magic Bounce\r\n    //","hidden":false}],
     //     "moves": [
     //         "Scratch",
     //         "Razor Wind",
@@ -50509,10 +48905,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Shadow Tag",
-            "Telepathy"
-        ],
+        "abilities": [{"name":"Shadow Tag","hidden":false},{"name":"Telepathy","hidden":false}],
         "moves": [
             "Counter",
             "Amnesia",
@@ -50543,11 +48936,7 @@ const pokemonData = [
         "type": [
             "Ice"
         ],
-        "abilities": [
-            "Inner Focus",
-            "Ice Body",
-            "Moody"
-        ],
+        "abilities": [{"name":"Inner Focus","hidden":false},{"name":"Ice Body","hidden":false},{"name":"Moody","hidden":false}],
         "moves": [
             "Leer",
             "Powder Snow",
@@ -50625,11 +49014,7 @@ const pokemonData = [
         "type": [
             "Ice"
         ],
-        "abilities": [
-            "Inner Focus",
-            "Ice Body",
-            "Moody"
-        ],
+        "abilities": [{"name":"Inner Focus","hidden":false},{"name":"Ice Body","hidden":false},{"name":"Moody","hidden":false}],
         "moves": [
             "Leer",
             "Double Team",
@@ -50729,9 +49114,7 @@ const pokemonData = [
     //     "type": [
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Refrigerate"
-    //     ],
+    //     "abilities": [{"name":"//         Refrigerate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Leer",
@@ -50806,11 +49189,7 @@ const pokemonData = [
             "Ice",
             "Water"
         ],
-        "abilities": [
-            "Thick Fat",
-            "Ice Body",
-            "Oblivious"
-        ],
+        "abilities": [{"name":"Thick Fat","hidden":false},{"name":"Ice Body","hidden":false},{"name":"Oblivious","hidden":false}],
         "moves": [
             "Growl",
             "Water Gun",
@@ -50897,11 +49276,7 @@ const pokemonData = [
             "Ice",
             "Water"
         ],
-        "abilities": [
-            "Thick Fat",
-            "Ice Body",
-            "Oblivious"
-        ],
+        "abilities": [{"name":"Thick Fat","hidden":false},{"name":"Ice Body","hidden":false},{"name":"Oblivious","hidden":false}],
         "moves": [
             "Growl",
             "Water Gun",
@@ -50991,11 +49366,7 @@ const pokemonData = [
             "Ice",
             "Water"
         ],
-        "abilities": [
-            "Thick Fat",
-            "Ice Body",
-            "Oblivious"
-        ],
+        "abilities": [{"name":"Thick Fat","hidden":false},{"name":"Ice Body","hidden":false},{"name":"Oblivious","hidden":false}],
         "moves": [
             "Growl",
             "Water Gun",
@@ -51092,10 +49463,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Shell Armor",
-            "Rattled"
-        ],
+        "abilities": [{"name":"Shell Armor","hidden":false},{"name":"Rattled","hidden":false}],
         "moves": [
             "Water Gun",
             "Clamp",
@@ -51161,10 +49529,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Water Veil"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Water Veil","hidden":false}],
         "moves": [
             "Bite",
             "Whirlpool",
@@ -51247,10 +49612,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Hydration"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Hydration","hidden":false}],
         "moves": [
             "Confusion",
             "Whirlpool",
@@ -51333,11 +49695,7 @@ const pokemonData = [
             "Water",
             "Rock"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Rock Head",
-            "Sturdy"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Rock Head","hidden":false},{"name":"Sturdy","hidden":false}],
         "moves": [
             "Tackle",
             "Water Gun",
@@ -51427,10 +49785,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Hydration"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Hydration","hidden":false}],
         "moves": [
             "Tackle",
             "Charm",
@@ -51507,10 +49862,7 @@ const pokemonData = [
         "type": [
             "Dragon"
         ],
-        "abilities": [
-            "Rock Head",
-            "Sheer Force"
-        ],
+        "abilities": [{"name":"Rock Head","hidden":false},{"name":"Sheer Force","hidden":false}],
         "moves": [
             "Rage",
             "Ember",
@@ -51601,10 +49953,7 @@ const pokemonData = [
         "type": [
             "Dragon"
         ],
-        "abilities": [
-            "Rock Head",
-            "Overcoat"
-        ],
+        "abilities": [{"name":"Rock Head","hidden":false},{"name":"Overcoat","hidden":false}],
         "moves": [
             "Leer",
             "Bite",
@@ -51697,10 +50046,7 @@ const pokemonData = [
             "Dragon",
             "Flying"
         ],
-        "abilities": [
-            "Intimidate",
-            "Moxie"
-        ],
+        "abilities": [{"name":"Intimidate","hidden":false},{"name":"Moxie","hidden":false}],
         "moves": [
             "Leer",
             "Bite",
@@ -51810,9 +50156,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Aerilate"
-    //     ],
+    //     "abilities": [{"name":"//         Aerilate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Fly",
@@ -51900,10 +50244,7 @@ const pokemonData = [
             "Steel",
             "Psychic"
         ],
-        "abilities": [
-            "Clear Body",
-            "Light Metal"
-        ],
+        "abilities": [{"name":"Clear Body","hidden":false},{"name":"Light Metal","hidden":false}],
         "moves": [
             "Take Down",
             "Headbutt",
@@ -51930,10 +50271,7 @@ const pokemonData = [
             "Steel",
             "Psychic"
         ],
-        "abilities": [
-            "Clear Body",
-            "Light Metal"
-        ],
+        "abilities": [{"name":"Clear Body","hidden":false},{"name":"Light Metal","hidden":false}],
         "moves": [
             "Take Down",
             "Magnet Rise",
@@ -52032,10 +50370,7 @@ const pokemonData = [
             "Steel",
             "Psychic"
         ],
-        "abilities": [
-            "Clear Body",
-            "Light Metal"
-        ],
+        "abilities": [{"name":"Clear Body","hidden":false},{"name":"Light Metal","hidden":false}],
         "moves": [
             "Stone Edge",
             "Self-Destruct",
@@ -52139,9 +50474,7 @@ const pokemonData = [
     //         "Steel",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Tough Claws"
-    //     ],
+    //     "abilities": [{"name":"//         Tough Claws\r\n    //","hidden":false}],
     //     "moves": [
     //         "Ice Punch",
     //         "Thunder Punch",
@@ -52232,10 +50565,7 @@ const pokemonData = [
     //     "type": [
     //         "Rock"
     //     ],
-    //     "abilities": [
-    //         "Clear Body",
-    //         "Sturdy"
-    //     ],
+    //     "abilities": [{"name":"//         Clear Body","hidden":false},{"name":"//         Sturdy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -52339,10 +50669,7 @@ const pokemonData = [
     //     "type": [
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Clear Body",
-    //         "Ice Body"
-    //     ],
+    //     "abilities": [{"name":"//         Clear Body","hidden":false},{"name":"//         Ice Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Ice Punch",
@@ -52442,10 +50769,7 @@ const pokemonData = [
     //     "type": [
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Clear Body",
-    //         "Light Metal"
-    //     ],
+    //     "abilities": [{"name":"//         Clear Body","hidden":false},{"name":"//         Light Metal\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Ice Punch",
@@ -52551,9 +50875,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Levitate"
-    //     ],
+    //     "abilities": [{"name":"//         Levitate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Fly",
@@ -52687,9 +51009,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Levitate"
-    //     ],
+    //     "abilities": [{"name":"//         Levitate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Fly",
@@ -52798,9 +51118,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Levitate"
-    //     ],
+    //     "abilities": [{"name":"//         Levitate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Fly",
@@ -52929,9 +51247,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Levitate"
-    //     ],
+    //     "abilities": [{"name":"//         Levitate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Fly",
@@ -53035,9 +51351,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Drizzle"
-    //     ],
+    //     "abilities": [{"name":"//         Drizzle\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Body Slam",
@@ -53131,9 +51445,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Primordial Sea"
-    //     ],
+    //     "abilities": [{"name":"//         Primordial Sea\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Double-Edge",
@@ -53212,9 +51524,7 @@ const pokemonData = [
     //     "type": [
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Drought"
-    //     ],
+    //     "abilities": [{"name":"//         Drought\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -53342,9 +51652,7 @@ const pokemonData = [
     //         "Ground",
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Desolate Land"
-    //     ],
+    //     "abilities": [{"name":"//         Desolate Land\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Thunder Punch",
@@ -53438,9 +51746,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Air Lock"
-    //     ],
+    //     "abilities": [{"name":"//         Air Lock\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Fly",
@@ -53566,9 +51872,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Delta Stream"
-    //     ],
+    //     "abilities": [{"name":"//         Delta Stream\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Fly",
@@ -53671,9 +51975,7 @@ const pokemonData = [
     //         "Steel",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Serene Grace"
-    //     ],
+    //     "abilities": [{"name":"//         Serene Grace\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -53796,9 +52098,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Pressure"
-    //     ],
+    //     "abilities": [{"name":"//         Pressure\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -53921,9 +52221,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Pressure"
-    //     ],
+    //     "abilities": [{"name":"//         Pressure\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Cut",
@@ -54043,9 +52341,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Pressure"
-    //     ],
+    //     "abilities": [{"name":"//         Pressure\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Cut",
@@ -54167,9 +52463,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Pressure"
-    //     ],
+    //     "abilities": [{"name":"//         Pressure\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -54295,10 +52589,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Overgrow",
-            "Shell Armor"
-        ],
+        "abilities": [{"name":"Overgrow","hidden":false},{"name":"Shell Armor","hidden":false}],
         "moves": [
             "Tackle",
             "Withdraw",
@@ -54389,10 +52680,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Overgrow",
-            "Shell Armor"
-        ],
+        "abilities": [{"name":"Overgrow","hidden":false},{"name":"Shell Armor","hidden":false}],
         "moves": [
             "Tackle",
             "Absorb",
@@ -54489,10 +52777,7 @@ const pokemonData = [
             "Grass",
             "Ground"
         ],
-        "abilities": [
-            "Overgrow",
-            "Shell Armor"
-        ],
+        "abilities": [{"name":"Overgrow","hidden":false},{"name":"Shell Armor","hidden":false}],
         "moves": [
             "Tackle",
             "Absorb",
@@ -54601,10 +52886,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Blaze",
-            "Iron Fist"
-        ],
+        "abilities": [{"name":"Blaze","hidden":false},{"name":"Iron Fist","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -54711,10 +52993,7 @@ const pokemonData = [
             "Fire",
             "Fighting"
         ],
-        "abilities": [
-            "Blaze",
-            "Iron Fist"
-        ],
+        "abilities": [{"name":"Blaze","hidden":false},{"name":"Iron Fist","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -54831,10 +53110,7 @@ const pokemonData = [
             "Fire",
             "Fighting"
         ],
-        "abilities": [
-            "Blaze",
-            "Iron Fist"
-        ],
+        "abilities": [{"name":"Blaze","hidden":false},{"name":"Iron Fist","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -54962,11 +53238,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Torrent",
-            "Competitive",
-            "Defiant"
-        ],
+        "abilities": [{"name":"Torrent","hidden":false},{"name":"Competitive","hidden":false},{"name":"Defiant","hidden":false}],
         "moves": [
             "Pound",
             "Tackle",
@@ -55065,11 +53337,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Torrent",
-            "Competitive",
-            "Defiant"
-        ],
+        "abilities": [{"name":"Torrent","hidden":false},{"name":"Competitive","hidden":false},{"name":"Defiant","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -55173,11 +53441,7 @@ const pokemonData = [
             "Water",
             "Steel"
         ],
-        "abilities": [
-            "Torrent",
-            "Competitive",
-            "Defiant"
-        ],
+        "abilities": [{"name":"Torrent","hidden":false},{"name":"Competitive","hidden":false},{"name":"Defiant","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -55295,10 +53559,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Keen Eye",
-            "Reckless"
-        ],
+        "abilities": [{"name":"Keen Eye","hidden":false},{"name":"Reckless","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -55384,10 +53645,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Intimidate",
-            "Reckless"
-        ],
+        "abilities": [{"name":"Intimidate","hidden":false},{"name":"Reckless","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -55474,10 +53732,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Intimidate",
-            "Reckless"
-        ],
+        "abilities": [{"name":"Intimidate","hidden":false},{"name":"Reckless","hidden":false}],
         "moves": [
             "Wing Attack",
             "Tackle",
@@ -55568,11 +53823,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Simple",
-            "Unaware",
-            "Moody"
-        ],
+        "abilities": [{"name":"Simple","hidden":false},{"name":"Unaware","hidden":false},{"name":"Moody","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -55666,11 +53917,7 @@ const pokemonData = [
             "Normal",
             "Water"
         ],
-        "abilities": [
-            "Simple",
-            "Unaware",
-            "Moody"
-        ],
+        "abilities": [{"name":"Simple","hidden":false},{"name":"Unaware","hidden":false},{"name":"Moody","hidden":false}],
         "moves": [
             "Tackle",
             "Growl",
@@ -55776,10 +54023,7 @@ const pokemonData = [
         "type": [
             "Bug"
         ],
-        "abilities": [
-            "Shed Skin",
-            "Run Away"
-        ],
+        "abilities": [{"name":"Shed Skin","hidden":false},{"name":"Run Away","hidden":false}],
         "moves": [
             "Growl",
             "Bide",
@@ -55813,10 +54057,7 @@ const pokemonData = [
         "type": [
             "Bug"
         ],
-        "abilities": [
-            "Swarm",
-            "Technician"
-        ],
+        "abilities": [{"name":"Swarm","hidden":false},{"name":"Technician","hidden":false}],
         "moves": [
             "Growl",
             "Bide",
@@ -55901,11 +54142,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Rivalry",
-            "Intimidate",
-            "Guts"
-        ],
+        "abilities": [{"name":"Rivalry","hidden":false},{"name":"Intimidate","hidden":false},{"name":"Guts","hidden":false}],
         "moves": [
             "Tackle",
             "Leer",
@@ -55988,11 +54225,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Rivalry",
-            "Intimidate",
-            "Guts"
-        ],
+        "abilities": [{"name":"Rivalry","hidden":false},{"name":"Intimidate","hidden":false},{"name":"Guts","hidden":false}],
         "moves": [
             "Tackle",
             "Leer",
@@ -56076,11 +54309,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Rivalry",
-            "Intimidate",
-            "Guts"
-        ],
+        "abilities": [{"name":"Rivalry","hidden":false},{"name":"Intimidate","hidden":false},{"name":"Guts","hidden":false}],
         "moves": [
             "Tackle",
             "Leer",
@@ -56170,11 +54399,7 @@ const pokemonData = [
             "Grass",
             "Poison"
         ],
-        "abilities": [
-            "Natural Cure",
-            "Poison Point",
-            "Leaf Guard"
-        ],
+        "abilities": [{"name":"Natural Cure","hidden":false},{"name":"Poison Point","hidden":false},{"name":"Leaf Guard","hidden":false}],
         "moves": [
             "Absorb",
             "Growth",
@@ -56256,11 +54481,7 @@ const pokemonData = [
             "Grass",
             "Poison"
         ],
-        "abilities": [
-            "Natural Cure",
-            "Poison Point",
-            "Technician"
-        ],
+        "abilities": [{"name":"Natural Cure","hidden":false},{"name":"Poison Point","hidden":false},{"name":"Technician","hidden":false}],
         "moves": [
             "Poison Sting",
             "Absorb",
@@ -56356,10 +54577,7 @@ const pokemonData = [
         "type": [
             "Rock"
         ],
-        "abilities": [
-            "Mold Breaker",
-            "Sheer Force"
-        ],
+        "abilities": [{"name":"Mold Breaker","hidden":false},{"name":"Sheer Force","hidden":false}],
         "moves": [
             "Headbutt",
             "Leer",
@@ -56459,10 +54677,7 @@ const pokemonData = [
         "type": [
             "Rock"
         ],
-        "abilities": [
-            "Mold Breaker",
-            "Sheer Force"
-        ],
+        "abilities": [{"name":"Mold Breaker","hidden":false},{"name":"Sheer Force","hidden":false}],
         "moves": [
             "Headbutt",
             "Leer",
@@ -56574,10 +54789,7 @@ const pokemonData = [
             "Rock",
             "Steel"
         ],
-        "abilities": [
-            "Sturdy",
-            "Soundproof"
-        ],
+        "abilities": [{"name":"Sturdy","hidden":false},{"name":"Soundproof","hidden":false}],
         "moves": [
             "Tackle",
             "Protect",
@@ -56668,10 +54880,7 @@ const pokemonData = [
             "Rock",
             "Steel"
         ],
-        "abilities": [
-            "Sturdy",
-            "Soundproof"
-        ],
+        "abilities": [{"name":"Sturdy","hidden":false},{"name":"Soundproof","hidden":false}],
         "moves": [
             "Tackle",
             "Protect",
@@ -56767,10 +54976,7 @@ const pokemonData = [
         "type": [
             "Bug"
         ],
-        "abilities": [
-            "Shed Skin",
-            "Overcoat"
-        ],
+        "abilities": [{"name":"Shed Skin","hidden":false},{"name":"Overcoat","hidden":false}],
         "moves": [
             "Protect",
             "Tackle",
@@ -56800,10 +55006,7 @@ const pokemonData = [
             "Bug",
             "Grass"
         ],
-        "abilities": [
-            "Anticipation",
-            "Overcoat"
-        ],
+        "abilities": [{"name":"Anticipation","hidden":false},{"name":"Overcoat","hidden":false}],
         "moves": [
             "Tackle",
             "Protect",
@@ -56888,10 +55091,7 @@ const pokemonData = [
             "Bug",
             "Ground"
         ],
-        "abilities": [
-            "Anticipation",
-            "Overcoat"
-        ],
+        "abilities": [{"name":"Anticipation","hidden":false},{"name":"Overcoat","hidden":false}],
         "moves": [
             "Tackle",
             "Protect",
@@ -56976,10 +55176,7 @@ const pokemonData = [
             "Bug",
             "Steel"
         ],
-        "abilities": [
-            "Anticipation",
-            "Overcoat"
-        ],
+        "abilities": [{"name":"Anticipation","hidden":false},{"name":"Overcoat","hidden":false}],
         "moves": [
             "Tackle",
             "Protect",
@@ -57064,10 +55261,7 @@ const pokemonData = [
             "Bug",
             "Flying"
         ],
-        "abilities": [
-            "Swarm",
-            "Tinted Lens"
-        ],
+        "abilities": [{"name":"Swarm","hidden":false},{"name":"Tinted Lens","hidden":false}],
         "moves": [
             "Tackle",
             "Protect",
@@ -57147,10 +55341,7 @@ const pokemonData = [
             "Bug",
             "Flying"
         ],
-        "abilities": [
-            "Honey Gather",
-            "Hustle"
-        ],
+        "abilities": [{"name":"Honey Gather","hidden":false},{"name":"Hustle","hidden":false}],
         "moves": [
             "Gust",
             "Sweet Scent",
@@ -57186,10 +55377,7 @@ const pokemonData = [
             "Bug",
             "Flying"
         ],
-        "abilities": [
-            "Pressure",
-            "Unnerve"
-        ],
+        "abilities": [{"name":"Pressure","hidden":false},{"name":"Unnerve","hidden":false}],
         "moves": [
             "Gust",
             "Poison Sting",
@@ -57289,11 +55477,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Run Away",
-            "Pickup",
-            "Volt Absorb"
-        ],
+        "abilities": [{"name":"Run Away","hidden":false},{"name":"Pickup","hidden":false},{"name":"Volt Absorb","hidden":false}],
         "moves": [
             "Growl",
             "Bide",
@@ -57394,10 +55578,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Water Veil"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Water Veil","hidden":false}],
         "moves": [
             "Sonic Boom",
             "Tackle",
@@ -57497,10 +55678,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Water Veil"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Water Veil","hidden":false}],
         "moves": [
             "Growl",
             "Sonic Boom",
@@ -57611,9 +55789,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Chlorophyll"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false}],
         "moves": [
             "Tackle",
             "Morning Sun",
@@ -57689,9 +55865,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Flower Gift"
-        ],
+        "abilities": [{"name":"Flower Gift","hidden":false}],
         "moves": [
             "Tackle",
             "Leech Seed",
@@ -57769,11 +55943,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Sticky Hold",
-            "Storm Drain",
-            "Sand Force"
-        ],
+        "abilities": [{"name":"Sticky Hold","hidden":false},{"name":"Storm Drain","hidden":false},{"name":"Sand Force","hidden":false}],
         "moves": [
             "Water Gun",
             "Mud-Slap",
@@ -57866,11 +56036,7 @@ const pokemonData = [
             "Water",
             "Ground"
         ],
-        "abilities": [
-            "Sticky Hold",
-            "Storm Drain",
-            "Sand Force"
-        ],
+        "abilities": [{"name":"Sticky Hold","hidden":false},{"name":"Storm Drain","hidden":false},{"name":"Sand Force","hidden":false}],
         "moves": [
             "Water Gun",
             "Recover",
@@ -57976,11 +56142,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Technician",
-            "Pickup",
-            "Skill Link"
-        ],
+        "abilities": [{"name":"Technician","hidden":false},{"name":"Pickup","hidden":false},{"name":"Skill Link","hidden":false}],
         "moves": [
             "Scratch",
             "Sand-Attack",
@@ -58108,11 +56270,7 @@ const pokemonData = [
             "Ghost",
             "Flying"
         ],
-        "abilities": [
-            "Aftermath",
-            "Unburden",
-            "Flare Boost"
-        ],
+        "abilities": [{"name":"Aftermath","hidden":false},{"name":"Unburden","hidden":false},{"name":"Flare Boost","hidden":false}],
         "moves": [
             "Minimize",
             "Constrict",
@@ -58224,11 +56382,7 @@ const pokemonData = [
             "Ghost",
             "Flying"
         ],
-        "abilities": [
-            "Aftermath",
-            "Unburden",
-            "Flare Boost"
-        ],
+        "abilities": [{"name":"Aftermath","hidden":false},{"name":"Unburden","hidden":false},{"name":"Flare Boost","hidden":false}],
         "moves": [
             "Gust",
             "Minimize",
@@ -58343,11 +56497,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Run Away",
-            "Klutz",
-            "Limber"
-        ],
+        "abilities": [{"name":"Run Away","hidden":false},{"name":"Klutz","hidden":false},{"name":"Limber","hidden":false}],
         "moves": [
             "Pound",
             "Defense Curl",
@@ -58458,11 +56608,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Cute Charm",
-            "Klutz",
-            "Limber"
-        ],
+        "abilities": [{"name":"Cute Charm","hidden":false},{"name":"Klutz","hidden":false},{"name":"Limber","hidden":false}],
         "moves": [
             "Pound",
             "Defense Curl",
@@ -58589,9 +56735,7 @@ const pokemonData = [
     //         "Normal",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Scrappy"
-    //     ],
+    //     "abilities": [{"name":"//         Scrappy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Fire Punch",
@@ -58690,9 +56834,7 @@ const pokemonData = [
         "type": [
             "Ghost"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Growl",
             "Psywave",
@@ -58817,11 +56959,7 @@ const pokemonData = [
             "Dark",
             "Flying"
         ],
-        "abilities": [
-            "Insomnia",
-            "Super Luck",
-            "Moxie"
-        ],
+        "abilities": [{"name":"Insomnia","hidden":false},{"name":"Super Luck","hidden":false},{"name":"Moxie","hidden":false}],
         "moves": [
             "Wing Attack",
             "Haze",
@@ -58939,11 +57077,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Limber",
-            "Own Tempo",
-            "Keen Eye"
-        ],
+        "abilities": [{"name":"Limber","hidden":false},{"name":"Own Tempo","hidden":false},{"name":"Keen Eye","hidden":false}],
         "moves": [
             "Fake Out",
             "Tackle",
@@ -59040,11 +57174,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Thick Fat",
-            "Own Tempo",
-            "Defiant"
-        ],
+        "abilities": [{"name":"Thick Fat","hidden":false},{"name":"Own Tempo","hidden":false},{"name":"Defiant","hidden":false}],
         "moves": [
             "Scratch",
             "Growl",
@@ -59146,9 +57276,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Wrap",
             "Tackle",
@@ -59248,11 +57376,7 @@ const pokemonData = [
             "Poison",
             "Dark"
         ],
-        "abilities": [
-            "Stench",
-            "Aftermath",
-            "Keen Eye"
-        ],
+        "abilities": [{"name":"Stench","hidden":false},{"name":"Aftermath","hidden":false},{"name":"Keen Eye","hidden":false}],
         "moves": [
             "Scratch",
             "Focus Energy",
@@ -59358,11 +57482,7 @@ const pokemonData = [
             "Poison",
             "Dark"
         ],
-        "abilities": [
-            "Stench",
-            "Aftermath",
-            "Keen Eye"
-        ],
+        "abilities": [{"name":"Stench","hidden":false},{"name":"Aftermath","hidden":false},{"name":"Keen Eye","hidden":false}],
         "moves": [
             "Scratch",
             "Flamethrower",
@@ -59474,11 +57594,7 @@ const pokemonData = [
             "Steel",
             "Psychic"
         ],
-        "abilities": [
-            "Levitate",
-            "Heatproof",
-            "Heavy Metal"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false},{"name":"Heatproof","hidden":false},{"name":"Heavy Metal","hidden":false}],
         "moves": [
             "Tackle",
             "Confusion",
@@ -59576,11 +57692,7 @@ const pokemonData = [
             "Steel",
             "Psychic"
         ],
-        "abilities": [
-            "Levitate",
-            "Heatproof",
-            "Heavy Metal"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false},{"name":"Heatproof","hidden":false},{"name":"Heavy Metal","hidden":false}],
         "moves": [
             "Tackle",
             "Confusion",
@@ -59687,11 +57799,7 @@ const pokemonData = [
         "type": [
             "Rock"
         ],
-        "abilities": [
-            "Sturdy",
-            "Rock Head",
-            "Rattled"
-        ],
+        "abilities": [{"name":"Sturdy","hidden":false},{"name":"Rock Head","hidden":false},{"name":"Rattled","hidden":false}],
         "moves": [
             "Fake Tears",
             "Copycat",
@@ -59785,11 +57893,7 @@ const pokemonData = [
             "Psychic"
             // "Fairy"
         ],
-        "abilities": [
-            "Soundproof",
-            "Filter",
-            "Technician"
-        ],
+        "abilities": [{"name":"Soundproof","hidden":false},{"name":"Filter","hidden":false},{"name":"Technician","hidden":false}],
         "moves": [
             "Confusion",
             "Barrier",
@@ -59899,11 +58003,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Natural Cure",
-            "Serene Grace",
-            "Friend Guard"
-        ],
+        "abilities": [{"name":"Natural Cure","hidden":false},{"name":"Serene Grace","hidden":false},{"name":"Friend Guard","hidden":false}],
         "moves": [
             "Pound",
             "Minimize",
@@ -59998,11 +58098,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Keen Eye",
-            "Tangled Feet",
-            "Big Pecks"
-        ],
+        "abilities": [{"name":"Keen Eye","hidden":false},{"name":"Tangled Feet","hidden":false},{"name":"Big Pecks","hidden":false}],
         "moves": [
             "Peck",
             "Taunt",
@@ -60085,10 +58181,7 @@ const pokemonData = [
             "Ghost",
             "Dark"
         ],
-        "abilities": [
-            "Pressure",
-            "Infiltrator"
-        ],
+        "abilities": [{"name":"Pressure","hidden":false},{"name":"Infiltrator","hidden":false}],
         "moves": [
             "Confuse Ray",
             "Curse",
@@ -60186,10 +58279,7 @@ const pokemonData = [
             "Dragon",
             "Ground"
         ],
-        "abilities": [
-            "Sand Veil",
-            "Rough Skin"
-        ],
+        "abilities": [{"name":"Sand Veil","hidden":false},{"name":"Rough Skin","hidden":false}],
         "moves": [
             "Tackle",
             "Sand-Attack",
@@ -60282,10 +58372,7 @@ const pokemonData = [
             "Dragon",
             "Ground"
         ],
-        "abilities": [
-            "Sand Veil",
-            "Rough Skin"
-        ],
+        "abilities": [{"name":"Sand Veil","hidden":false},{"name":"Rough Skin","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Tackle",
@@ -60380,10 +58467,7 @@ const pokemonData = [
             "Dragon",
             "Ground"
         ],
-        "abilities": [
-            "Sand Veil",
-            "Rough Skin"
-        ],
+        "abilities": [{"name":"Sand Veil","hidden":false},{"name":"Rough Skin","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Tackle",
@@ -60486,9 +58570,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Sand Force"
-    //     ],
+    //     "abilities": [{"name":"//         Sand Force\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Cut",
@@ -60576,11 +58658,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Pickup",
-            "Thick Fat",
-            "Gluttony"
-        ],
+        "abilities": [{"name":"Pickup","hidden":false},{"name":"Thick Fat","hidden":false},{"name":"Gluttony","hidden":false}],
         "moves": [
             "Tackle",
             "Metronome",
@@ -60695,11 +58773,7 @@ const pokemonData = [
         "type": [
             "Fighting"
         ],
-        "abilities": [
-            "Steadfast",
-            "Inner Focus",
-            "Prankster"
-        ],
+        "abilities": [{"name":"Steadfast","hidden":false},{"name":"Inner Focus","hidden":false},{"name":"Prankster","hidden":false}],
         "moves": [
             "Quick Attack",
             "Foresight",
@@ -60813,11 +58887,7 @@ const pokemonData = [
             "Fighting",
             "Steel"
         ],
-        "abilities": [
-            "Steadfast",
-            "Inner Focus",
-            "Justified"
-        ],
+        "abilities": [{"name":"Steadfast","hidden":false},{"name":"Inner Focus","hidden":false},{"name":"Justified","hidden":false}],
         "moves": [
             "Quick Attack",
             "Screech",
@@ -60953,9 +59023,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Adaptability"
-    //     ],
+    //     "abilities": [{"name":"//         Adaptability\r\n    //","hidden":false}],
     //     "moves": [
     //         "Ice Punch",
     //         "Thunder Punch",
@@ -61053,10 +59121,7 @@ const pokemonData = [
         "type": [
             "Ground"
         ],
-        "abilities": [
-            "Sand Stream",
-            "Sand Force"
-        ],
+        "abilities": [{"name":"Sand Stream","hidden":false},{"name":"Sand Force","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Tackle",
@@ -61140,10 +59205,7 @@ const pokemonData = [
         "type": [
             "Ground"
         ],
-        "abilities": [
-            "Sand Stream",
-            "Sand Force"
-        ],
+        "abilities": [{"name":"Sand Stream","hidden":false},{"name":"Sand Force","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Tackle",
@@ -61234,11 +59296,7 @@ const pokemonData = [
             "Poison",
             "Bug"
         ],
-        "abilities": [
-            "Battle Armor",
-            "Sniper",
-            "Keen Eye"
-        ],
+        "abilities": [{"name":"Battle Armor","hidden":false},{"name":"Sniper","hidden":false},{"name":"Keen Eye","hidden":false}],
         "moves": [
             "Poison Sting",
             "Leer",
@@ -61336,11 +59394,7 @@ const pokemonData = [
             "Poison",
             "Dark"
         ],
-        "abilities": [
-            "Battle Armor",
-            "Sniper",
-            "Keen Eye"
-        ],
+        "abilities": [{"name":"Battle Armor","hidden":false},{"name":"Sniper","hidden":false},{"name":"Keen Eye","hidden":false}],
         "moves": [
             "Poison Sting",
             "Leer",
@@ -61452,11 +59506,7 @@ const pokemonData = [
             "Poison",
             "Fighting"
         ],
-        "abilities": [
-            "Anticipation",
-            "Dry Skin",
-            "Poison Touch"
-        ],
+        "abilities": [{"name":"Anticipation","hidden":false},{"name":"Dry Skin","hidden":false},{"name":"Poison Touch","hidden":false}],
         "moves": [
             "Poison Sting",
             "Mud-Slap",
@@ -61583,11 +59633,7 @@ const pokemonData = [
             "Poison",
             "Fighting"
         ],
-        "abilities": [
-            "Anticipation",
-            "Dry Skin",
-            "Poison Touch"
-        ],
+        "abilities": [{"name":"Anticipation","hidden":false},{"name":"Dry Skin","hidden":false},{"name":"Poison Touch","hidden":false}],
         "moves": [
             "Poison Sting",
             "Mud-Slap",
@@ -61719,9 +59765,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Bind",
             "Growth",
@@ -61811,11 +59855,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Storm Drain",
-            "Water Veil"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Storm Drain","hidden":false},{"name":"Water Veil","hidden":false}],
         "moves": [
             "Pound",
             "Bubble",
@@ -61904,11 +59944,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Storm Drain",
-            "Water Veil"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Storm Drain","hidden":false},{"name":"Water Veil","hidden":false}],
         "moves": [
             "Pound",
             "Gust",
@@ -62002,11 +60038,7 @@ const pokemonData = [
             "Water",
             "Flying"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Water Absorb",
-            "Water Veil"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Water Absorb","hidden":false},{"name":"Water Veil","hidden":false}],
         "moves": [
             "Tackle",
             "Water Gun",
@@ -62093,10 +60125,7 @@ const pokemonData = [
             "Grass",
             "Ice"
         ],
-        "abilities": [
-            "Snow Warning",
-            "Soundproof"
-        ],
+        "abilities": [{"name":"Snow Warning","hidden":false},{"name":"Soundproof","hidden":false}],
         "moves": [
             "Leer",
             "Powder Snow",
@@ -62185,10 +60214,7 @@ const pokemonData = [
             "Grass",
             "Ice"
         ],
-        "abilities": [
-            "Snow Warning",
-            "Soundproof"
-        ],
+        "abilities": [{"name":"Snow Warning","hidden":false},{"name":"Soundproof","hidden":false}],
         "moves": [
             "Ice Punch",
             "Leer",
@@ -62297,9 +60323,7 @@ const pokemonData = [
     //         "Grass",
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Snow Warning"
-    //     ],
+    //     "abilities": [{"name":"//         Snow Warning\r\n    //","hidden":false}],
     //     "moves": [
     //         "Ice Punch",
     //         "Swords Dance",
@@ -62384,10 +60408,7 @@ const pokemonData = [
             "Dark",
             "Ice"
         ],
-        "abilities": [
-            "Pressure",
-            "Pickpocket"
-        ],
+        "abilities": [{"name":"Pressure","hidden":false},{"name":"Pickpocket","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -62526,11 +60547,7 @@ const pokemonData = [
             "Electric",
             "Steel"
         ],
-        "abilities": [
-            "Magnet Pull",
-            "Sturdy",
-            "Analytic"
-        ],
+        "abilities": [{"name":"Magnet Pull","hidden":false},{"name":"Sturdy","hidden":false},{"name":"Analytic","hidden":false}],
         "moves": [
             "Tackle",
             "Supersonic",
@@ -62628,11 +60645,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Own Tempo",
-            "Oblivious",
-            "Cloud Nine"
-        ],
+        "abilities": [{"name":"Own Tempo","hidden":false},{"name":"Oblivious","hidden":false},{"name":"Cloud Nine","hidden":false}],
         "moves": [
             "Supersonic",
             "Defense Curl",
@@ -62773,11 +60786,7 @@ const pokemonData = [
             "Ground",
             "Rock"
         ],
-        "abilities": [
-            "Lightning Rod",
-            "Solid Rock",
-            "Reckless"
-        ],
+        "abilities": [{"name":"Lightning Rod","hidden":false},{"name":"Solid Rock","hidden":false},{"name":"Reckless","hidden":false}],
         "moves": [
             "Horn Attack",
             "Fury Attack",
@@ -62932,11 +60941,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Leaf Guard",
-            "Regenerator"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Leaf Guard","hidden":false},{"name":"Regenerator","hidden":false}],
         "moves": [
             "Bind",
             "Absorb",
@@ -63049,10 +61054,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Motor Drive",
-            "Vital Spirit"
-        ],
+        "abilities": [{"name":"Motor Drive","hidden":false},{"name":"Vital Spirit","hidden":false}],
         "moves": [
             "Fire Punch",
             "Leer",
@@ -63173,10 +61175,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Flame Body",
-            "Vital Spirit"
-        ],
+        "abilities": [{"name":"Flame Body","hidden":false},{"name":"Vital Spirit","hidden":false}],
         "moves": [
             "Thunder Punch",
             "Leer",
@@ -63293,11 +61292,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Hustle",
-            "Serene Grace",
-            "Super Luck"
-        ],
+        "abilities": [{"name":"Hustle","hidden":false},{"name":"Serene Grace","hidden":false},{"name":"Super Luck","hidden":false}],
         "moves": [
             "Pound",
             "Double-Edge",
@@ -63438,11 +61433,7 @@ const pokemonData = [
             "Bug",
             "Flying"
         ],
-        "abilities": [
-            "Speed Boost",
-            "Tinted Lens",
-            "Frisk"
-        ],
+        "abilities": [{"name":"Speed Boost","hidden":false},{"name":"Tinted Lens","hidden":false},{"name":"Frisk","hidden":false}],
         "moves": [
             "Tackle",
             "Quick Attack",
@@ -63537,10 +61528,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Leaf Guard",
-            "Chlorophyll"
-        ],
+        "abilities": [{"name":"Leaf Guard","hidden":false},{"name":"Chlorophyll","hidden":false}],
         "moves": [
             "Tackle",
             "Take Down",
@@ -63658,10 +61646,7 @@ const pokemonData = [
         "type": [
             "Ice"
         ],
-        "abilities": [
-            "Snow Cloak",
-            "Ice Body"
-        ],
+        "abilities": [{"name":"Snow Cloak","hidden":false},{"name":"Ice Body","hidden":false}],
         "moves": [
             "Tackle",
             "Take Down",
@@ -63774,11 +61759,7 @@ const pokemonData = [
             "Ground",
             "Flying"
         ],
-        "abilities": [
-            "Hyper Cutter",
-            "Sand Veil",
-            "Poison Heal"
-        ],
+        "abilities": [{"name":"Hyper Cutter","hidden":false},{"name":"Sand Veil","hidden":false},{"name":"Poison Heal","hidden":false}],
         "moves": [
             "Guillotine",
             "Sand-Attack",
@@ -63908,11 +61889,7 @@ const pokemonData = [
             "Ice",
             "Ground"
         ],
-        "abilities": [
-            "Oblivious",
-            "Snow Cloak",
-            "Thick Fat"
-        ],
+        "abilities": [{"name":"Oblivious","hidden":false},{"name":"Snow Cloak","hidden":false},{"name":"Thick Fat","hidden":false}],
         "moves": [
             "Fury Attack",
             "Tackle",
@@ -64018,11 +61995,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Adaptability",
-            "Download",
-            "Analytic"
-        ],
+        "abilities": [{"name":"Adaptability","hidden":false},{"name":"Download","hidden":false},{"name":"Analytic","hidden":false}],
         "moves": [
             "Tackle",
             "Defense Curl",
@@ -64131,11 +62104,7 @@ const pokemonData = [
             "Psychic",
             "Fighting"
         ],
-        "abilities": [
-            "Steadfast",
-            "Sharpness",
-            "Justified"
-        ],
+        "abilities": [{"name":"Steadfast","hidden":false},{"name":"Sharpness","hidden":false},{"name":"Justified","hidden":false}],
         "moves": [
             "Leer",
             "Growl",
@@ -64304,9 +62273,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Inner Focus"
-    //     ],
+    //     "abilities": [{"name":"//         Inner Focus\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -64429,11 +62396,7 @@ const pokemonData = [
             "Rock",
             "Steel"
         ],
-        "abilities": [
-            "Sturdy",
-            "Magnet Pull",
-            "Sand Force"
-        ],
+        "abilities": [{"name":"Sturdy","hidden":false},{"name":"Magnet Pull","hidden":false},{"name":"Sand Force","hidden":false}],
         "moves": [
             "Tackle",
             "Tri Attack",
@@ -64535,10 +62498,7 @@ const pokemonData = [
         "type": [
             "Ghost"
         ],
-        "abilities": [
-            "Pressure",
-            "Frisk"
-        ],
+        "abilities": [{"name":"Pressure","hidden":false},{"name":"Frisk","hidden":false}],
         "moves": [
             "Fire Punch",
             "Ice Punch",
@@ -64661,10 +62621,7 @@ const pokemonData = [
             "Ice",
             "Ghost"
         ],
-        "abilities": [
-            "Snow Cloak",
-            "Cursed Body"
-        ],
+        "abilities": [{"name":"Snow Cloak","hidden":false},{"name":"Cursed Body","hidden":false}],
         "moves": [
             "Headbutt",
             "Leer",
@@ -64777,9 +62734,7 @@ const pokemonData = [
             "Electric",
             "Ghost"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Thunder Shock",
             "Thunder Wave",
@@ -64861,9 +62816,7 @@ const pokemonData = [
             "Electric",
             "Fire"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Thunder Shock",
             "Thunder Wave",
@@ -64946,9 +62899,7 @@ const pokemonData = [
             "Electric",
             "Water"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Thunder Shock",
             "Thunder Wave",
@@ -65031,9 +62982,7 @@ const pokemonData = [
             "Electric",
             "Ice"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Thunder Shock",
             "Thunder Wave",
@@ -65117,9 +63066,7 @@ const pokemonData = [
             "Electric",
             "Flying"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Thunder Shock",
             "Thunder Wave",
@@ -65203,9 +63150,7 @@ const pokemonData = [
             "Electric",
             "Grass"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Thunder Shock",
             "Thunder Wave",
@@ -65287,9 +63232,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Levitate"
-    //     ],
+    //     "abilities": [{"name":"//         Levitate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -65405,9 +63348,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Levitate"
-    //     ],
+    //     "abilities": [{"name":"//         Levitate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -65522,9 +63463,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Levitate"
-    //     ],
+    //     "abilities": [{"name":"//         Levitate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -65644,10 +63583,7 @@ const pokemonData = [
     //         "Steel",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Pressure",
-    //         "Telepathy"
-    //     ],
+    //     "abilities": [{"name":"//         Pressure","hidden":false},{"name":"//         Telepathy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Headbutt",
@@ -65760,10 +63696,7 @@ const pokemonData = [
     //         "Steel",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Pressure",
-    //         "Telepathy"
-    //     ],
+    //     "abilities": [{"name":"//         Pressure","hidden":false},{"name":"//         Telepathy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Take Down",
@@ -65844,10 +63777,7 @@ const pokemonData = [
     //         "Water",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Pressure",
-    //         "Telepathy"
-    //     ],
+    //     "abilities": [{"name":"//         Pressure","hidden":false},{"name":"//         Telepathy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Headbutt",
@@ -65967,10 +63897,7 @@ const pokemonData = [
     //         "Water",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Pressure",
-    //         "Telepathy"
-    //     ],
+    //     "abilities": [{"name":"//         Pressure","hidden":false},{"name":"//         Telepathy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Take Down",
@@ -66055,10 +63982,7 @@ const pokemonData = [
     //         "Fire",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Flash Fire",
-    //         "Flame Body"
-    //     ],
+    //     "abilities": [{"name":"//         Flash Fire","hidden":false},{"name":"//         Flame Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Body Slam",
@@ -66163,9 +64087,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Slow Start"
-    //     ],
+    //     "abilities": [{"name":"//         Slow Start\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Mega Punch",
@@ -66268,10 +64190,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Pressure",
-    //         "Telepathy"
-    //     ],
+    //     "abilities": [{"name":"//         Pressure","hidden":false},{"name":"//         Telepathy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Fly",
@@ -66386,9 +64305,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Levitate"
-    //     ],
+    //     "abilities": [{"name":"//         Levitate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Fly",
@@ -66504,9 +64421,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Levitate"
-    //     ],
+    //     "abilities": [{"name":"//         Levitate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Mist",
@@ -66607,9 +64522,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Hydration"
-    //     ],
+    //     "abilities": [{"name":"//         Hydration\r\n    //","hidden":false}],
     //     "moves": [
     //         "Supersonic",
     //         "Surf",
@@ -66684,9 +64597,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Hydration"
-    //     ],
+    //     "abilities": [{"name":"//         Hydration\r\n    //","hidden":false}],
     //     "moves": [
     //         "Supersonic",
     //         "Water Gun",
@@ -66774,9 +64685,7 @@ const pokemonData = [
     //     "type": [
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Bad Dreams"
-    //     ],
+    //     "abilities": [{"name":"//         Bad Dreams\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Cut",
@@ -66883,9 +64792,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Natural Cure"
-        ],
+        "abilities": [{"name":"Natural Cure","hidden":false}],
         "moves": [
             "Growth",
             "Defense Curl",
@@ -66962,9 +64869,7 @@ const pokemonData = [
     //         "Grass",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Serene Grace"
-    //     ],
+    //     "abilities": [{"name":"//         Serene Grace\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Headbutt",
@@ -67039,9 +64944,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Multitype"
-    //     ],
+    //     "abilities": [{"name":"//         Multitype\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Cut",
@@ -67229,9 +65132,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Victory Star"
-    //     ],
+    //     "abilities": [{"name":"//         Victory Star\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -67346,10 +65247,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Overgrow",
-            "Contrary"
-        ],
+        "abilities": [{"name":"Overgrow","hidden":false},{"name":"Contrary","hidden":false}],
         "moves": [
             "Tackle",
             "Leer",
@@ -67437,10 +65335,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Overgrow",
-            "Contrary"
-        ],
+        "abilities": [{"name":"Overgrow","hidden":false},{"name":"Contrary","hidden":false}],
         "moves": [
             "Vine Whip",
             "Tackle",
@@ -67528,10 +65423,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Overgrow",
-            "Contrary"
-        ],
+        "abilities": [{"name":"Overgrow","hidden":false},{"name":"Contrary","hidden":false}],
         "moves": [
             "Vine Whip",
             "Tackle",
@@ -67627,10 +65519,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Blaze",
-            "Thick Fat"
-        ],
+        "abilities": [{"name":"Blaze","hidden":false},{"name":"Thick Fat","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -67713,10 +65602,7 @@ const pokemonData = [
             "Fire",
             "Fighting"
         ],
-        "abilities": [
-            "Blaze",
-            "Thick Fat"
-        ],
+        "abilities": [{"name":"Blaze","hidden":false},{"name":"Thick Fat","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -67811,10 +65697,7 @@ const pokemonData = [
             "Fire",
             "Fighting"
         ],
-        "abilities": [
-            "Blaze",
-            "Reckless"
-        ],
+        "abilities": [{"name":"Blaze","hidden":false},{"name":"Reckless","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -67918,10 +65801,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Torrent",
-            "Shell Armor"
-        ],
+        "abilities": [{"name":"Torrent","hidden":false},{"name":"Shell Armor","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -68013,10 +65893,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Torrent",
-            "Shell Armor"
-        ],
+        "abilities": [{"name":"Torrent","hidden":false},{"name":"Shell Armor","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -68109,10 +65986,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Torrent",
-            "Shell Armor"
-        ],
+        "abilities": [{"name":"Torrent","hidden":false},{"name":"Shell Armor","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -68219,10 +66093,7 @@ const pokemonData = [
     //         "Water",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Torrent",
-    //         "Sharpness"
-    //     ],
+    //     "abilities": [{"name":"//         Torrent","hidden":false},{"name":"//         Sharpness\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Tackle",
@@ -68302,11 +66173,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Run Away",
-            "Keen Eye",
-            "Analytic"
-        ],
+        "abilities": [{"name":"Run Away","hidden":false},{"name":"Keen Eye","hidden":false},{"name":"Analytic","hidden":false}],
         "moves": [
             "Tackle",
             "Leer",
@@ -68388,11 +66255,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Illuminate",
-            "Keen Eye",
-            "Analytic"
-        ],
+        "abilities": [{"name":"Illuminate","hidden":false},{"name":"Keen Eye","hidden":false},{"name":"Analytic","hidden":false}],
         "moves": [
             "Tackle",
             "Leer",
@@ -68494,11 +66357,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Vital Spirit",
-            "Pickup",
-            "Run Away"
-        ],
+        "abilities": [{"name":"Vital Spirit","hidden":false},{"name":"Pickup","hidden":false},{"name":"Run Away","hidden":false}],
         "moves": [
             "Tackle",
             "Leer",
@@ -68576,11 +66435,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Intimidate",
-            "Sand Rush",
-            "Scrappy"
-        ],
+        "abilities": [{"name":"Intimidate","hidden":false},{"name":"Sand Rush","hidden":false},{"name":"Scrappy","hidden":false}],
         "moves": [
             "Tackle",
             "Leer",
@@ -68660,11 +66515,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Intimidate",
-            "Sand Rush",
-            "Scrappy"
-        ],
+        "abilities": [{"name":"Intimidate","hidden":false},{"name":"Sand Rush","hidden":false},{"name":"Scrappy","hidden":false}],
         "moves": [
             "Tackle",
             "Leer",
@@ -68747,11 +66598,7 @@ const pokemonData = [
         "type": [
             "Dark"
         ],
-        "abilities": [
-            "Limber",
-            "Unburden",
-            "Prankster"
-        ],
+        "abilities": [{"name":"Limber","hidden":false},{"name":"Unburden","hidden":false},{"name":"Prankster","hidden":false}],
         "moves": [
             "Scratch",
             "Growl",
@@ -68844,11 +66691,7 @@ const pokemonData = [
         "type": [
             "Dark"
         ],
-        "abilities": [
-            "Limber",
-            "Unburden",
-            "Prankster"
-        ],
+        "abilities": [{"name":"Limber","hidden":false},{"name":"Unburden","hidden":false},{"name":"Prankster","hidden":false}],
         "moves": [
             "Scratch",
             "Sand-Attack",
@@ -68945,10 +66788,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Gluttony",
-            "Overgrow"
-        ],
+        "abilities": [{"name":"Gluttony","hidden":false},{"name":"Overgrow","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -69037,10 +66877,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Gluttony",
-            "Overgrow"
-        ],
+        "abilities": [{"name":"Gluttony","hidden":false},{"name":"Overgrow","hidden":false}],
         "moves": [
             "Leer",
             "Lick",
@@ -69135,10 +66972,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Gluttony",
-            "Blaze"
-        ],
+        "abilities": [{"name":"Gluttony","hidden":false},{"name":"Blaze","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -69229,10 +67063,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Gluttony",
-            "Blaze"
-        ],
+        "abilities": [{"name":"Gluttony","hidden":false},{"name":"Blaze","hidden":false}],
         "moves": [
             "Leer",
             "Lick",
@@ -69328,10 +67159,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Gluttony",
-            "Torrent"
-        ],
+        "abilities": [{"name":"Gluttony","hidden":false},{"name":"Torrent","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -69423,10 +67251,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Gluttony",
-            "Torrent"
-        ],
+        "abilities": [{"name":"Gluttony","hidden":false},{"name":"Torrent","hidden":false}],
         "moves": [
             "Leer",
             "Lick",
@@ -69525,11 +67350,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Forewarn",
-            "Synchronize",
-            "Telepathy"
-        ],
+        "abilities": [{"name":"Forewarn","hidden":false},{"name":"Synchronize","hidden":false},{"name":"Telepathy","hidden":false}],
         "moves": [
             "Defense Curl",
             "Psywave",
@@ -69622,11 +67443,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Forewarn",
-            "Synchronize",
-            "Telepathy"
-        ],
+        "abilities": [{"name":"Forewarn","hidden":false},{"name":"Synchronize","hidden":false},{"name":"Telepathy","hidden":false}],
         "moves": [
             "Psybeam",
             "Psychic",
@@ -69721,11 +67538,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Big Pecks",
-            "Super Luck",
-            "Rivalry"
-        ],
+        "abilities": [{"name":"Big Pecks","hidden":false},{"name":"Super Luck","hidden":false},{"name":"Rivalry","hidden":false}],
         "moves": [
             "Gust",
             "Growl",
@@ -69799,11 +67612,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Big Pecks",
-            "Super Luck",
-            "Rivalry"
-        ],
+        "abilities": [{"name":"Big Pecks","hidden":false},{"name":"Super Luck","hidden":false},{"name":"Rivalry","hidden":false}],
         "moves": [
             "Gust",
             "Leer",
@@ -69877,11 +67686,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Big Pecks",
-            "Super Luck",
-            "Rivalry"
-        ],
+        "abilities": [{"name":"Big Pecks","hidden":false},{"name":"Super Luck","hidden":false},{"name":"Rivalry","hidden":false}],
         "moves": [
             "Gust",
             "Leer",
@@ -69959,11 +67764,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Lightning Rod",
-            "Motor Drive",
-            "Sap Sipper"
-        ],
+        "abilities": [{"name":"Lightning Rod","hidden":false},{"name":"Motor Drive","hidden":false},{"name":"Sap Sipper","hidden":false}],
         "moves": [
             "Quick Attack",
             "Tail Whip",
@@ -70034,11 +67835,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Lightning Rod",
-            "Motor Drive",
-            "Sap Sipper"
-        ],
+        "abilities": [{"name":"Lightning Rod","hidden":false},{"name":"Motor Drive","hidden":false},{"name":"Sap Sipper","hidden":false}],
         "moves": [
             "Tail Whip",
             "Thunder Wave",
@@ -70113,11 +67910,7 @@ const pokemonData = [
         "type": [
             "Rock"
         ],
-        "abilities": [
-            "Sturdy",
-            "Weak Armor",
-            "Sand Force"
-        ],
+        "abilities": [{"name":"Sturdy","hidden":false},{"name":"Weak Armor","hidden":false},{"name":"Sand Force","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Tackle",
@@ -70187,11 +67980,7 @@ const pokemonData = [
         "type": [
             "Rock"
         ],
-        "abilities": [
-            "Sturdy",
-            "Weak Armor",
-            "Sand Force"
-        ],
+        "abilities": [{"name":"Sturdy","hidden":false},{"name":"Weak Armor","hidden":false},{"name":"Sand Force","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Headbutt",
@@ -70262,11 +68051,7 @@ const pokemonData = [
         "type": [
             "Rock"
         ],
-        "abilities": [
-            "Sturdy",
-            "Sand Stream",
-            "Sand Force"
-        ],
+        "abilities": [{"name":"Sturdy","hidden":false},{"name":"Sand Stream","hidden":false},{"name":"Sand Force","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Headbutt",
@@ -70345,11 +68130,7 @@ const pokemonData = [
             "Psychic",
             "Flying"
         ],
-        "abilities": [
-            "Unaware",
-            "Klutz",
-            "Simple"
-        ],
+        "abilities": [{"name":"Unaware","hidden":false},{"name":"Klutz","hidden":false},{"name":"Simple","hidden":false}],
         "moves": [
             "Gust",
             "Confusion",
@@ -70456,11 +68237,7 @@ const pokemonData = [
             "Psychic",
             "Flying"
         ],
-        "abilities": [
-            "Unaware",
-            "Klutz",
-            "Simple"
-        ],
+        "abilities": [{"name":"Unaware","hidden":false},{"name":"Klutz","hidden":false},{"name":"Simple","hidden":false}],
         "moves": [
             "Gust",
             "Confusion",
@@ -70569,11 +68346,7 @@ const pokemonData = [
         "type": [
             "Ground"
         ],
-        "abilities": [
-            "Sand Rush",
-            "Sand Force",
-            "Mold Breaker"
-        ],
+        "abilities": [{"name":"Sand Rush","hidden":false},{"name":"Sand Force","hidden":false},{"name":"Mold Breaker","hidden":false}],
         "moves": [
             "Scratch",
             "Mud-Slap",
@@ -70650,11 +68423,7 @@ const pokemonData = [
             "Ground",
             "Steel"
         ],
-        "abilities": [
-            "Sand Rush",
-            "Sand Force",
-            "Mold Breaker"
-        ],
+        "abilities": [{"name":"Sand Rush","hidden":false},{"name":"Sand Force","hidden":false},{"name":"Mold Breaker","hidden":true}],
         "moves": [
             "Scratch",
             "Horn Drill",
@@ -70738,11 +68507,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Healer",
-            "Regenerator",
-            "Klutz"
-        ],
+        "abilities": [{"name":"Healer","hidden":false},{"name":"Regenerator","hidden":false},{"name":"Klutz","hidden":false}],
         "moves": [
             "Pound",
             "Growl",
@@ -70856,9 +68621,7 @@ const pokemonData = [
     //         "Normal",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Healer"
-    //     ],
+    //     "abilities": [{"name":"//         Healer\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Double Slap",
@@ -70981,11 +68744,7 @@ const pokemonData = [
         "type": [
             "Fighting"
         ],
-        "abilities": [
-            "Guts",
-            "Sheer Force",
-            "Iron Fist"
-        ],
+        "abilities": [{"name":"Guts","hidden":false},{"name":"Sheer Force","hidden":false},{"name":"Iron Fist","hidden":false}],
         "moves": [
             "Pound",
             "Leer",
@@ -71077,11 +68836,7 @@ const pokemonData = [
         "type": [
             "Fighting"
         ],
-        "abilities": [
-            "Guts",
-            "Sheer Force",
-            "Iron Fist"
-        ],
+        "abilities": [{"name":"Guts","hidden":false},{"name":"Sheer Force","hidden":false},{"name":"Iron Fist","hidden":false}],
         "moves": [
             "Pound",
             "Leer",
@@ -71175,11 +68930,7 @@ const pokemonData = [
         "type": [
             "Fighting"
         ],
-        "abilities": [
-            "Guts",
-            "Sheer Force",
-            "Iron Fist"
-        ],
+        "abilities": [{"name":"Guts","hidden":false},{"name":"Sheer Force","hidden":false},{"name":"Iron Fist","hidden":false}],
         "moves": [
             "Pound",
             "Leer",
@@ -71277,11 +69028,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Hydration",
-            "Water Absorb"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Hydration","hidden":false},{"name":"Water Absorb","hidden":false}],
         "moves": [
             "Growl",
             "Bubble",
@@ -71352,11 +69099,7 @@ const pokemonData = [
             "Water",
             "Ground"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Hydration",
-            "Water Absorb"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Hydration","hidden":false},{"name":"Water Absorb","hidden":false}],
         "moves": [
             "Growl",
             "Supersonic",
@@ -71433,11 +69176,7 @@ const pokemonData = [
             "Water",
             "Ground"
         ],
-        "abilities": [
-            "Swift Swim",
-            "Poison Touch",
-            "Water Absorb"
-        ],
+        "abilities": [{"name":"Swift Swim","hidden":false},{"name":"Poison Touch","hidden":false},{"name":"Water Absorb","hidden":false}],
         "moves": [
             "Growl",
             "Supersonic",
@@ -71534,11 +69273,7 @@ const pokemonData = [
         "type": [
             "Fighting"
         ],
-        "abilities": [
-            "Guts",
-            "Inner Focus",
-            "Mold Breaker"
-        ],
+        "abilities": [{"name":"Guts","hidden":false},{"name":"Inner Focus","hidden":false},{"name":"Mold Breaker","hidden":false}],
         "moves": [
             "Bind",
             "Leer",
@@ -71623,11 +69358,7 @@ const pokemonData = [
         "type": [
             "Fighting"
         ],
-        "abilities": [
-            "Sturdy",
-            "Inner Focus",
-            "Mold Breaker"
-        ],
+        "abilities": [{"name":"Sturdy","hidden":false},{"name":"Inner Focus","hidden":false},{"name":"Mold Breaker","hidden":false}],
         "moves": [
             "Leer",
             "Focus Energy",
@@ -71712,11 +69443,7 @@ const pokemonData = [
             "Bug",
             "Grass"
         ],
-        "abilities": [
-            "Swarm",
-            "Chlorophyll",
-            "Overcoat"
-        ],
+        "abilities": [{"name":"Swarm","hidden":false},{"name":"Chlorophyll","hidden":false},{"name":"Overcoat","hidden":false}],
         "moves": [
             "Tackle",
             "String Shot",
@@ -71791,11 +69518,7 @@ const pokemonData = [
             "Bug",
             "Grass"
         ],
-        "abilities": [
-            "Leaf Guard",
-            "Chlorophyll",
-            "Overcoat"
-        ],
+        "abilities": [{"name":"Leaf Guard","hidden":false},{"name":"Chlorophyll","hidden":false},{"name":"Overcoat","hidden":false}],
         "moves": [
             "Tackle",
             "Razor Leaf",
@@ -71871,11 +69594,7 @@ const pokemonData = [
             "Bug",
             "Grass"
         ],
-        "abilities": [
-            "Swarm",
-            "Chlorophyll",
-            "Overcoat"
-        ],
+        "abilities": [{"name":"Swarm","hidden":false},{"name":"Chlorophyll","hidden":false},{"name":"Overcoat","hidden":false}],
         "moves": [
             "Tackle",
             "Razor Leaf",
@@ -71970,11 +69689,7 @@ const pokemonData = [
             "Bug",
             "Poison"
         ],
-        "abilities": [
-            "Poison Point",
-            "Swarm",
-            "Speed Boost"
-        ],
+        "abilities": [{"name":"Poison Point","hidden":false},{"name":"Swarm","hidden":false},{"name":"Speed Boost","hidden":false}],
         "moves": [
             "Poison Sting",
             "Defense Curl",
@@ -72044,11 +69759,7 @@ const pokemonData = [
             "Bug",
             "Poison"
         ],
-        "abilities": [
-            "Poison Point",
-            "Swarm",
-            "Speed Boost"
-        ],
+        "abilities": [{"name":"Poison Point","hidden":false},{"name":"Swarm","hidden":false},{"name":"Speed Boost","hidden":false}],
         "moves": [
             "Poison Sting",
             "Screech",
@@ -72120,11 +69831,7 @@ const pokemonData = [
             "Bug",
             "Poison"
         ],
-        "abilities": [
-            "Poison Point",
-            "Swarm",
-            "Speed Boost"
-        ],
+        "abilities": [{"name":"Poison Point","hidden":false},{"name":"Swarm","hidden":false},{"name":"Speed Boost","hidden":false}],
         "moves": [
             "Poison Sting",
             "Screech",
@@ -72216,11 +69923,7 @@ const pokemonData = [
             "Grass"
             // "Fairy"
         ],
-        "abilities": [
-            "Prankster",
-            "Infiltrator",
-            "Chlorophyll"
-        ],
+        "abilities": [{"name":"Prankster","hidden":false},{"name":"Infiltrator","hidden":false},{"name":"Chlorophyll","hidden":false}],
         "moves": [
             "Absorb",
             "Helping Hand",
@@ -72297,11 +70000,7 @@ const pokemonData = [
             "Grass"
             // "Fairy"
         ],
-        "abilities": [
-            "Prankster",
-            "Infiltrator",
-            "Chlorophyll"
-        ],
+        "abilities": [{"name":"Prankster","hidden":false},{"name":"Infiltrator","hidden":false},{"name":"Chlorophyll","hidden":false}],
         "moves": [
             "Gust",
             "Absorb",
@@ -72389,11 +70088,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Own Tempo",
-            "Leaf Guard"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Own Tempo","hidden":false},{"name":"Leaf Guard","hidden":false}],
         "moves": [
             "Absorb",
             "Growth",
@@ -72470,11 +70165,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Own Tempo",
-            "Leaf Guard"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Own Tempo","hidden":false},{"name":"Leaf Guard","hidden":false}],
         "moves": [
             "Absorb",
             "Growth",
@@ -72560,11 +70251,7 @@ const pokemonData = [
     //         "Grass",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Chlorophyll",
-    //         "Hustle",
-    //         "Leaf Guard"
-    //     ],
+    //     "abilities": [{"name":"//         Chlorophyll","hidden":false},{"name":"//         Hustle","hidden":false},{"name":"//         Leaf Guard\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Mega Kick",
@@ -72640,11 +70327,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Reckless",
-            "Adaptability",
-            "Mold Breaker"
-        ],
+        "abilities": [{"name":"Reckless","hidden":false},{"name":"Adaptability","hidden":false},{"name":"Mold Breaker","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -72731,11 +70414,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Rock Head",
-            "Adaptability",
-            "Mold Breaker"
-        ],
+        "abilities": [{"name":"Rock Head","hidden":false},{"name":"Adaptability","hidden":false},{"name":"Mold Breaker","hidden":false}],
         "moves": [
             "Tackle",
             "Tail Whip",
@@ -72821,11 +70500,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Rattled",
-    //         "Adaptability",
-    //         "Mold Breaker"
-    //     ],
+    //     "abilities": [{"name":"//         Rattled","hidden":false},{"name":"//         Adaptability","hidden":false},{"name":"//         Mold Breaker\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -72890,11 +70565,7 @@ const pokemonData = [
             "Ground",
             "Dark"
         ],
-        "abilities": [
-            "Intimidate",
-            "Moxie",
-            "Anger Point"
-        ],
+        "abilities": [{"name":"Intimidate","hidden":false},{"name":"Moxie","hidden":false},{"name":"Anger Point","hidden":false}],
         "moves": [
             "Leer",
             "Rage",
@@ -72990,11 +70661,7 @@ const pokemonData = [
             "Ground",
             "Dark"
         ],
-        "abilities": [
-            "Intimidate",
-            "Moxie",
-            "Anger Point"
-        ],
+        "abilities": [{"name":"Intimidate","hidden":false},{"name":"Moxie","hidden":false},{"name":"Anger Point","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Leer",
@@ -73101,11 +70768,7 @@ const pokemonData = [
             "Ground",
             "Dark"
         ],
-        "abilities": [
-            "Intimidate",
-            "Moxie",
-            "Anger Point"
-        ],
+        "abilities": [{"name":"Intimidate","hidden":false},{"name":"Moxie","hidden":false},{"name":"Anger Point","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Leer",
@@ -73222,10 +70885,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Hustle",
-            "Inner Focus"
-        ],
+        "abilities": [{"name":"Hustle","hidden":false},{"name":"Inner Focus","hidden":false}],
         "moves": [
             "Tackle",
             "Ember",
@@ -73313,10 +70973,7 @@ const pokemonData = [
     //     "type": [
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Hustle",
-    //         "Inner Focus"
-    //     ],
+    //     "abilities": [{"name":"//         Hustle","hidden":false},{"name":"//         Inner Focus\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -73395,10 +71052,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Sheer Force",
-            "Zen Mode"
-        ],
+        "abilities": [{"name":"Sheer Force","hidden":false},{"name":"Zen Mode","hidden":false}],
         "moves": [
             "Tackle",
             "Bite",
@@ -73507,10 +71161,7 @@ const pokemonData = [
     //         "Fire",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Sheer Force",
-    //         "Zen Mode"
-    //     ],
+    //     "abilities": [{"name":"//         Sheer Force","hidden":false},{"name":"//         Zen Mode\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -73621,10 +71272,7 @@ const pokemonData = [
     //     "type": [
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Gorilla Tactics",
-    //         "Zen Mode"
-    //     ],
+    //     "abilities": [{"name":"//         Gorilla Tactics","hidden":false},{"name":"//         Zen Mode\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -73713,10 +71361,7 @@ const pokemonData = [
     //         "Ice",
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Gorilla Tactics",
-    //         "Zen Mode"
-    //     ],
+    //     "abilities": [{"name":"//         Gorilla Tactics","hidden":false},{"name":"//         Zen Mode\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -73804,11 +71449,7 @@ const pokemonData = [
         "type": [
             "Grass"
         ],
-        "abilities": [
-            "Water Absorb",
-            "Chlorophyll",
-            "Storm Drain"
-        ],
+        "abilities": [{"name":"Water Absorb","hidden":false},{"name":"Chlorophyll","hidden":false},{"name":"Storm Drain","hidden":false}],
         "moves": [
             "Peck",
             "Absorb",
@@ -73890,11 +71531,7 @@ const pokemonData = [
             "Bug",
             "Rock"
         ],
-        "abilities": [
-            "Sturdy",
-            "Shell Armor",
-            "Weak Armor"
-        ],
+        "abilities": [{"name":"Sturdy","hidden":false},{"name":"Shell Armor","hidden":false},{"name":"Weak Armor","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Fury Cutter",
@@ -73974,11 +71611,7 @@ const pokemonData = [
             "Bug",
             "Rock"
         ],
-        "abilities": [
-            "Sturdy",
-            "Shell Armor",
-            "Weak Armor"
-        ],
+        "abilities": [{"name":"Sturdy","hidden":false},{"name":"Shell Armor","hidden":false},{"name":"Weak Armor","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Withdraw",
@@ -74061,11 +71694,7 @@ const pokemonData = [
             "Dark",
             "Fighting"
         ],
-        "abilities": [
-            "Shed Skin",
-            "Moxie",
-            "Intimidate"
-        ],
+        "abilities": [{"name":"Shed Skin","hidden":false},{"name":"Moxie","hidden":false},{"name":"Intimidate","hidden":false}],
         "moves": [
             "Headbutt",
             "Leer",
@@ -74173,11 +71802,7 @@ const pokemonData = [
             "Dark",
             "Fighting"
         ],
-        "abilities": [
-            "Shed Skin",
-            "Moxie",
-            "Intimidate"
-        ],
+        "abilities": [{"name":"Shed Skin","hidden":false},{"name":"Moxie","hidden":false},{"name":"Intimidate","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Headbutt",
@@ -74294,11 +71919,7 @@ const pokemonData = [
             "Psychic",
             "Flying"
         ],
-        "abilities": [
-            "Wonder Skin",
-            "Magic Guard",
-            "Tinted Lens"
-        ],
+        "abilities": [{"name":"Wonder Skin","hidden":false},{"name":"Magic Guard","hidden":false},{"name":"Tinted Lens","hidden":false}],
         "moves": [
             "Gust",
             "Confusion",
@@ -74398,9 +72019,7 @@ const pokemonData = [
         "type": [
             "Ghost"
         ],
-        "abilities": [
-            "Mummy"
-        ],
+        "abilities": [{"name":"Mummy","hidden":false}],
         "moves": [
             "Protect",
             "Astonish",
@@ -74489,9 +72108,7 @@ const pokemonData = [
     //         "Ground",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Wandering Spirit"
-    //     ],
+    //     "abilities": [{"name":"//         Wandering Spirit\r\n    //","hidden":false}],
     //     "moves": [
     //         "Slam",
     //         "Disable",
@@ -74563,9 +72180,7 @@ const pokemonData = [
         "type": [
             "Ghost"
         ],
-        "abilities": [
-            "Mummy"
-        ],
+        "abilities": [{"name":"Mummy","hidden":false}],
         "moves": [
             "Disable",
             "Night Shade",
@@ -74662,11 +72277,7 @@ const pokemonData = [
             "Water",
             "Rock"
         ],
-        "abilities": [
-            "Solid Rock",
-            "Sturdy",
-            "Swift Swim"
-        ],
+        "abilities": [{"name":"Solid Rock","hidden":false},{"name":"Sturdy","hidden":false},{"name":"Swift Swim","hidden":false}],
         "moves": [
             "Water Gun",
             "Withdraw",
@@ -74751,11 +72362,7 @@ const pokemonData = [
             "Water",
             "Rock"
         ],
-        "abilities": [
-            "Solid Rock",
-            "Sturdy",
-            "Swift Swim"
-        ],
+        "abilities": [{"name":"Solid Rock","hidden":false},{"name":"Sturdy","hidden":false},{"name":"Swift Swim","hidden":false}],
         "moves": [
             "Water Gun",
             "Withdraw",
@@ -74846,9 +72453,7 @@ const pokemonData = [
             "Rock",
             "Flying"
         ],
-        "abilities": [
-            "Defeatist"
-        ],
+        "abilities": [{"name":"Defeatist","hidden":false}],
         "moves": [
             "Wing Attack",
             "Leer",
@@ -74938,9 +72543,7 @@ const pokemonData = [
             "Rock",
             "Flying"
         ],
-        "abilities": [
-            "Defeatist"
-        ],
+        "abilities": [{"name":"Defeatist","hidden":false}],
         "moves": [
             "Wing Attack",
             "Leer",
@@ -75036,11 +72639,7 @@ const pokemonData = [
         "type": [
             "Poison"
         ],
-        "abilities": [
-            "Stench",
-            "Sticky Hold",
-            "Aftermath"
-        ],
+        "abilities": [{"name":"Stench","hidden":false},{"name":"Sticky Hold","hidden":false},{"name":"Aftermath","hidden":false}],
         "moves": [
             "Pound",
             "Poison Gas",
@@ -75115,11 +72714,7 @@ const pokemonData = [
         "type": [
             "Poison"
         ],
-        "abilities": [
-            "Stench",
-            "Weak Armor",
-            "Aftermath"
-        ],
+        "abilities": [{"name":"Stench","hidden":false},{"name":"Weak Armor","hidden":false},{"name":"Aftermath","hidden":false}],
         "moves": [
             "Pound",
             "Take Down",
@@ -75206,11 +72801,7 @@ const pokemonData = [
     //     "type": [
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Stench",
-    //         "Weak Armor",
-    //         "Aftermath"
-    //     ],
+    //     "abilities": [{"name":"//         Stench","hidden":false},{"name":"//         Weak Armor","hidden":false},{"name":"//         Aftermath\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 80,
@@ -75231,9 +72822,7 @@ const pokemonData = [
         "type": [
             "Dark"
         ],
-        "abilities": [
-            "Illusion"
-        ],
+        "abilities": [{"name":"Illusion","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -75334,9 +72923,7 @@ const pokemonData = [
     //         "Normal",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Illusion"
-    //     ],
+    //     "abilities": [{"name":"//         Illusion\r\n    //","hidden":false}],
     //     "moves": [
     //         "Scratch",
     //         "Take Down",
@@ -75407,9 +72994,7 @@ const pokemonData = [
         "type": [
             "Dark"
         ],
-        "abilities": [
-            "Illusion"
-        ],
+        "abilities": [{"name":"Illusion","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -75523,9 +73108,7 @@ const pokemonData = [
     //         "Normal",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Illusion"
-    //     ],
+    //     "abilities": [{"name":"//         Illusion\r\n    //","hidden":false}],
     //     "moves": [
     //         "Scratch",
     //         "Swords Dance",
@@ -75606,11 +73189,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Cute Charm",
-            "Technician",
-            "Skill Link"
-        ],
+        "abilities": [{"name":"Cute Charm","hidden":false},{"name":"Technician","hidden":false},{"name":"Skill Link","hidden":false}],
         "moves": [
             "Pound",
             "Growl",
@@ -75690,11 +73269,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Cute Charm",
-            "Technician",
-            "Skill Link"
-        ],
+        "abilities": [{"name":"Cute Charm","hidden":false},{"name":"Technician","hidden":false},{"name":"Skill Link","hidden":false}],
         "moves": [
             "Pound",
             "Slam",
@@ -75782,11 +73357,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Frisk",
-            "Competitive",
-            "Shadow Tag"
-        ],
+        "abilities": [{"name":"Frisk","hidden":false},{"name":"Competitive","hidden":false},{"name":"Shadow Tag","hidden":false}],
         "moves": [
             "Pound",
             "Confusion",
@@ -75889,11 +73460,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Frisk",
-            "Competitive",
-            "Shadow Tag"
-        ],
+        "abilities": [{"name":"Frisk","hidden":false},{"name":"Competitive","hidden":false},{"name":"Shadow Tag","hidden":false}],
         "moves": [
             "Pound",
             "Confusion",
@@ -75997,11 +73564,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Frisk",
-            "Competitive",
-            "Shadow Tag"
-        ],
+        "abilities": [{"name":"Frisk","hidden":false},{"name":"Competitive","hidden":false},{"name":"Shadow Tag","hidden":false}],
         "moves": [
             "Pound",
             "Confusion",
@@ -76112,11 +73675,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Overcoat",
-            "Magic Guard",
-            "Regenerator"
-        ],
+        "abilities": [{"name":"Overcoat","hidden":false},{"name":"Magic Guard","hidden":false},{"name":"Regenerator","hidden":false}],
         "moves": [
             "Confusion",
             "Psywave",
@@ -76208,11 +73767,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Overcoat",
-            "Magic Guard",
-            "Regenerator"
-        ],
+        "abilities": [{"name":"Overcoat","hidden":false},{"name":"Magic Guard","hidden":false},{"name":"Regenerator","hidden":false}],
         "moves": [
             "Confusion",
             "Recover",
@@ -76305,11 +73860,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Overcoat",
-            "Magic Guard",
-            "Regenerator"
-        ],
+        "abilities": [{"name":"Overcoat","hidden":false},{"name":"Magic Guard","hidden":false},{"name":"Regenerator","hidden":false}],
         "moves": [
             "Confusion",
             "Recover",
@@ -76420,11 +73971,7 @@ const pokemonData = [
             "Water",
             "Flying"
         ],
-        "abilities": [
-            "Keen Eye",
-            "Big Pecks",
-            "Hydration"
-        ],
+        "abilities": [{"name":"Keen Eye","hidden":false},{"name":"Big Pecks","hidden":false},{"name":"Hydration","hidden":false}],
         "moves": [
             "Water Gun",
             "Water Sport",
@@ -76495,11 +74042,7 @@ const pokemonData = [
             "Water",
             "Flying"
         ],
-        "abilities": [
-            "Keen Eye",
-            "Big Pecks",
-            "Hydration"
-        ],
+        "abilities": [{"name":"Keen Eye","hidden":false},{"name":"Big Pecks","hidden":false},{"name":"Hydration","hidden":false}],
         "moves": [
             "Wing Attack",
             "Water Gun",
@@ -76572,11 +74115,7 @@ const pokemonData = [
         "type": [
             "Ice"
         ],
-        "abilities": [
-            "Ice Body",
-            "Snow Cloak",
-            "Weak Armor"
-        ],
+        "abilities": [{"name":"Ice Body","hidden":false},{"name":"Snow Cloak","hidden":false},{"name":"Weak Armor","hidden":false}],
         "moves": [
             "Harden",
             "Astonish",
@@ -76648,11 +74187,7 @@ const pokemonData = [
         "type": [
             "Ice"
         ],
-        "abilities": [
-            "Ice Body",
-            "Snow Cloak",
-            "Weak Armor"
-        ],
+        "abilities": [{"name":"Ice Body","hidden":false},{"name":"Snow Cloak","hidden":false},{"name":"Weak Armor","hidden":false}],
         "moves": [
             "Mist",
             "Harden",
@@ -76724,11 +74259,7 @@ const pokemonData = [
         "type": [
             "Ice"
         ],
-        "abilities": [
-            "Ice Body",
-            "Snow Warning",
-            "Weak Armor"
-        ],
+        "abilities": [{"name":"Ice Body","hidden":false},{"name":"Snow Warning","hidden":false},{"name":"Weak Armor","hidden":false}],
         "moves": [
             "Mist",
             "Harden",
@@ -76807,11 +74338,7 @@ const pokemonData = [
             "Normal",
             "Grass"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Sap Sipper",
-            "Serene Grace"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Sap Sipper","hidden":false},{"name":"Serene Grace","hidden":false}],
         "moves": [
             "Tackle",
             "Camouflage",
@@ -76898,11 +74425,7 @@ const pokemonData = [
             "Normal",
             "Grass"
         ],
-        "abilities": [
-            "Chlorophyll",
-            "Sap Sipper",
-            "Serene Grace"
-        ],
+        "abilities": [{"name":"Chlorophyll","hidden":false},{"name":"Sap Sipper","hidden":false},{"name":"Serene Grace","hidden":false}],
         "moves": [
             "Sand-Attack",
             "Tackle",
@@ -76997,10 +74520,7 @@ const pokemonData = [
             "Electric",
             "Flying"
         ],
-        "abilities": [
-            "Static",
-            "Motor Drive"
-        ],
+        "abilities": [{"name":"Static","hidden":false},{"name":"Motor Drive","hidden":false}],
         "moves": [
             "Tail Whip",
             "Thunder Shock",
@@ -77082,11 +74602,7 @@ const pokemonData = [
         "type": [
             "Bug"
         ],
-        "abilities": [
-            "Swarm",
-            "Shed Skin",
-            "No Guard"
-        ],
+        "abilities": [{"name":"Swarm","hidden":false},{"name":"Shed Skin","hidden":false},{"name":"No Guard","hidden":false}],
         "moves": [
             "Leer",
             "Peck",
@@ -77161,11 +74677,7 @@ const pokemonData = [
             "Bug",
             "Steel"
         ],
-        "abilities": [
-            "Swarm",
-            "Shell Armor",
-            "Overcoat"
-        ],
+        "abilities": [{"name":"Swarm","hidden":false},{"name":"Shell Armor","hidden":false},{"name":"Overcoat","hidden":false}],
         "moves": [
             "Take Down",
             "Double-Edge",
@@ -77254,10 +74766,7 @@ const pokemonData = [
             "Grass",
             "Poison"
         ],
-        "abilities": [
-            "Effect Spore",
-            "Regenerator"
-        ],
+        "abilities": [{"name":"Effect Spore","hidden":false},{"name":"Regenerator","hidden":false}],
         "moves": [
             "Absorb",
             "Astonish",
@@ -77331,10 +74840,7 @@ const pokemonData = [
             "Grass",
             "Poison"
         ],
-        "abilities": [
-            "Effect Spore",
-            "Regenerator"
-        ],
+        "abilities": [{"name":"Effect Spore","hidden":false},{"name":"Regenerator","hidden":false}],
         "moves": [
             "Absorb",
             "Growth",
@@ -77412,11 +74918,7 @@ const pokemonData = [
             "Water",
             "Ghost"
         ],
-        "abilities": [
-            "Water Absorb",
-            "Cursed Body",
-            "Damp"
-        ],
+        "abilities": [{"name":"Water Absorb","hidden":false},{"name":"Cursed Body","hidden":false},{"name":"Damp","hidden":false}],
         "moves": [
             "Water Gun",
             "Absorb",
@@ -77507,11 +75009,7 @@ const pokemonData = [
             "Water",
             "Ghost"
         ],
-        "abilities": [
-            "Water Absorb",
-            "Cursed Body",
-            "Damp"
-        ],
+        "abilities": [{"name":"Water Absorb","hidden":false},{"name":"Cursed Body","hidden":false},{"name":"Damp","hidden":false}],
         "moves": [
             "Poison Sting",
             "Water Gun",
@@ -77605,11 +75103,7 @@ const pokemonData = [
         "type": [
             "Water"
         ],
-        "abilities": [
-            "Healer",
-            "Hydration",
-            "Regenerator"
-        ],
+        "abilities": [{"name":"Healer","hidden":false},{"name":"Hydration","hidden":false},{"name":"Regenerator","hidden":false}],
         "moves": [
             "Pound",
             "Hydro Pump",
@@ -77695,11 +75189,7 @@ const pokemonData = [
             "Bug",
             "Electric"
         ],
-        "abilities": [
-            "Compound Eyes",
-            "Unnerve",
-            "Swarm"
-        ],
+        "abilities": [{"name":"Compound Eyes","hidden":false},{"name":"Unnerve","hidden":false},{"name":"Swarm","hidden":false}],
         "moves": [
             "Absorb",
             "String Shot",
@@ -77781,11 +75271,7 @@ const pokemonData = [
             "Bug",
             "Electric"
         ],
-        "abilities": [
-            "Compound Eyes",
-            "Unnerve",
-            "Swarm"
-        ],
+        "abilities": [{"name":"Compound Eyes","hidden":false},{"name":"Unnerve","hidden":false},{"name":"Swarm","hidden":false}],
         "moves": [
             "Absorb",
             "String Shot",
@@ -77870,9 +75356,7 @@ const pokemonData = [
             "Grass",
             "Steel"
         ],
-        "abilities": [
-            "Iron Barbs"
-        ],
+        "abilities": [{"name":"Iron Barbs","hidden":false}],
         "moves": [
             "Tackle",
             "Harden",
@@ -77952,10 +75436,7 @@ const pokemonData = [
             "Grass",
             "Steel"
         ],
-        "abilities": [
-            "Iron Barbs",
-            "Anticipation"
-        ],
+        "abilities": [{"name":"Iron Barbs","hidden":false},{"name":"Anticipation","hidden":false}],
         "moves": [
             "Tackle",
             "Pin Missile",
@@ -78048,11 +75529,7 @@ const pokemonData = [
         "type": [
             "Steel"
         ],
-        "abilities": [
-            "Plus",
-            "Minus",
-            "Clear Body"
-        ],
+        "abilities": [{"name":"Plus","hidden":false},{"name":"Minus","hidden":false},{"name":"Clear Body","hidden":false}],
         "moves": [
             "Vice Grip",
             "Thunder Shock",
@@ -78122,11 +75599,7 @@ const pokemonData = [
         "type": [
             "Steel"
         ],
-        "abilities": [
-            "Plus",
-            "Minus",
-            "Clear Body"
-        ],
+        "abilities": [{"name":"Plus","hidden":false},{"name":"Minus","hidden":false},{"name":"Clear Body","hidden":false}],
         "moves": [
             "Vice Grip",
             "Bind",
@@ -78197,11 +75670,7 @@ const pokemonData = [
         "type": [
             "Steel"
         ],
-        "abilities": [
-            "Plus",
-            "Minus",
-            "Clear Body"
-        ],
+        "abilities": [{"name":"Plus","hidden":false},{"name":"Minus","hidden":false},{"name":"Clear Body","hidden":false}],
         "moves": [
             "Vice Grip",
             "Bind",
@@ -78275,9 +75744,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Tackle",
             "Thunder Wave",
@@ -78304,9 +75771,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Headbutt",
             "Thunder Wave",
@@ -78382,9 +75847,7 @@ const pokemonData = [
         "type": [
             "Electric"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Headbutt",
             "Thrash",
@@ -78491,11 +75954,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Telepathy",
-            "Synchronize",
-            "Analytic"
-        ],
+        "abilities": [{"name":"Telepathy","hidden":false},{"name":"Synchronize","hidden":false},{"name":"Analytic","hidden":false}],
         "moves": [
             "Growl",
             "Confusion",
@@ -78596,11 +76055,7 @@ const pokemonData = [
         "type": [
             "Psychic"
         ],
-        "abilities": [
-            "Telepathy",
-            "Synchronize",
-            "Analytic"
-        ],
+        "abilities": [{"name":"Telepathy","hidden":false},{"name":"Synchronize","hidden":false},{"name":"Analytic","hidden":false}],
         "moves": [
             "Growl",
             "Confusion",
@@ -78707,11 +76162,7 @@ const pokemonData = [
             "Ghost",
             "Fire"
         ],
-        "abilities": [
-            "Flash Fire",
-            "Flame Body",
-            "Infiltrator"
-        ],
+        "abilities": [{"name":"Flash Fire","hidden":false},{"name":"Flame Body","hidden":false},{"name":"Infiltrator","hidden":false}],
         "moves": [
             "Ember",
             "Smog",
@@ -78798,11 +76249,7 @@ const pokemonData = [
             "Ghost",
             "Fire"
         ],
-        "abilities": [
-            "Flash Fire",
-            "Flame Body",
-            "Infiltrator"
-        ],
+        "abilities": [{"name":"Flash Fire","hidden":false},{"name":"Flame Body","hidden":false},{"name":"Infiltrator","hidden":false}],
         "moves": [
             "Ember",
             "Minimize",
@@ -78889,11 +76336,7 @@ const pokemonData = [
             "Ghost",
             "Fire"
         ],
-        "abilities": [
-            "Flash Fire",
-            "Flame Body",
-            "Infiltrator"
-        ],
+        "abilities": [{"name":"Flash Fire","hidden":false},{"name":"Flame Body","hidden":false},{"name":"Infiltrator","hidden":false}],
         "moves": [
             "Ember",
             "Fire Spin",
@@ -78981,11 +76424,7 @@ const pokemonData = [
         "type": [
             "Dragon"
         ],
-        "abilities": [
-            "Rivalry",
-            "Mold Breaker",
-            "Unnerve"
-        ],
+        "abilities": [{"name":"Rivalry","hidden":false},{"name":"Mold Breaker","hidden":false},{"name":"Unnerve","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -79077,11 +76516,7 @@ const pokemonData = [
         "type": [
             "Dragon"
         ],
-        "abilities": [
-            "Rivalry",
-            "Mold Breaker",
-            "Unnerve"
-        ],
+        "abilities": [{"name":"Rivalry","hidden":false},{"name":"Mold Breaker","hidden":false},{"name":"Unnerve","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -79174,11 +76609,7 @@ const pokemonData = [
         "type": [
             "Dragon"
         ],
-        "abilities": [
-            "Rivalry",
-            "Mold Breaker",
-            "Unnerve"
-        ],
+        "abilities": [{"name":"Rivalry","hidden":false},{"name":"Mold Breaker","hidden":false},{"name":"Unnerve","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -79279,11 +76710,7 @@ const pokemonData = [
         "type": [
             "Ice"
         ],
-        "abilities": [
-            "Snow Cloak",
-            "Snow Plow",
-            "Rattled"
-        ],
+        "abilities": [{"name":"Snow Cloak","hidden":false},{"name":"Snow Plow","hidden":false},{"name":"Rattled","hidden":false}],
         "moves": [
             "Growl",
             "Powder Snow",
@@ -79375,11 +76802,7 @@ const pokemonData = [
         "type": [
             "Ice"
         ],
-        "abilities": [
-            "Snow Cloak",
-            "Snow Plow",
-            "Swift Swim"
-        ],
+        "abilities": [{"name":"Snow Cloak","hidden":false},{"name":"Snow Plow","hidden":false},{"name":"Swift Swim","hidden":false}],
         "moves": [
             "Thrash",
             "Growl",
@@ -79487,9 +76910,7 @@ const pokemonData = [
         "type": [
             "Ice"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Bind",
             "Sharpen",
@@ -79563,11 +76984,7 @@ const pokemonData = [
         "type": [
             "Bug"
         ],
-        "abilities": [
-            "Hydration",
-            "Shell Armor",
-            "Overcoat"
-        ],
+        "abilities": [{"name":"Hydration","hidden":false},{"name":"Shell Armor","hidden":false},{"name":"Overcoat","hidden":false}],
         "moves": [
             "Absorb",
             "Leech Life",
@@ -79638,11 +77055,7 @@ const pokemonData = [
         "type": [
             "Bug"
         ],
-        "abilities": [
-            "Hydration",
-            "Sticky Hold",
-            "Unburden"
-        ],
+        "abilities": [{"name":"Hydration","hidden":false},{"name":"Sticky Hold","hidden":false},{"name":"Unburden","hidden":false}],
         "moves": [
             "Body Slam",
             "Acid",
@@ -79727,11 +77140,7 @@ const pokemonData = [
             "Ground",
             "Electric"
         ],
-        "abilities": [
-            "Static",
-            "Limber",
-            "Sand Veil"
-        ],
+        "abilities": [{"name":"Static","hidden":false},{"name":"Limber","hidden":false},{"name":"Sand Veil","hidden":false}],
         "moves": [
             "Tackle",
             "Water Gun",
@@ -79822,9 +77231,7 @@ const pokemonData = [
     //         "Ground",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Mimicry"
-    //     ],
+    //     "abilities": [{"name":"//         Mimicry\r\n    //","hidden":false}],
     //     "moves": [
     //         "Bind",
     //         "Tackle",
@@ -79903,11 +77310,7 @@ const pokemonData = [
         "type": [
             "Fighting"
         ],
-        "abilities": [
-            "Inner Focus",
-            "Regenerator",
-            "Reckless"
-        ],
+        "abilities": [{"name":"Inner Focus","hidden":false},{"name":"Regenerator","hidden":false},{"name":"Reckless","hidden":false}],
         "moves": [
             "Pound",
             "Detect",
@@ -80006,11 +77409,7 @@ const pokemonData = [
         "type": [
             "Fighting"
         ],
-        "abilities": [
-            "Inner Focus",
-            "Regenerator",
-            "Reckless"
-        ],
+        "abilities": [{"name":"Inner Focus","hidden":false},{"name":"Regenerator","hidden":false},{"name":"Reckless","hidden":false}],
         "moves": [
             "Pound",
             "Meditate",
@@ -80116,11 +77515,7 @@ const pokemonData = [
         "type": [
             "Dragon"
         ],
-        "abilities": [
-            "Rough Skin",
-            "Sheer Force",
-            "Mold Breaker"
-        ],
+        "abilities": [{"name":"Rough Skin","hidden":false},{"name":"Sheer Force","hidden":false},{"name":"Mold Breaker","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -80227,11 +77622,7 @@ const pokemonData = [
             "Ground",
             "Ghost"
         ],
-        "abilities": [
-            "Iron Fist",
-            "Klutz",
-            "No Guard"
-        ],
+        "abilities": [{"name":"Iron Fist","hidden":false},{"name":"Klutz","hidden":false},{"name":"No Guard","hidden":false}],
         "moves": [
             "Pound",
             "Defense Curl",
@@ -80324,11 +77715,7 @@ const pokemonData = [
             "Ground",
             "Ghost"
         ],
-        "abilities": [
-            "Iron Fist",
-            "Klutz",
-            "No Guard"
-        ],
+        "abilities": [{"name":"Iron Fist","hidden":false},{"name":"Klutz","hidden":false},{"name":"No Guard","hidden":false}],
         "moves": [
             "Pound",
             "Defense Curl",
@@ -80434,11 +77821,7 @@ const pokemonData = [
             "Dark",
             "Steel"
         ],
-        "abilities": [
-            "Defiant",
-            "Inner Focus",
-            "Pressure"
-        ],
+        "abilities": [{"name":"Defiant","hidden":false},{"name":"Inner Focus","hidden":false},{"name":"Pressure","hidden":false}],
         "moves": [
             "Scratch",
             "Leer",
@@ -80539,11 +77922,7 @@ const pokemonData = [
             "Dark",
             "Steel"
         ],
-        "abilities": [
-            "Defiant",
-            "Inner Focus",
-            "Pressure"
-        ],
+        "abilities": [{"name":"Defiant","hidden":false},{"name":"Inner Focus","hidden":false},{"name":"Pressure","hidden":false}],
         "moves": [
             "Scratch",
             "Guillotine",
@@ -80648,11 +78027,7 @@ const pokemonData = [
         "type": [
             "Normal"
         ],
-        "abilities": [
-            "Reckless",
-            "Sap Sipper",
-            "Soundproof"
-        ],
+        "abilities": [{"name":"Reckless","hidden":false},{"name":"Sap Sipper","hidden":false},{"name":"Soundproof","hidden":false}],
         "moves": [
             "Tackle",
             "Leer",
@@ -80741,11 +78116,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Keen Eye",
-            "Sheer Force",
-            "Hustle"
-        ],
+        "abilities": [{"name":"Keen Eye","hidden":false},{"name":"Sheer Force","hidden":false},{"name":"Hustle","hidden":false}],
         "moves": [
             "Leer",
             "Peck",
@@ -80832,11 +78203,7 @@ const pokemonData = [
             "Normal",
             "Flying"
         ],
-        "abilities": [
-            "Keen Eye",
-            "Sheer Force",
-            "Defiant"
-        ],
+        "abilities": [{"name":"Keen Eye","hidden":false},{"name":"Sheer Force","hidden":false},{"name":"Defiant","hidden":false}],
         "moves": [
             "Wing Attack",
             "Whirlwind",
@@ -80931,11 +78298,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Keen Eye",
-    //         "Sheer Force",
-    //         "Tinted Lens"
-    //     ],
+    //     "abilities": [{"name":"//         Keen Eye","hidden":false},{"name":"//         Sheer Force","hidden":false},{"name":"//         Tinted Lens\r\n    //","hidden":false}],
     //     "moves": [
     //         "Wing Attack",
     //         "Whirlwind",
@@ -81017,11 +78380,7 @@ const pokemonData = [
             "Dark",
             "Flying"
         ],
-        "abilities": [
-            "Big Pecks",
-            "Overcoat",
-            "Weak Armor"
-        ],
+        "abilities": [{"name":"Big Pecks","hidden":false},{"name":"Overcoat","hidden":false},{"name":"Weak Armor","hidden":false}],
         "moves": [
             "Gust",
             "Leer",
@@ -81105,11 +78464,7 @@ const pokemonData = [
             "Dark",
             "Flying"
         ],
-        "abilities": [
-            "Big Pecks",
-            "Overcoat",
-            "Weak Armor"
-        ],
+        "abilities": [{"name":"Big Pecks","hidden":false},{"name":"Overcoat","hidden":false},{"name":"Weak Armor","hidden":false}],
         "moves": [
             "Gust",
             "Whirlwind",
@@ -81195,11 +78550,7 @@ const pokemonData = [
         "type": [
             "Fire"
         ],
-        "abilities": [
-            "Gluttony",
-            "Flash Fire",
-            "White Smoke"
-        ],
+        "abilities": [{"name":"Gluttony","hidden":false},{"name":"Flash Fire","hidden":false},{"name":"White Smoke","hidden":false}],
         "moves": [
             "Tackle",
             "Lick",
@@ -81293,11 +78644,7 @@ const pokemonData = [
             "Bug",
             "Steel"
         ],
-        "abilities": [
-            "Swarm",
-            "Hustle",
-            "Truant"
-        ],
+        "abilities": [{"name":"Swarm","hidden":false},{"name":"Hustle","hidden":false},{"name":"Truant","hidden":false}],
         "moves": [
             "Vice Grip",
             "Guillotine",
@@ -81379,9 +78726,7 @@ const pokemonData = [
             "Dark",
             "Dragon"
         ],
-        "abilities": [
-            "Hustle"
-        ],
+        "abilities": [{"name":"Hustle","hidden":false}],
         "moves": [
             "Tackle",
             "Dragon Rage",
@@ -81466,9 +78811,7 @@ const pokemonData = [
             "Dark",
             "Dragon"
         ],
-        "abilities": [
-            "Hustle"
-        ],
+        "abilities": [{"name":"Hustle","hidden":false}],
         "moves": [
             "Tackle",
             "Bite",
@@ -81555,9 +78898,7 @@ const pokemonData = [
             "Dark",
             "Dragon"
         ],
-        "abilities": [
-            "Levitate"
-        ],
+        "abilities": [{"name":"Levitate","hidden":false}],
         "moves": [
             "Tackle",
             "Bite",
@@ -81675,10 +79016,7 @@ const pokemonData = [
             "Bug",
             "Fire"
         ],
-        "abilities": [
-            "Flame Body",
-            "Swarm"
-        ],
+        "abilities": [{"name":"Flame Body","hidden":false},{"name":"Swarm","hidden":false}],
         "moves": [
             "Ember",
             "String Shot",
@@ -81756,10 +79094,7 @@ const pokemonData = [
             "Bug",
             "Fire"
         ],
-        "abilities": [
-            "Flame Body",
-            "Swarm"
-        ],
+        "abilities": [{"name":"Flame Body","hidden":false},{"name":"Swarm","hidden":false}],
         "moves": [
             "Gust",
             "Whirlwind",
@@ -81855,9 +79190,7 @@ const pokemonData = [
     //         "Steel",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Justified"
-    //     ],
+    //     "abilities": [{"name":"//         Justified\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Cut",
@@ -81950,9 +79283,7 @@ const pokemonData = [
     //         "Rock",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Justified"
-    //     ],
+    //     "abilities": [{"name":"//         Justified\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Cut",
@@ -82043,9 +79374,7 @@ const pokemonData = [
     //         "Grass",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Justified"
-    //     ],
+    //     "abilities": [{"name":"//         Justified\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Cut",
@@ -82138,10 +79467,7 @@ const pokemonData = [
     //     "type": [
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Prankster",
-    //         "Defiant"
-    //     ],
+    //     "abilities": [{"name":"//         Prankster","hidden":false},{"name":"//         Defiant\r\n    //","hidden":false}],
     //     "moves": [
     //         "Gust",
     //         "Fly",
@@ -82244,9 +79570,7 @@ const pokemonData = [
     //     "type": [
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Regenerator"
-    //     ],
+    //     "abilities": [{"name":"//         Regenerator\r\n    //","hidden":false}],
     //     "moves": [
     //         "Gust",
     //         "Fly",
@@ -82350,10 +79674,7 @@ const pokemonData = [
     //         "Electric",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Prankster",
-    //         "Defiant"
-    //     ],
+    //     "abilities": [{"name":"//         Prankster","hidden":false},{"name":"//         Defiant\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Fly",
@@ -82464,9 +79785,7 @@ const pokemonData = [
     //         "Electric",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Volt Absorb"
-    //     ],
+    //     "abilities": [{"name":"//         Volt Absorb\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Fly",
@@ -82577,9 +79896,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Turboblaze"
-    //     ],
+    //     "abilities": [{"name":"//         Turboblaze\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Fly",
@@ -82684,9 +80001,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Teravolt"
-    //     ],
+    //     "abilities": [{"name":"//         Teravolt\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Cut",
@@ -82791,10 +80106,7 @@ const pokemonData = [
     //         "Ground",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Sand Force",
-    //         "Sheer Force"
-    //     ],
+    //     "abilities": [{"name":"//         Sand Force","hidden":false},{"name":"//         Sheer Force\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Fly",
@@ -82894,9 +80206,7 @@ const pokemonData = [
     //         "Ground",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Intimidate"
-    //     ],
+    //     "abilities": [{"name":"//         Intimidate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Fly",
@@ -82996,9 +80306,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Pressure"
-    //     ],
+    //     "abilities": [{"name":"//         Pressure\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Fly",
@@ -83097,9 +80405,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Teravolt"
-    //     ],
+    //     "abilities": [{"name":"//         Teravolt\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Fly",
@@ -83199,9 +80505,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Turboblaze"
-    //     ],
+    //     "abilities": [{"name":"//         Turboblaze\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Fly",
@@ -83301,9 +80605,7 @@ const pokemonData = [
     //         "Water",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Justified"
-    //     ],
+    //     "abilities": [{"name":"//         Justified\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Cut",
@@ -83398,9 +80700,7 @@ const pokemonData = [
     //         "Water",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Justified"
-    //     ],
+    //     "abilities": [{"name":"//         Justified\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Cut",
@@ -83495,9 +80795,7 @@ const pokemonData = [
     //         "Normal",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Serene Grace"
-    //     ],
+    //     "abilities": [{"name":"//         Serene Grace\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -83621,9 +80919,7 @@ const pokemonData = [
     //         "Normal",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Serene Grace"
-    //     ],
+    //     "abilities": [{"name":"//         Serene Grace\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -83747,9 +81043,7 @@ const pokemonData = [
     //         "Bug",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Download"
-    //     ],
+    //     "abilities": [{"name":"//         Download\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Flamethrower",
@@ -83850,10 +81144,7 @@ const pokemonData = [
     //     "type": [
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Overgrow",
-    //         "Bulletproof"
-    //     ],
+    //     "abilities": [{"name":"//         Overgrow","hidden":false},{"name":"//         Bulletproof\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Swords Dance",
@@ -83970,10 +81261,7 @@ const pokemonData = [
     //     "type": [
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Overgrow",
-    //         "Bulletproof"
-    //     ],
+    //     "abilities": [{"name":"//         Overgrow","hidden":false},{"name":"//         Bulletproof\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Swords Dance",
@@ -84088,10 +81376,7 @@ const pokemonData = [
     //         "Grass",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Overgrow",
-    //         "Bulletproof"
-    //     ],
+    //     "abilities": [{"name":"//         Overgrow","hidden":false},{"name":"//         Bulletproof\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Swords Dance",
@@ -84222,10 +81507,7 @@ const pokemonData = [
     //     "type": [
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Blaze",
-    //         "Magician"
-    //     ],
+    //     "abilities": [{"name":"//         Blaze","hidden":false},{"name":"//         Magician\r\n    //","hidden":false}],
     //     "moves": [
     //         "Scratch",
     //         "Cut",
@@ -84320,10 +81602,7 @@ const pokemonData = [
     //     "type": [
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Blaze",
-    //         "Magician"
-    //     ],
+    //     "abilities": [{"name":"//         Blaze","hidden":false},{"name":"//         Magician\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Thunder Punch",
@@ -84427,10 +81706,7 @@ const pokemonData = [
     //         "Fire",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Blaze",
-    //         "Magician"
-    //     ],
+    //     "abilities": [{"name":"//         Blaze","hidden":false},{"name":"//         Magician\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Thunder Punch",
@@ -84551,10 +81827,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Torrent",
-    //         "Protean"
-    //     ],
+    //     "abilities": [{"name":"//         Torrent","hidden":false},{"name":"//         Protean\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Cut",
@@ -84653,10 +81926,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Torrent",
-    //         "Protean"
-    //     ],
+    //     "abilities": [{"name":"//         Torrent","hidden":false},{"name":"//         Protean\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Ice Punch",
@@ -84753,10 +82023,7 @@ const pokemonData = [
     //         "Water",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Torrent",
-    //         "Protean"
-    //     ],
+    //     "abilities": [{"name":"//         Torrent","hidden":false},{"name":"//         Protean\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Ice Punch",
@@ -84866,9 +82133,7 @@ const pokemonData = [
     //         "Water",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Battle Bond"
-    //     ],
+    //     "abilities": [{"name":"//         Battle Bond\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Ice Punch",
@@ -84954,9 +82219,7 @@ const pokemonData = [
     //         "Water",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Battle Bond"
-    //     ],
+    //     "abilities": [{"name":"//         Battle Bond\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Ice Punch",
@@ -85059,11 +82322,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Pickup",
-    //         "Cheek Pouch",
-    //         "Huge Power"
-    //     ],
+    //     "abilities": [{"name":"//         Pickup","hidden":false},{"name":"//         Cheek Pouch","hidden":false},{"name":"//         Huge Power\r\n    //","hidden":false}],
     //     "moves": [
     //         "Double Slap",
     //         "Swords Dance",
@@ -85151,11 +82410,7 @@ const pokemonData = [
     //         "Normal",
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Pickup",
-    //         "Cheek Pouch",
-    //         "Huge Power"
-    //     ],
+    //     "abilities": [{"name":"//         Pickup","hidden":false},{"name":"//         Cheek Pouch","hidden":false},{"name":"//         Huge Power\r\n    //","hidden":false}],
     //     "moves": [
     //         "Double Slap",
     //         "Mega Punch",
@@ -85266,10 +82521,7 @@ const pokemonData = [
     //         "Normal",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Big Pecks",
-    //         "Gale Wings"
-    //     ],
+    //     "abilities": [{"name":"//         Big Pecks","hidden":false},{"name":"//         Gale Wings\r\n    //","hidden":false}],
     //     "moves": [
     //         "Razor Wind",
     //         "Swords Dance",
@@ -85348,10 +82600,7 @@ const pokemonData = [
     //         "Fire",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Flame Body",
-    //         "Gale Wings"
-    //     ],
+    //     "abilities": [{"name":"//         Flame Body","hidden":false},{"name":"//         Gale Wings\r\n    //","hidden":false}],
     //     "moves": [
     //         "Razor Wind",
     //         "Swords Dance",
@@ -85434,10 +82683,7 @@ const pokemonData = [
     //         "Fire",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Flame Body",
-    //         "Gale Wings"
-    //     ],
+    //     "abilities": [{"name":"//         Flame Body","hidden":false},{"name":"//         Gale Wings\r\n    //","hidden":false}],
     //     "moves": [
     //         "Razor Wind",
     //         "Swords Dance",
@@ -85524,11 +82770,7 @@ const pokemonData = [
     //     "type": [
     //         "Bug"
     //     ],
-    //     "abilities": [
-    //         "Shield Dust",
-    //         "Compound Eyes",
-    //         "Friend Guard"
-    //     ],
+    //     "abilities": [{"name":"//         Shield Dust","hidden":false},{"name":"//         Compound Eyes","hidden":false},{"name":"//         Friend Guard\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Poison Powder",
@@ -85559,10 +82801,7 @@ const pokemonData = [
     //     "type": [
     //         "Bug"
     //     ],
-    //     "abilities": [
-    //         "Shed Skin",
-    //         "Friend Guard"
-    //     ],
+    //     "abilities": [{"name":"//         Shed Skin","hidden":false},{"name":"//         Friend Guard\r\n    //","hidden":false}],
     //     "moves": [
     //         "Harden",
     //         "Protect",
@@ -85593,11 +82832,7 @@ const pokemonData = [
     //         "Bug",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Shield Dust",
-    //         "Compound Eyes",
-    //         "Friend Guard"
-    //     ],
+    //     "abilities": [{"name":"//         Shield Dust","hidden":false},{"name":"//         Compound Eyes","hidden":false},{"name":"//         Friend Guard\r\n    //","hidden":false}],
     //     "moves": [
     //         "Gust",
     //         "Supersonic",
@@ -85685,11 +82920,7 @@ const pokemonData = [
     //         "Fire",
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Rivalry",
-    //         "Unnerve",
-    //         "Moxie"
-    //     ],
+    //     "abilities": [{"name":"//         Rivalry","hidden":false},{"name":"//         Unnerve","hidden":false},{"name":"//         Moxie\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -85778,11 +83009,7 @@ const pokemonData = [
     //         "Fire",
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Rivalry",
-    //         "Unnerve",
-    //         "Moxie"
-    //     ],
+    //     "abilities": [{"name":"//         Rivalry","hidden":false},{"name":"//         Unnerve","hidden":false},{"name":"//         Moxie\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -85871,10 +83098,7 @@ const pokemonData = [
     //     "type": [
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Flower Veil",
-    //         "Symbiosis"
-    //     ],
+    //     "abilities": [{"name":"//         Flower Veil","hidden":false},{"name":"//         Symbiosis\r\n    //","hidden":false}],
     //     "moves": [
     //         "Vine Whip",
     //         "Tackle",
@@ -85963,10 +83187,7 @@ const pokemonData = [
     //     "type": [
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Flower Veil",
-    //         "Symbiosis"
-    //     ],
+    //     "abilities": [{"name":"//         Flower Veil","hidden":false},{"name":"//         Symbiosis\r\n    //","hidden":false}],
     //     "moves": [
     //         "Vine Whip",
     //         "Tackle",
@@ -86054,10 +83275,7 @@ const pokemonData = [
     //     "type": [
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Flower Veil",
-    //         "Symbiosis"
-    //     ],
+    //     "abilities": [{"name":"//         Flower Veil","hidden":false},{"name":"//         Symbiosis\r\n    //","hidden":false}],
     //     "moves": [
     //         "Vine Whip",
     //         "Tackle",
@@ -86131,10 +83349,7 @@ const pokemonData = [
     //     "type": [
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Flower Veil",
-    //         "Symbiosis"
-    //     ],
+    //     "abilities": [{"name":"//         Flower Veil","hidden":false},{"name":"//         Symbiosis\r\n    //","hidden":false}],
     //     "moves": [
     //         "Hyper Beam",
     //         "Solar Beam",
@@ -86222,10 +83437,7 @@ const pokemonData = [
     //     "type": [
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Sap Sipper",
-    //         "Grass Pelt"
-    //     ],
+    //     "abilities": [{"name":"//         Sap Sipper","hidden":false},{"name":"//         Grass Pelt\r\n    //","hidden":false}],
     //     "moves": [
     //         "Vine Whip",
     //         "Tackle",
@@ -86314,10 +83526,7 @@ const pokemonData = [
     //     "type": [
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Sap Sipper",
-    //         "Grass Pelt"
-    //     ],
+    //     "abilities": [{"name":"//         Sap Sipper","hidden":false},{"name":"//         Grass Pelt\r\n    //","hidden":false}],
     //     "moves": [
     //         "Vine Whip",
     //         "Tackle",
@@ -86410,11 +83619,7 @@ const pokemonData = [
     //     "type": [
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Iron Fist",
-    //         "Mold Breaker",
-    //         "Scrappy"
-    //     ],
+    //     "abilities": [{"name":"//         Iron Fist","hidden":false},{"name":"//         Mold Breaker","hidden":false},{"name":"//         Scrappy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Karate Chop",
     //         "Comet Punch",
@@ -86528,11 +83733,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Iron Fist",
-    //         "Mold Breaker",
-    //         "Scrappy"
-    //     ],
+    //     "abilities": [{"name":"//         Iron Fist","hidden":false},{"name":"//         Mold Breaker","hidden":false},{"name":"//         Scrappy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Karate Chop",
     //         "Comet Punch",
@@ -86666,9 +83867,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Fur Coat"
-    //     ],
+    //     "abilities": [{"name":"//         Fur Coat\r\n    //","hidden":false}],
     //     "moves": [
     //         "Sand Attack",
     //         "Headbutt",
@@ -86747,11 +83946,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Keen Eye",
-    //         "Infiltrator",
-    //         "Own Tempo"
-    //     ],
+    //     "abilities": [{"name":"//         Keen Eye","hidden":false},{"name":"//         Infiltrator","hidden":false},{"name":"//         Own Tempo\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pay Day",
     //         "Scratch",
@@ -86846,11 +84041,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Keen Eye",
-    //         "Infiltrator",
-    //         "Prankster"
-    //     ],
+    //     "abilities": [{"name":"//         Keen Eye","hidden":false},{"name":"//         Infiltrator","hidden":false},{"name":"//         Prankster\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pay Day",
     //         "Scratch",
@@ -86955,11 +84146,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Keen Eye",
-    //         "Infiltrator",
-    //         "Competitive"
-    //     ],
+    //     "abilities": [{"name":"//         Keen Eye","hidden":false},{"name":"//         Infiltrator","hidden":false},{"name":"//         Competitive\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pay Day",
     //         "Scratch",
@@ -87065,9 +84252,7 @@ const pokemonData = [
     //         "Steel",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "No Guard"
-    //     ],
+    //     "abilities": [{"name":"//         No Guard\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Cut",
@@ -87147,9 +84332,7 @@ const pokemonData = [
     //         "Steel",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "No Guard"
-    //     ],
+    //     "abilities": [{"name":"//         No Guard\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Cut",
@@ -87226,9 +84409,7 @@ const pokemonData = [
     //         "Steel",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Stance Change"
-    //     ],
+    //     "abilities": [{"name":"//         Stance Change\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Cut",
@@ -87313,9 +84494,7 @@ const pokemonData = [
     //         "Steel",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Stance Change"
-    //     ],
+    //     "abilities": [{"name":"//         Stance Change\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Cut",
@@ -87399,10 +84578,7 @@ const pokemonData = [
     //     "type": [
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Healer",
-    //         "Aroma Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Healer","hidden":false},{"name":"//         Aroma Veil\r\n    //","hidden":false}],
     //     "moves": [
     //         "Disable",
     //         "Thunderbolt",
@@ -87487,10 +84663,7 @@ const pokemonData = [
     //     "type": [
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Healer",
-    //         "Aroma Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Healer","hidden":false},{"name":"//         Aroma Veil\r\n    //","hidden":false}],
     //     "moves": [
     //         "Hyper Beam",
     //         "Thunderbolt",
@@ -87579,10 +84752,7 @@ const pokemonData = [
     //     "type": [
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Sweet Veil",
-    //         "Unburden"
-    //     ],
+    //     "abilities": [{"name":"//         Sweet Veil","hidden":false},{"name":"//         Unburden\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Flamethrower",
@@ -87662,10 +84832,7 @@ const pokemonData = [
     //     "type": [
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Sweet Veil",
-    //         "Unburden"
-    //     ],
+    //     "abilities": [{"name":"//         Sweet Veil","hidden":false},{"name":"//         Unburden\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Flamethrower",
@@ -87748,11 +84915,7 @@ const pokemonData = [
     //         "Dark",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Contrary",
-    //         "Suction Cups",
-    //         "Infiltrator"
-    //     ],
+    //     "abilities": [{"name":"//         Contrary","hidden":false},{"name":"//         Suction Cups","hidden":false},{"name":"//         Infiltrator\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Bind",
@@ -87852,11 +85015,7 @@ const pokemonData = [
     //         "Dark",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Contrary",
-    //         "Suction Cups",
-    //         "Infiltrator"
-    //     ],
+    //     "abilities": [{"name":"//         Contrary","hidden":false},{"name":"//         Suction Cups","hidden":false},{"name":"//         Infiltrator\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Bind",
@@ -87958,11 +85117,7 @@ const pokemonData = [
     //         "Rock",
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Tough Claws",
-    //         "Sniper",
-    //         "Pickpocket"
-    //     ],
+    //     "abilities": [{"name":"//         Tough Claws","hidden":false},{"name":"//         Sniper","hidden":false},{"name":"//         Pickpocket\r\n    //","hidden":false}],
     //     "moves": [
     //         "Scratch",
     //         "Swords Dance",
@@ -88071,11 +85226,7 @@ const pokemonData = [
     //         "Rock",
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Tough Claws",
-    //         "Sniper",
-    //         "Pickpocket"
-    //     ],
+    //     "abilities": [{"name":"//         Tough Claws","hidden":false},{"name":"//         Sniper","hidden":false},{"name":"//         Pickpocket\r\n    //","hidden":false}],
     //     "moves": [
     //         "Scratch",
     //         "Swords Dance",
@@ -88196,11 +85347,7 @@ const pokemonData = [
     //         "Poison",
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Poison Point",
-    //         "Poison Touch",
-    //         "Adaptability"
-    //     ],
+    //     "abilities": [{"name":"//         Poison Point","hidden":false},{"name":"//         Poison Touch","hidden":false},{"name":"//         Adaptability\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -88289,11 +85436,7 @@ const pokemonData = [
     //         "Poison",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Poison Point",
-    //         "Poison Touch",
-    //         "Adaptability"
-    //     ],
+    //     "abilities": [{"name":"//         Poison Point","hidden":false},{"name":"//         Poison Touch","hidden":false},{"name":"//         Adaptability\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -88384,9 +85527,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Mega Launcher"
-    //     ],
+    //     "abilities": [{"name":"//         Mega Launcher\r\n    //","hidden":false}],
     //     "moves": [
     //         "Vise Grip",
     //         "Swords Dance",
@@ -88473,9 +85614,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Mega Launcher"
-    //     ],
+    //     "abilities": [{"name":"//         Mega Launcher\r\n    //","hidden":false}],
     //     "moves": [
     //         "Vise Grip",
     //         "Swords Dance",
@@ -88570,11 +85709,7 @@ const pokemonData = [
     //         "Electric",
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Dry Skin",
-    //         "Sand Veil",
-    //         "Solar Power"
-    //     ],
+    //     "abilities": [{"name":"//         Dry Skin","hidden":false},{"name":"//         Sand Veil","hidden":false},{"name":"//         Solar Power\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Razor Wind",
@@ -88660,11 +85795,7 @@ const pokemonData = [
     //         "Electric",
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Dry Skin",
-    //         "Sand Veil",
-    //         "Solar Power"
-    //     ],
+    //     "abilities": [{"name":"//         Dry Skin","hidden":false},{"name":"//         Sand Veil","hidden":false},{"name":"//         Solar Power\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Mega Punch",
@@ -88764,10 +85895,7 @@ const pokemonData = [
     //         "Rock",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Strong Jaw",
-    //         "Sturdy"
-    //     ],
+    //     "abilities": [{"name":"//         Strong Jaw","hidden":false},{"name":"//         Sturdy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Stomp",
     //         "Horn Drill",
@@ -88865,10 +85993,7 @@ const pokemonData = [
     //         "Rock",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Strong Jaw",
-    //         "Rock Head"
-    //     ],
+    //     "abilities": [{"name":"//         Strong Jaw","hidden":false},{"name":"//         Rock Head\r\n    //","hidden":false}],
     //     "moves": [
     //         "Stomp",
     //         "Horn Drill",
@@ -88969,10 +86094,7 @@ const pokemonData = [
     //         "Rock",
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Refrigerate",
-    //         "Snow Warning"
-    //     ],
+    //     "abilities": [{"name":"//         Refrigerate","hidden":false},{"name":"//         Snow Warning\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Take Down",
@@ -89073,10 +86195,7 @@ const pokemonData = [
     //         "Rock",
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Refrigerate",
-    //         "Snow Warning"
-    //     ],
+    //     "abilities": [{"name":"//         Refrigerate","hidden":false},{"name":"//         Snow Warning\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Take Down",
@@ -89176,10 +86295,7 @@ const pokemonData = [
     //     "type": [
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Cute Charm",
-    //         "Pixilate"
-    //     ],
+    //     "abilities": [{"name":"//         Cute Charm","hidden":false},{"name":"//         Pixilate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pay Day",
     //         "Cut",
@@ -89278,11 +86394,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Limber",
-    //         "Unburden",
-    //         "Mold Breaker"
-    //     ],
+    //     "abilities": [{"name":"//         Limber","hidden":false},{"name":"//         Unburden","hidden":false},{"name":"//         Mold Breaker\r\n    //","hidden":false}],
     //     "moves": [
     //         "Karate Chop",
     //         "Mega Punch",
@@ -89410,11 +86522,7 @@ const pokemonData = [
     //         "Electric",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Cheek Pouch",
-    //         "Pickup",
-    //         "Plus"
-    //     ],
+    //     "abilities": [{"name":"//         Cheek Pouch","hidden":false},{"name":"//         Pickup","hidden":false},{"name":"//         Plus\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Cut",
@@ -89511,10 +86619,7 @@ const pokemonData = [
     //         "Rock",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Clear Body",
-    //         "Sturdy"
-    //     ],
+    //     "abilities": [{"name":"//         Clear Body","hidden":false},{"name":"//         Sturdy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -89612,11 +86717,7 @@ const pokemonData = [
     //     "type": [
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Sap Sipper",
-    //         "Hydration",
-    //         "Gooey"
-    //     ],
+    //     "abilities": [{"name":"//         Sap Sipper","hidden":false},{"name":"//         Hydration","hidden":false},{"name":"//         Gooey\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -89688,11 +86789,7 @@ const pokemonData = [
     //     "type": [
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Sap Sipper",
-    //         "Hydration",
-    //         "Gooey"
-    //     ],
+    //     "abilities": [{"name":"//         Sap Sipper","hidden":false},{"name":"//         Hydration","hidden":false},{"name":"//         Gooey\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -89766,11 +86863,7 @@ const pokemonData = [
     //         "Steel",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Sap Sipper",
-    //         "Shell Armor",
-    //         "Gooey"
-    //     ],
+    //     "abilities": [{"name":"//         Sap Sipper","hidden":false},{"name":"//         Shell Armor","hidden":false},{"name":"//         Gooey\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -89833,11 +86926,7 @@ const pokemonData = [
     //     "type": [
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Sap Sipper",
-    //         "Hydration",
-    //         "Gooey"
-    //     ],
+    //     "abilities": [{"name":"//         Sap Sipper","hidden":false},{"name":"//         Hydration","hidden":false},{"name":"//         Gooey\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -89943,11 +87032,7 @@ const pokemonData = [
     //         "Steel",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Sap Sipper",
-    //         "Shell Armor",
-    //         "Gooey"
-    //     ],
+    //     "abilities": [{"name":"//         Sap Sipper","hidden":false},{"name":"//         Shell Armor","hidden":false},{"name":"//         Gooey\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Thunder Punch",
@@ -90028,10 +87113,7 @@ const pokemonData = [
     //         "Steel",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Prankster",
-    //         "Magician"
-    //     ],
+    //     "abilities": [{"name":"//         Prankster","hidden":false},{"name":"//         Magician\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Tackle",
@@ -90118,11 +87200,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Natural Cure",
-    //         "Frisk",
-    //         "Harvest"
-    //     ],
+    //     "abilities": [{"name":"//         Natural Cure","hidden":false},{"name":"//         Frisk","hidden":false},{"name":"//         Harvest\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Tackle",
@@ -90222,11 +87300,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Natural Cure",
-    //         "Frisk",
-    //         "Harvest"
-    //     ],
+    //     "abilities": [{"name":"//         Natural Cure","hidden":false},{"name":"//         Frisk","hidden":false},{"name":"//         Harvest\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Tackle",
@@ -90333,11 +87407,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Pickup",
-    //         "Frisk",
-    //         "Insomnia"
-    //     ],
+    //     "abilities": [{"name":"//         Pickup","hidden":false},{"name":"//         Frisk","hidden":false},{"name":"//         Insomnia\r\n    //","hidden":false}],
     //     "moves": [
     //         "Disable",
     //         "Flamethrower",
@@ -90433,11 +87503,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Pickup",
-    //         "Frisk",
-    //         "Insomnia"
-    //     ],
+    //     "abilities": [{"name":"//         Pickup","hidden":false},{"name":"//         Frisk","hidden":false},{"name":"//         Insomnia\r\n    //","hidden":false}],
     //     "moves": [
     //         "Disable",
     //         "Flamethrower",
@@ -90533,11 +87599,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Pickup",
-    //         "Frisk",
-    //         "Insomnia"
-    //     ],
+    //     "abilities": [{"name":"//         Pickup","hidden":false},{"name":"//         Frisk","hidden":false},{"name":"//         Insomnia\r\n    //","hidden":false}],
     //     "moves": [
     //         "Disable",
     //         "Flamethrower",
@@ -90633,11 +87695,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Pickup",
-    //         "Frisk",
-    //         "Insomnia"
-    //     ],
+    //     "abilities": [{"name":"//         Pickup","hidden":false},{"name":"//         Frisk","hidden":false},{"name":"//         Insomnia\r\n    //","hidden":false}],
     //     "moves": [
     //         "Disable",
     //         "Flamethrower",
@@ -90733,11 +87791,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Pickup",
-    //         "Frisk",
-    //         "Insomnia"
-    //     ],
+    //     "abilities": [{"name":"//         Pickup","hidden":false},{"name":"//         Frisk","hidden":false},{"name":"//         Insomnia\r\n    //","hidden":false}],
     //     "moves": [
     //         "Flamethrower",
     //         "Hyper Beam",
@@ -90837,11 +87891,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Pickup",
-    //         "Frisk",
-    //         "Insomnia"
-    //     ],
+    //     "abilities": [{"name":"//         Pickup","hidden":false},{"name":"//         Frisk","hidden":false},{"name":"//         Insomnia\r\n    //","hidden":false}],
     //     "moves": [
     //         "Flamethrower",
     //         "Hyper Beam",
@@ -90941,11 +87991,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Pickup",
-    //         "Frisk",
-    //         "Insomnia"
-    //     ],
+    //     "abilities": [{"name":"//         Pickup","hidden":false},{"name":"//         Frisk","hidden":false},{"name":"//         Insomnia\r\n    //","hidden":false}],
     //     "moves": [
     //         "Flamethrower",
     //         "Hyper Beam",
@@ -91045,11 +88091,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Pickup",
-    //         "Frisk",
-    //         "Insomnia"
-    //     ],
+    //     "abilities": [{"name":"//         Pickup","hidden":false},{"name":"//         Frisk","hidden":false},{"name":"//         Insomnia\r\n    //","hidden":false}],
     //     "moves": [
     //         "Flamethrower",
     //         "Hyper Beam",
@@ -91148,11 +88190,7 @@ const pokemonData = [
     //     "type": [
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Own Tempo",
-    //         "Ice Body",
-    //         "Sturdy"
-    //     ],
+    //     "abilities": [{"name":"//         Own Tempo","hidden":false},{"name":"//         Ice Body","hidden":false},{"name":"//         Sturdy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -91236,11 +88274,7 @@ const pokemonData = [
     //     "type": [
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Own Tempo",
-    //         "Ice Body",
-    //         "Sturdy"
-    //     ],
+    //     "abilities": [{"name":"//         Own Tempo","hidden":false},{"name":"//         Ice Body","hidden":false},{"name":"//         Sturdy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -91337,11 +88371,7 @@ const pokemonData = [
     //         "Ice",
     //         "Rock"
     //     ],
-    //     "abilities": [
-    //         "Strong Jaw",
-    //         "Ice Body",
-    //         "Sturdy"
-    //     ],
+    //     "abilities": [{"name":"//         Strong Jaw","hidden":false},{"name":"//         Ice Body","hidden":false},{"name":"//         Sturdy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -91410,11 +88440,7 @@ const pokemonData = [
     //         "Flying",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Frisk",
-    //         "Infiltrator",
-    //         "Telepathy"
-    //     ],
+    //     "abilities": [{"name":"//         Frisk","hidden":false},{"name":"//         Infiltrator","hidden":false},{"name":"//         Telepathy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Razor Wind",
     //         "Cut",
@@ -91509,11 +88535,7 @@ const pokemonData = [
     //         "Flying",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Frisk",
-    //         "Infiltrator",
-    //         "Telepathy"
-    //     ],
+    //     "abilities": [{"name":"//         Frisk","hidden":false},{"name":"//         Infiltrator","hidden":false},{"name":"//         Telepathy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Razor Wind",
     //         "Cut",
@@ -91617,9 +88639,7 @@ const pokemonData = [
     //     "type": [
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Fairy Aura"
-    //     ],
+    //     "abilities": [{"name":"//         Fairy Aura\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Tackle",
@@ -91710,9 +88730,7 @@ const pokemonData = [
     //         "Dark",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Dark Aura"
-    //     ],
+    //     "abilities": [{"name":"//         Dark Aura\r\n    //","hidden":false}],
     //     "moves": [
     //         "Razor Wind",
     //         "Cut",
@@ -91800,9 +88818,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Aura Break"
-    //     ],
+    //     "abilities": [{"name":"//         Aura Break\r\n    //","hidden":false}],
     //     "moves": [
     //         "Bind",
     //         "Body Slam",
@@ -91894,9 +88910,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Power Construct"
-    //     ],
+    //     "abilities": [{"name":"//         Power Construct\r\n    //","hidden":false}],
     //     "moves": [
     //         "Bind",
     //         "Body Slam",
@@ -91985,9 +88999,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Power Construct"
-    //     ],
+    //     "abilities": [{"name":"//         Power Construct\r\n    //","hidden":false}],
     //     "moves": [
     //         "Bind",
     //         "Body Slam",
@@ -92076,9 +89088,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Power Construct"
-    //     ],
+    //     "abilities": [{"name":"//         Power Construct\r\n    //","hidden":false}],
     //     "moves": [
     //         "Bind",
     //         "Body Slam",
@@ -92167,9 +89177,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Aura Break"
-    //     ],
+    //     "abilities": [{"name":"//         Aura Break\r\n    //","hidden":false}],
     //     "moves": [
     //         "Bind",
     //         "Body Slam",
@@ -92258,9 +89266,7 @@ const pokemonData = [
     //         "Rock",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Clear Body"
-    //     ],
+    //     "abilities": [{"name":"//         Clear Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -92371,9 +89377,7 @@ const pokemonData = [
     //         "Rock",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Magic Bounce"
-    //     ],
+    //     "abilities": [{"name":"//         Magic Bounce\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Hyper Beam",
@@ -92457,9 +89461,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Magician"
-    //     ],
+    //     "abilities": [{"name":"//         Magician\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -92572,9 +89574,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Magician"
-    //     ],
+    //     "abilities": [{"name":"//         Magician\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -92687,9 +89687,7 @@ const pokemonData = [
     //         "Fire",
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Water Absorb"
-    //     ],
+    //     "abilities": [{"name":"//         Water Absorb\r\n    //","hidden":false}],
     //     "moves": [
     //         "Cut",
     //         "Stomp",
@@ -92792,10 +89790,7 @@ const pokemonData = [
     //         "Grass",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Overgrow",
-    //         "Long Reach"
-    //     ],
+    //     "abilities": [{"name":"//         Overgrow","hidden":false},{"name":"//         Long Reach\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Fury Attack",
@@ -92893,10 +89888,7 @@ const pokemonData = [
     //         "Grass",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Overgrow",
-    //         "Long Reach"
-    //     ],
+    //     "abilities": [{"name":"//         Overgrow","hidden":false},{"name":"//         Long Reach\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Fury Attack",
@@ -92990,10 +89982,7 @@ const pokemonData = [
     //         "Grass",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Overgrow",
-    //         "Long Reach"
-    //     ],
+    //     "abilities": [{"name":"//         Overgrow","hidden":false},{"name":"//         Long Reach\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Fury Attack",
@@ -93109,10 +90098,7 @@ const pokemonData = [
     //         "Grass",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Overgrow",
-    //         "Scrappy"
-    //     ],
+    //     "abilities": [{"name":"//         Overgrow","hidden":false},{"name":"//         Scrappy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Tackle",
@@ -93194,10 +90180,7 @@ const pokemonData = [
     //     "type": [
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Blaze",
-    //         "Intimidate"
-    //     ],
+    //     "abilities": [{"name":"//         Blaze","hidden":false},{"name":"//         Intimidate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pay Day",
     //         "Scratch",
@@ -93277,10 +90260,7 @@ const pokemonData = [
     //     "type": [
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Blaze",
-    //         "Intimidate"
-    //     ],
+    //     "abilities": [{"name":"//         Blaze","hidden":false},{"name":"//         Intimidate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pay Day",
     //         "Scratch",
@@ -93359,10 +90339,7 @@ const pokemonData = [
     //         "Fire",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Blaze",
-    //         "Intimidate"
-    //     ],
+    //     "abilities": [{"name":"//         Blaze","hidden":false},{"name":"//         Intimidate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Pay Day",
@@ -93478,10 +90455,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Torrent",
-    //         "Liquid Voice"
-    //     ],
+    //     "abilities": [{"name":"//         Torrent","hidden":false},{"name":"//         Liquid Voice\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Double Slap",
@@ -93566,10 +90540,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Torrent",
-    //         "Liquid Voice"
-    //     ],
+    //     "abilities": [{"name":"//         Torrent","hidden":false},{"name":"//         Liquid Voice\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Double Slap",
@@ -93651,10 +90622,7 @@ const pokemonData = [
     //         "Water",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Torrent",
-    //         "Liquid Voice"
-    //     ],
+    //     "abilities": [{"name":"//         Torrent","hidden":false},{"name":"//         Liquid Voice\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Double Slap",
@@ -93753,11 +90721,7 @@ const pokemonData = [
     //         "Normal",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Keen Eye",
-    //         "Skill Link",
-    //         "Pickup"
-    //     ],
+    //     "abilities": [{"name":"//         Keen Eye","hidden":false},{"name":"//         Skill Link","hidden":false},{"name":"//         Pickup\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Fly",
@@ -93828,11 +90792,7 @@ const pokemonData = [
     //         "Normal",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Keen Eye",
-    //         "Skill Link",
-    //         "Pickup"
-    //     ],
+    //     "abilities": [{"name":"//         Keen Eye","hidden":false},{"name":"//         Skill Link","hidden":false},{"name":"//         Pickup\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Fly",
@@ -93901,11 +90861,7 @@ const pokemonData = [
     //         "Normal",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Keen Eye",
-    //         "Skill Link",
-    //         "Sheer Force"
-    //     ],
+    //     "abilities": [{"name":"//         Keen Eye","hidden":false},{"name":"//         Skill Link","hidden":false},{"name":"//         Sheer Force\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Fly",
@@ -93977,11 +90933,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Stakeout",
-    //         "Strong Jaw",
-    //         "Adaptability"
-    //     ],
+    //     "abilities": [{"name":"//         Stakeout","hidden":false},{"name":"//         Strong Jaw","hidden":false},{"name":"//         Adaptability\r\n    //","hidden":false}],
     //     "moves": [
     //         "Sand Attack",
     //         "Tackle",
@@ -94068,11 +91020,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Stakeout",
-    //         "Strong Jaw",
-    //         "Adaptability"
-    //     ],
+    //     "abilities": [{"name":"//         Stakeout","hidden":false},{"name":"//         Strong Jaw","hidden":false},{"name":"//         Adaptability\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -94170,11 +91118,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Stakeout",
-    //         "Strong Jaw",
-    //         "Adaptability"
-    //     ],
+    //     "abilities": [{"name":"//         Stakeout","hidden":false},{"name":"//         Strong Jaw","hidden":false},{"name":"//         Adaptability\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -94252,9 +91196,7 @@ const pokemonData = [
     //     "type": [
     //         "Bug"
     //     ],
-    //     "abilities": [
-    //         "Swarm"
-    //     ],
+    //     "abilities": [{"name":"//         Swarm\r\n    //","hidden":false}],
     //     "moves": [
     //         "Vise Grip",
     //         "Bite",
@@ -94321,9 +91263,7 @@ const pokemonData = [
     //         "Bug",
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Battery"
-    //     ],
+    //     "abilities": [{"name":"//         Battery\r\n    //","hidden":false}],
     //     "moves": [
     //         "Vise Grip",
     //         "Bite",
@@ -94393,9 +91333,7 @@ const pokemonData = [
     //         "Bug",
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Levitate"
-    //     ],
+    //     "abilities": [{"name":"//         Levitate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Vise Grip",
     //         "Guillotine",
@@ -94482,9 +91420,7 @@ const pokemonData = [
     //         "Bug",
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Levitate"
-    //     ],
+    //     "abilities": [{"name":"//         Levitate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Vise Grip",
     //         "Guillotine",
@@ -94558,11 +91494,7 @@ const pokemonData = [
     //     "type": [
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Hyper Cutter",
-    //         "Iron Fist",
-    //         "Anger Point"
-    //     ],
+    //     "abilities": [{"name":"//         Hyper Cutter","hidden":false},{"name":"//         Iron Fist","hidden":false},{"name":"//         Anger Point\r\n    //","hidden":false}],
     //     "moves": [
     //         "Ice Punch",
     //         "Thunder Punch",
@@ -94654,11 +91586,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Hyper Cutter",
-    //         "Iron Fist",
-    //         "Anger Point"
-    //     ],
+    //     "abilities": [{"name":"//         Hyper Cutter","hidden":false},{"name":"//         Iron Fist","hidden":false},{"name":"//         Anger Point\r\n    //","hidden":false}],
     //     "moves": [
     //         "Ice Punch",
     //         "Thunder Punch",
@@ -94761,9 +91689,7 @@ const pokemonData = [
     //         "Fire",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Dancer"
-    //     ],
+    //     "abilities": [{"name":"//         Dancer\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Double Slap",
@@ -94848,9 +91774,7 @@ const pokemonData = [
     //         "Electric",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Dancer"
-    //     ],
+    //     "abilities": [{"name":"//         Dancer\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Double Slap",
@@ -94935,9 +91859,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Dancer"
-    //     ],
+    //     "abilities": [{"name":"//         Dancer\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Double Slap",
@@ -95022,9 +91944,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Dancer"
-    //     ],
+    //     "abilities": [{"name":"//         Dancer\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Double Slap",
@@ -95109,11 +92029,7 @@ const pokemonData = [
     //         "Bug",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Honey Gather",
-    //         "Shield Dust",
-    //         "Sweet Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Honey Gather","hidden":false},{"name":"//         Shield Dust","hidden":false},{"name":"//         Sweet Veil\r\n    //","hidden":false}],
     //     "moves": [
     //         "Absorb",
     //         "Stun Spore",
@@ -95207,11 +92123,7 @@ const pokemonData = [
     //         "Bug",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Honey Gather",
-    //         "Shield Dust",
-    //         "Sweet Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Honey Gather","hidden":false},{"name":"//         Shield Dust","hidden":false},{"name":"//         Sweet Veil\r\n    //","hidden":false}],
     //     "moves": [
     //         "Hyper Beam",
     //         "Absorb",
@@ -95306,11 +92218,7 @@ const pokemonData = [
     //         "Bug",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Honey Gather",
-    //         "Shield Dust",
-    //         "Sweet Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Honey Gather","hidden":false},{"name":"//         Shield Dust","hidden":false},{"name":"//         Sweet Veil\r\n    //","hidden":false}],
     //     "moves": [
     //         "Absorb",
     //         "Solar Beam",
@@ -95391,11 +92299,7 @@ const pokemonData = [
     //     "type": [
     //         "Rock"
     //     ],
-    //     "abilities": [
-    //         "Keen Eye",
-    //         "Vital Spirit",
-    //         "Steadfast"
-    //     ],
+    //     "abilities": [{"name":"//         Keen Eye","hidden":false},{"name":"//         Vital Spirit","hidden":false},{"name":"//         Steadfast\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Sand Attack",
@@ -95480,9 +92384,7 @@ const pokemonData = [
     //     "type": [
     //         "Rock"
     //     ],
-    //     "abilities": [
-    //         "Own Tempo"
-    //     ],
+    //     "abilities": [{"name":"//         Own Tempo\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Sand Attack",
@@ -95567,11 +92469,7 @@ const pokemonData = [
     //     "type": [
     //         "Rock"
     //     ],
-    //     "abilities": [
-    //         "Keen Eye",
-    //         "Sand Rush",
-    //         "Steadfast"
-    //     ],
+    //     "abilities": [{"name":"//         Keen Eye","hidden":false},{"name":"//         Sand Rush","hidden":false},{"name":"//         Steadfast\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Sand Attack",
@@ -95668,11 +92566,7 @@ const pokemonData = [
     //     "type": [
     //         "Rock"
     //     ],
-    //     "abilities": [
-    //         "Keen Eye",
-    //         "Vital Spirit",
-    //         "No Guard"
-    //     ],
+    //     "abilities": [{"name":"//         Keen Eye","hidden":false},{"name":"//         Vital Spirit","hidden":false},{"name":"//         No Guard\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -95779,9 +92673,7 @@ const pokemonData = [
     //     "type": [
     //         "Rock"
     //     ],
-    //     "abilities": [
-    //         "Tough Claws"
-    //     ],
+    //     "abilities": [{"name":"//         Tough Claws\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Sand Attack",
@@ -95879,9 +92771,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Schooling"
-    //     ],
+    //     "abilities": [{"name":"//         Schooling\r\n    //","hidden":false}],
     //     "moves": [
     //         "Take Down",
     //         "Double-Edge",
@@ -95955,9 +92845,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Schooling"
-    //     ],
+    //     "abilities": [{"name":"//         Schooling\r\n    //","hidden":false}],
     //     "moves": [
     //         "Take Down",
     //         "Double-Edge",
@@ -96032,11 +92920,7 @@ const pokemonData = [
     //         "Poison",
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Merciless",
-    //         "Limber",
-    //         "Regenerator"
-    //     ],
+    //     "abilities": [{"name":"//         Merciless","hidden":false},{"name":"//         Limber","hidden":false},{"name":"//         Regenerator\r\n    //","hidden":false}],
     //     "moves": [
     //         "Poison Sting",
     //         "Pin Missile",
@@ -96124,11 +93008,7 @@ const pokemonData = [
     //         "Poison",
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Merciless",
-    //         "Limber",
-    //         "Regenerator"
-    //     ],
+    //     "abilities": [{"name":"//         Merciless","hidden":false},{"name":"//         Limber","hidden":false},{"name":"//         Regenerator\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Poison Sting",
@@ -96221,11 +93101,7 @@ const pokemonData = [
     //     "type": [
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Own Tempo",
-    //         "Stamina",
-    //         "Inner Focus"
-    //     ],
+    //     "abilities": [{"name":"//         Own Tempo","hidden":false},{"name":"//         Stamina","hidden":false},{"name":"//         Inner Focus\r\n    //","hidden":false}],
     //     "moves": [
     //         "Stomp",
     //         "Double Kick",
@@ -96303,11 +93179,7 @@ const pokemonData = [
     //     "type": [
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Own Tempo",
-    //         "Stamina",
-    //         "Inner Focus"
-    //     ],
+    //     "abilities": [{"name":"//         Own Tempo","hidden":false},{"name":"//         Stamina","hidden":false},{"name":"//         Inner Focus\r\n    //","hidden":false}],
     //     "moves": [
     //         "Stomp",
     //         "Double Kick",
@@ -96389,10 +93261,7 @@ const pokemonData = [
     //         "Water",
     //         "Bug"
     //     ],
-    //     "abilities": [
-    //         "Water Bubble",
-    //         "Water Absorb"
-    //     ],
+    //     "abilities": [{"name":"//         Water Bubble","hidden":false},{"name":"//         Water Absorb\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Bite",
@@ -96472,10 +93341,7 @@ const pokemonData = [
     //         "Water",
     //         "Bug"
     //     ],
-    //     "abilities": [
-    //         "Water Bubble",
-    //         "Water Absorb"
-    //     ],
+    //     "abilities": [{"name":"//         Water Bubble","hidden":false},{"name":"//         Water Absorb\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Bite",
@@ -96555,10 +93421,7 @@ const pokemonData = [
     //         "Water",
     //         "Bug"
     //     ],
-    //     "abilities": [
-    //         "Water Bubble",
-    //         "Water Absorb"
-    //     ],
+    //     "abilities": [{"name":"//         Water Bubble","hidden":false},{"name":"//         Water Absorb\r\n    //","hidden":false}],
     //     "moves": [
     //         "Bite",
     //         "Surf",
@@ -96630,10 +93493,7 @@ const pokemonData = [
     //     "type": [
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Leaf Guard",
-    //         "Contrary"
-    //     ],
+    //     "abilities": [{"name":"//         Leaf Guard","hidden":false},{"name":"//         Contrary\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Take Down",
@@ -96710,10 +93570,7 @@ const pokemonData = [
     //     "type": [
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Leaf Guard",
-    //         "Contrary"
-    //     ],
+    //     "abilities": [{"name":"//         Leaf Guard","hidden":false},{"name":"//         Contrary\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Take Down",
@@ -96805,10 +93662,7 @@ const pokemonData = [
     //     "type": [
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Leaf Guard",
-    //         "Contrary"
-    //     ],
+    //     "abilities": [{"name":"//         Leaf Guard","hidden":false},{"name":"//         Contrary\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Hyper Beam",
@@ -96886,11 +93740,7 @@ const pokemonData = [
     //         "Grass",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Illuminate",
-    //         "Effect Spore",
-    //         "Rain Dish"
-    //     ],
+    //     "abilities": [{"name":"//         Illuminate","hidden":false},{"name":"//         Effect Spore","hidden":false},{"name":"//         Rain Dish\r\n    //","hidden":false}],
     //     "moves": [
     //         "Absorb",
     //         "Mega Drain",
@@ -96969,11 +93819,7 @@ const pokemonData = [
     //         "Grass",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Illuminate",
-    //         "Effect Spore",
-    //         "Rain Dish"
-    //     ],
+    //     "abilities": [{"name":"//         Illuminate","hidden":false},{"name":"//         Effect Spore","hidden":false},{"name":"//         Rain Dish\r\n    //","hidden":false}],
     //     "moves": [
     //         "Hyper Beam",
     //         "Absorb",
@@ -97054,10 +93900,7 @@ const pokemonData = [
     //         "Poison",
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Corrosion",
-    //         "Oblivious"
-    //     ],
+    //     "abilities": [{"name":"//         Corrosion","hidden":false},{"name":"//         Oblivious\r\n    //","hidden":false}],
     //     "moves": [
     //         "Double Slap",
     //         "Scratch",
@@ -97155,10 +93998,7 @@ const pokemonData = [
     //         "Poison",
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Corrosion",
-    //         "Oblivious"
-    //     ],
+    //     "abilities": [{"name":"//         Corrosion","hidden":false},{"name":"//         Oblivious\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Double Slap",
@@ -97269,10 +94109,7 @@ const pokemonData = [
     //         "Poison",
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Corrosion",
-    //         "Oblivious"
-    //     ],
+    //     "abilities": [{"name":"//         Corrosion","hidden":false},{"name":"//         Oblivious\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Double Slap",
@@ -97351,11 +94188,7 @@ const pokemonData = [
     //         "Normal",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Fluffy",
-    //         "Klutz",
-    //         "Cute Charm"
-    //     ],
+    //     "abilities": [{"name":"//         Fluffy","hidden":false},{"name":"//         Klutz","hidden":false},{"name":"//         Cute Charm\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Ice Punch",
@@ -97440,11 +94273,7 @@ const pokemonData = [
     //         "Normal",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Fluffy",
-    //         "Klutz",
-    //         "Unnerve"
-    //     ],
+    //     "abilities": [{"name":"//         Fluffy","hidden":false},{"name":"//         Klutz","hidden":false},{"name":"//         Unnerve\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Ice Punch",
@@ -97536,11 +94365,7 @@ const pokemonData = [
     //     "type": [
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Leaf Guard",
-    //         "Oblivious",
-    //         "Sweet Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Leaf Guard","hidden":false},{"name":"//         Oblivious","hidden":false},{"name":"//         Sweet Veil\r\n    //","hidden":false}],
     //     "moves": [
     //         "Take Down",
     //         "Razor Leaf",
@@ -97619,11 +94444,7 @@ const pokemonData = [
     //     "type": [
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Leaf Guard",
-    //         "Oblivious",
-    //         "Sweet Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Leaf Guard","hidden":false},{"name":"//         Oblivious","hidden":false},{"name":"//         Sweet Veil\r\n    //","hidden":false}],
     //     "moves": [
     //         "Double Slap",
     //         "Stomp",
@@ -97707,11 +94528,7 @@ const pokemonData = [
     //     "type": [
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Leaf Guard",
-    //         "Queenly Majesty",
-    //         "Sweet Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Leaf Guard","hidden":false},{"name":"//         Queenly Majesty","hidden":false},{"name":"//         Sweet Veil\r\n    //","hidden":false}],
     //     "moves": [
     //         "Double Slap",
     //         "Stomp",
@@ -97808,11 +94625,7 @@ const pokemonData = [
     //     "type": [
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Flower Veil",
-    //         "Triage",
-    //         "Natural Cure"
-    //     ],
+    //     "abilities": [{"name":"//         Flower Veil","hidden":false},{"name":"//         Triage","hidden":false},{"name":"//         Natural Cure\r\n    //","hidden":false}],
     //     "moves": [
     //         "Bind",
     //         "Vine Whip",
@@ -97911,11 +94724,7 @@ const pokemonData = [
     //         "Normal",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Inner Focus",
-    //         "Telepathy",
-    //         "Symbiosis"
-    //     ],
+    //     "abilities": [{"name":"//         Inner Focus","hidden":false},{"name":"//         Telepathy","hidden":false},{"name":"//         Symbiosis\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Mega Kick",
@@ -98026,10 +94835,7 @@ const pokemonData = [
     //     "type": [
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Receiver",
-    //         "Defiant"
-    //     ],
+    //     "abilities": [{"name":"//         Receiver","hidden":false},{"name":"//         Defiant\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Mega Kick",
@@ -98139,9 +94945,7 @@ const pokemonData = [
     //         "Bug",
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Wimp Out"
-    //     ],
+    //     "abilities": [{"name":"//         Wimp Out\r\n    //","hidden":false}],
     //     "moves": [
     //         "Sand Attack",
     //         "Surf",
@@ -98202,9 +95006,7 @@ const pokemonData = [
     //         "Bug",
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Emergency Exit"
-    //     ],
+    //     "abilities": [{"name":"//         Emergency Exit\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Sand Attack",
@@ -98308,10 +95110,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Water Compaction",
-    //         "Sand Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Water Compaction","hidden":false},{"name":"//         Sand Veil\r\n    //","hidden":false}],
     //     "moves": [
     //         "Sand Attack",
     //         "Absorb",
@@ -98406,10 +95205,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Water Compaction",
-    //         "Sand Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Water Compaction","hidden":false},{"name":"//         Sand Veil\r\n    //","hidden":false}],
     //     "moves": [
     //         "Sand Attack",
     //         "Body Slam",
@@ -98503,10 +95299,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Innards Out",
-    //         "Unaware"
-    //     ],
+    //     "abilities": [{"name":"//         Innards Out","hidden":false},{"name":"//         Unaware\r\n    //","hidden":false}],
     //     "moves": [
     //         "Counter",
     //         "Toxic",
@@ -98568,9 +95361,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Battle Armor"
-    //     ],
+    //     "abilities": [{"name":"//         Battle Armor\r\n    //","hidden":false}],
     //     "moves": [
     //         "Razor Wind",
     //         "Swords Dance",
@@ -98647,9 +95438,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "RKS System"
-    //     ],
+    //     "abilities": [{"name":"//         RKS System\r\n    //","hidden":false}],
     //     "moves": [
     //         "Razor Wind",
     //         "Swords Dance",
@@ -98759,9 +95548,7 @@ const pokemonData = [
     //         "Rock",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Shields Down"
-    //     ],
+    //     "abilities": [{"name":"//         Shields Down\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -98841,9 +95628,7 @@ const pokemonData = [
     //         "Rock",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Shields Down"
-    //     ],
+    //     "abilities": [{"name":"//         Shields Down\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -98923,9 +95708,7 @@ const pokemonData = [
     //         "Rock",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Shields Down"
-    //     ],
+    //     "abilities": [{"name":"//         Shields Down\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -99005,9 +95788,7 @@ const pokemonData = [
     //         "Rock",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Shields Down"
-    //     ],
+    //     "abilities": [{"name":"//         Shields Down\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -99087,9 +95868,7 @@ const pokemonData = [
     //         "Rock",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Shields Down"
-    //     ],
+    //     "abilities": [{"name":"//         Shields Down\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -99169,9 +95948,7 @@ const pokemonData = [
     //         "Rock",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Shields Down"
-    //     ],
+    //     "abilities": [{"name":"//         Shields Down\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -99251,9 +96028,7 @@ const pokemonData = [
     //         "Rock",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Shields Down"
-    //     ],
+    //     "abilities": [{"name":"//         Shields Down\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -99333,9 +96108,7 @@ const pokemonData = [
     //         "Rock",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Shields Down"
-    //     ],
+    //     "abilities": [{"name":"//         Shields Down\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -99415,9 +96188,7 @@ const pokemonData = [
     //         "Rock",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Shields Down"
-    //     ],
+    //     "abilities": [{"name":"//         Shields Down\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -99497,9 +96268,7 @@ const pokemonData = [
     //         "Rock",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Shields Down"
-    //     ],
+    //     "abilities": [{"name":"//         Shields Down\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -99579,9 +96348,7 @@ const pokemonData = [
     //         "Rock",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Shields Down"
-    //     ],
+    //     "abilities": [{"name":"//         Shields Down\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -99661,9 +96428,7 @@ const pokemonData = [
     //         "Rock",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Shields Down"
-    //     ],
+    //     "abilities": [{"name":"//         Shields Down\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -99743,9 +96508,7 @@ const pokemonData = [
     //         "Rock",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Shields Down"
-    //     ],
+    //     "abilities": [{"name":"//         Shields Down\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -99825,9 +96588,7 @@ const pokemonData = [
     //         "Rock",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Shields Down"
-    //     ],
+    //     "abilities": [{"name":"//         Shields Down\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -99906,9 +96667,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Comatose"
-    //     ],
+    //     "abilities": [{"name":"//         Comatose\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Slam",
@@ -100001,9 +96760,7 @@ const pokemonData = [
     //         "Fire",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Shell Armor"
-    //     ],
+    //     "abilities": [{"name":"//         Shell Armor\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Mega Kick",
@@ -100106,11 +96863,7 @@ const pokemonData = [
     //         "Electric",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Iron Barbs",
-    //         "Lightning Rod",
-    //         "Sturdy"
-    //     ],
+    //     "abilities": [{"name":"//         Iron Barbs","hidden":false},{"name":"//         Lightning Rod","hidden":false},{"name":"//         Sturdy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Twineedle",
@@ -100211,11 +96964,7 @@ const pokemonData = [
     //         "Electric",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Iron Barbs",
-    //         "Lightning Rod",
-    //         "Sturdy"
-    //     ],
+    //     "abilities": [{"name":"//         Iron Barbs","hidden":false},{"name":"//         Lightning Rod","hidden":false},{"name":"//         Sturdy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Twineedle",
@@ -100306,9 +97055,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Disguise"
-    //     ],
+    //     "abilities": [{"name":"//         Disguise\r\n    //","hidden":false}],
     //     "moves": [
     //         "Scratch",
     //         "Swords Dance",
@@ -100418,9 +97165,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Disguise"
-    //     ],
+    //     "abilities": [{"name":"//         Disguise\r\n    //","hidden":false}],
     //     "moves": [
     //         "Scratch",
     //         "Swords Dance",
@@ -100531,9 +97276,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Disguise"
-    //     ],
+    //     "abilities": [{"name":"//         Disguise\r\n    //","hidden":false}],
     //     "moves": [
     //         "Scratch",
     //         "Swords Dance",
@@ -100622,9 +97365,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Disguise"
-    //     ],
+    //     "abilities": [{"name":"//         Disguise\r\n    //","hidden":false}],
     //     "moves": [
     //         "Scratch",
     //         "Swords Dance",
@@ -100714,11 +97455,7 @@ const pokemonData = [
     //         "Water",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Dazzling",
-    //         "Strong Jaw",
-    //         "Wonder Skin"
-    //     ],
+    //     "abilities": [{"name":"//         Dazzling","hidden":false},{"name":"//         Strong Jaw","hidden":false},{"name":"//         Wonder Skin\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Take Down",
@@ -100821,11 +97558,7 @@ const pokemonData = [
     //         "Normal",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Berserk",
-    //         "Sap Sipper",
-    //         "Cloud Nine"
-    //     ],
+    //     "abilities": [{"name":"//         Berserk","hidden":false},{"name":"//         Sap Sipper","hidden":false},{"name":"//         Cloud Nine\r\n    //","hidden":false}],
     //     "moves": [
     //         "Razor Wind",
     //         "Fly",
@@ -100936,9 +97669,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Steelworker"
-    //     ],
+    //     "abilities": [{"name":"//         Steelworker\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Slam",
@@ -101035,11 +97766,7 @@ const pokemonData = [
     //     "type": [
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Bulletproof",
-    //         "Soundproof",
-    //         "Overcoat"
-    //     ],
+    //     "abilities": [{"name":"//         Bulletproof","hidden":false},{"name":"//         Soundproof","hidden":false},{"name":"//         Overcoat\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Headbutt",
@@ -101123,11 +97850,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Bulletproof",
-    //         "Soundproof",
-    //         "Overcoat"
-    //     ],
+    //     "abilities": [{"name":"//         Bulletproof","hidden":false},{"name":"//         Soundproof","hidden":false},{"name":"//         Overcoat\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Swords Dance",
@@ -101216,11 +97939,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Bulletproof",
-    //         "Soundproof",
-    //         "Overcoat"
-    //     ],
+    //     "abilities": [{"name":"//         Bulletproof","hidden":false},{"name":"//         Soundproof","hidden":false},{"name":"//         Overcoat\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -101335,11 +98054,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Bulletproof",
-    //         "Soundproof",
-    //         "Overcoat"
-    //     ],
+    //     "abilities": [{"name":"//         Bulletproof","hidden":false},{"name":"//         Soundproof","hidden":false},{"name":"//         Overcoat\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -101442,10 +98157,7 @@ const pokemonData = [
     //         "Electric",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Electric Surge",
-    //         "Telepathy"
-    //     ],
+    //     "abilities": [{"name":"//         Electric Surge","hidden":false},{"name":"//         Telepathy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Fly",
@@ -101541,10 +98253,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Psychic Surge",
-    //         "Telepathy"
-    //     ],
+    //     "abilities": [{"name":"//         Psychic Surge","hidden":false},{"name":"//         Telepathy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Psybeam",
     //         "Hyper Beam",
@@ -101637,10 +98346,7 @@ const pokemonData = [
     //         "Grass",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Grassy Surge",
-    //         "Telepathy"
-    //     ],
+    //     "abilities": [{"name":"//         Grassy Surge","hidden":false},{"name":"//         Telepathy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Swords Dance",
@@ -101743,10 +98449,7 @@ const pokemonData = [
     //         "Water",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Misty Surge",
-    //         "Telepathy"
-    //     ],
+    //     "abilities": [{"name":"//         Misty Surge","hidden":false},{"name":"//         Telepathy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Ice Punch",
     //         "Mist",
@@ -101838,9 +98541,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Unaware"
-    //     ],
+    //     "abilities": [{"name":"//         Unaware\r\n    //","hidden":false}],
     //     "moves": [
     //         "Teleport",
     //         "Splash"
@@ -101863,9 +98564,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Sturdy"
-    //     ],
+    //     "abilities": [{"name":"//         Sturdy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Teleport",
     //         "Cosmic Power"
@@ -101889,9 +98588,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Full Metal Body"
-    //     ],
+    //     "abilities": [{"name":"//         Full Metal Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Roar",
     //         "Flamethrower",
@@ -101996,9 +98693,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Shadow Shield"
-    //     ],
+    //     "abilities": [{"name":"//         Shadow Shield\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Roar",
@@ -102103,9 +98798,7 @@ const pokemonData = [
     //         "Rock",
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Beast Boost"
-    //     ],
+    //     "abilities": [{"name":"//         Beast Boost\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Bind",
@@ -102199,9 +98892,7 @@ const pokemonData = [
     //         "Bug",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Beast Boost"
-    //     ],
+    //     "abilities": [{"name":"//         Beast Boost\r\n    //","hidden":false}],
     //     "moves": [
     //         "Comet Punch",
     //         "Mega Punch",
@@ -102288,9 +98979,7 @@ const pokemonData = [
     //         "Bug",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Beast Boost"
-    //     ],
+    //     "abilities": [{"name":"//         Beast Boost\r\n    //","hidden":false}],
     //     "moves": [
     //         "Stomp",
     //         "Double Kick",
@@ -102377,9 +99066,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Beast Boost"
-    //     ],
+    //     "abilities": [{"name":"//         Beast Boost\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Bind",
@@ -102459,9 +99146,7 @@ const pokemonData = [
     //         "Steel",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Beast Boost"
-    //     ],
+    //     "abilities": [{"name":"//         Beast Boost\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Tackle",
@@ -102548,9 +99233,7 @@ const pokemonData = [
     //         "Grass",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Beast Boost"
-    //     ],
+    //     "abilities": [{"name":"//         Beast Boost\r\n    //","hidden":false}],
     //     "moves": [
     //         "Guillotine",
     //         "Swords Dance",
@@ -102617,9 +99300,7 @@ const pokemonData = [
     //         "Dark",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Beast Boost"
-    //     ],
+    //     "abilities": [{"name":"//         Beast Boost\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Stomp",
@@ -102716,9 +99397,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Prism Armor"
-    //     ],
+    //     "abilities": [{"name":"//         Prism Armor\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Hyper Beam",
@@ -102825,9 +99504,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Prism Armor"
-    //     ],
+    //     "abilities": [{"name":"//         Prism Armor\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Hyper Beam",
@@ -102934,9 +99611,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Prism Armor"
-    //     ],
+    //     "abilities": [{"name":"//         Prism Armor\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Hyper Beam",
@@ -103043,9 +99718,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Neuroforce"
-    //     ],
+    //     "abilities": [{"name":"//         Neuroforce\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Hyper Beam",
@@ -103142,9 +99815,7 @@ const pokemonData = [
     //         "Steel",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Soul-Heart"
-    //     ],
+    //     "abilities": [{"name":"//         Soul-Heart\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Take Down",
@@ -103268,9 +99939,7 @@ const pokemonData = [
     //         "Steel",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Soul-Heart"
-    //     ],
+    //     "abilities": [{"name":"//         Soul-Heart\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Take Down",
@@ -103394,9 +100063,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Technician"
-    //     ],
+    //     "abilities": [{"name":"//         Technician\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -103501,9 +100168,7 @@ const pokemonData = [
     //     "type": [
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Beast Boost"
-    //     ],
+    //     "abilities": [{"name":"//         Beast Boost\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fury Attack",
     //         "Pin Missile",
@@ -103562,9 +100227,7 @@ const pokemonData = [
     //         "Poison",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Beast Boost"
-    //     ],
+    //     "abilities": [{"name":"//         Beast Boost\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Fury Attack",
@@ -103663,9 +100326,7 @@ const pokemonData = [
     //         "Rock",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Beast Boost"
-    //     ],
+    //     "abilities": [{"name":"//         Beast Boost\r\n    //","hidden":false}],
     //     "moves": [
     //         "Bind",
     //         "Stomp",
@@ -103753,9 +100414,7 @@ const pokemonData = [
     //         "Fire",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Beast Boost"
-    //     ],
+    //     "abilities": [{"name":"//         Beast Boost\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ember",
@@ -103842,9 +100501,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Volt Absorb"
-    //     ],
+    //     "abilities": [{"name":"//         Volt Absorb\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Pay Day",
@@ -103948,9 +100605,7 @@ const pokemonData = [
     //     "type": [
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Magnet Pull"
-    //     ],
+    //     "abilities": [{"name":"//         Magnet Pull\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tail Whip",
@@ -103991,9 +100646,7 @@ const pokemonData = [
     //     "type": [
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Iron Fist"
-    //     ],
+    //     "abilities": [{"name":"//         Iron Fist\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Ice Punch",
@@ -104061,9 +100714,7 @@ const pokemonData = [
     //     "type": [
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Iron Fist"
-    //     ],
+    //     "abilities": [{"name":"//         Iron Fist\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 135,
@@ -104083,10 +100734,7 @@ const pokemonData = [
     //     "type": [
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Overgrow",
-    //         "Grassy Surge"
-    //     ],
+    //     "abilities": [{"name":"//         Overgrow","hidden":false},{"name":"//         Grassy Surge\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Scratch",
@@ -104166,10 +100814,7 @@ const pokemonData = [
     //     "type": [
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Overgrow",
-    //         "Grassy Surge"
-    //     ],
+    //     "abilities": [{"name":"//         Overgrow","hidden":false},{"name":"//         Grassy Surge\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Scratch",
@@ -104244,10 +100889,7 @@ const pokemonData = [
     //     "type": [
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Overgrow",
-    //         "Grassy Surge"
-    //     ],
+    //     "abilities": [{"name":"//         Overgrow","hidden":false},{"name":"//         Grassy Surge\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Scratch",
@@ -104344,10 +100986,7 @@ const pokemonData = [
     //     "type": [
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Overgrow",
-    //         "Grassy Surge"
-    //     ],
+    //     "abilities": [{"name":"//         Overgrow","hidden":false},{"name":"//         Grassy Surge\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 100,
@@ -104368,10 +101007,7 @@ const pokemonData = [
     //     "type": [
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Blaze",
-    //         "Libero"
-    //     ],
+    //     "abilities": [{"name":"//         Blaze","hidden":false},{"name":"//         Libero\r\n    //","hidden":false}],
     //     "moves": [
     //         "Double Kick",
     //         "Mega Kick",
@@ -104447,10 +101083,7 @@ const pokemonData = [
     //     "type": [
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Blaze",
-    //         "Libero"
-    //     ],
+    //     "abilities": [{"name":"//         Blaze","hidden":false},{"name":"//         Libero\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Double Kick",
@@ -104524,10 +101157,7 @@ const pokemonData = [
     //     "type": [
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Blaze",
-    //         "Libero"
-    //     ],
+    //     "abilities": [{"name":"//         Blaze","hidden":false},{"name":"//         Libero\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Swords Dance",
@@ -104619,10 +101249,7 @@ const pokemonData = [
     //     "type": [
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Blaze",
-    //         "Libero"
-    //     ],
+    //     "abilities": [{"name":"//         Blaze","hidden":false},{"name":"//         Libero\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 80,
@@ -104643,10 +101270,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Torrent",
-    //         "Sniper"
-    //     ],
+    //     "abilities": [{"name":"//         Torrent","hidden":false},{"name":"//         Sniper\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Bind",
@@ -104714,10 +101338,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Torrent",
-    //         "Sniper"
-    //     ],
+    //     "abilities": [{"name":"//         Torrent","hidden":false},{"name":"//         Sniper\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Bind",
@@ -104779,10 +101400,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Torrent",
-    //         "Sniper"
-    //     ],
+    //     "abilities": [{"name":"//         Torrent","hidden":false},{"name":"//         Sniper\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Swords Dance",
@@ -104866,10 +101484,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Torrent",
-    //         "Sniper"
-    //     ],
+    //     "abilities": [{"name":"//         Torrent","hidden":false},{"name":"//         Sniper\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 70,
@@ -104890,10 +101505,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Cheek Pouch",
-    //         "Gluttony"
-    //     ],
+    //     "abilities": [{"name":"//         Cheek Pouch","hidden":false},{"name":"//         Gluttony\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -104959,10 +101571,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Cheek Pouch",
-    //         "Gluttony"
-    //     ],
+    //     "abilities": [{"name":"//         Cheek Pouch","hidden":false},{"name":"//         Gluttony\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Tackle",
@@ -105039,11 +101648,7 @@ const pokemonData = [
     //     "type": [
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Keen Eye",
-    //         "Unnerve",
-    //         "Big Pecks"
-    //     ],
+    //     "abilities": [{"name":"//         Keen Eye","hidden":false},{"name":"//         Unnerve","hidden":false},{"name":"//         Big Pecks\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Sand Attack",
@@ -105112,11 +101717,7 @@ const pokemonData = [
     //     "type": [
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Keen Eye",
-    //         "Unnerve",
-    //         "Big Pecks"
-    //     ],
+    //     "abilities": [{"name":"//         Keen Eye","hidden":false},{"name":"//         Unnerve","hidden":false},{"name":"//         Big Pecks\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Fury Attack",
@@ -105182,11 +101783,7 @@ const pokemonData = [
     //         "Flying",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Pressure",
-    //         "Unnerve",
-    //         "Mirror Armor"
-    //     ],
+    //     "abilities": [{"name":"//         Pressure","hidden":false},{"name":"//         Unnerve","hidden":false},{"name":"//         Mirror Armor\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Fury Attack",
@@ -105269,11 +101866,7 @@ const pokemonData = [
     //         "Flying",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Pressure",
-    //         "Unnerve",
-    //         "Mirror Armor"
-    //     ],
+    //     "abilities": [{"name":"//         Pressure","hidden":false},{"name":"//         Unnerve","hidden":false},{"name":"//         Mirror Armor\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 98,
@@ -105294,11 +101887,7 @@ const pokemonData = [
     //     "type": [
     //         "Bug"
     //     ],
-    //     "abilities": [
-    //         "Swarm",
-    //         "Compound Eyes",
-    //         "Telepathy"
-    //     ],
+    //     "abilities": [{"name":"//         Swarm","hidden":false},{"name":"//         Compound Eyes","hidden":false},{"name":"//         Telepathy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Supersonic",
     //         "Recover",
@@ -105326,11 +101915,7 @@ const pokemonData = [
     //         "Bug",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Swarm",
-    //         "Compound Eyes",
-    //         "Telepathy"
-    //     ],
+    //     "abilities": [{"name":"//         Swarm","hidden":false},{"name":"//         Compound Eyes","hidden":false},{"name":"//         Telepathy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Solar Beam",
     //         "Confusion",
@@ -105393,11 +101978,7 @@ const pokemonData = [
     //         "Bug",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Swarm",
-    //         "Frisk",
-    //         "Telepathy"
-    //     ],
+    //     "abilities": [{"name":"//         Swarm","hidden":false},{"name":"//         Frisk","hidden":false},{"name":"//         Telepathy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Psybeam",
     //         "Hyper Beam",
@@ -105473,11 +102054,7 @@ const pokemonData = [
     //         "Bug",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Swarm",
-    //         "Frisk",
-    //         "Telepathy"
-    //     ],
+    //     "abilities": [{"name":"//         Swarm","hidden":false},{"name":"//         Frisk","hidden":false},{"name":"//         Telepathy\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 60,
@@ -105498,11 +102075,7 @@ const pokemonData = [
     //     "type": [
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Run Away",
-    //         "Unburden",
-    //         "Stakeout"
-    //     ],
+    //     "abilities": [{"name":"//         Run Away","hidden":false},{"name":"//         Unburden","hidden":false},{"name":"//         Stakeout\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tail Whip",
     //         "Dig",
@@ -105559,11 +102132,7 @@ const pokemonData = [
     //     "type": [
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Run Away",
-    //         "Unburden",
-    //         "Stakeout"
-    //     ],
+    //     "abilities": [{"name":"//         Run Away","hidden":false},{"name":"//         Unburden","hidden":false},{"name":"//         Stakeout\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tail Whip",
     //         "Hyper Beam",
@@ -105631,11 +102200,7 @@ const pokemonData = [
     //     "type": [
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Cotton Down",
-    //         "Regenerator",
-    //         "Effect Spore"
-    //     ],
+    //     "abilities": [{"name":"//         Cotton Down","hidden":false},{"name":"//         Regenerator","hidden":false},{"name":"//         Effect Spore\r\n    //","hidden":false}],
     //     "moves": [
     //         "Sing",
     //         "Leech Seed",
@@ -105695,11 +102260,7 @@ const pokemonData = [
     //     "type": [
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Cotton Down",
-    //         "Regenerator",
-    //         "Effect Spore"
-    //     ],
+    //     "abilities": [{"name":"//         Cotton Down","hidden":false},{"name":"//         Regenerator","hidden":false},{"name":"//         Effect Spore\r\n    //","hidden":false}],
     //     "moves": [
     //         "Sing",
     //         "Hyper Beam",
@@ -105759,11 +102320,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Fluffy",
-    //         "Run Away",
-    //         "Bulletproof"
-    //     ],
+    //     "abilities": [{"name":"//         Fluffy","hidden":false},{"name":"//         Run Away","hidden":false},{"name":"//         Bulletproof\r\n    //","hidden":false}],
     //     "moves": [
     //         "Stomp",
     //         "Double Kick",
@@ -105815,11 +102372,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Fluffy",
-    //         "Steadfast",
-    //         "Bulletproof"
-    //     ],
+    //     "abilities": [{"name":"//         Fluffy","hidden":false},{"name":"//         Steadfast","hidden":false},{"name":"//         Bulletproof\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Double Kick",
@@ -105879,11 +102432,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Strong Jaw",
-    //         "Shell Armor",
-    //         "Swift Swim"
-    //     ],
+    //     "abilities": [{"name":"//         Strong Jaw","hidden":false},{"name":"//         Shell Armor","hidden":false},{"name":"//         Swift Swim\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -105949,11 +102498,7 @@ const pokemonData = [
     //         "Water",
     //         "Rock"
     //     ],
-    //     "abilities": [
-    //         "Strong Jaw",
-    //         "Shell Armor",
-    //         "Swift Swim"
-    //     ],
+    //     "abilities": [{"name":"//         Strong Jaw","hidden":false},{"name":"//         Shell Armor","hidden":false},{"name":"//         Swift Swim\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Headbutt",
@@ -106046,11 +102591,7 @@ const pokemonData = [
     //         "Water",
     //         "Rock"
     //     ],
-    //     "abilities": [
-    //         "Strong Jaw",
-    //         "Shell Armor",
-    //         "Swift Swim"
-    //     ],
+    //     "abilities": [{"name":"//         Strong Jaw","hidden":false},{"name":"//         Shell Armor","hidden":false},{"name":"//         Swift Swim\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 90,
@@ -106071,10 +102612,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Ball Fetch",
-    //         "Rattled"
-    //     ],
+    //     "abilities": [{"name":"//         Ball Fetch","hidden":false},{"name":"//         Rattled\r\n    //","hidden":false}],
     //     "moves": [
     //         "Sand Attack",
     //         "Tackle",
@@ -106134,10 +102672,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Strong Jaw",
-    //         "Competitive"
-    //     ],
+    //     "abilities": [{"name":"//         Strong Jaw","hidden":false},{"name":"//         Competitive\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Tail Whip",
@@ -106202,11 +102737,7 @@ const pokemonData = [
     //     "type": [
     //         "Rock"
     //     ],
-    //     "abilities": [
-    //         "Steam Engine",
-    //         "Heatproof",
-    //         "Flash Fire"
-    //     ],
+    //     "abilities": [{"name":"//         Steam Engine","hidden":false},{"name":"//         Heatproof","hidden":false},{"name":"//         Flash Fire\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -106270,11 +102801,7 @@ const pokemonData = [
     //         "Rock",
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Steam Engine",
-    //         "Flame Body",
-    //         "Flash Fire"
-    //     ],
+    //     "abilities": [{"name":"//         Steam Engine","hidden":false},{"name":"//         Flame Body","hidden":false},{"name":"//         Flash Fire\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -106350,11 +102877,7 @@ const pokemonData = [
     //         "Rock",
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Steam Engine",
-    //         "Flame Body",
-    //         "Flash Fire"
-    //     ],
+    //     "abilities": [{"name":"//         Steam Engine","hidden":false},{"name":"//         Flame Body","hidden":false},{"name":"//         Flash Fire\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -106438,11 +102961,7 @@ const pokemonData = [
     //         "Rock",
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Steam Engine",
-    //         "Flame Body",
-    //         "Flash Fire"
-    //     ],
+    //     "abilities": [{"name":"//         Steam Engine","hidden":false},{"name":"//         Flame Body","hidden":false},{"name":"//         Flash Fire\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 110,
@@ -106464,11 +102983,7 @@ const pokemonData = [
     //         "Grass",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Ripen",
-    //         "Gluttony",
-    //         "Bulletproof"
-    //     ],
+    //     "abilities": [{"name":"//         Ripen","hidden":false},{"name":"//         Gluttony","hidden":false},{"name":"//         Bulletproof\r\n    //","hidden":false}],
     //     "moves": [
     //         "Withdraw",
     //         "Defense Curl",
@@ -106502,11 +103017,7 @@ const pokemonData = [
     //         "Grass",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Ripen",
-    //         "Gluttony",
-    //         "Hustle"
-    //     ],
+    //     "abilities": [{"name":"//         Ripen","hidden":false},{"name":"//         Gluttony","hidden":false},{"name":"//         Hustle\r\n    //","hidden":false}],
     //     "moves": [
     //         "Wing Attack",
     //         "Fly",
@@ -106580,11 +103091,7 @@ const pokemonData = [
     //         "Grass",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Ripen",
-    //         "Gluttony",
-    //         "Hustle"
-    //     ],
+    //     "abilities": [{"name":"//         Ripen","hidden":false},{"name":"//         Gluttony","hidden":false},{"name":"//         Hustle\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 70,
@@ -106606,11 +103113,7 @@ const pokemonData = [
     //         "Grass",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Ripen",
-    //         "Gluttony",
-    //         "Thick Fat"
-    //     ],
+    //     "abilities": [{"name":"//         Ripen","hidden":false},{"name":"//         Gluttony","hidden":false},{"name":"//         Thick Fat\r\n    //","hidden":false}],
     //     "moves": [
     //         "Stomp",
     //         "Headbutt",
@@ -106693,11 +103196,7 @@ const pokemonData = [
     //         "Grass",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Ripen",
-    //         "Gluttony",
-    //         "Thick Fat"
-    //     ],
+    //     "abilities": [{"name":"//         Ripen","hidden":false},{"name":"//         Gluttony","hidden":false},{"name":"//         Thick Fat\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 110,
@@ -106718,11 +103217,7 @@ const pokemonData = [
     //     "type": [
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Sand Spit",
-    //         "Shed Skin",
-    //         "Sand Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Sand Spit","hidden":false},{"name":"//         Shed Skin","hidden":false},{"name":"//         Sand Veil\r\n    //","hidden":false}],
     //     "moves": [
     //         "Slam",
     //         "Sand Attack",
@@ -106787,11 +103282,7 @@ const pokemonData = [
     //     "type": [
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Sand Spit",
-    //         "Shed Skin",
-    //         "Sand Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Sand Spit","hidden":false},{"name":"//         Shed Skin","hidden":false},{"name":"//         Sand Veil\r\n    //","hidden":false}],
     //     "moves": [
     //         "Slam",
     //         "Sand Attack",
@@ -106865,11 +103356,7 @@ const pokemonData = [
     //     "type": [
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Sand Spit",
-    //         "Shed Skin",
-    //         "Sand Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Sand Spit","hidden":false},{"name":"//         Shed Skin","hidden":false},{"name":"//         Sand Veil\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 72,
@@ -106891,9 +103378,7 @@ const pokemonData = [
     //         "Flying",
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Gulp Missile"
-    //     ],
+    //     "abilities": [{"name":"//         Gulp Missile\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Fury Attack",
@@ -106967,9 +103452,7 @@ const pokemonData = [
     //         "Flying",
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Gulp Missile"
-    //     ],
+    //     "abilities": [{"name":"//         Gulp Missile\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Fury Attack",
@@ -107043,9 +103526,7 @@ const pokemonData = [
     //         "Flying",
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Gulp Missile"
-    //     ],
+    //     "abilities": [{"name":"//         Gulp Missile\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Fury Attack",
@@ -107118,10 +103599,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Swift Swim",
-    //         "Propeller Tail"
-    //     ],
+    //     "abilities": [{"name":"//         Swift Swim","hidden":false},{"name":"//         Propeller Tail\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fury Attack",
     //         "Take Down",
@@ -107188,10 +103666,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Swift Swim",
-    //         "Propeller Tail"
-    //     ],
+    //     "abilities": [{"name":"//         Swift Swim","hidden":false},{"name":"//         Propeller Tail\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fury Attack",
     //         "Take Down",
@@ -107261,11 +103736,7 @@ const pokemonData = [
     //         "Electric",
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Rattled",
-    //         "Static",
-    //         "Klutz"
-    //     ],
+    //     "abilities": [{"name":"//         Rattled","hidden":false},{"name":"//         Static","hidden":false},{"name":"//         Klutz\r\n    //","hidden":false}],
     //     "moves": [
     //         "Growl",
     //         "Acid",
@@ -107309,11 +103780,7 @@ const pokemonData = [
     //         "Electric",
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Punk Rock",
-    //         "Plus",
-    //         "Technician"
-    //     ],
+    //     "abilities": [{"name":"//         Punk Rock","hidden":false},{"name":"//         Plus","hidden":false},{"name":"//         Technician\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -107412,11 +103879,7 @@ const pokemonData = [
     //         "Electric",
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Punk Rock",
-    //         "Minus",
-    //         "Technician"
-    //     ],
+    //     "abilities": [{"name":"//         Punk Rock","hidden":false},{"name":"//         Minus","hidden":false},{"name":"//         Technician\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -107516,11 +103979,7 @@ const pokemonData = [
     //         "Electric",
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Punk Rock",
-    //         "Plus",
-    //         "Technician"
-    //     ],
+    //     "abilities": [{"name":"//         Punk Rock","hidden":false},{"name":"//         Plus","hidden":false},{"name":"//         Technician\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 75,
@@ -107542,11 +104001,7 @@ const pokemonData = [
     //         "Electric",
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Punk Rock",
-    //         "Minus",
-    //         "Technician"
-    //     ],
+    //     "abilities": [{"name":"//         Punk Rock","hidden":false},{"name":"//         Minus","hidden":false},{"name":"//         Technician\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 75,
@@ -107568,11 +104023,7 @@ const pokemonData = [
     //         "Fire",
     //         "Bug"
     //     ],
-    //     "abilities": [
-    //         "Flash Fire",
-    //         "White Smoke",
-    //         "Flame Body"
-    //     ],
+    //     "abilities": [{"name":"//         Flash Fire","hidden":false},{"name":"//         White Smoke","hidden":false},{"name":"//         Flame Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Slam",
     //         "Wrap",
@@ -107632,11 +104083,7 @@ const pokemonData = [
     //         "Fire",
     //         "Bug"
     //     ],
-    //     "abilities": [
-    //         "Flash Fire",
-    //         "White Smoke",
-    //         "Flame Body"
-    //     ],
+    //     "abilities": [{"name":"//         Flash Fire","hidden":false},{"name":"//         White Smoke","hidden":false},{"name":"//         Flame Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Slam",
     //         "Wrap",
@@ -107705,11 +104152,7 @@ const pokemonData = [
     //         "Fire",
     //         "Bug"
     //     ],
-    //     "abilities": [
-    //         "Flash Fire",
-    //         "White Smoke",
-    //         "Flame Body"
-    //     ],
+    //     "abilities": [{"name":"//         Flash Fire","hidden":false},{"name":"//         White Smoke","hidden":false},{"name":"//         Flame Body\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 100,
@@ -107730,10 +104173,7 @@ const pokemonData = [
     //     "type": [
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Limber",
-    //         "Technician"
-    //     ],
+    //     "abilities": [{"name":"//         Limber","hidden":false},{"name":"//         Technician\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Ice Punch",
@@ -107797,10 +104237,7 @@ const pokemonData = [
     //     "type": [
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Limber",
-    //         "Technician"
-    //     ],
+    //     "abilities": [{"name":"//         Limber","hidden":false},{"name":"//         Technician\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Ice Punch",
@@ -107872,10 +104309,7 @@ const pokemonData = [
     //     "type": [
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Weak Armor",
-    //         "Cursed Body"
-    //     ],
+    //     "abilities": [{"name":"//         Weak Armor","hidden":false},{"name":"//         Cursed Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Psybeam",
     //         "Mega Drain",
@@ -107940,10 +104374,7 @@ const pokemonData = [
     //     "type": [
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Weak Armor",
-    //         "Cursed Body"
-    //     ],
+    //     "abilities": [{"name":"//         Weak Armor","hidden":false},{"name":"//         Cursed Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Psybeam",
     //         "Hyper Beam",
@@ -108016,11 +104447,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Healer",
-    //         "Anticipation",
-    //         "Magic Bounce"
-    //     ],
+    //     "abilities": [{"name":"//         Healer","hidden":false},{"name":"//         Anticipation","hidden":false},{"name":"//         Magic Bounce\r\n    //","hidden":false}],
     //     "moves": [
     //         "Psybeam",
     //         "Thunder Wave",
@@ -108090,11 +104517,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Healer",
-    //         "Anticipation",
-    //         "Magic Bounce"
-    //     ],
+    //     "abilities": [{"name":"//         Healer","hidden":false},{"name":"//         Anticipation","hidden":false},{"name":"//         Magic Bounce\r\n    //","hidden":false}],
     //     "moves": [
     //         "Psybeam",
     //         "Thunder Wave",
@@ -108163,11 +104586,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Healer",
-    //         "Anticipation",
-    //         "Magic Bounce"
-    //     ],
+    //     "abilities": [{"name":"//         Healer","hidden":false},{"name":"//         Anticipation","hidden":false},{"name":"//         Magic Bounce\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Psybeam",
@@ -108251,11 +104670,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Healer",
-    //         "Anticipation",
-    //         "Magic Bounce"
-    //     ],
+    //     "abilities": [{"name":"//         Healer","hidden":false},{"name":"//         Anticipation","hidden":false},{"name":"//         Magic Bounce\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 57,
@@ -108276,11 +104691,7 @@ const pokemonData = [
     //         "Dark",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Prankster",
-    //         "Frisk",
-    //         "Pickpocket"
-    //     ],
+    //     "abilities": [{"name":"//         Prankster","hidden":false},{"name":"//         Frisk","hidden":false},{"name":"//         Pickpocket\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Mega Kick",
@@ -108351,11 +104762,7 @@ const pokemonData = [
     //         "Dark",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Prankster",
-    //         "Frisk",
-    //         "Pickpocket"
-    //     ],
+    //     "abilities": [{"name":"//         Prankster","hidden":false},{"name":"//         Frisk","hidden":false},{"name":"//         Pickpocket\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Mega Kick",
@@ -108429,11 +104836,7 @@ const pokemonData = [
     //         "Dark",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Prankster",
-    //         "Frisk",
-    //         "Pickpocket"
-    //     ],
+    //     "abilities": [{"name":"//         Prankster","hidden":false},{"name":"//         Frisk","hidden":false},{"name":"//         Pickpocket\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -108529,11 +104932,7 @@ const pokemonData = [
     //         "Dark",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Prankster",
-    //         "Frisk",
-    //         "Pickpocket"
-    //     ],
+    //     "abilities": [{"name":"//         Prankster","hidden":false},{"name":"//         Frisk","hidden":false},{"name":"//         Pickpocket\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 95,
@@ -108554,11 +104953,7 @@ const pokemonData = [
     //         "Dark",
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Reckless",
-    //         "Guts",
-    //         "Defiant"
-    //     ],
+    //     "abilities": [{"name":"//         Reckless","hidden":false},{"name":"//         Guts","hidden":false},{"name":"//         Defiant\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -108661,11 +105056,7 @@ const pokemonData = [
     //     "type": [
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Battle Armor",
-    //         "Tough Claws",
-    //         "Steely Spirit"
-    //     ],
+    //     "abilities": [{"name":"//         Battle Armor","hidden":false},{"name":"//         Tough Claws","hidden":false},{"name":"//         Steely Spirit\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pay Day",
     //         "Scratch",
@@ -108760,10 +105151,7 @@ const pokemonData = [
     //     "type": [
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Weak Armor",
-    //         "Perish Body"
-    //     ],
+    //     "abilities": [{"name":"//         Weak Armor","hidden":false},{"name":"//         Perish Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -108854,10 +105242,7 @@ const pokemonData = [
     //     "type": [
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Steadfast",
-    //         "Scrappy"
-    //     ],
+    //     "abilities": [{"name":"//         Steadfast","hidden":false},{"name":"//         Scrappy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Slam",
@@ -108924,11 +105309,7 @@ const pokemonData = [
     //         "Ice",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Tangled Feet",
-    //         "Screen Cleaner",
-    //         "Ice Body"
-    //     ],
+    //     "abilities": [{"name":"//         Tangled Feet","hidden":false},{"name":"//         Screen Cleaner","hidden":false},{"name":"//         Ice Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Mega Punch",
@@ -109040,9 +105421,7 @@ const pokemonData = [
     //         "Ground",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Wandering Spirit"
-    //     ],
+    //     "abilities": [{"name":"//         Wandering Spirit\r\n    //","hidden":false}],
     //     "moves": [
     //         "Slam",
     //         "Disable",
@@ -109131,10 +105510,7 @@ const pokemonData = [
     //     "type": [
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Sweet Veil",
-    //         "Aroma Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Sweet Veil","hidden":false},{"name":"//         Aroma Veil\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Recover",
@@ -109181,10 +105557,7 @@ const pokemonData = [
     //     "type": [
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Sweet Veil",
-    //         "Aroma Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Sweet Veil","hidden":false},{"name":"//         Aroma Veil\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Hyper Beam",
@@ -109252,10 +105625,7 @@ const pokemonData = [
     //     "type": [
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Sweet Veil",
-    //         "Aroma Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Sweet Veil","hidden":false},{"name":"//         Aroma Veil\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 65,
@@ -109275,10 +105645,7 @@ const pokemonData = [
     //     "type": [
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Battle Armor",
-    //         "Defiant"
-    //     ],
+    //     "abilities": [{"name":"//         Battle Armor","hidden":false},{"name":"//         Defiant\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Headbutt",
@@ -109349,10 +105716,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Lightning Rod",
-    //         "Electric Surge"
-    //     ],
+    //     "abilities": [{"name":"//         Lightning Rod","hidden":false},{"name":"//         Electric Surge\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fury Attack",
     //         "Body Slam",
@@ -109432,10 +105796,7 @@ const pokemonData = [
     //         "Ice",
     //         "Bug"
     //     ],
-    //     "abilities": [
-    //         "Shield Dust",
-    //         "Ice Scales"
-    //     ],
+    //     "abilities": [{"name":"//         Shield Dust","hidden":false},{"name":"//         Ice Scales\r\n    //","hidden":false}],
     //     "moves": [
     //         "Rest",
     //         "Substitute",
@@ -109478,10 +105839,7 @@ const pokemonData = [
     //         "Ice",
     //         "Bug"
     //     ],
-    //     "abilities": [
-    //         "Shield Dust",
-    //         "Ice Scales"
-    //     ],
+    //     "abilities": [{"name":"//         Shield Dust","hidden":false},{"name":"//         Ice Scales\r\n    //","hidden":false}],
     //     "moves": [
     //         "Take Down",
     //         "Mist",
@@ -109557,9 +105915,7 @@ const pokemonData = [
     //     "type": [
     //         "Rock"
     //     ],
-    //     "abilities": [
-    //         "Power Spot"
-    //     ],
+    //     "abilities": [{"name":"//         Power Spot\r\n    //","hidden":false}],
     //     "moves": [
     //         "Stomp",
     //         "Mega Kick",
@@ -109631,9 +105987,7 @@ const pokemonData = [
     //     "type": [
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Ice Face"
-    //     ],
+    //     "abilities": [{"name":"//         Ice Face\r\n    //","hidden":false}],
     //     "moves": [
     //         "Ice Punch",
     //         "Headbutt",
@@ -109708,9 +106062,7 @@ const pokemonData = [
     //     "type": [
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Ice Face"
-    //     ],
+    //     "abilities": [{"name":"//         Ice Face\r\n    //","hidden":false}],
     //     "moves": [
     //         "Ice Punch",
     //         "Headbutt",
@@ -109786,11 +106138,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Inner Focus",
-    //         "Synchronize",
-    //         "Psychic Surge"
-    //     ],
+    //     "abilities": [{"name":"//         Inner Focus","hidden":false},{"name":"//         Synchronize","hidden":false},{"name":"//         Psychic Surge\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pay Day",
     //         "Body Slam",
@@ -109868,11 +106216,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Own Tempo",
-    //         "Synchronize",
-    //         "Psychic Surge"
-    //     ],
+    //     "abilities": [{"name":"//         Own Tempo","hidden":false},{"name":"//         Synchronize","hidden":false},{"name":"//         Psychic Surge\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pay Day",
     //         "Body Slam",
@@ -109950,9 +106294,7 @@ const pokemonData = [
     //         "Electric",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Hunger Switch"
-    //     ],
+    //     "abilities": [{"name":"//         Hunger Switch\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Thrash",
@@ -110039,9 +106381,7 @@ const pokemonData = [
     //         "Electric",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Hunger Switch"
-    //     ],
+    //     "abilities": [{"name":"//         Hunger Switch\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Thrash",
@@ -110127,10 +106467,7 @@ const pokemonData = [
     //     "type": [
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Sheer Force",
-    //         "Heavy Metal"
-    //     ],
+    //     "abilities": [{"name":"//         Sheer Force","hidden":false},{"name":"//         Heavy Metal\r\n    //","hidden":false}],
     //     "moves": [
     //         "Whirlwind",
     //         "Slam",
@@ -110208,10 +106545,7 @@ const pokemonData = [
     //     "type": [
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Sheer Force",
-    //         "Heavy Metal"
-    //     ],
+    //     "abilities": [{"name":"//         Sheer Force","hidden":false},{"name":"//         Heavy Metal\r\n    //","hidden":false}],
     //     "moves": [
     //         "Stomp",
     //         "Mega Kick",
@@ -110290,10 +106624,7 @@ const pokemonData = [
     //     "type": [
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Sheer Force",
-    //         "Heavy Metal"
-    //     ],
+    //     "abilities": [{"name":"//         Sheer Force","hidden":false},{"name":"//         Heavy Metal\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 122,
@@ -110315,11 +106646,7 @@ const pokemonData = [
     //         "Electric",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Volt Absorb",
-    //         "Hustle",
-    //         "Sand Rush"
-    //     ],
+    //     "abilities": [{"name":"//         Volt Absorb","hidden":false},{"name":"//         Hustle","hidden":false},{"name":"//         Sand Rush\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Thunder Punch",
@@ -110399,11 +106726,7 @@ const pokemonData = [
     //         "Electric",
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Volt Absorb",
-    //         "Static",
-    //         "Snow Plow"
-    //     ],
+    //     "abilities": [{"name":"//         Volt Absorb","hidden":false},{"name":"//         Static","hidden":false},{"name":"//         Snow Plow\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Thunder Punch",
@@ -110479,11 +106802,7 @@ const pokemonData = [
     //         "Water",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Water Absorb",
-    //         "Strong Jaw",
-    //         "Sand Rush"
-    //     ],
+    //     "abilities": [{"name":"//         Water Absorb","hidden":false},{"name":"//         Strong Jaw","hidden":false},{"name":"//         Sand Rush\r\n    //","hidden":false}],
     //     "moves": [
     //         "Stomp",
     //         "Mega Kick",
@@ -110555,11 +106874,7 @@ const pokemonData = [
     //         "Water",
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Water Absorb",
-    //         "Ice Body",
-    //         "Snow Plow"
-    //     ],
+    //     "abilities": [{"name":"//         Water Absorb","hidden":false},{"name":"//         Ice Body","hidden":false},{"name":"//         Snow Plow\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Bite",
@@ -110626,11 +106941,7 @@ const pokemonData = [
     //         "Steel",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Light Metal",
-    //         "Heavy Metal",
-    //         "Stalwart"
-    //     ],
+    //     "abilities": [{"name":"//         Light Metal","hidden":false},{"name":"//         Heavy Metal","hidden":false},{"name":"//         Stalwart\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Body Slam",
@@ -110707,11 +107018,7 @@ const pokemonData = [
     //         "Steel",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Light Metal",
-    //         "Heavy Metal",
-    //         "Stalwart"
-    //     ],
+    //     "abilities": [{"name":"//         Light Metal","hidden":false},{"name":"//         Heavy Metal","hidden":false},{"name":"//         Stalwart\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 70,
@@ -110733,11 +107040,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Clear Body",
-    //         "Infiltrator",
-    //         "Cursed Body"
-    //     ],
+    //     "abilities": [{"name":"//         Clear Body","hidden":false},{"name":"//         Infiltrator","hidden":false},{"name":"//         Cursed Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Bite",
     //         "Disable",
@@ -110786,11 +107089,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Clear Body",
-    //         "Infiltrator",
-    //         "Cursed Body"
-    //     ],
+    //     "abilities": [{"name":"//         Clear Body","hidden":false},{"name":"//         Infiltrator","hidden":false},{"name":"//         Cursed Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Take Down",
     //         "Double-Edge",
@@ -110870,11 +107169,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Clear Body",
-    //         "Infiltrator",
-    //         "Cursed Body"
-    //     ],
+    //     "abilities": [{"name":"//         Clear Body","hidden":false},{"name":"//         Infiltrator","hidden":false},{"name":"//         Cursed Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Body Slam",
@@ -110963,9 +107258,7 @@ const pokemonData = [
     //     "type": [
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Intrepid Sword"
-    //     ],
+    //     "abilities": [{"name":"//         Intrepid Sword\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Body Slam",
@@ -111050,9 +107343,7 @@ const pokemonData = [
     //         "Fairy",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Intrepid Sword"
-    //     ],
+    //     "abilities": [{"name":"//         Intrepid Sword\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Body Slam",
@@ -111136,9 +107427,7 @@ const pokemonData = [
     //     "type": [
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Dauntless Shield"
-    //     ],
+    //     "abilities": [{"name":"//         Dauntless Shield\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Take Down",
@@ -111227,9 +107516,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Dauntless Shield"
-    //     ],
+    //     "abilities": [{"name":"//         Dauntless Shield\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Take Down",
@@ -111318,9 +107605,7 @@ const pokemonData = [
     //         "Poison",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Pressure"
-    //     ],
+    //     "abilities": [{"name":"//         Pressure\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Body Slam",
@@ -111394,9 +107679,7 @@ const pokemonData = [
     //         "Poison",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Pressure"
-    //     ],
+    //     "abilities": [{"name":"//         Pressure\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Flamethrower",
@@ -111460,9 +107743,7 @@ const pokemonData = [
     //     "type": [
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Inner Focus"
-    //     ],
+    //     "abilities": [{"name":"//         Inner Focus\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -111532,9 +107813,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Unseen Fist"
-    //     ],
+    //     "abilities": [{"name":"//         Unseen Fist\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -111630,9 +107909,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Unseen Fist"
-    //     ],
+    //     "abilities": [{"name":"//         Unseen Fist\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Fire Punch",
@@ -111726,9 +108003,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Unseen Fist"
-    //     ],
+    //     "abilities": [{"name":"//         Unseen Fist\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 100,
@@ -111750,9 +108025,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Unseen Fist"
-    //     ],
+    //     "abilities": [{"name":"//         Unseen Fist\r\n    //","hidden":false}],
     //     "moves": [],
     //     "baseStats": {
     //         "hp": 100,
@@ -111774,9 +108047,7 @@ const pokemonData = [
     //         "Dark",
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Leaf Guard"
-    //     ],
+    //     "abilities": [{"name":"//         Leaf Guard\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Scratch",
@@ -111875,9 +108146,7 @@ const pokemonData = [
     //         "Dark",
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Leaf Guard"
-    //     ],
+    //     "abilities": [{"name":"//         Leaf Guard\r\n    //","hidden":false}],
     //     "moves": [
     //         "Mega Punch",
     //         "Scratch",
@@ -111975,9 +108244,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Transistor"
-    //     ],
+    //     "abilities": [{"name":"//         Transistor\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Take Down",
@@ -112043,9 +108310,7 @@ const pokemonData = [
     //     "type": [
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Dragon\u2019s Maw"
-    //     ],
+    //     "abilities": [{"name":"//         Dragon\\u2019s Maw\r\n    //","hidden":false}],
     //     "moves": [
     //         "Vise Grip",
     //         "Body Slam",
@@ -112108,9 +108373,7 @@ const pokemonData = [
     //     "type": [
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Chilling Neigh"
-    //     ],
+    //     "abilities": [{"name":"//         Chilling Neigh\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Stomp",
@@ -112184,9 +108447,7 @@ const pokemonData = [
     //     "type": [
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Grim Neigh"
-    //     ],
+    //     "abilities": [{"name":"//         Grim Neigh\r\n    //","hidden":false}],
     //     "moves": [
     //         "Stomp",
     //         "Double Kick",
@@ -112255,9 +108516,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Unnerve"
-    //     ],
+    //     "abilities": [{"name":"//         Unnerve\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Pay Day",
@@ -112346,9 +108605,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "As One"
-    //     ],
+    //     "abilities": [{"name":"//         As One\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Pay Day",
@@ -112474,9 +108731,7 @@ const pokemonData = [
     //         "Psychic",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "As One"
-    //     ],
+    //     "abilities": [{"name":"//         As One\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Pay Day",
@@ -112592,11 +108847,7 @@ const pokemonData = [
     //         "Normal",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Intimidate",
-    //         "Frisk",
-    //         "Sap Sipper"
-    //     ],
+    //     "abilities": [{"name":"//         Intimidate","hidden":false},{"name":"//         Frisk","hidden":false},{"name":"//         Sap Sipper\r\n    //","hidden":false}],
     //     "moves": [
     //         "Stomp",
     //         "Sand Attack",
@@ -112673,11 +108924,7 @@ const pokemonData = [
     //         "Bug",
     //         "Rock"
     //     ],
-    //     "abilities": [
-    //         "Swarm",
-    //         "Sheer Force",
-    //         "Sharpness"
-    //     ],
+    //     "abilities": [{"name":"//         Swarm","hidden":false},{"name":"//         Sheer Force","hidden":false},{"name":"//         Sharpness\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Take Down",
@@ -112749,11 +108996,7 @@ const pokemonData = [
     //         "Ground",
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Guts",
-    //         "Bulletproof",
-    //         "Unnerve"
-    //     ],
+    //     "abilities": [{"name":"//         Guts","hidden":false},{"name":"//         Bulletproof","hidden":false},{"name":"//         Unnerve\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -112841,11 +109084,7 @@ const pokemonData = [
     //         "Water",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Swift Swim",
-    //         "Adaptability",
-    //         "Mold Breaker"
-    //     ],
+    //     "abilities": [{"name":"//         Swift Swim","hidden":false},{"name":"//         Adaptability","hidden":false},{"name":"//         Mold Breaker\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -112915,11 +109154,7 @@ const pokemonData = [
     //         "Water",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Swift Swim",
-    //         "Adaptability",
-    //         "Mold Breaker"
-    //     ],
+    //     "abilities": [{"name":"//         Swift Swim","hidden":false},{"name":"//         Adaptability","hidden":false},{"name":"//         Mold Breaker\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -112989,11 +109224,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Pressure",
-    //         "Unburden",
-    //         "Poison Touch"
-    //     ],
+    //     "abilities": [{"name":"//         Pressure","hidden":false},{"name":"//         Unburden","hidden":false},{"name":"//         Poison Touch\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Scratch",
@@ -113072,11 +109303,7 @@ const pokemonData = [
     //         "Dark",
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Poison Point",
-    //         "Swift Swim",
-    //         "Intimidate"
-    //     ],
+    //     "abilities": [{"name":"//         Poison Point","hidden":false},{"name":"//         Swift Swim","hidden":false},{"name":"//         Intimidate\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Tackle",
@@ -113149,10 +109376,7 @@ const pokemonData = [
     //         "Fairy",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Cute Charm",
-    //         "Contrary"
-    //     ],
+    //     "abilities": [{"name":"//         Cute Charm","hidden":false},{"name":"//         Contrary\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Body Slam",
@@ -113221,9 +109445,7 @@ const pokemonData = [
     //         "Fairy",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Overcoat"
-    //     ],
+    //     "abilities": [{"name":"//         Overcoat\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Body Slam",
@@ -113291,10 +109513,7 @@ const pokemonData = [
     //     "type": [
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Overgrow",
-    //         "Protean"
-    //     ],
+    //     "abilities": [{"name":"//         Overgrow","hidden":false},{"name":"//         Protean\r\n    //","hidden":false}],
     //     "moves": [
     //         "Scratch",
     //         "Take Down",
@@ -113361,10 +109580,7 @@ const pokemonData = [
     //     "type": [
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Overgrow",
-    //         "Protean"
-    //     ],
+    //     "abilities": [{"name":"//         Overgrow","hidden":false},{"name":"//         Protean\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Scratch",
@@ -113432,10 +109648,7 @@ const pokemonData = [
     //         "Grass",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Overgrow",
-    //         "Protean"
-    //     ],
+    //     "abilities": [{"name":"//         Overgrow","hidden":false},{"name":"//         Protean\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Scratch",
@@ -113523,10 +109736,7 @@ const pokemonData = [
     //     "type": [
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Blaze",
-    //         "Unaware"
-    //     ],
+    //     "abilities": [{"name":"//         Blaze","hidden":false},{"name":"//         Unaware\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -113592,10 +109802,7 @@ const pokemonData = [
     //     "type": [
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Blaze",
-    //         "Unaware"
-    //     ],
+    //     "abilities": [{"name":"//         Blaze","hidden":false},{"name":"//         Unaware\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -113659,10 +109866,7 @@ const pokemonData = [
     //         "Fire",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Blaze",
-    //         "Unaware"
-    //     ],
+    //     "abilities": [{"name":"//         Blaze","hidden":false},{"name":"//         Unaware\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -113739,10 +109943,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Torrent",
-    //         "Moxie"
-    //     ],
+    //     "abilities": [{"name":"//         Torrent","hidden":false},{"name":"//         Moxie\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Wing Attack",
@@ -113801,10 +110002,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Torrent",
-    //         "Moxie"
-    //     ],
+    //     "abilities": [{"name":"//         Torrent","hidden":false},{"name":"//         Moxie\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Wing Attack",
@@ -113863,10 +110061,7 @@ const pokemonData = [
     //         "Water",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Torrent",
-    //         "Moxie"
-    //     ],
+    //     "abilities": [{"name":"//         Torrent","hidden":false},{"name":"//         Moxie\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Swords Dance",
@@ -113945,11 +110140,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Aroma Veil",
-    //         "Gluttony",
-    //         "Thick Fat"
-    //     ],
+    //     "abilities": [{"name":"//         Aroma Veil","hidden":false},{"name":"//         Gluttony","hidden":false},{"name":"//         Thick Fat\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -114011,11 +110202,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Lingering Aroma",
-    //         "Gluttony",
-    //         "Thick Fat"
-    //     ],
+    //     "abilities": [{"name":"//         Lingering Aroma","hidden":false},{"name":"//         Gluttony","hidden":false},{"name":"//         Thick Fat\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -114078,11 +110265,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Aroma Veil",
-    //         "Gluttony",
-    //         "Thick Fat"
-    //     ],
+    //     "abilities": [{"name":"//         Aroma Veil","hidden":false},{"name":"//         Gluttony","hidden":false},{"name":"//         Thick Fat\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -114145,10 +110328,7 @@ const pokemonData = [
     //     "type": [
     //         "Bug"
     //     ],
-    //     "abilities": [
-    //         "Insomnia",
-    //         "Stakeout"
-    //     ],
+    //     "abilities": [{"name":"//         Insomnia","hidden":false},{"name":"//         Stakeout\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -114213,10 +110393,7 @@ const pokemonData = [
     //     "type": [
     //         "Bug"
     //     ],
-    //     "abilities": [
-    //         "Insomnia",
-    //         "Stakeout"
-    //     ],
+    //     "abilities": [{"name":"//         Insomnia","hidden":false},{"name":"//         Stakeout\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -114288,10 +110465,7 @@ const pokemonData = [
     //     "type": [
     //         "Bug"
     //     ],
-    //     "abilities": [
-    //         "Swarm",
-    //         "Tinted Lens"
-    //     ],
+    //     "abilities": [{"name":"//         Swarm","hidden":false},{"name":"//         Tinted Lens\r\n    //","hidden":false}],
     //     "moves": [
     //         "Double Kick",
     //         "Tackle",
@@ -114345,10 +110519,7 @@ const pokemonData = [
     //         "Bug",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Swarm",
-    //         "Tinted Lens"
-    //     ],
+    //     "abilities": [{"name":"//         Swarm","hidden":false},{"name":"//         Tinted Lens\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Double Kick",
@@ -114415,11 +110586,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Static",
-    //         "Natural Cure",
-    //         "Iron Fist"
-    //     ],
+    //     "abilities": [{"name":"//         Static","hidden":false},{"name":"//         Natural Cure","hidden":false},{"name":"//         Iron Fist\r\n    //","hidden":false}],
     //     "moves": [
     //         "Scratch",
     //         "Slam",
@@ -114489,11 +110656,7 @@ const pokemonData = [
     //         "Electric",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Volt Absorb",
-    //         "Natural Cure",
-    //         "Iron Fist"
-    //     ],
+    //     "abilities": [{"name":"//         Volt Absorb","hidden":false},{"name":"//         Natural Cure","hidden":false},{"name":"//         Iron Fist\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Scratch",
@@ -114563,11 +110726,7 @@ const pokemonData = [
     //         "Electric",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Volt Absorb",
-    //         "Natural Cure",
-    //         "Iron Fist"
-    //     ],
+    //     "abilities": [{"name":"//         Volt Absorb","hidden":false},{"name":"//         Natural Cure","hidden":false},{"name":"//         Iron Fist\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -114651,11 +110810,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Run Away",
-    //         "Pickup",
-    //         "Own Tempo"
-    //     ],
+    //     "abilities": [{"name":"//         Run Away","hidden":false},{"name":"//         Pickup","hidden":false},{"name":"//         Own Tempo\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Take Down",
@@ -114724,11 +110879,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Friend Guard",
-    //         "Cheek Pouch",
-    //         "Technician"
-    //     ],
+    //     "abilities": [{"name":"//         Friend Guard","hidden":false},{"name":"//         Cheek Pouch","hidden":false},{"name":"//         Technician\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Take Down",
@@ -114797,11 +110948,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Friend Guard",
-    //         "Cheek Pouch",
-    //         "Technician"
-    //     ],
+    //     "abilities": [{"name":"//         Friend Guard","hidden":false},{"name":"//         Cheek Pouch","hidden":false},{"name":"//         Technician\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Take Down",
@@ -114870,10 +111017,7 @@ const pokemonData = [
     //     "type": [
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Own Tempo",
-    //         "Klutz"
-    //     ],
+    //     "abilities": [{"name":"//         Own Tempo","hidden":false},{"name":"//         Klutz\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -114940,10 +111084,7 @@ const pokemonData = [
     //     "type": [
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Well-Baked Body",
-    //         "Aroma Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Well-Baked Body","hidden":false},{"name":"//         Aroma Veil\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -115011,10 +111152,7 @@ const pokemonData = [
     //         "Grass",
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Early Bird",
-    //         "Harvest"
-    //     ],
+    //     "abilities": [{"name":"//         Early Bird","hidden":false},{"name":"//         Harvest\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Absorb",
@@ -115072,10 +111210,7 @@ const pokemonData = [
     //         "Grass",
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Early Bird",
-    //         "Harvest"
-    //     ],
+    //     "abilities": [{"name":"//         Early Bird","hidden":false},{"name":"//         Harvest\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Absorb",
@@ -115129,10 +111264,7 @@ const pokemonData = [
     //         "Grass",
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Seed Sower",
-    //         "Harvest"
-    //     ],
+    //     "abilities": [{"name":"//         Seed Sower","hidden":false},{"name":"//         Harvest\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Hyper Beam",
@@ -115200,11 +111332,7 @@ const pokemonData = [
     //         "Normal",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Intimidate",
-    //         "Hustle",
-    //         "Guts"
-    //     ],
+    //     "abilities": [{"name":"//         Intimidate","hidden":false},{"name":"//         Hustle","hidden":false},{"name":"//         Guts\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Fury Attack",
@@ -115270,11 +111398,7 @@ const pokemonData = [
     //         "Normal",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Intimidate",
-    //         "Hustle",
-    //         "Guts"
-    //     ],
+    //     "abilities": [{"name":"//         Intimidate","hidden":false},{"name":"//         Hustle","hidden":false},{"name":"//         Guts\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Fury Attack",
@@ -115340,11 +111464,7 @@ const pokemonData = [
     //         "Normal",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Intimidate",
-    //         "Hustle",
-    //         "Sheer Force"
-    //     ],
+    //     "abilities": [{"name":"//         Intimidate","hidden":false},{"name":"//         Hustle","hidden":false},{"name":"//         Sheer Force\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Fury Attack",
@@ -115410,11 +111530,7 @@ const pokemonData = [
     //         "Normal",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Intimidate",
-    //         "Hustle",
-    //         "Sheer Force"
-    //     ],
+    //     "abilities": [{"name":"//         Intimidate","hidden":false},{"name":"//         Hustle","hidden":false},{"name":"//         Sheer Force\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Fury Attack",
@@ -115479,11 +111595,7 @@ const pokemonData = [
     //     "type": [
     //         "Rock"
     //     ],
-    //     "abilities": [
-    //         "Purifying Salt",
-    //         "Sturdy",
-    //         "Clear Body"
-    //     ],
+    //     "abilities": [{"name":"//         Purifying Salt","hidden":false},{"name":"//         Sturdy","hidden":false},{"name":"//         Clear Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -115543,11 +111655,7 @@ const pokemonData = [
     //     "type": [
     //         "Rock"
     //     ],
-    //     "abilities": [
-    //         "Purifying Salt",
-    //         "Sturdy",
-    //         "Clear Body"
-    //     ],
+    //     "abilities": [{"name":"//         Purifying Salt","hidden":false},{"name":"//         Sturdy","hidden":false},{"name":"//         Clear Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -115608,11 +111716,7 @@ const pokemonData = [
     //     "type": [
     //         "Rock"
     //     ],
-    //     "abilities": [
-    //         "Purifying Salt",
-    //         "Sturdy",
-    //         "Clear Body"
-    //     ],
+    //     "abilities": [{"name":"//         Purifying Salt","hidden":false},{"name":"//         Sturdy","hidden":false},{"name":"//         Clear Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -115684,10 +111788,7 @@ const pokemonData = [
     //     "type": [
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Flash Fire",
-    //         "Flame Body"
-    //     ],
+    //     "abilities": [{"name":"//         Flash Fire","hidden":false},{"name":"//         Flame Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Take Down",
     //         "Leer",
@@ -115738,10 +111839,7 @@ const pokemonData = [
     //         "Fire",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Flash Fire",
-    //         "Weak Armor"
-    //     ],
+    //     "abilities": [{"name":"//         Flash Fire","hidden":false},{"name":"//         Weak Armor\r\n    //","hidden":false}],
     //     "moves": [
     //         "Take Down",
     //         "Leer",
@@ -115817,10 +111915,7 @@ const pokemonData = [
     //         "Fire",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Flash Fire",
-    //         "Weak Armor"
-    //     ],
+    //     "abilities": [{"name":"//         Flash Fire","hidden":false},{"name":"//         Weak Armor\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Take Down",
@@ -115894,11 +111989,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Own Tempo",
-    //         "Static",
-    //         "Damp"
-    //     ],
+    //     "abilities": [{"name":"//         Own Tempo","hidden":false},{"name":"//         Static","hidden":false},{"name":"//         Damp\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Water Gun",
@@ -115959,11 +112050,7 @@ const pokemonData = [
     //     "type": [
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Electromorphosis",
-    //         "Static",
-    //         "Damp"
-    //     ],
+    //     "abilities": [{"name":"//         Electromorphosis","hidden":false},{"name":"//         Static","hidden":false},{"name":"//         Damp\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Water Gun",
@@ -116025,11 +112112,7 @@ const pokemonData = [
     //         "Electric",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Wind Power",
-    //         "Volt Absorb",
-    //         "Competitive"
-    //     ],
+    //     "abilities": [{"name":"//         Wind Power","hidden":false},{"name":"//         Volt Absorb","hidden":false},{"name":"//         Competitive\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Take Down",
@@ -116096,11 +112179,7 @@ const pokemonData = [
     //         "Electric",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Wind Power",
-    //         "Volt Absorb",
-    //         "Competitive"
-    //     ],
+    //     "abilities": [{"name":"//         Wind Power","hidden":false},{"name":"//         Volt Absorb","hidden":false},{"name":"//         Competitive\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Take Down",
@@ -116163,11 +112242,7 @@ const pokemonData = [
     //     "type": [
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Intimidate",
-    //         "Run Away",
-    //         "Stakeout"
-    //     ],
+    //     "abilities": [{"name":"//         Intimidate","hidden":false},{"name":"//         Run Away","hidden":false},{"name":"//         Stakeout\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -116231,11 +112306,7 @@ const pokemonData = [
     //     "type": [
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Intimidate",
-    //         "Guard Dog",
-    //         "Stakeout"
-    //     ],
+    //     "abilities": [{"name":"//         Intimidate","hidden":false},{"name":"//         Guard Dog","hidden":false},{"name":"//         Stakeout\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -116303,11 +112374,7 @@ const pokemonData = [
     //         "Poison",
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Unburden",
-    //         "Pickpocket",
-    //         "Prankster"
-    //     ],
+    //     "abilities": [{"name":"//         Unburden","hidden":false},{"name":"//         Pickpocket","hidden":false},{"name":"//         Prankster\r\n    //","hidden":false}],
     //     "moves": [
     //         "Scratch",
     //         "Swords Dance",
@@ -116377,11 +112444,7 @@ const pokemonData = [
     //         "Poison",
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Unburden",
-    //         "Poison Touch",
-    //         "Prankster"
-    //     ],
+    //     "abilities": [{"name":"//         Unburden","hidden":false},{"name":"//         Poison Touch","hidden":false},{"name":"//         Prankster\r\n    //","hidden":false}],
     //     "moves": [
     //         "Scratch",
     //         "Swords Dance",
@@ -116452,10 +112515,7 @@ const pokemonData = [
     //         "Grass",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Wind Rider",
-    //         "Infiltrator"
-    //     ],
+    //     "abilities": [{"name":"//         Wind Rider","hidden":false},{"name":"//         Infiltrator\r\n    //","hidden":false}],
     //     "moves": [
     //         "Disable",
     //         "Absorb",
@@ -116519,10 +112579,7 @@ const pokemonData = [
     //         "Grass",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Wind Rider",
-    //         "Infiltrator"
-    //     ],
+    //     "abilities": [{"name":"//         Wind Rider","hidden":false},{"name":"//         Infiltrator\r\n    //","hidden":false}],
     //     "moves": [
     //         "Disable",
     //         "Hyper Beam",
@@ -116583,10 +112640,7 @@ const pokemonData = [
     //         "Ground",
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Mycelium Might",
-    //         "Mycelium Might"
-    //     ],
+    //     "abilities": [{"name":"//         Mycelium Might","hidden":false},{"name":"//         Mycelium Might\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Wrap",
@@ -116664,10 +112718,7 @@ const pokemonData = [
     //         "Ground",
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Mycelium Might",
-    //         "Mycelium Might"
-    //     ],
+    //     "abilities": [{"name":"//         Mycelium Might","hidden":false},{"name":"//         Mycelium Might\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Wrap",
@@ -116739,11 +112790,7 @@ const pokemonData = [
     //     "type": [
     //         "Rock"
     //     ],
-    //     "abilities": [
-    //         "Anger Shell",
-    //         "Shell Armor",
-    //         "Regenerator"
-    //     ],
+    //     "abilities": [{"name":"//         Anger Shell","hidden":false},{"name":"//         Shell Armor","hidden":false},{"name":"//         Regenerator\r\n    //","hidden":false}],
     //     "moves": [
     //         "Guillotine",
     //         "Swords Dance",
@@ -116813,11 +112860,7 @@ const pokemonData = [
     //     "type": [
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Chlorophyll",
-    //         "Insomnia",
-    //         "Klutz"
-    //     ],
+    //     "abilities": [{"name":"//         Chlorophyll","hidden":false},{"name":"//         Insomnia","hidden":false},{"name":"//         Klutz\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Take Down",
@@ -116876,11 +112919,7 @@ const pokemonData = [
     //         "Grass",
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Chlorophyll",
-    //         "Insomnia",
-    //         "Moody"
-    //     ],
+    //     "abilities": [{"name":"//         Chlorophyll","hidden":false},{"name":"//         Insomnia","hidden":false},{"name":"//         Moody\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Take Down",
@@ -116943,10 +112982,7 @@ const pokemonData = [
     //     "type": [
     //         "Bug"
     //     ],
-    //     "abilities": [
-    //         "Compound Eyes",
-    //         "Shed Skin"
-    //     ],
+    //     "abilities": [{"name":"//         Compound Eyes","hidden":false},{"name":"//         Shed Skin\r\n    //","hidden":false}],
     //     "moves": [
     //         "Sand Attack",
     //         "Tackle",
@@ -117001,10 +113037,7 @@ const pokemonData = [
     //         "Bug",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Synchronize",
-    //         "Telepathy"
-    //     ],
+    //     "abilities": [{"name":"//         Synchronize","hidden":false},{"name":"//         Telepathy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Sand Attack",
     //         "Tackle",
@@ -117087,11 +113120,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Anticipation",
-    //         "Frisk",
-    //         "Speed Boost"
-    //     ],
+    //     "abilities": [{"name":"//         Anticipation","hidden":false},{"name":"//         Frisk","hidden":false},{"name":"//         Speed Boost\r\n    //","hidden":false}],
     //     "moves": [
     //         "Take Down",
     //         "Growl",
@@ -117158,11 +113187,7 @@ const pokemonData = [
     //     "type": [
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Opportunist",
-    //         "Frisk",
-    //         "Speed Boost"
-    //     ],
+    //     "abilities": [{"name":"//         Opportunist","hidden":false},{"name":"//         Frisk","hidden":false},{"name":"//         Speed Boost\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Take Down",
@@ -117244,11 +113269,7 @@ const pokemonData = [
     //         "Fairy",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Mold Breaker",
-    //         "Own Tempo",
-    //         "Pickpocket"
-    //     ],
+    //     "abilities": [{"name":"//         Mold Breaker","hidden":false},{"name":"//         Own Tempo","hidden":false},{"name":"//         Pickpocket\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Slam",
@@ -117314,11 +113335,7 @@ const pokemonData = [
     //         "Fairy",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Mold Breaker",
-    //         "Own Tempo",
-    //         "Pickpocket"
-    //     ],
+    //     "abilities": [{"name":"//         Mold Breaker","hidden":false},{"name":"//         Own Tempo","hidden":false},{"name":"//         Pickpocket\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Slam",
@@ -117382,11 +113399,7 @@ const pokemonData = [
     //         "Fairy",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Mold Breaker",
-    //         "Own Tempo",
-    //         "Pickpocket"
-    //     ],
+    //     "abilities": [{"name":"//         Mold Breaker","hidden":false},{"name":"//         Own Tempo","hidden":false},{"name":"//         Pickpocket\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Slam",
@@ -117452,11 +113465,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Gooey",
-    //         "Rattled",
-    //         "Sand Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Gooey","hidden":false},{"name":"//         Rattled","hidden":false},{"name":"//         Sand Veil\r\n    //","hidden":false}],
     //     "moves": [
     //         "Slam",
     //         "Sand Attack",
@@ -117515,11 +113524,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Gooey",
-    //         "Rattled",
-    //         "Sand Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Gooey","hidden":false},{"name":"//         Rattled","hidden":false},{"name":"//         Sand Veil\r\n    //","hidden":false}],
     //     "moves": [
     //         "Slam",
     //         "Sand Attack",
@@ -117580,11 +113585,7 @@ const pokemonData = [
     //         "Flying",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Big Pecks",
-    //         "Keen Eye",
-    //         "Rocky Payload"
-    //     ],
+    //     "abilities": [{"name":"//         Big Pecks","hidden":false},{"name":"//         Keen Eye","hidden":false},{"name":"//         Rocky Payload\r\n    //","hidden":false}],
     //     "moves": [
     //         "Wing Attack",
     //         "Whirlwind",
@@ -117662,10 +113663,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Water Veil",
-    //         "Water Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Water Veil","hidden":false},{"name":"//         Water Veil\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Take Down",
@@ -117730,10 +113728,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Zero to Hero",
-    //         "Zero to Hero"
-    //     ],
+    //     "abilities": [{"name":"//         Zero to Hero","hidden":false},{"name":"//         Zero to Hero\r\n    //","hidden":false}],
     //     "moves": [
     //         "Ice Punch",
     //         "Body Slam",
@@ -117811,10 +113806,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Zero to Hero",
-    //         "Zero to Hero"
-    //     ],
+    //     "abilities": [{"name":"//         Zero to Hero","hidden":false},{"name":"//         Zero to Hero\r\n    //","hidden":false}],
     //     "moves": [
     //         "Ice Punch",
     //         "Body Slam",
@@ -117893,10 +113885,7 @@ const pokemonData = [
     //         "Steel",
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Overcoat",
-    //         "Slow Start"
-    //     ],
+    //     "abilities": [{"name":"//         Overcoat","hidden":false},{"name":"//         Slow Start\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Body Slam",
@@ -117961,10 +113950,7 @@ const pokemonData = [
     //         "Steel",
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Overcoat",
-    //         "Filter"
-    //     ],
+    //     "abilities": [{"name":"//         Overcoat","hidden":false},{"name":"//         Filter\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Body Slam",
@@ -118031,10 +114017,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Shed Skin",
-    //         "Regenerator"
-    //     ],
+    //     "abilities": [{"name":"//         Shed Skin","hidden":false},{"name":"//         Regenerator\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -118106,10 +114089,7 @@ const pokemonData = [
     //     "type": [
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Earth Eater",
-    //         "Sand Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Earth Eater","hidden":false},{"name":"//         Sand Veil\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -118172,10 +114152,7 @@ const pokemonData = [
     //         "Rock",
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Toxic Debris",
-    //         "Corrosion"
-    //     ],
+    //     "abilities": [{"name":"//         Toxic Debris","hidden":false},{"name":"//         Corrosion\r\n    //","hidden":false}],
     //     "moves": [
     //         "Rock Throw",
     //         "Toxic",
@@ -118237,10 +114214,7 @@ const pokemonData = [
     //         "Rock",
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Toxic Debris",
-    //         "Corrosion"
-    //     ],
+    //     "abilities": [{"name":"//         Toxic Debris","hidden":false},{"name":"//         Corrosion\r\n    //","hidden":false}],
     //     "moves": [
     //         "Hyper Beam",
     //         "Solar Beam",
@@ -118306,10 +114280,7 @@ const pokemonData = [
     //     "type": [
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Pickup",
-    //         "Fluffy"
-    //     ],
+    //     "abilities": [{"name":"//         Pickup","hidden":false},{"name":"//         Fluffy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -118379,10 +114350,7 @@ const pokemonData = [
     //     "type": [
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Sand Rush",
-    //         "Fluffy"
-    //     ],
+    //     "abilities": [{"name":"//         Sand Rush","hidden":false},{"name":"//         Fluffy\r\n    //","hidden":false}],
     //     "moves": [
     //         "Headbutt",
     //         "Tackle",
@@ -118451,11 +114419,7 @@ const pokemonData = [
     //         "Flying",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Scrappy",
-    //         "Tangled Feet",
-    //         "Costar"
-    //     ],
+    //     "abilities": [{"name":"//         Scrappy","hidden":false},{"name":"//         Tangled Feet","hidden":false},{"name":"//         Costar\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Wing Attack",
@@ -118525,11 +114489,7 @@ const pokemonData = [
     //     "type": [
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Thick Fat",
-    //         "Snow Cloak",
-    //         "Sheer Force"
-    //     ],
+    //     "abilities": [{"name":"//         Thick Fat","hidden":false},{"name":"//         Snow Cloak","hidden":false},{"name":"//         Sheer Force\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -118595,11 +114555,7 @@ const pokemonData = [
     //     "type": [
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Thick Fat",
-    //         "Snow Plow",
-    //         "Sheer Force"
-    //     ],
+    //     "abilities": [{"name":"//         Thick Fat","hidden":false},{"name":"//         Snow Plow","hidden":false},{"name":"//         Sheer Force\r\n    //","hidden":false}],
     //     "moves": [
     //         "Ice Punch",
     //         "Tackle",
@@ -118663,10 +114619,7 @@ const pokemonData = [
     //         "Water",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Mold Breaker",
-    //         "Sharpness"
-    //     ],
+    //     "abilities": [{"name":"//         Mold Breaker","hidden":false},{"name":"//         Sharpness\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -118730,11 +114683,7 @@ const pokemonData = [
     //     "type": [
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Unaware",
-    //         "Oblivious",
-    //         "Water Veil"
-    //     ],
+    //     "abilities": [{"name":"//         Unaware","hidden":false},{"name":"//         Oblivious","hidden":false},{"name":"//         Water Veil\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Body Slam",
@@ -118803,10 +114752,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Commander",
-    //         "Storm Drain"
-    //     ],
+    //     "abilities": [{"name":"//         Commander","hidden":false},{"name":"//         Storm Drain\r\n    //","hidden":false}],
     //     "moves": [
     //         "Take Down",
     //         "Water Gun",
@@ -118862,10 +114808,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Commander",
-    //         "Storm Drain"
-    //     ],
+    //     "abilities": [{"name":"//         Commander","hidden":false},{"name":"//         Storm Drain\r\n    //","hidden":false}],
     //     "moves": [
     //         "Take Down",
     //         "Water Gun",
@@ -118921,10 +114864,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Commander",
-    //         "Storm Drain"
-    //     ],
+    //     "abilities": [{"name":"//         Commander","hidden":false},{"name":"//         Storm Drain\r\n    //","hidden":false}],
     //     "moves": [
     //         "Take Down",
     //         "Water Gun",
@@ -118980,11 +114920,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Vital Spirit",
-    //         "Inner Focus",
-    //         "Defiant"
-    //     ],
+    //     "abilities": [{"name":"//         Vital Spirit","hidden":false},{"name":"//         Inner Focus","hidden":false},{"name":"//         Defiant\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -119073,11 +115009,7 @@ const pokemonData = [
     //         "Poison",
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Poison Point",
-    //         "Water Absorb",
-    //         "Unaware"
-    //     ],
+    //     "abilities": [{"name":"//         Poison Point","hidden":false},{"name":"//         Water Absorb","hidden":false},{"name":"//         Unaware\r\n    //","hidden":false}],
     //     "moves": [
     //         "Slam",
     //         "Body Slam",
@@ -119153,11 +115085,7 @@ const pokemonData = [
     //         "Normal",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Cud Chew",
-    //         "Armor Tail",
-    //         "Sap Sipper"
-    //     ],
+    //     "abilities": [{"name":"//         Cud Chew","hidden":false},{"name":"//         Armor Tail","hidden":false},{"name":"//         Sap Sipper\r\n    //","hidden":false}],
     //     "moves": [
     //         "Stomp",
     //         "Tackle",
@@ -119242,11 +115170,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Serene Grace",
-    //         "Run Away",
-    //         "Rattled"
-    //     ],
+    //     "abilities": [{"name":"//         Serene Grace","hidden":false},{"name":"//         Run Away","hidden":false},{"name":"//         Rattled\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Take Down",
@@ -119341,11 +115265,7 @@ const pokemonData = [
     //     "type": [
     //         "Normal"
     //     ],
-    //     "abilities": [
-    //         "Serene Grace",
-    //         "Run Away",
-    //         "Rattled"
-    //     ],
+    //     "abilities": [{"name":"//         Serene Grace","hidden":false},{"name":"//         Run Away","hidden":false},{"name":"//         Rattled\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Take Down",
@@ -119441,11 +115361,7 @@ const pokemonData = [
     //         "Dark",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Defiant",
-    //         "Supreme Overlord",
-    //         "Pressure"
-    //     ],
+    //     "abilities": [{"name":"//         Defiant","hidden":false},{"name":"//         Supreme Overlord","hidden":false},{"name":"//         Pressure\r\n    //","hidden":false}],
     //     "moves": [
     //         "Scratch",
     //         "Guillotine",
@@ -119523,10 +115439,7 @@ const pokemonData = [
     //         "Ground",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Protosynthesis",
-    //         "Protosynthesis"
-    //     ],
+    //     "abilities": [{"name":"//         Protosynthesis","hidden":false},{"name":"//         Protosynthesis\r\n    //","hidden":false}],
     //     "moves": [
     //         "Horn Attack",
     //         "Body Slam",
@@ -119599,10 +115512,7 @@ const pokemonData = [
     //         "Fairy",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Protosynthesis",
-    //         "Protosynthesis"
-    //     ],
+    //     "abilities": [{"name":"//         Protosynthesis","hidden":false},{"name":"//         Protosynthesis\r\n    //","hidden":false}],
     //     "moves": [
     //         "Pound",
     //         "Fire Punch",
@@ -119697,10 +115607,7 @@ const pokemonData = [
     //         "Grass",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Protosynthesis",
-    //         "Protosynthesis"
-    //     ],
+    //     "abilities": [{"name":"//         Protosynthesis","hidden":false},{"name":"//         Protosynthesis\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Thrash",
@@ -119771,10 +115678,7 @@ const pokemonData = [
     //         "Ghost",
     //         "Fairy"
     //     ],
-    //     "abilities": [
-    //         "Protosynthesis",
-    //         "Protosynthesis"
-    //     ],
+    //     "abilities": [{"name":"//         Protosynthesis","hidden":false},{"name":"//         Protosynthesis\r\n    //","hidden":false}],
     //     "moves": [
     //         "Psybeam",
     //         "Hyper Beam",
@@ -119844,10 +115748,7 @@ const pokemonData = [
     //         "Bug",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Protosynthesis",
-    //         "Protosynthesis"
-    //     ],
+    //     "abilities": [{"name":"//         Protosynthesis","hidden":false},{"name":"//         Protosynthesis\r\n    //","hidden":false}],
     //     "moves": [
     //         "Gust",
     //         "Whirlwind",
@@ -119920,10 +115821,7 @@ const pokemonData = [
     //         "Electric",
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Protosynthesis",
-    //         "Protosynthesis"
-    //     ],
+    //     "abilities": [{"name":"//         Protosynthesis","hidden":false},{"name":"//         Protosynthesis\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Take Down",
@@ -119993,10 +115891,7 @@ const pokemonData = [
     //         "Ground",
     //         "Steel"
     //     ],
-    //     "abilities": [
-    //         "Quark Drive",
-    //         "Quark Drive"
-    //     ],
+    //     "abilities": [{"name":"//         Quark Drive","hidden":false},{"name":"//         Quark Drive\r\n    //","hidden":false}],
     //     "moves": [
     //         "Horn Attack",
     //         "Body Slam",
@@ -120063,10 +115958,7 @@ const pokemonData = [
     //         "Ice",
     //         "Water"
     //     ],
-    //     "abilities": [
-    //         "Quark Drive",
-    //         "Quark Drive"
-    //     ],
+    //     "abilities": [{"name":"//         Quark Drive","hidden":false},{"name":"//         Quark Drive\r\n    //","hidden":false}],
     //     "moves": [
     //         "Ice Punch",
     //         "Body Slam",
@@ -120129,10 +116021,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Quark Drive",
-    //         "Quark Drive"
-    //     ],
+    //     "abilities": [{"name":"//         Quark Drive","hidden":false},{"name":"//         Quark Drive\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -120207,10 +116096,7 @@ const pokemonData = [
     //         "Dark",
     //         "Flying"
     //     ],
-    //     "abilities": [
-    //         "Quark Drive",
-    //         "Quark Drive"
-    //     ],
+    //     "abilities": [{"name":"//         Quark Drive","hidden":false},{"name":"//         Quark Drive\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Body Slam",
@@ -120281,10 +116167,7 @@ const pokemonData = [
     //         "Fire",
     //         "Poison"
     //     ],
-    //     "abilities": [
-    //         "Quark Drive",
-    //         "Quark Drive"
-    //     ],
+    //     "abilities": [{"name":"//         Quark Drive","hidden":false},{"name":"//         Quark Drive\r\n    //","hidden":false}],
     //     "moves": [
     //         "Gust",
     //         "Whirlwind",
@@ -120356,10 +116239,7 @@ const pokemonData = [
     //         "Rock",
     //         "Electric"
     //     ],
-    //     "abilities": [
-    //         "Quark Drive",
-    //         "Quark Drive"
-    //     ],
+    //     "abilities": [{"name":"//         Quark Drive","hidden":false},{"name":"//         Quark Drive\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -120447,10 +116327,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Thermal Exchange",
-    //         "Ice Body"
-    //     ],
+    //     "abilities": [{"name":"//         Thermal Exchange","hidden":false},{"name":"//         Ice Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Tackle",
@@ -120508,10 +116385,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Thermal Exchange",
-    //         "Ice Body"
-    //     ],
+    //     "abilities": [{"name":"//         Thermal Exchange","hidden":false},{"name":"//         Ice Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Tackle",
@@ -120569,10 +116443,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Thermal Exchange",
-    //         "Ice Body"
-    //     ],
+    //     "abilities": [{"name":"//         Thermal Exchange","hidden":false},{"name":"//         Ice Body\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Tackle",
@@ -120642,10 +116513,7 @@ const pokemonData = [
     //     "type": [
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Rattled",
-    //         "Rattled"
-    //     ],
+    //     "abilities": [{"name":"//         Rattled","hidden":false},{"name":"//         Rattled\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -120684,10 +116552,7 @@ const pokemonData = [
     //     "type": [
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Run Away",
-    //         "Run Away"
-    //     ],
+    //     "abilities": [{"name":"//         Run Away","hidden":false},{"name":"//         Run Away\r\n    //","hidden":false}],
     //     "moves": [
     //         "Tackle",
     //         "Take Down",
@@ -120727,10 +116592,7 @@ const pokemonData = [
     //         "Steel",
     //         "Ghost"
     //     ],
-    //     "abilities": [
-    //         "Good as Gold",
-    //         "Good as Gold"
-    //     ],
+    //     "abilities": [{"name":"//         Good as Gold","hidden":false},{"name":"//         Good as Gold\r\n    //","hidden":false}],
     //     "moves": [
     //         "Thunder Punch",
     //         "Tackle",
@@ -120795,10 +116657,7 @@ const pokemonData = [
     //         "Dark",
     //         "Grass"
     //     ],
-    //     "abilities": [
-    //         "Tablets of Ruin",
-    //         "Tablets of Ruin"
-    //     ],
+    //     "abilities": [{"name":"//         Tablets of Ruin","hidden":false},{"name":"//         Tablets of Ruin\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Take Down",
@@ -120870,10 +116729,7 @@ const pokemonData = [
     //         "Dark",
     //         "Ice"
     //     ],
-    //     "abilities": [
-    //         "Sword of Ruin",
-    //         "Sword of Ruin"
-    //     ],
+    //     "abilities": [{"name":"//         Sword of Ruin","hidden":false},{"name":"//         Sword of Ruin\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Take Down",
@@ -120939,10 +116795,7 @@ const pokemonData = [
     //         "Dark",
     //         "Ground"
     //     ],
-    //     "abilities": [
-    //         "Vessel of Ruin",
-    //         "Vessel of Ruin"
-    //     ],
+    //     "abilities": [{"name":"//         Vessel of Ruin","hidden":false},{"name":"//         Vessel of Ruin\r\n    //","hidden":false}],
     //     "moves": [
     //         "Whirlwind",
     //         "Stomp",
@@ -121008,10 +116861,7 @@ const pokemonData = [
     //         "Dark",
     //         "Fire"
     //     ],
-    //     "abilities": [
-    //         "Beads of Ruin",
-    //         "Beads of Ruin"
-    //     ],
+    //     "abilities": [{"name":"//         Beads of Ruin","hidden":false},{"name":"//         Beads of Ruin\r\n    //","hidden":false}],
     //     "moves": [
     //         "Take Down",
     //         "Ember",
@@ -121076,10 +116926,7 @@ const pokemonData = [
     //         "Dragon",
     //         "Dark"
     //     ],
-    //     "abilities": [
-    //         "Protosynthesis",
-    //         "Protosynthesis"
-    //     ],
+    //     "abilities": [{"name":"//         Protosynthesis","hidden":false},{"name":"//         Protosynthesis\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fly",
     //         "Headbutt",
@@ -121165,10 +117012,7 @@ const pokemonData = [
     //         "Fairy",
     //         "Fighting"
     //     ],
-    //     "abilities": [
-    //         "Quark Drive",
-    //         "Quark Drive"
-    //     ],
+    //     "abilities": [{"name":"//         Quark Drive","hidden":false},{"name":"//         Quark Drive\r\n    //","hidden":false}],
     //     "moves": [
     //         "Fire Punch",
     //         "Ice Punch",
@@ -121265,10 +117109,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Orichalcum Pulse",
-    //         "Orichalcum Pulse"
-    //     ],
+    //     "abilities": [{"name":"//         Orichalcum Pulse","hidden":false},{"name":"//         Orichalcum Pulse\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Body Slam",
@@ -121352,10 +117193,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Orichalcum Pulse",
-    //         "Orichalcum Pulse"
-    //     ],
+    //     "abilities": [{"name":"//         Orichalcum Pulse","hidden":false},{"name":"//         Orichalcum Pulse\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Body Slam",
@@ -121439,10 +117277,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Orichalcum Pulse",
-    //         "Orichalcum Pulse"
-    //     ],
+    //     "abilities": [{"name":"//         Orichalcum Pulse","hidden":false},{"name":"//         Orichalcum Pulse\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Body Slam",
@@ -121526,10 +117361,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Orichalcum Pulse",
-    //         "Orichalcum Pulse"
-    //     ],
+    //     "abilities": [{"name":"//         Orichalcum Pulse","hidden":false},{"name":"//         Orichalcum Pulse\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Body Slam",
@@ -121613,10 +117445,7 @@ const pokemonData = [
     //         "Fighting",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Orichalcum Pulse",
-    //         "Orichalcum Pulse"
-    //     ],
+    //     "abilities": [{"name":"//         Orichalcum Pulse","hidden":false},{"name":"//         Orichalcum Pulse\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Body Slam",
@@ -121700,10 +117529,7 @@ const pokemonData = [
     //         "Electric",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Hadron Engine",
-    //         "Hadron Engine"
-    //     ],
+    //     "abilities": [{"name":"//         Hadron Engine","hidden":false},{"name":"//         Hadron Engine\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Body Slam",
@@ -121779,10 +117605,7 @@ const pokemonData = [
     //         "Electric",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Hadron Engine",
-    //         "Hadron Engine"
-    //     ],
+    //     "abilities": [{"name":"//         Hadron Engine","hidden":false},{"name":"//         Hadron Engine\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Body Slam",
@@ -121858,10 +117681,7 @@ const pokemonData = [
     //         "Electric",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Hadron Engine",
-    //         "Hadron Engine"
-    //     ],
+    //     "abilities": [{"name":"//         Hadron Engine","hidden":false},{"name":"//         Hadron Engine\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Body Slam",
@@ -121937,10 +117757,7 @@ const pokemonData = [
     //         "Electric",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Hadron Engine",
-    //         "Hadron Engine"
-    //     ],
+    //     "abilities": [{"name":"//         Hadron Engine","hidden":false},{"name":"//         Hadron Engine\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Body Slam",
@@ -122016,10 +117833,7 @@ const pokemonData = [
     //         "Electric",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Hadron Engine",
-    //         "Hadron Engine"
-    //     ],
+    //     "abilities": [{"name":"//         Hadron Engine","hidden":false},{"name":"//         Hadron Engine\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Body Slam",
@@ -122095,10 +117909,7 @@ const pokemonData = [
     //         "Water",
     //         "Dragon"
     //     ],
-    //     "abilities": [
-    //         "Protosynthesis",
-    //         "Protosynthesis"
-    //     ],
+    //     "abilities": [{"name":"//         Protosynthesis","hidden":false},{"name":"//         Protosynthesis\r\n    //","hidden":false}],
     //     "moves": [
     //         "Body Slam",
     //         "Take Down",
@@ -122165,10 +117976,7 @@ const pokemonData = [
     //         "Grass",
     //         "Psychic"
     //     ],
-    //     "abilities": [
-    //         "Quark Drive",
-    //         "Quark Drive"
-    //     ],
+    //     "abilities": [{"name":"//         Quark Drive","hidden":false},{"name":"//         Quark Drive\r\n    //","hidden":false}],
     //     "moves": [
     //         "Swords Dance",
     //         "Take Down",

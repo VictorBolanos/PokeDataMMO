@@ -445,7 +445,7 @@ class PokemonBuilder {
                 },
                 finalStats: {},
                 nature: null,
-                ability: localData.abilities[0] || null,
+                ability: localData.abilities[0]?.name || null,
                 item: null,
                 moves: [null, null, null, null],
                 // USAR DATOS DE pokemon.js
@@ -454,9 +454,9 @@ class PokemonBuilder {
                         console.error(`❌ localData.abilities no es un array válido:`, localData.abilities);
                         return [];
                     }
-                    return localData.abilities.map(abilityName => ({
-                        name: abilityName,
-                        is_hidden: false // No diferenciamos hidden en datos locales
+                    return localData.abilities.map(abilityObj => ({
+                        name: abilityObj.name,
+                        is_hidden: abilityObj.hidden
                     }));
                 })(),
                 // USAR MOVIMIENTOS DE pokemon.js
