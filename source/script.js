@@ -546,26 +546,53 @@ function closeAllDropdowns() {
 }
 
 // ===== HELPER FUNCTIONS =====
+
+/**
+ * Cerrar un dropdown por su ID o elemento
+ * @param {string|HTMLElement} dropdownId - ID del dropdown o elemento directo
+ */
 function closeDropdown(dropdownId) {
-    const dropdown = document.getElementById(dropdownId);
+    const dropdown = typeof dropdownId === 'string' 
+        ? document.getElementById(dropdownId) 
+        : dropdownId;
+    
     if (dropdown) {
         dropdown.classList.remove('show');
     }
 }
 
-function setupOutsideClickHandler(dropdown, button) {
-    document.addEventListener('click', function(e) {
-        if (!dropdown.contains(e.target) && !button.contains(e.target)) {
-            dropdown.classList.remove('show');
-            // Remover overlay si existe
-            const overlay = document.querySelector('.dropdown-overlay');
-            if (overlay) {
-                overlay.classList.remove('show');
-            }
+/**
+ * Cerrar otros dropdowns excepto el especificado (opcional)
+ * @param {Array<string>} dropdownIds - Array de IDs de dropdowns a cerrar
+ * @param {string} except - ID del dropdown a mantener abierto (opcional)
+ */
+function closeOtherDropdowns(dropdownIds, except = null) {
+    dropdownIds.forEach(id => {
+        if (id !== except) {
+            closeDropdown(id);
         }
     });
 }
 
+/**
+ * Configurar cierre de dropdown al hacer click fuera
+ * @param {HTMLElement} dropdown - Elemento dropdown
+ * @param {HTMLElement} button - Botón que abre el dropdown
+ */
+function setupOutsideClickHandler(dropdown, button) {
+    document.addEventListener('click', function(e) {
+        if (!dropdown.contains(e.target) && !button.contains(e.target)) {
+            dropdown.classList.remove('show');
+            hideMobileOverlay();
+        }
+    });
+}
+
+/**
+ * Actualizar elemento seleccionado en una lista
+ * @param {string} selector - Selector CSS
+ * @param {HTMLElement} selectedElement - Elemento a marcar como seleccionado
+ */
 function updateSelection(selector, selectedElement) {
     document.querySelectorAll(selector).forEach(item => {
         item.classList.remove('selected');
@@ -623,9 +650,7 @@ function initializeFont() {
     // Toggle dropdown
     fontBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        closeDropdown('colorDropdown');
-        closeDropdown('wallpaperDropdown');
-        closeDropdown('musicDropdown');
+        closeOtherDropdowns(['colorDropdown', 'wallpaperDropdown', 'musicDropdown']);
         fontDropdown.classList.toggle('show');
     });
     
@@ -702,9 +727,7 @@ function initializeColor() {
     // Toggle dropdown
     colorBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        closeDropdown('fontDropdown');
-        closeDropdown('wallpaperDropdown');
-        closeDropdown('musicDropdown');
+        closeOtherDropdowns(['fontDropdown', 'wallpaperDropdown', 'musicDropdown']);
         colorDropdown.classList.toggle('show');
     });
     
@@ -856,10 +879,7 @@ function initializeAuth() {
         if (!window.authManager.isAuthenticated()) {
             return;
         }
-        closeDropdown('musicDropdown');
-        closeDropdown('wallpaperDropdown');
-        closeDropdown('fontDropdown');
-        closeDropdown('colorDropdown');
+        closeOtherDropdowns(['musicDropdown', 'wallpaperDropdown', 'fontDropdown', 'colorDropdown']);
         userDropdown.classList.toggle('show');
     });
     
@@ -1473,11 +1493,10 @@ function showHomePage() {
     }
 }
 
-// HELPER FUNCTIONS
-function closeOtherDropdowns(dropdownIds) {
-    dropdownIds.forEach(id => closeDropdown(id));
-}
-
+/**
+ * Toggle dropdown con manejo de overlay móvil
+ * @param {HTMLElement} dropdown - Elemento dropdown a toggle
+ */
 function toggleDropdown(dropdown) {
     dropdown.classList.toggle('show');
     if (dropdown.classList.contains('show')) {

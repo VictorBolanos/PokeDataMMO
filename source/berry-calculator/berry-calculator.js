@@ -46,7 +46,8 @@ class BerryCalculator {
         }
         
         // Validar que hay nombre válido antes de programar
-        if (!this.currentCalculation || !this.currentCalculation.trim()) {
+        // Usar utilidad global de utils.js
+        if (!window.PokeDataUtils?.validateName(this.currentCalculation)) {
             return;
         }
         
@@ -65,11 +66,12 @@ class BerryCalculator {
 
     // Ejecutar auto-guardado
     async performAutoSave() {
-        if (this.isSaving || !this.currentCalculation?.trim()) return;
+        const utils = window.PokeDataUtils;
+        if (this.isSaving || !utils?.validateName(this.currentCalculation)) return;
         
         // Verificar que el nombre en el input sigue siendo válido
         const nameInput = document.getElementById('calculationNameInput');
-        if (!nameInput?.value?.trim()) return;
+        if (!utils?.validateName(nameInput?.value)) return;
         
         this.isSaving = true;
         

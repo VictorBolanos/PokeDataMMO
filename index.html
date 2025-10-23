@@ -663,35 +663,480 @@
                         <!-- Pokémon Calculator Tab -->
                         <div class="tab-pane" id="pokecalc">
                             <div class="pokemon-calculator-container">
-                                <!-- Stats Calculator Card -->
-                                <div class="calculator-card mb-4">
-                                    <div class="calculator-header">
-                                        <h2 class="d-flex align-items-center justify-content-center gap-3 mb-3" id="statsCalcTitle">
-                                            🔢 Pokémon Stats Calculator
-                                        </h2>
-                                        <p class="lead mb-0 text-center" id="statsCalcSubtitle">
-                                            Calculate final stats based on Base Stats, EVs, IVs, and Nature
-                                        </p>
-                                    </div>
-                                    <div class="calculator-content" id="statsCalculatorContent">
-                                        <!-- Se llenará dinámicamente -->
-                                    </div>
-                                </div>
-
                                 <!-- Damage Calculator Card -->
                                 <div class="calculator-card">
                                     <div class="calculator-header">
                                         <h2 class="d-flex align-items-center justify-content-center gap-3 mb-3" id="damageCalcTitle">
-                                            ⚔️ Damage Calculator
+                                            ⚔️ Calculadora de Daños Pokémon
                                         </h2>
                                         <p class="lead mb-0 text-center" id="damageCalcSubtitle">
-                                            Calculate damage between Pokémon in battle
+                                            Calcula el daño entre Pokémon en combate
                                         </p>
                                     </div>
                                     <div class="calculator-content" id="damageCalculatorContent">
-                                        <div class="alert alert-info text-center">
-                                            <strong>Coming Soon</strong><br>
-                                            Advanced damage calculation system in development
+                                        <!-- Damage Calculator Interface -->
+                                        <div class="damage-calculator">
+                                            <!-- Results Panel -->
+                                            <div class="damage-results-panel mb-4">
+                                                <div class="damage-result-header">
+                                                    <h5 class="mb-2">Resultados del Cálculo de Daño</h5>
+                                                </div>
+                                                <div class="damage-result-content" id="damageResultContent">
+                                                    <p class="text-muted mb-0">Selecciona un movimiento para ver los resultados del daño</p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Main Calculator Layout -->
+                                            <div class="damage-calculator-layout">
+                                                <!-- Pokémon 1 -->
+                                                <div class="pokemon-panel pokemon-1">
+                                                    <div class="pokemon-header">
+                                                        <h6 class="pokemon-title">Pokémon 1</h6>
+                                                        <div class="pokemon-selector">
+                                                            <input type="text" class="form-control pokemon-search" id="pokemon1Search" placeholder="Buscar Pokémon...">
+                                                            <div class="pokemon-dropdown" id="pokemon1Dropdown"></div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="pokemon-sprite-container">
+                                                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png" alt="Pokémon" class="pokemon-sprite" id="pokemon1Sprite" style="opacity: 0;">
+                                                    </div>
+
+                                                    <div class="pokemon-level">
+                                                        <label class="form-label">Nivel</label>
+                                                        <input type="number" class="form-control" id="pokemon1Level" value="100" min="1" max="100">
+                                                    </div>
+
+                                                    <div class="pokemon-hp-bar">
+                                                        <label class="form-label">Vida Actual</label>
+                                                        <div class="hp-bar-container">
+                                                            <div class="hp-bar" id="pokemon1HpBar">
+                                                                <div class="hp-bar-fill" id="pokemon1HpFill" style="width: 100%;"></div>
+                                                            </div>
+                                                            <div class="hp-bar-text" id="pokemon1HpText">1 / 1 (100%)</div>
+                                                        </div>
+                                                        <input type="range" class="form-range hp-slider" id="pokemon1HpSlider" min="0" max="1" value="1" step="1">
+                                                    </div>
+
+                                                    <div class="pokemon-stats-table">
+                                                        <table class="table table-sm">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Stat</th>
+                                                                    <th>Base</th>
+                                                                    <th>EVs</th>
+                                                                    <th>IVs</th>
+                                                                    <th>Final</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>PS</td>
+                                                                    <td id="pokemon1HpBase">-</td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon1HpEv" value="0" min="0" max="252"></td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon1HpIv" value="31" min="0" max="31"></td>
+                                                                    <td id="pokemon1HpFinal">1</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>ATAQUE</td>
+                                                                    <td id="pokemon1AtkBase">-</td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon1AtkEv" value="0" min="0" max="252"></td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon1AtkIv" value="31" min="0" max="31"></td>
+                                                                    <td id="pokemon1AtkFinal">1</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>DEFENSA</td>
+                                                                    <td id="pokemon1DefBase">-</td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon1DefEv" value="0" min="0" max="252"></td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon1DefIv" value="31" min="0" max="31"></td>
+                                                                    <td id="pokemon1DefFinal">1</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>AT. ESP.</td>
+                                                                    <td id="pokemon1SpAtkBase">-</td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon1SpAtkEv" value="0" min="0" max="252"></td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon1SpAtkIv" value="31" min="0" max="31"></td>
+                                                                    <td id="pokemon1SpAtkFinal">1</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>DEF. ESP.</td>
+                                                                    <td id="pokemon1SpDefBase">-</td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon1SpDefEv" value="0" min="0" max="252"></td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon1SpDefIv" value="31" min="0" max="31"></td>
+                                                                    <td id="pokemon1SpDefFinal">1</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>VELOCIDAD</td>
+                                                                    <td id="pokemon1SpeBase">-</td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon1SpeEv" value="0" min="0" max="252"></td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon1SpeIv" value="31" min="0" max="31"></td>
+                                                                    <td id="pokemon1SpeFinal">1</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="ev-total">
+                                                            <small class="text-muted">Total EVs: <span id="pokemon1EvTotal">0</span> / 510</small>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="pokemon-details">
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <label class="form-label">Naturaleza</label>
+                                                                <select class="form-select form-select-sm" id="pokemon1Nature">
+                                                                    <option value="">Seleccionar...</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label class="form-label">Habilidad</label>
+                                                                <select class="form-select form-select-sm" id="pokemon1Ability">
+                                                                    <option value="">Seleccionar...</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mt-2">
+                                                            <div class="col-12">
+                                                                <label class="form-label">Objeto</label>
+                                                                <div id="pokemon1ItemContainer"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="pokemon-moves">
+                                                        <label class="form-label">Movimientos</label>
+                                                        <div class="moves-container" id="pokemon1MovesContainer">
+                                                            <!-- Se generarán dinámicamente -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Field Conditions (Center) -->
+                                                <div class="field-panel">
+                                                    <div class="field-header">
+                                                        <h6 class="field-title">Estado del Campo</h6>
+                                                    </div>
+
+                                                    <div class="field-conditions">
+                                                        <div class="field-section">
+                                                            <label class="form-label">Tipo de Combate</label>
+                                                            <div class="btn-group w-100" role="group">
+                                                                <input type="radio" class="btn-check" name="battleType" id="singles" value="singles" checked>
+                                                                <label class="btn btn-outline-custom btn-sm" for="singles">Individual</label>
+                                                                
+                                                                <input type="radio" class="btn-check" name="battleType" id="doubles" value="doubles">
+                                                                <label class="btn btn-outline-custom btn-sm" for="doubles">Doble</label>
+                                                                
+                                                                <input type="radio" class="btn-check" name="battleType" id="triples" value="triples">
+                                                                <label class="btn btn-outline-custom btn-sm" for="triples">Triple</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="field-section">
+                                                            <label class="form-label">Meteorología</label>
+                                                            <div class="btn-group w-100" role="group">
+                                                                <input type="radio" class="btn-check" name="weather" id="weather-none" value="none" checked>
+                                                                <label class="btn btn-outline-custom btn-sm" for="weather-none">Ninguno</label>
+                                                                
+                                                                <input type="radio" class="btn-check" name="weather" id="weather-sun" value="sun">
+                                                                <label class="btn btn-outline-custom btn-sm" for="weather-sun">Sol</label>
+                                                                
+                                                                <input type="radio" class="btn-check" name="weather" id="weather-rain" value="rain">
+                                                                <label class="btn btn-outline-custom btn-sm" for="weather-rain">Lluvia</label>
+                                                                
+                                                                <input type="radio" class="btn-check" name="weather" id="weather-sandstorm" value="sandstorm">
+                                                                <label class="btn btn-outline-custom btn-sm" for="weather-sandstorm">Tormenta Arena</label>
+                                                                
+                                                                <input type="radio" class="btn-check" name="weather" id="weather-hail" value="hail">
+                                                                <label class="btn btn-outline-custom btn-sm" for="weather-hail">Granizo</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="field-section">
+                                                            <label class="form-label">Espacio Raro</label>
+                                                            <div class="btn-group w-100 justify-content-center" role="group">
+                                                                <input type="checkbox" class="btn-check" id="rareSpaceToggle" autocomplete="off">
+                                                                <label class="btn btn-outline-custom btn-sm" for="rareSpaceToggle">Espacio Raro</label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="field-section">
+                                                            <label class="form-label">Estados de Campo</label>
+                                                            <div class="field-effects-container">
+                                                                <div class="field-effects-left">
+                                                                    <h6 class="field-effects-title">Pokémon 1</h6>
+                                                                    <div class="field-effects-buttons">
+                                                                        <button class="btn btn-outline-secondary btn-sm field-effect-btn" data-effect="helping-hand">Helping Hand</button>
+                                                                        <button class="btn btn-outline-secondary btn-sm field-effect-btn" data-effect="reflect">Reflect</button>
+                                                                        <button class="btn btn-outline-secondary btn-sm field-effect-btn" data-effect="light-screen">Light Screen</button>
+                                                                        <button class="btn btn-outline-secondary btn-sm field-effect-btn" data-effect="tailwind">Tailwind</button>
+                                                                        <button class="btn btn-outline-secondary btn-sm field-effect-btn" data-effect="sea-of-fire">Sea of Fire</button>
+                                                                        <button class="btn btn-outline-secondary btn-sm field-effect-btn" data-effect="swamp">Swamp</button>
+                                                                        <button class="btn btn-outline-secondary btn-sm field-effect-btn" data-effect="friend-guard">Friend Guard</button>
+                                                                        <button class="btn btn-outline-secondary btn-sm field-effect-btn" data-effect="stealth-rock">Stealth Rock</button>
+                                                                        <div class="spikes-selector">
+                                                                            <label class="form-label">Spikes</label>
+                                                                            <div class="btn-group" role="group">
+                                                                                <input type="radio" class="btn-check" name="spikes1" id="spikes1-0" value="0" checked>
+                                                                                <label class="btn btn-outline-secondary btn-sm" for="spikes1-0">0</label>
+                                                                                <input type="radio" class="btn-check" name="spikes1" id="spikes1-1" value="1">
+                                                                                <label class="btn btn-outline-secondary btn-sm" for="spikes1-1">1</label>
+                                                                                <input type="radio" class="btn-check" name="spikes1" id="spikes1-2" value="2">
+                                                                                <label class="btn btn-outline-secondary btn-sm" for="spikes1-2">2</label>
+                                                                                <input type="radio" class="btn-check" name="spikes1" id="spikes1-3" value="3">
+                                                                                <label class="btn btn-outline-secondary btn-sm" for="spikes1-3">3</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="field-effects-right">
+                                                                    <h6 class="field-effects-title">Pokémon 2</h6>
+                                                                    <div class="field-effects-buttons">
+                                                                        <button class="btn btn-outline-secondary btn-sm field-effect-btn" data-effect="helping-hand">Helping Hand</button>
+                                                                        <button class="btn btn-outline-secondary btn-sm field-effect-btn" data-effect="reflect">Reflect</button>
+                                                                        <button class="btn btn-outline-secondary btn-sm field-effect-btn" data-effect="light-screen">Light Screen</button>
+                                                                        <button class="btn btn-outline-secondary btn-sm field-effect-btn" data-effect="tailwind">Tailwind</button>
+                                                                        <button class="btn btn-outline-secondary btn-sm field-effect-btn" data-effect="sea-of-fire">Sea of Fire</button>
+                                                                        <button class="btn btn-outline-secondary btn-sm field-effect-btn" data-effect="swamp">Swamp</button>
+                                                                        <button class="btn btn-outline-secondary btn-sm field-effect-btn" data-effect="friend-guard">Friend Guard</button>
+                                                                        <button class="btn btn-outline-secondary btn-sm field-effect-btn" data-effect="stealth-rock">Stealth Rock</button>
+                                                                        <div class="spikes-selector">
+                                                                            <label class="form-label">Spikes</label>
+                                                                            <div class="btn-group" role="group">
+                                                                                <input type="radio" class="btn-check" name="spikes2" id="spikes2-0" value="0" checked>
+                                                                                <label class="btn btn-outline-secondary btn-sm" for="spikes2-0">0</label>
+                                                                                <input type="radio" class="btn-check" name="spikes2" id="spikes2-1" value="1">
+                                                                                <label class="btn btn-outline-secondary btn-sm" for="spikes2-1">1</label>
+                                                                                <input type="radio" class="btn-check" name="spikes2" id="spikes2-2" value="2">
+                                                                                <label class="btn btn-outline-secondary btn-sm" for="spikes2-2">2</label>
+                                                                                <input type="radio" class="btn-check" name="spikes2" id="spikes2-3" value="3">
+                                                                                <label class="btn btn-outline-secondary btn-sm" for="spikes2-3">3</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="field-section">
+                                                            <label class="form-label">Movimientos Seleccionados</label>
+                                                            <div class="moves-selection-panel">
+                                                                <div class="moves-selection-left">
+                                                                    <h6 class="moves-selection-title">Pokémon 1</h6>
+                                                                    <div class="move-selection-buttons">
+                                                                        <div class="move-selection-item">
+                                                                            <button class="btn btn-outline-primary btn-sm move-selection-btn" data-pokemon="1" data-move="1">
+                                                                                <span class="move-name">(Sin movimiento)</span>
+                                                                                <span class="move-damage">-</span>
+                                                                            </button>
+                                                                            <div class="crit-toggle-container">
+                                                                                <input type="checkbox" class="btn-check" id="crit1-1" autocomplete="off">
+                                                                                <label class="btn btn-outline-custom btn-sm crit-toggle-label" for="crit1-1">Crit</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="move-selection-item">
+                                                                            <button class="btn btn-outline-primary btn-sm move-selection-btn" data-pokemon="1" data-move="2">
+                                                                                <span class="move-name">(Sin movimiento)</span>
+                                                                                <span class="move-damage">-</span>
+                                                                            </button>
+                                                                            <div class="crit-toggle-container">
+                                                                                <input type="checkbox" class="btn-check" id="crit1-2" autocomplete="off">
+                                                                                <label class="btn btn-outline-custom btn-sm crit-toggle-label" for="crit1-2">Crit</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="move-selection-item">
+                                                                            <button class="btn btn-outline-primary btn-sm move-selection-btn" data-pokemon="1" data-move="3">
+                                                                                <span class="move-name">(Sin movimiento)</span>
+                                                                                <span class="move-damage">-</span>
+                                                                            </button>
+                                                                            <div class="crit-toggle-container">
+                                                                                <input type="checkbox" class="btn-check" id="crit1-3" autocomplete="off">
+                                                                                <label class="btn btn-outline-custom btn-sm crit-toggle-label" for="crit1-3">Crit</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="move-selection-item">
+                                                                            <button class="btn btn-outline-primary btn-sm move-selection-btn" data-pokemon="1" data-move="4">
+                                                                                <span class="move-name">(Sin movimiento)</span>
+                                                                                <span class="move-damage">-</span>
+                                                                            </button>
+                                                                            <div class="crit-toggle-container">
+                                                                                <input type="checkbox" class="btn-check" id="crit1-4" autocomplete="off">
+                                                                                <label class="btn btn-outline-custom btn-sm crit-toggle-label" for="crit1-4">Crit</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="moves-selection-right">
+                                                                    <h6 class="moves-selection-title">Pokémon 2</h6>
+                                                                    <div class="move-selection-buttons">
+                                                                        <div class="move-selection-item">
+                                                                            <button class="btn btn-outline-primary btn-sm move-selection-btn" data-pokemon="2" data-move="1">
+                                                                                <span class="move-name">(Sin movimiento)</span>
+                                                                                <span class="move-damage">-</span>
+                                                                            </button>
+                                                                            <div class="crit-toggle-container">
+                                                                                <input type="checkbox" class="btn-check" id="crit2-1" autocomplete="off">
+                                                                                <label class="btn btn-outline-custom btn-sm crit-toggle-label" for="crit2-1">Crit</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="move-selection-item">
+                                                                            <button class="btn btn-outline-primary btn-sm move-selection-btn" data-pokemon="2" data-move="2">
+                                                                                <span class="move-name">(Sin movimiento)</span>
+                                                                                <span class="move-damage">-</span>
+                                                                            </button>
+                                                                            <div class="crit-toggle-container">
+                                                                                <input type="checkbox" class="btn-check" id="crit2-2" autocomplete="off">
+                                                                                <label class="btn btn-outline-custom btn-sm crit-toggle-label" for="crit2-2">Crit</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="move-selection-item">
+                                                                            <button class="btn btn-outline-primary btn-sm move-selection-btn" data-pokemon="2" data-move="3">
+                                                                                <span class="move-name">(Sin movimiento)</span>
+                                                                                <span class="move-damage">-</span>
+                                                                            </button>
+                                                                            <div class="crit-toggle-container">
+                                                                                <input type="checkbox" class="btn-check" id="crit2-3" autocomplete="off">
+                                                                                <label class="btn btn-outline-custom btn-sm crit-toggle-label" for="crit2-3">Crit</label>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="move-selection-item">
+                                                                            <button class="btn btn-outline-primary btn-sm move-selection-btn" data-pokemon="2" data-move="4">
+                                                                                <span class="move-name">(Sin movimiento)</span>
+                                                                                <span class="move-damage">-</span>
+                                                                            </button>
+                                                                            <div class="crit-toggle-container">
+                                                                                <input type="checkbox" class="btn-check" id="crit2-4" autocomplete="off">
+                                                                                <label class="btn btn-outline-custom btn-sm crit-toggle-label" for="crit2-4">Crit</label>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Pokémon 2 -->
+                                                <div class="pokemon-panel pokemon-2">
+                                                    <div class="pokemon-header">
+                                                        <h6 class="pokemon-title">Pokémon 2</h6>
+                                                        <div class="pokemon-selector">
+                                                            <input type="text" class="form-control pokemon-search" id="pokemon2Search" placeholder="Buscar Pokémon...">
+                                                            <div class="pokemon-dropdown" id="pokemon2Dropdown"></div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="pokemon-sprite-container">
+                                                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png" alt="Pokémon" class="pokemon-sprite" id="pokemon2Sprite" style="opacity: 0;">
+                                                    </div>
+
+                                                    <div class="pokemon-level">
+                                                        <label class="form-label">Nivel</label>
+                                                        <input type="number" class="form-control" id="pokemon2Level" value="100" min="1" max="100">
+                                                    </div>
+
+                                                    <div class="pokemon-hp-bar">
+                                                        <label class="form-label">Vida Actual</label>
+                                                        <div class="hp-bar-container">
+                                                            <div class="hp-bar" id="pokemon2HpBar">
+                                                                <div class="hp-bar-fill" id="pokemon2HpFill" style="width: 100%;"></div>
+                                                            </div>
+                                                            <div class="hp-bar-text" id="pokemon2HpText">1 / 1 (100%)</div>
+                                                        </div>
+                                                        <input type="range" class="form-range hp-slider" id="pokemon2HpSlider" min="0" max="1" value="1" step="1">
+                                                    </div>
+
+                                                    <div class="pokemon-stats-table">
+                                                        <table class="table table-sm">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Stat</th>
+                                                                    <th>Base</th>
+                                                                    <th>EVs</th>
+                                                                    <th>IVs</th>
+                                                                    <th>Final</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td>PS</td>
+                                                                    <td id="pokemon2HpBase">-</td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon2HpEv" value="0" min="0" max="252"></td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon2HpIv" value="31" min="0" max="31"></td>
+                                                                    <td id="pokemon2HpFinal">1</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>ATAQUE</td>
+                                                                    <td id="pokemon2AtkBase">-</td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon2AtkEv" value="0" min="0" max="252"></td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon2AtkIv" value="31" min="0" max="31"></td>
+                                                                    <td id="pokemon2AtkFinal">1</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>DEFENSA</td>
+                                                                    <td id="pokemon2DefBase">-</td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon2DefEv" value="0" min="0" max="252"></td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon2DefIv" value="31" min="0" max="31"></td>
+                                                                    <td id="pokemon2DefFinal">1</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>AT. ESP.</td>
+                                                                    <td id="pokemon2SpAtkBase">-</td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon2SpAtkEv" value="0" min="0" max="252"></td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon2SpAtkIv" value="31" min="0" max="31"></td>
+                                                                    <td id="pokemon2SpAtkFinal">1</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>DEF. ESP.</td>
+                                                                    <td id="pokemon2SpDefBase">-</td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon2SpDefEv" value="0" min="0" max="252"></td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon2SpDefIv" value="31" min="0" max="31"></td>
+                                                                    <td id="pokemon2SpDefFinal">1</td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>VELOCIDAD</td>
+                                                                    <td id="pokemon2SpeBase">-</td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon2SpeEv" value="0" min="0" max="252"></td>
+                                                                    <td><input type="number" class="form-control form-control-sm" id="pokemon2SpeIv" value="31" min="0" max="31"></td>
+                                                                    <td id="pokemon2SpeFinal">1</td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <div class="ev-total">
+                                                            <small class="text-muted">Total EVs: <span id="pokemon2EvTotal">0</span> / 510</small>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="pokemon-details">
+                                                        <div class="row">
+                                                            <div class="col-6">
+                                                                <label class="form-label">Naturaleza</label>
+                                                                <select class="form-select form-select-sm" id="pokemon2Nature">
+                                                                    <option value="">Seleccionar...</option>
+                                                                </select>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <label class="form-label">Habilidad</label>
+                                                                <select class="form-select form-select-sm" id="pokemon2Ability">
+                                                                    <option value="">Seleccionar...</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row mt-2">
+                                                            <div class="col-12">
+                                                                <label class="form-label">Objeto</label>
+                                                                <div id="pokemon2ItemContainer"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="pokemon-moves">
+                                                        <label class="form-label">Movimientos</label>
+                                                        <div class="moves-container" id="pokemon2MovesContainer">
+                                                            <!-- Se generarán dinámicamente -->
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -849,6 +1294,7 @@
     <script src="source/berry-calculator/berry-calculations.js"></script>
     <script src="source/berry-calculator/berry-ui.js"></script>
     <script src="source/berry-calculator/berry-calculator.js"></script>
+    
     <!-- PVP Teams Scripts -->
     <script src="source/pvp-teams/pvp-team-data.js"></script>
     <script src="source/pvp-teams/pokemon-data-loader.js"></script>
@@ -856,6 +1302,9 @@
     <script src="source/pvp-teams/pokemon-builder.js"></script>
     <script src="source/pvp-teams/pvp-team-ui.js"></script>
     <script src="source/pvp-teams/pvp-teams.js"></script>
+    
+    <!-- Damage Calculator Script (debe cargarse DESPUÉS de PVP Teams) -->
+    <script src="source/damage-calculator.js"></script>
     <!-- Custom JS -->
     <script src="source/script.js"></script>
     <!-- Music Player JS -->

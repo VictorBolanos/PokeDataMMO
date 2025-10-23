@@ -70,7 +70,8 @@ class PVPTeams {
         }
         
         // Validar que hay nombre válido antes de programar
-        if (!this.currentTeam || !this.currentTeam.trim()) {
+        // Usar utilidad global de utils.js
+        if (!window.PokeDataUtils?.validateName(this.currentTeam)) {
             return;
         }
         
@@ -93,10 +94,11 @@ class PVPTeams {
      * Ejecutar auto-guardado
      */
     async performAutoSave() {
-        if (this.isSaving || !this.currentTeam?.trim()) return;
+        const utils = window.PokeDataUtils;
+        if (this.isSaving || !utils?.validateName(this.currentTeam)) return;
         
         const nameInput = document.getElementById('teamNameInput');
-        if (nameInput && !nameInput.value?.trim()) return;
+        if (nameInput && !utils?.validateName(nameInput.value)) return;
         
         this.isSaving = true;
         

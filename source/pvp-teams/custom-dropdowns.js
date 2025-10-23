@@ -220,7 +220,8 @@ class CustomDropdowns {
         const finalOptionsContainer = document.getElementById(`moveOptions_${slotIndex}_${moveIndex}`);
 
         // Obtener movimientos específicos del Pokémon
-        const pokemon = window.pvpTeamsUI?.currentTeam?.pokemons?.[slotIndex];
+        const pokemon = window.pvpTeamsUI?.currentTeam?.pokemons?.[slotIndex] ||
+                        window.damageCalcData?.pokemons?.[slotIndex];
         let moves = [];
         
         if (pokemon && pokemon.availableMoves) {
@@ -372,13 +373,41 @@ class CustomDropdowns {
             }
         }
         
-        // Actualizar datos en PVP Teams UI - GUARDAR EL ID
-        if (window.pvpTeamsUI && move) {
+        // Actualizar datos en PVP Teams UI o Damage Calculator - GUARDAR EL ID
+        if (!move) {
+            console.error(`❌ ERROR: Movimiento no encontrado`);
+            return;
+        }
+        
+        // Intentar primero con damage calculator (si existe)
+        if (window.damageCalcData && 
+            window.damageCalcData.pokemons && 
+            window.damageCalcData.pokemons[slotIndex]) {
+            window.damageCalcData.pokemons[slotIndex].moves[moveIndex] = moveId;
+            // Disparar evento para que damage calculator actualice la UI
+            window.dispatchEvent(new CustomEvent('damageCalcMoveChanged', {
+                detail: { pokemonNum: slotIndex + 1, moveNum: moveIndex + 1, moveId: moveId }
+            }));
+            return;
+        }
+        
+        // Si no es damage calculator, intentar con PVP Teams
+        if (window.pvpTeamsUI && 
+            window.pvpTeamsUI.currentTeam && 
+            window.pvpTeamsUI.currentTeam.pokemons && 
+            window.pvpTeamsUI.currentTeam.pokemons[slotIndex]) {
             window.pvpTeamsUI.currentTeam.pokemons[slotIndex].moves[moveIndex] = moveId;
             window.pvpTeams.scheduleAutoSave();
-        } else {
-            console.error(`❌ ERROR: window.pvpTeamsUI no está disponible o movimiento no encontrado`);
+            return;
         }
+        
+        console.error(`❌ ERROR: No hay contexto válido para guardar el movimiento`, {
+            slotIndex,
+            moveIndex,
+            pvpTeamsUI: !!window.pvpTeamsUI,
+            damageCalcData: !!window.damageCalcData,
+            damageCalcDataPokemons: !!window.damageCalcData?.pokemons
+        });
     }
 
     /**
@@ -558,8 +587,24 @@ class CustomDropdowns {
             }
         }
         
-        // Actualizar datos en PVP Teams UI
-        if (window.pvpTeamsUI) {
+        // Actualizar datos en PVP Teams UI o Damage Calculator
+        // Intentar primero con damage calculator (si existe)
+        if (window.damageCalcData && 
+            window.damageCalcData.pokemons && 
+            window.damageCalcData.pokemons[slotIndex]) {
+            window.damageCalcData.pokemons[slotIndex].item = itemName;
+            // Disparar evento para que damage calculator guarde el estado
+            window.dispatchEvent(new CustomEvent('damageCalcItemChanged', {
+                detail: { pokemonNum: slotIndex + 1, itemName: itemName }
+            }));
+            return;
+        }
+        
+        // Si no es damage calculator, intentar con PVP Teams
+        if (window.pvpTeamsUI && 
+            window.pvpTeamsUI.currentTeam && 
+            window.pvpTeamsUI.currentTeam.pokemons && 
+            window.pvpTeamsUI.currentTeam.pokemons[slotIndex]) {
             window.pvpTeamsUI.currentTeam.pokemons[slotIndex].item = itemName;
             window.pvpTeams.scheduleAutoSave();
         }
@@ -788,7 +833,8 @@ class CustomDropdowns {
         if (!trigger || !optionsContainer) return;
         
         // Obtener valor actual
-        const currentItemName = window.pvpTeamsUI?.currentTeam?.pokemons?.[slotIndex]?.item;
+        const currentItemName = window.pvpTeamsUI?.currentTeam?.pokemons?.[slotIndex]?.item ||
+                               window.damageCalcData?.pokemons?.[slotIndex]?.item;
         
         // Actualizar trigger si hay item seleccionado
         if (currentItemName) {
@@ -824,7 +870,8 @@ class CustomDropdowns {
         if (!trigger || !optionsContainer) return;
 
         // Obtener valor actual (ahora es el ID del movimiento)
-        const currentMoveId = window.pvpTeamsUI?.currentTeam?.pokemons?.[slotIndex]?.moves?.[moveIndex];
+        const currentMoveId = window.pvpTeamsUI?.currentTeam?.pokemons?.[slotIndex]?.moves?.[moveIndex] ||
+                             window.damageCalcData?.pokemons?.[slotIndex]?.moves?.[moveIndex];
         
         // Actualizar trigger si hay movimiento seleccionado
         if (currentMoveId) {

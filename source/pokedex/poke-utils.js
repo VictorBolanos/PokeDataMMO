@@ -103,3 +103,4 @@ class PokeUtils {
 
 // Export to global scope
 window.PokeUtils = PokeUtils;
+
