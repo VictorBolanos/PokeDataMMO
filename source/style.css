@@ -5649,10 +5649,9 @@ body.light-theme .calculator-card {
 
 .damage-results-panel {
     background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 2px solid var(--primary-color);
     border-radius: 8px;
     padding: 1rem;
-    margin-bottom: 1rem;
 }
 
 .damage-result-header h5 {
@@ -5667,13 +5666,29 @@ body.light-theme .calculator-card {
     padding: 0.75rem;
     border-left: 3px solid var(--primary-color);
     color: var(--text-primary);
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    max-width: 100%;
+}
+
+.damage-result-content pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
 }
 
 .damage-calculator-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr) minmax(0, 1fr);
+    /* Columna central el doble de ancha: 1fr - 2fr - 1fr */
     gap: 1rem;
     margin-top: 1rem;
+    width: 100%;
+    overflow: hidden;
 }
 
 /* Pokémon Panels */
@@ -5682,6 +5697,9 @@ body.light-theme .calculator-card {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     padding: 1rem;
+    overflow: hidden;
+    max-width: 100%;
+    min-width: 0;
 }
 
 .pokemon-header {
@@ -6020,6 +6038,8 @@ body.light-theme .pokemon-details .form-select option {
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     padding: 1rem;
+    overflow: hidden;
+    max-width: 100%;
 }
 
 .field-header {
@@ -6050,6 +6070,7 @@ body.light-theme .pokemon-details .form-select option {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
+    width: 100%;
 }
 
 .field-effects-left,
@@ -6058,6 +6079,8 @@ body.light-theme .pokemon-details .form-select option {
     border-radius: 6px;
     padding: 0.75rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    min-width: 0;
 }
 
 .field-effects-title {
@@ -6077,20 +6100,12 @@ body.light-theme .pokemon-details .form-select option {
     font-size: 0.75rem;
     padding: 0.25rem 0.5rem;
     text-align: left;
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: var(--text-primary);
-}
-
-.field-effect-btn:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: rgba(255, 255, 255, 0.3);
 }
 
 .field-effect-btn.active {
-    background: var(--primary-color);
-    color: white;
-    border-color: var(--primary-color);
+    background: var(--primary-color) !important;
+    color: white !important;
+    border-color: var(--primary-color) !important;
 }
 
 .spikes-selector {
@@ -6107,6 +6122,7 @@ body.light-theme .pokemon-details .form-select option {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
+    width: 100%;
 }
 
 .moves-selection-left,
@@ -6115,6 +6131,8 @@ body.light-theme .pokemon-details .form-select option {
     border-radius: 6px;
     padding: 0.75rem;
     border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 100%;
+    min-width: 0;
 }
 
 .moves-selection-title {
@@ -6134,6 +6152,7 @@ body.light-theme .pokemon-details .form-select option {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    width: 100%;
 }
 
 .move-selection-btn {
@@ -6148,6 +6167,14 @@ body.light-theme .pokemon-details .form-select option {
     border: 1px solid rgba(255, 255, 255, 0.2);
     color: var(--text-primary);
     flex: 1;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.move-selection-btn .move-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .move-selection-btn:hover {
@@ -6199,9 +6226,7 @@ body.light-theme .damage-result-content {
 }
 
 body.light-theme .pokemon-stats-table table,
-body.light-theme .move-slot,
-body.light-theme .field-effect-btn,
-body.light-theme .move-selection-btn {
+body.light-theme .move-slot {
     background: rgba(255, 255, 255, 0.5);
     border-color: rgba(0, 0, 0, 0.1);
 }

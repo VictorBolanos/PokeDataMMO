@@ -18,6 +18,7 @@ class DamageCalculator {
         this.selectedMove = null;
         this.typeChart = null;
         this.customDropdowns = null;
+        this.isRestoring = false; // Flag para saber si estamos restaurando
         
         this.init();
     }
@@ -427,7 +428,11 @@ class DamageCalculator {
             
             this.updateStats(pokemonNum);
             this.calculateDamage();
-            this.saveToCache();
+            
+            // Solo guardar si NO estamos restaurando
+            if (!this.isRestoring) {
+                this.saveToCache();
+            }
             
         } catch (error) {
             console.error('Error selecting Pokémon:', error);
@@ -482,16 +487,23 @@ class DamageCalculator {
     async initCustomDropdowns(pokemonNum, pokemon) {
         const slotIndex = pokemonNum - 1;
         
+        console.log(`🔧 Inicializando dropdowns para P${pokemonNum}, slot ${slotIndex}`);
+        console.log(`   Movimientos ANTES:`, window.damageCalcData.pokemons[slotIndex].moves);
+        console.log(`   Item ANTES:`, window.damageCalcData.pokemons[slotIndex].item);
+        
+        // GUARDAR valores existentes
+        const existingMoves = window.damageCalcData.pokemons[slotIndex].moves || [null, null, null, null];
+        const existingItem = window.damageCalcData.pokemons[slotIndex].item || null;
+        
         // Actualizar datos del Pokémon en la estructura global
         window.damageCalcData.pokemons[slotIndex].availableMoves = pokemon.availableMoves || [];
         
-        // Mantener los movimientos e items ya seleccionados si existen
-        if (!window.damageCalcData.pokemons[slotIndex].moves) {
-            window.damageCalcData.pokemons[slotIndex].moves = [null, null, null, null];
-        }
-        if (!window.damageCalcData.pokemons[slotIndex].item) {
-            window.damageCalcData.pokemons[slotIndex].item = null;
-        }
+        // RESTAURAR valores existentes (no resetear)
+        window.damageCalcData.pokemons[slotIndex].moves = [...existingMoves];
+        window.damageCalcData.pokemons[slotIndex].item = existingItem;
+        
+        console.log(`   Movimientos DESPUÉS:`, window.damageCalcData.pokemons[slotIndex].moves);
+        console.log(`   Item DESPUÉS:`, window.damageCalcData.pokemons[slotIndex].item);
 
         // Dropdown de objetos
         const itemContainer = document.getElementById(`pokemon${pokemonNum}ItemContainer`);
@@ -641,7 +653,11 @@ class DamageCalculator {
         this.updateHpBar(pokemonNum, maxHp, maxHp);
         
         this.calculateDamage();
-        this.saveToCache();
+        
+        // Solo guardar si NO estamos restaurando
+        if (!this.isRestoring) {
+            this.saveToCache();
+        }
     }
 
     // Manejar cambio en slider de HP
@@ -695,77 +711,105 @@ class DamageCalculator {
             const cached = localStorage.getItem('damageCalculatorState');
             if (cached) {
                 const state = JSON.parse(cached);
+                console.log('📦 Cargando estado desde caché:', state);
                 
-                // Restaurar Pokémon 1
+                // ACTIVAR FLAG DE RESTAURACIÓN
+                this.isRestoring = true;
+                
+                // RESTAURAR POKÉMON 1 PRIMERO (SECUENCIAL, NO PARALELO)
                 if (state.pokemon1) {
+                    console.log('🔄 Restaurando Pokémon 1:', state.pokemon1);
                     await this.selectPokemon({ id: state.pokemon1.id, name: state.pokemon1.name }, 1);
                     
-                    // Restaurar naturaleza
-                    if (state.pokemon1.nature) {
-                        const natureSelect = document.getElementById('pokemon1Nature');
-                        if (natureSelect) natureSelect.value = state.pokemon1.nature;
-                    }
+                    // Esperar mínimo para que se inicialicen los dropdowns
+                    await new Promise(resolve => setTimeout(resolve, 300));
                     
-                    // Restaurar habilidad
-                    if (state.pokemon1.ability) {
-                        const abilitySelect = document.getElementById('pokemon1Ability');
-                        if (abilitySelect) abilitySelect.value = state.pokemon1.ability;
-                    }
-                    
-                    // Restaurar nivel
-                    if (state.pokemon1.level) {
-                        const levelInput = document.getElementById('pokemon1Level');
-                        if (levelInput) levelInput.value = state.pokemon1.level;
-                    }
-                    
-                    // Restaurar EVs e IVs
-                    this.restoreStatsValues(1, state.pokemon1);
-                    
-                    // Restaurar movimientos
-                    if (state.pokemon1.moves) {
-                        window.damageCalcData.pokemons[0].moves = state.pokemon1.moves;
-                    }
-                    
-                    // Restaurar objeto
-                    if (state.pokemon1.item) {
-                        window.damageCalcData.pokemons[0].item = state.pokemon1.item;
-                    }
+                    await this.restoreFullPokemonState(1, state.pokemon1);
                 }
                 
-                // Restaurar Pokémon 2
+                // RESTAURAR POKÉMON 2 DESPUÉS (SECUENCIAL)
                 if (state.pokemon2) {
+                    console.log('🔄 Restaurando Pokémon 2:', state.pokemon2);
                     await this.selectPokemon({ id: state.pokemon2.id, name: state.pokemon2.name }, 2);
                     
-                    if (state.pokemon2.nature) {
-                        const natureSelect = document.getElementById('pokemon2Nature');
-                        if (natureSelect) natureSelect.value = state.pokemon2.nature;
-                    }
+                    // Esperar mínimo para que se inicialicen los dropdowns
+                    await new Promise(resolve => setTimeout(resolve, 300));
                     
-                    if (state.pokemon2.ability) {
-                        const abilitySelect = document.getElementById('pokemon2Ability');
-                        if (abilitySelect) abilitySelect.value = state.pokemon2.ability;
-                    }
-                    
-                    if (state.pokemon2.level) {
-                        const levelInput = document.getElementById('pokemon2Level');
-                        if (levelInput) levelInput.value = state.pokemon2.level;
-                    }
-                    
-                    this.restoreStatsValues(2, state.pokemon2);
-                    
-                    if (state.pokemon2.moves) {
-                        window.damageCalcData.pokemons[1].moves = state.pokemon2.moves;
-                    }
-                    
-                    if (state.pokemon2.item) {
-                        window.damageCalcData.pokemons[1].item = state.pokemon2.item;
-                    }
+                    await this.restoreFullPokemonState(2, state.pokemon2);
                 }
                 
+                // DESACTIVAR FLAG DE RESTAURACIÓN
+                this.isRestoring = false;
+                
+                console.log('✅ Estado completamente restaurado');
+                
+                // GUARDAR UNA VEZ AL FINAL para confirmar
+                this.saveToCache();
             }
         } catch (error) {
-            console.error('Error loading from cache:', error);
+            console.error('❌ Error loading from cache:', error);
+            this.isRestoring = false;
         }
+    }
+    
+    // Restaurar estado completo de un Pokémon
+    async restoreFullPokemonState(pokemonNum, pokemonData) {
+        const slotIndex = pokemonNum - 1;
+        
+        // Restaurar naturaleza
+        if (pokemonData.nature) {
+            const natureSelect = document.getElementById(`pokemon${pokemonNum}Nature`);
+            if (natureSelect) {
+                natureSelect.value = pokemonData.nature;
+                console.log(`✓ Naturaleza P${pokemonNum} restaurada:`, pokemonData.nature);
+            }
+        }
+        
+        // Restaurar habilidad
+        if (pokemonData.ability) {
+            const abilitySelect = document.getElementById(`pokemon${pokemonNum}Ability`);
+            if (abilitySelect) {
+                abilitySelect.value = pokemonData.ability;
+                console.log(`✓ Habilidad P${pokemonNum} restaurada:`, pokemonData.ability);
+            }
+        }
+        
+        // Restaurar nivel
+        if (pokemonData.level) {
+            const levelInput = document.getElementById(`pokemon${pokemonNum}Level`);
+            if (levelInput) {
+                levelInput.value = pokemonData.level;
+                console.log(`✓ Nivel P${pokemonNum} restaurado:`, pokemonData.level);
+            }
+        }
+        
+        // Restaurar EVs e IVs
+        this.restoreStatsValues(pokemonNum, pokemonData);
+        
+        // Restaurar movimientos
+        if (pokemonData.moves) {
+            console.log(`📝 Restaurando movimientos P${pokemonNum}:`, pokemonData.moves);
+            window.damageCalcData.pokemons[slotIndex].moves = [...pokemonData.moves];
+            
+            // Actualizar UI de movimientos en panel central Y dropdowns
+            for (let index = 0; index < pokemonData.moves.length; index++) {
+                const moveId = pokemonData.moves[index];
+                if (moveId) {
+                    console.log(`  → Movimiento ${index + 1}:`, moveId);
+                    this.updateMoveSelectionButton(pokemonNum, index + 1, moveId);
+                    await this.updateMoveDropdown(slotIndex, index, moveId);
+                }
+            }
+        }
+        
+        // Restaurar objeto
+        if (pokemonData.item) {
+            console.log(`📦 Restaurando objeto P${pokemonNum}:`, pokemonData.item);
+            window.damageCalcData.pokemons[slotIndex].item = pokemonData.item;
+            await this.updateItemDropdown(slotIndex, pokemonData.item);
+        }
+        
+        console.log(`✅ Pokémon ${pokemonNum} completamente restaurado`);
     }
     
     // Restaurar valores de stats (EVs e IVs)
@@ -816,9 +860,16 @@ class DamageCalculator {
                 } : null
             };
             
+            console.log('💾 Guardando estado en caché:', state);
+            console.log('  📝 Movimientos P1:', state.pokemon1?.moves);
+            console.log('  📝 Movimientos P2:', state.pokemon2?.moves);
+            console.log('  📦 Item P1:', state.pokemon1?.item);
+            console.log('  📦 Item P2:', state.pokemon2?.item);
+            
             localStorage.setItem('damageCalculatorState', JSON.stringify(state));
+            console.log('✅ Estado guardado correctamente en localStorage');
         } catch (error) {
-            console.error('Error saving to cache:', error);
+            console.error('❌ Error saving to cache:', error);
         }
     }
     
@@ -1245,6 +1296,44 @@ class DamageCalculator {
                 }
             }
         }
+    }
+    
+    // Actualizar dropdown de item visualmente
+    async updateItemDropdown(slotIndex, itemName) {
+        console.log(`🔄 Actualizando dropdown de item: slot ${slotIndex}, item ${itemName}`);
+        
+        // Verificar que el dropdown existe antes de actualizar (retry rápido)
+        let attempts = 0;
+        while (attempts < 20) {
+            const trigger = document.getElementById(`itemSelectTrigger_${slotIndex}`);
+            if (trigger && window.customDropdowns) {
+                await window.customDropdowns.updateItemDropdownTranslation(slotIndex);
+                console.log(`✓ Item dropdown actualizado para slot ${slotIndex}`);
+                return;
+            }
+            await new Promise(resolve => setTimeout(resolve, 50)); // 50ms por intento
+            attempts++;
+        }
+        console.warn(`⚠️ No se pudo actualizar item dropdown para slot ${slotIndex}`);
+    }
+    
+    // Actualizar dropdown de movimiento visualmente
+    async updateMoveDropdown(slotIndex, moveIndex, moveId) {
+        console.log(`🔄 Actualizando dropdown de movimiento: slot ${slotIndex}, move ${moveIndex}, id ${moveId}`);
+        
+        // Verificar que el dropdown existe antes de actualizar (retry rápido)
+        let attempts = 0;
+        while (attempts < 20) {
+            const trigger = document.getElementById(`moveSelectTrigger_${slotIndex}_${moveIndex}`);
+            if (trigger && window.customDropdowns) {
+                await window.customDropdowns.updateMoveDropdownTranslation(slotIndex, moveIndex);
+                console.log(`✓ Move dropdown actualizado para slot ${slotIndex}, move ${moveIndex}`);
+                return;
+            }
+            await new Promise(resolve => setTimeout(resolve, 50)); // 50ms por intento
+            attempts++;
+        }
+        console.warn(`⚠️ No se pudo actualizar move dropdown para slot ${slotIndex}, move ${moveIndex}`);
     }
 }
 
