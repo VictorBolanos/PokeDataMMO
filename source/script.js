@@ -118,16 +118,16 @@ function loadWallpapers() {
     const wallpapers = [
         '3 venusaur', '6 charizard', '9 blastoise', '17 pidgeotto', '25 pikachu', '39 jigglypuff',
         '50 diglett', '59 arcanine', '65 alakazam', '68 machamp', '76 golem', '78 rapidash', '80 slowbro',
-        '81 magnemite', '91 cloyster', '94 gengar', '103 exeggutor', '121 starmie', '123 scyther', '130 gyarados',
+        '81 magnemite', '89 muk', '91 cloyster', '94 gengar', '103 exeggutor', '104 cubone', '121 starmie', '123 scyther', '130 gyarados',
         '131 lapras', '132 ditto', '133 eevee', '134 vaporeon', '135 jolteon', '136 flareon',
         '137 porygon', '143 snorlax', '144 articuno', '145 zapdos', '146 moltres', '149 dragonite',
         '150 mewtwo', '151 mew', '154 meganium', '157 typhlosion', '160 feraligatr', '169 crobat',
-        '196 espeon', '197 umbreon', '201 unown', '243 raikou', '244 entei', '245 suicune',
-        '248 tyranitar', '249 lugia', '250 ho-oh', '254 sceptile', '257 blaziken', '260 swampert',
-        '282 gardevoir', '330 flygon', '350 milotic', '373 salamence', '376 metagross', '380 latias',
+        '196 espeon', '197 umbreon', '201 unown', '224 octillery', '227 skarmory', '243 raikou', '244 entei', '245 suicune',
+        '248 tyranitar', '249 lugia', '250 ho-oh', '251 celebi', '254 sceptile', '257 blaziken', '260 swampert',
+        '282 gardevoir', '291 ninjask', '303 mawile', '321 wailord', '330 flygon', '337 lunatone', '359 absol', '350 milotic', '373 salamence', '376 metagross', '380 latias',
         '381 latios', '382 kyogre', '383 groudon', '384 rayquaza', '386 deoxys-n', '389 torterra',
-        '392 infernape', '395 empoleon', '445 garchomp', '448 lucario', '468 togekiss', '470 leafeon',
-        '471 glaceon', '472 gliscor', '483 dialga', '484 palkia', '487 giratina-origin', '491 darkrai', '493 arceus',
+        '392 infernape', '395 empoleon', '442 spiritomb', '445 garchomp', '448 lucario', '468 togekiss', '470 leafeon',
+        '471 glaceon', '472 gliscor', '479 rotom-normal', '483 dialga', '484 palkia', '485 heatran', '487 giratina-origin', '491 darkrai', '493 arceus', '494 victini',
         '497 serperior', '500 emboar', '503 samurott', '530 excadrill', '553 krookodile', '571 zoroark',
         '609 chandelure', '612 haxorus', '637 volcarona', '643 reshiram', '644 zekrom', '646 kyurem'
     ];
@@ -690,44 +690,15 @@ function updateFontSelectionByValue(fontValue) {
     }
 }
 
-// ===== COLOR SYSTEM =====
+// ===== CUSTOM COLOR PICKER SYSTEM =====
 function initializeColor() {
     const colorBtn = document.getElementById('colorSelectorBtn');
     const colorDropdown = document.getElementById('colorDropdown');
     const closeBtn = document.getElementById('closeColorDropdown');
-    const colorGrid = document.getElementById('colorGrid');
     const colorPreview = document.getElementById('colorPreview');
     
-    // Colors in chromatic order (rainbow spectrum)
-    const colors = [
-        { name: 'Red', value: 'red', color: '#dc2626' },
-        { name: 'Orange', value: 'orange', color: '#ea580c' },
-        { name: 'Yellow', value: 'yellow', color: '#eab308' },
-        { name: 'Green', value: 'green', color: '#16a34a' },
-        { name: 'Aquamarine', value: 'aquamarine', color: '#14b8a6' },
-        { name: 'Cyan', value: 'cyan', color: '#06b6d4' },
-        { name: 'Blue', value: 'blue', color: '#2563eb' },
-        { name: 'Purple', value: 'purple', color: '#9333ea' },
-        { name: 'Pink', value: 'pink', color: '#ec4899' }
-    ];
-    
-    // Render color grid
-    colors.forEach(color => {
-        const colorItem = document.createElement('div');
-        colorItem.className = 'color-item';
-        colorItem.style.background = color.color;
-        colorItem.dataset.color = color.value;
-        colorItem.dataset.name = color.name;
-        
-        colorItem.addEventListener('click', () => {
-            applyColorTheme(color.value);
-            updateColorSelection(colorItem);
-            updateColorPreview(color.color);
-            colorDropdown.classList.remove('show');
-        });
-        
-        colorGrid.appendChild(colorItem);
-    });
+    // Initialize custom color picker
+    initializeCustomColorPicker();
     
     // Toggle dropdown
     colorBtn.addEventListener('click', (e) => {
@@ -743,32 +714,433 @@ function initializeColor() {
     setupOutsideClickHandler(colorDropdown, colorBtn);
     
     // Load saved color
-    const savedColor = localStorage.getItem('colorTheme') || 'red';
-    applyColorTheme(savedColor);
-    updateColorSelectionByValue(savedColor);
+    loadSavedColor();
+}
+
+// Custom Color Picker Class
+class CustomColorPicker {
+    constructor() {
+        this.hue = 0;
+        this.saturation = 0;
+        this.lightness = 100;
+        this.currentColor = '#ffffff';
+        this.isInitialized = false;
+        this.realTimeUpdateTimeout = null;
+        
+        this.elements = {
+            hueSlider: null,
+            saturationSlider: null,
+            lightnessSlider: null,
+            currentColorPreview: null,
+            colorHexDisplay: null,
+            colorRgbDisplay: null,
+            presetColorsGrid: null,
+            resetBtn: null,
+            applyBtn: null
+        };
+        
+        this.presetColors = [
+            '#ffffff', '#f3f4f6', '#e5e7eb', '#d1d5db', '#9ca3af', '#6b7280',
+            '#ef4444', '#f97316', '#eab308', '#22c55e', '#06b6d4', '#3b82f6',
+            '#8b5cf6', '#ec4899', '#000000', '#374151', '#4b5563', '#6b7280',
+            '#dc2626', '#ea580c', '#ca8a04', '#16a34a', '#0891b2', '#2563eb',
+            '#7c3aed', '#db2777', '#111827', '#1f2937', '#374151', '#4b5563'
+        ];
+    }
     
-    const savedColorData = colors.find(c => c.value === savedColor);
-    if (savedColorData) {
-        updateColorPreview(savedColorData.color);
+    init() {
+        if (this.isInitialized) return;
+        
+        this.getElements();
+        this.setupEventListeners();
+        this.renderPresetColors();
+        this.updateColorDisplay();
+        this.updateSliderTracks();
+        
+        this.isInitialized = true;
+    }
+    
+    getElements() {
+        this.elements.hueSlider = document.getElementById('hueSlider');
+        this.elements.saturationSlider = document.getElementById('saturationSlider');
+        this.elements.lightnessSlider = document.getElementById('lightnessSlider');
+        this.elements.currentColorPreview = document.getElementById('currentColorPreview');
+        this.elements.colorHexDisplay = document.getElementById('colorHexDisplay');
+        this.elements.colorRgbDisplay = document.getElementById('colorRgbDisplay');
+        this.elements.presetColorsGrid = document.getElementById('presetColorsGrid');
+        this.elements.resetBtn = document.getElementById('resetColorBtn');
+        this.elements.applyBtn = document.getElementById('applyColorBtn');
+    }
+    
+    setupEventListeners() {
+        // Hue slider
+        this.elements.hueSlider.addEventListener('input', (e) => {
+            this.hue = parseInt(e.target.value);
+            this.updateColor();
+        });
+        
+        // Saturation slider
+        this.elements.saturationSlider.addEventListener('input', (e) => {
+            this.saturation = parseInt(e.target.value);
+            this.updateColor();
+        });
+        
+        // Lightness slider
+        this.elements.lightnessSlider.addEventListener('input', (e) => {
+            this.lightness = parseInt(e.target.value);
+            this.updateColor();
+        });
+        
+        // Reset button
+        this.elements.resetBtn.addEventListener('click', () => {
+            this.resetToDefault();
+        });
+        
+        // Apply button
+        this.elements.applyBtn.addEventListener('click', () => {
+            this.applyColor();
+        });
+    }
+    
+    renderPresetColors() {
+        this.elements.presetColorsGrid.innerHTML = '';
+        
+        this.presetColors.forEach(color => {
+            const colorItem = document.createElement('div');
+            colorItem.className = 'preset-color-item';
+            colorItem.style.background = color;
+            colorItem.dataset.color = color;
+            
+            colorItem.addEventListener('click', () => {
+                this.selectPresetColor(color, colorItem);
+            });
+            
+            this.elements.presetColorsGrid.appendChild(colorItem);
+        });
+    }
+    
+    selectPresetColor(color, element) {
+        // Remove previous selection
+        document.querySelectorAll('.preset-color-item').forEach(item => {
+        item.classList.remove('selected');
+    });
+        
+        // Add selection to clicked element
+        element.classList.add('selected');
+        
+        // Convert hex to HSL
+        const hsl = this.hexToHsl(color);
+        this.hue = hsl.h;
+        this.saturation = hsl.s;
+        this.lightness = hsl.l;
+        
+        // Update sliders
+        this.elements.hueSlider.value = this.hue;
+        this.elements.saturationSlider.value = this.saturation;
+        this.elements.lightnessSlider.value = this.lightness;
+        
+        // Update display
+        this.updateColor();
+    }
+    
+    updateColor() {
+        this.currentColor = this.hslToHex(this.hue, this.saturation, this.lightness);
+        this.updateColorDisplay();
+        this.updateSliderTracks();
+        
+        // Apply color in real-time
+        this.applyColorInRealTime();
+    }
+    
+    updateColorDisplay() {
+        const rgb = this.hslToRgb(this.hue, this.saturation, this.lightness);
+        
+        // Update preview
+        this.elements.currentColorPreview.style.background = this.currentColor;
+        
+        // Update hex display
+        this.elements.colorHexDisplay.textContent = this.currentColor.toUpperCase();
+        
+        // Update RGB display
+        this.elements.colorRgbDisplay.textContent = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+        
+        // Update CSS variables for slider tracks
+        document.documentElement.style.setProperty('--current-hue', this.hue);
+        document.documentElement.style.setProperty('--current-saturation', `${this.saturation}%`);
+    }
+    
+    updateSliderTracks() {
+        // Update saturation track
+        const saturationTrack = document.querySelector('.saturation-track');
+        if (saturationTrack) {
+            saturationTrack.style.background = `linear-gradient(90deg, 
+                hsl(${this.hue}, 0%, 50%) 0%,
+                hsl(${this.hue}, 100%, 50%) 100%
+            )`;
+        }
+        
+        // Update lightness track
+        const lightnessTrack = document.querySelector('.lightness-track');
+        if (lightnessTrack) {
+            lightnessTrack.style.background = `linear-gradient(90deg, 
+                hsl(${this.hue}, ${this.saturation}%, 0%) 0%,
+                hsl(${this.hue}, ${this.saturation}%, 50%) 50%,
+                hsl(${this.hue}, ${this.saturation}%, 100%) 100%
+            )`;
+        }
+    }
+    
+    resetToDefault() {
+        this.hue = 0;
+        this.saturation = 0;
+        this.lightness = 100;
+        this.currentColor = '#ffffff';
+        
+        // Update sliders
+        this.elements.hueSlider.value = this.hue;
+        this.elements.saturationSlider.value = this.saturation;
+        this.elements.lightnessSlider.value = this.lightness;
+        
+        // Clear preset selection
+        document.querySelectorAll('.preset-color-item').forEach(item => {
+            item.classList.remove('selected');
+        });
+        
+        this.updateColor();
+    }
+    
+    applyColorInRealTime() {
+        // Clear previous timeout
+        if (this.realTimeUpdateTimeout) {
+            clearTimeout(this.realTimeUpdateTimeout);
+        }
+        
+        // Show real-time indicator
+        this.showRealTimeIndicator();
+        
+        // Apply immediately for visual feedback
+        applyCustomColorTheme(this.currentColor, false);
+        
+        // Debounce the final save to localStorage
+        this.realTimeUpdateTimeout = setTimeout(() => {
+            localStorage.setItem('colorTheme', 'custom');
+            localStorage.setItem('customColor', this.currentColor);
+            this.hideRealTimeIndicator();
+        }, 500); // Save after 500ms of no changes
+    }
+    
+    showRealTimeIndicator() {
+        const previewSection = document.querySelector('.color-preview-section');
+        if (previewSection) {
+            previewSection.classList.add('real-time-active');
+        }
+    }
+    
+    hideRealTimeIndicator() {
+        const previewSection = document.querySelector('.color-preview-section');
+        if (previewSection) {
+            previewSection.classList.remove('real-time-active');
+        }
+    }
+    
+    applyColor() {
+        // Apply the color theme (this is now just for the button, but real-time is already working)
+        applyCustomColorTheme(this.currentColor);
+        
+        // Close dropdown
+        document.getElementById('colorDropdown').classList.remove('show');
+        hideMobileOverlay();
+        
+        // Show success feedback
+        this.showApplyFeedback();
+    }
+    
+    showApplyFeedback() {
+        const applyBtn = this.elements.applyBtn;
+        const originalText = applyBtn.innerHTML;
+        
+        applyBtn.innerHTML = `
+            <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+            Saved!
+        `;
+        
+        setTimeout(() => {
+            applyBtn.innerHTML = originalText;
+        }, 1500);
+    }
+    
+    setColorFromHex(hex) {
+        const hsl = this.hexToHsl(hex);
+        this.hue = hsl.h;
+        this.saturation = hsl.s;
+        this.lightness = hsl.l;
+        
+        // Update sliders
+        this.elements.hueSlider.value = this.hue;
+        this.elements.saturationSlider.value = this.saturation;
+        this.elements.lightnessSlider.value = this.lightness;
+        
+        this.updateColor();
+    }
+    
+    // Color conversion utilities
+    hexToHsl(hex) {
+        const rgb = this.hexToRgb(hex);
+        return this.rgbToHsl(rgb.r, rgb.g, rgb.b);
+    }
+    
+    hexToRgb(hex) {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
+    
+    rgbToHsl(r, g, b) {
+        r /= 255;
+        g /= 255;
+        b /= 255;
+        
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        let h, s, l = (max + min) / 2;
+        
+        if (max === min) {
+            h = s = 0;
+        } else {
+            const d = max - min;
+            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+            
+            switch (max) {
+                case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+                case g: h = (b - r) / d + 2; break;
+                case b: h = (r - g) / d + 4; break;
+            }
+            h /= 6;
+        }
+        
+        return {
+            h: Math.round(h * 360),
+            s: Math.round(s * 100),
+            l: Math.round(l * 100)
+        };
+    }
+    
+    hslToRgb(h, s, l) {
+        h /= 360;
+        s /= 100;
+        l /= 100;
+        
+        const hue2rgb = (p, q, t) => {
+            if (t < 0) t += 1;
+            if (t > 1) t -= 1;
+            if (t < 1/6) return p + (q - p) * 6 * t;
+            if (t < 1/2) return q;
+            if (t < 2/3) return p + (q - p) * (2/3 - t) * 6;
+            return p;
+        };
+        
+        let r, g, b;
+        
+        if (s === 0) {
+            r = g = b = l;
+        } else {
+            const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+            const p = 2 * l - q;
+            r = hue2rgb(p, q, h + 1/3);
+            g = hue2rgb(p, q, h);
+            b = hue2rgb(p, q, h - 1/3);
+        }
+        
+        return {
+            r: Math.round(r * 255),
+            g: Math.round(g * 255),
+            b: Math.round(b * 255)
+        };
+    }
+    
+    hslToHex(h, s, l) {
+        const rgb = this.hslToRgb(h, s, l);
+        return this.rgbToHex(rgb.r, rgb.g, rgb.b);
+    }
+    
+    rgbToHex(r, g, b) {
+        return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
     }
 }
 
-function applyColorTheme(colorTheme) {
-    document.body.setAttribute('data-color-theme', colorTheme);
-    localStorage.setItem('colorTheme', colorTheme);
+// Global color picker instance
+let customColorPicker = null;
+
+function initializeCustomColorPicker() {
+    customColorPicker = new CustomColorPicker();
+    customColorPicker.init();
 }
 
-function updateColorSelection(selectedItem) {
-    document.querySelectorAll('.color-item').forEach(item => {
-        item.classList.remove('selected');
-    });
-    selectedItem.classList.add('selected');
+function applyCustomColorTheme(hexColor, saveToStorage = true) {
+    // Convert hex to RGB
+    const rgb = customColorPicker.hexToRgb(hexColor);
+    if (!rgb) return;
+    
+    // Create CSS variables for the custom color
+    const primaryColor = hexColor;
+    const primaryHover = customColorPicker.hslToHex(
+        customColorPicker.hue, 
+        Math.min(customColorPicker.saturation + 10, 100), 
+        Math.max(customColorPicker.lightness - 10, 0)
+    );
+    
+    // Apply custom color theme
+    document.body.setAttribute('data-color-theme', 'custom');
+    
+    // Set CSS custom properties with custom prefix
+    document.documentElement.style.setProperty('--custom-primary-color-dark', primaryColor);
+    document.documentElement.style.setProperty('--custom-primary-color-light', primaryColor);
+    document.documentElement.style.setProperty('--custom-primary-hover-dark', primaryHover);
+    document.documentElement.style.setProperty('--custom-primary-hover-light', primaryHover);
+    document.documentElement.style.setProperty('--custom-primary-bg-dark', `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.2)`);
+    document.documentElement.style.setProperty('--custom-primary-bg-light', `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.15)`);
+    document.documentElement.style.setProperty('--custom-primary-border-dark', `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.4)`);
+    document.documentElement.style.setProperty('--custom-primary-border-light', `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.3)`);
+    
+    // Save to localStorage only if requested (to avoid spam during real-time updates)
+    if (saveToStorage) {
+        localStorage.setItem('colorTheme', 'custom');
+        localStorage.setItem('customColor', hexColor);
+    }
+    
+    // Update color preview in header
+    updateColorPreview(hexColor);
 }
 
-function updateColorSelectionByValue(colorValue) {
-    const colorItem = document.querySelector(`[data-color="${colorValue}"]`);
-    if (colorItem) {
-        updateColorSelection(colorItem);
+function loadSavedColor() {
+    const savedTheme = localStorage.getItem('colorTheme');
+    const savedCustomColor = localStorage.getItem('customColor');
+    
+    if (savedTheme === 'custom' && savedCustomColor) {
+        // Load custom color
+        applyCustomColorTheme(savedCustomColor);
+        
+        // Initialize color picker with saved color
+        setTimeout(() => {
+            if (customColorPicker) {
+                customColorPicker.setColorFromHex(savedCustomColor);
+            }
+        }, 100);
+    } else {
+        // Default to white
+        applyCustomColorTheme('#ffffff');
+        
+        // Initialize color picker with white
+        setTimeout(() => {
+            if (customColorPicker) {
+                customColorPicker.setColorFromHex('#ffffff');
+            }
+        }, 100);
     }
 }
 

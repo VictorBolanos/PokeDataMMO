@@ -106,8 +106,71 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="color-grid" id="colorGrid">
-                            <!-- Colors will be loaded dynamically -->
+                        
+                        <!-- Custom Color Picker -->
+                        <div class="custom-color-picker">
+                            <!-- Color Preview -->
+                            <div class="color-preview-section">
+                                <div class="current-color-preview" id="currentColorPreview"></div>
+                                <div class="color-info">
+                                    <div class="color-hex" id="colorHexDisplay">#ffffff</div>
+                                    <div class="color-rgb" id="colorRgbDisplay">rgb(255, 255, 255)</div>
+                                </div>
+                            </div>
+                            
+                            <!-- Color Picker Controls -->
+                            <div class="color-picker-controls">
+                                <!-- Hue Slider -->
+                                <div class="color-slider-container">
+                                    <label class="slider-label">Hue</label>
+                                    <div class="hue-slider-container">
+                                        <input type="range" id="hueSlider" class="color-slider hue-slider" min="0" max="360" value="0">
+                                        <div class="slider-track hue-track"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Saturation Slider -->
+                                <div class="color-slider-container">
+                                    <label class="slider-label">Saturation</label>
+                                    <div class="saturation-slider-container">
+                                        <input type="range" id="saturationSlider" class="color-slider saturation-slider" min="0" max="100" value="0">
+                                        <div class="slider-track saturation-track"></div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Lightness Slider -->
+                                <div class="color-slider-container">
+                                    <label class="slider-label">Lightness</label>
+                                    <div class="lightness-slider-container">
+                                        <input type="range" id="lightnessSlider" class="color-slider lightness-slider" min="0" max="100" value="100">
+                                        <div class="slider-track lightness-track"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Preset Colors -->
+                            <div class="preset-colors-section">
+                                <div class="preset-label">Quick Colors</div>
+                                <div class="preset-colors-grid" id="presetColorsGrid">
+                                    <!-- Will be populated by JavaScript -->
+                                </div>
+                            </div>
+                            
+                            <!-- Action Buttons -->
+                            <div class="color-picker-actions">
+                                <button class="color-action-btn reset-btn" id="resetColorBtn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                                    </svg>
+                                    Reset
+                                </button>
+                                <button class="color-action-btn apply-btn" id="applyColorBtn">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path fill="currentColor" d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
+                                    </svg>
+                                    Done
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
