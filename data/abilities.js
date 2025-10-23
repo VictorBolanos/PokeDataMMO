@@ -1,7 +1,7 @@
 const abilitiesData = [
     {
         "id": "000",
-        "EnglishName": " Select an Ability",
+        "EnglishName": "Select an Ability",
         "SpanishName": "Seleccionar una habilidad"
     },
     {
