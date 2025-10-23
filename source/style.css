@@ -5923,7 +5923,21 @@ body.light-theme .pokemon-level .form-control:focus {
 .ev-total {
     text-align: right;
     font-size: 0.75rem;
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* EV Total - Tema claro */
+body.light-theme .ev-total {
+    color: rgba(0, 0, 0, 0.7);
+}
+
+/* EV Total - Sobrescribir text-muted de Bootstrap */
+.ev-total .text-muted {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+body.light-theme .ev-total .text-muted {
+    color: rgba(0, 0, 0, 0.7) !important;
 }
 
 .pokemon-details {
@@ -7289,24 +7303,55 @@ body.light-theme .suggestion-info strong {
     /* Stats table responsive */
     .pokemon-stats-table {
         overflow-x: auto;
-        font-size: 0.8rem;
+        font-size: 0.7rem;
     }
     
     .pokemon-stats-table table {
-        min-width: 280px;
+        min-width: 240px;
+        width: 100%;
     }
     
     .pokemon-stats-table th,
     .pokemon-stats-table td {
-        padding: 0.25rem 0.1rem;
-        font-size: 0.75rem;
+        padding: 0.15rem 0.05rem;
+        font-size: 0.65rem;
+        white-space: nowrap;
+    }
+    
+    .pokemon-stats-table th {
+        font-size: 0.6rem;
+        padding: 0.2rem 0.05rem;
+    }
+    
+    .pokemon-stats-table input {
+        width: 30px;
+        padding: 0.05rem;
+        font-size: 0.6rem;
+        min-width: 25px;
     }
     
     .ev-input,
     .iv-input {
-        width: 35px;
-        padding: 0.1rem;
-        font-size: 0.7rem;
+        width: 30px;
+        padding: 0.05rem;
+        font-size: 0.6rem;
+        min-width: 25px;
+    }
+    
+    /* Ajustar columnas específicas */
+    .pokemon-stats-table .stat-name {
+        font-size: 0.6rem;
+        min-width: 40px;
+    }
+    
+    .pokemon-stats-table .base-stat {
+        font-size: 0.6rem;
+        min-width: 30px;
+    }
+    
+    .pokemon-stats-table .final-stat {
+        font-size: 0.6rem;
+        min-width: 35px;
     }
     
     /* Attributes section responsive */

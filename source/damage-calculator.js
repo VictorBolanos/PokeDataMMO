@@ -20,6 +20,11 @@ class DamageCalculator {
         this.customDropdowns = null;
         this.isRestoring = false; // Flag para saber si estamos restaurando
         
+        // Constantes de límites (igual que PVP Teams)
+        this.MAX_EV_INDIVIDUAL = 252;
+        this.MAX_EV_TOTAL = 510;
+        this.MAX_IV = 31;
+        
         this.init();
     }
 
@@ -204,10 +209,10 @@ class DamageCalculator {
             const ivInput = document.getElementById(`pokemon${pokemonNum}${stat}Iv`);
             
             if (evInput) {
-                evInput.addEventListener('input', () => this.updateStats(pokemonNum));
+                evInput.addEventListener('input', (e) => this.handleEVChange(e, pokemonNum, stat));
             }
             if (ivInput) {
-                ivInput.addEventListener('input', () => this.updateStats(pokemonNum));
+                ivInput.addEventListener('input', (e) => this.handleIVChange(e, pokemonNum, stat));
             }
         });
 
@@ -215,6 +220,82 @@ class DamageCalculator {
         const levelInput = document.getElementById(`pokemon${pokemonNum}Level`);
         if (levelInput) {
             levelInput.addEventListener('input', () => this.updateStats(pokemonNum));
+        }
+    }
+
+    // Manejar cambio de EV con validación
+    handleEVChange(event, pokemonNum, stat) {
+        const input = event.target;
+        let value = parseInt(input.value) || 0;
+
+        // Validar límite individual (252)
+        if (value > this.MAX_EV_INDIVIDUAL) {
+            value = this.MAX_EV_INDIVIDUAL;
+            input.value = value;
+        }
+
+        // Validar total de EVs (510)
+        const totalEVs = this.getTotalEVs(pokemonNum);
+        if (totalEVs > this.MAX_EV_TOTAL) {
+            // Revertir cambio si excede el total
+            const currentValue = parseInt(input.value) || 0;
+            const excess = totalEVs - this.MAX_EV_TOTAL;
+            const newValue = Math.max(0, currentValue - excess);
+            input.value = newValue;
+        }
+
+        // Actualizar stats y total EVs
+        this.updateStats(pokemonNum);
+        this.updateEVTotal(pokemonNum);
+        this.saveToCache();
+    }
+
+    // Manejar cambio de IV con validación
+    handleIVChange(event, pokemonNum, stat) {
+        const input = event.target;
+        let value = parseInt(input.value) || 0;
+
+        // Validar límite (31)
+        if (value > this.MAX_IV) {
+            value = this.MAX_IV;
+            input.value = value;
+        }
+
+        // Actualizar stats
+        this.updateStats(pokemonNum);
+        this.saveToCache();
+    }
+
+    // Obtener total de EVs de un Pokémon
+    getTotalEVs(pokemonNum) {
+        const stats = ['Hp', 'Atk', 'Def', 'SpAtk', 'SpDef', 'Spe'];
+        let total = 0;
+        
+        stats.forEach(stat => {
+            const input = document.getElementById(`pokemon${pokemonNum}${stat}Ev`);
+            if (input) {
+                total += parseInt(input.value) || 0;
+            }
+        });
+        
+        return total;
+    }
+
+    // Actualizar display del total de EVs
+    updateEVTotal(pokemonNum) {
+        const totalElement = document.getElementById(`pokemon${pokemonNum}EvTotal`);
+        if (totalElement) {
+            const totalEVs = this.getTotalEVs(pokemonNum);
+            totalElement.textContent = totalEVs;
+            
+            // Colorear si excede el límite
+            if (totalEVs > this.MAX_EV_TOTAL) {
+                totalElement.style.color = '#ef4444';
+                totalElement.style.fontWeight = 'bold';
+            } else {
+                totalElement.style.color = '#22c55e';
+                totalElement.style.fontWeight = 'normal';
+            }
         }
     }
 
@@ -655,7 +736,8 @@ class DamageCalculator {
             totalEvs += evs;
         });
         
-        document.getElementById(`pokemon${pokemonNum}EvTotal`).textContent = totalEvs;
+        // Actualizar total EVs con coloreado
+        this.updateEVTotal(pokemonNum);
         
         // Actualizar HP máximo y slider
         const maxHp = parseInt(document.getElementById(`pokemon${pokemonNum}HpFinal`).textContent);
