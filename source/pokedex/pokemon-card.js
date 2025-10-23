@@ -537,6 +537,9 @@ class PokemonCard {
             const evolutionChain = await PokemonAPI.getEvolutionChain(evolutionChainId);
             
             this.renderEvolutionChain(evolutionChain.chain);
+            
+            // Add click event listeners to all evolution items
+            this.addEvolutionClickListeners();
         } catch (error) {
             evolutionContainer.innerHTML = `
                 <div class="error">
@@ -549,6 +552,78 @@ class PokemonCard {
     extractEvolutionChainId(url) {
         const matches = url.match(/\/evolution-chain\/(\d+)\//);
         return matches ? parseInt(matches[1]) : null;
+    }
+    
+    /**
+     * Add click event listeners to all evolution items
+     */
+    addEvolutionClickListeners() {
+        const evolutionItems = document.querySelectorAll('.clickable-evolution');
+        
+        evolutionItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const pokemonId = item.dataset.pokemonId;
+                const pokemonName = item.dataset.pokemonName;
+                
+                if (pokemonId && pokemonName) {
+                    // Load the clicked Pokemon
+                    this.loadEvolutionPokemon(pokemonId, pokemonName);
+                }
+            });
+            
+            // Add hover effects
+            item.addEventListener('mouseenter', () => {
+                item.style.transform = 'translateY(-8px) scale(1.05)';
+                item.style.cursor = 'pointer';
+            });
+            
+            item.addEventListener('mouseleave', () => {
+                item.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    }
+    
+    /**
+     * Load Pokemon from evolution chain click
+     */
+    async loadEvolutionPokemon(pokemonId, pokemonName) {
+        try {
+            // Show loading state
+            const container = document.getElementById('pokemonCardContainer');
+            container.innerHTML = `
+                <div class="pokemon-card">
+                    <div class="loading">
+                        <div class="loading-spinner"></div>
+                        Loading ${window.PokeUtils.capitalizeFirst(pokemonName)}...
+                    </div>
+                </div>
+            `;
+            
+            // Load the Pokemon using the main Pokedex instance
+            await window.pokedex.loadPokemon(pokemonId);
+            
+        } catch (error) {
+            console.error('Error loading evolution Pokemon:', error);
+            this.showError(`Error loading ${window.PokeUtils.capitalizeFirst(pokemonName)}: ${error.message}`);
+        }
+    }
+    
+    /**
+     * Show error message
+     */
+    showError(message) {
+        const container = document.getElementById('pokemonCardContainer');
+        container.innerHTML = `
+            <div class="pokemon-card">
+                <div class="error">
+                    <h4>Error</h4>
+                    <p>${message}</p>
+                </div>
+            </div>
+        `;
     }
     
     renderEvolutionChain(chain) {
@@ -581,25 +656,66 @@ class PokemonCard {
     
     buildEvolutionChainRecursive(chain) {
         
+        const pokemonId = this.extractPokemonId(chain.species.url);
+        const pokemonName = chain.species.name;
+        
         let html = `
-            <div class="evolution-item">
-                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${this.extractPokemonId(chain.species.url)}.png" 
-                     alt="${chain.species.name}" 
+            <div class="evolution-item clickable-evolution" 
+                 data-pokemon-id="${pokemonId}" 
+                 data-pokemon-name="${pokemonName}"
+                 title="Click to view ${window.PokeUtils.capitalizeFirst(pokemonName)} details">
+                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonId}.png" 
+                     alt="${pokemonName}" 
                      class="evolution-sprite">
-                <div class="evolution-name">${window.PokeUtils.capitalizeFirst(chain.species.name)}</div>
+                <div class="evolution-name">${window.PokeUtils.capitalizeFirst(pokemonName)}</div>
             </div>
         `;
         
         if (chain.evolves_to.length > 0) {
-            // Los evolution_details están en el Pokémon que evoluciona HACIA, no en el actual
-            const nextEvolution = chain.evolves_to[0];
-            
-            const evolutionDetail = nextEvolution.evolution_details && nextEvolution.evolution_details.length > 0 ? nextEvolution.evolution_details[0] : null;
-            
-            html += `<div class="evolution-arrow">
-                <div class="evolution-condition">${this.formatEvolutionCondition(evolutionDetail)}</div>
-            </div>`;
-            html += this.buildEvolutionChainRecursive(nextEvolution);
+            // Manejar múltiples evoluciones (como Eevee)
+            if (chain.evolves_to.length === 1) {
+                // Evolución simple
+                const nextEvolution = chain.evolves_to[0];
+                const evolutionDetail = nextEvolution.evolution_details && nextEvolution.evolution_details.length > 0 ? nextEvolution.evolution_details[0] : null;
+                
+                html += `<div class="evolution-arrow">
+                    <div class="evolution-condition">${this.formatEvolutionCondition(evolutionDetail)}</div>
+                </div>`;
+                html += this.buildEvolutionChainRecursive(nextEvolution);
+            } else {
+                // Múltiples evoluciones desde el mismo Pokémon (como Eevee)
+                html += `<div class="evolution-branch">
+                    <div class="evolution-branch-title">Evolves into:</div>
+                    <div class="evolution-branch-items">`;
+                
+                chain.evolves_to.forEach(evolution => {
+                    const evolutionDetail = evolution.evolution_details && evolution.evolution_details.length > 0 ? evolution.evolution_details[0] : null;
+                    const evolutionId = this.extractPokemonId(evolution.species.url);
+                    const evolutionName = evolution.species.name;
+                    
+                    html += `
+                        <div class="evolution-branch-item">
+                            <div class="evolution-condition">${this.formatEvolutionCondition(evolutionDetail)}</div>
+                            <div class="evolution-item clickable-evolution" 
+                                 data-pokemon-id="${evolutionId}" 
+                                 data-pokemon-name="${evolutionName}"
+                                 title="Click to view ${window.PokeUtils.capitalizeFirst(evolutionName)} details">
+                                <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${evolutionId}.png" 
+                                     alt="${evolutionName}" 
+                                     class="evolution-sprite">
+                                <div class="evolution-name">${window.PokeUtils.capitalizeFirst(evolutionName)}</div>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Si esta evolución tiene más evoluciones, procesarlas recursivamente
+                    if (evolution.evolves_to.length > 0) {
+                        html += this.buildEvolutionChainRecursive(evolution);
+                    }
+                });
+                
+                html += `</div></div>`;
+            }
         }
         
         return html;
