@@ -2008,5 +2008,66 @@ const itemsData = [
         "EnglishName": "Loaded Dice",
         "SpanishName": "Dado Trucado",
         "description": null
-    }
+    },
+    {
+        "id": "682",
+        "EnglishName": "Weakness Policy",
+        "SpanishName": "Poliza de Tipo",
+        "description": "null"
+    },
+    {
+        "id": "1176",
+        "EnglishName": "Throat Spray",
+        "SpanishName": "Espray Bucal",
+        "description": "null"
+    },
+    {
+        "id": "1180",
+        "EnglishName": "Room Service",
+        "SpanishName": "Servicio de Habitación",
+        "description": "null"
+    },
+    {
+        "id": "689",
+        "EnglishName": "Snowball",
+        "SpanishName": "Bola de nieve",
+        "description": "null"
+    },
+    {
+        "id": "688",
+        "EnglishName": "Luminous Moss",
+        "SpanishName": "Musgo Brillante",
+        "description": "null"
+    },
+    {
+        "id": "1177",
+        "EnglishName": "Eject Pack",
+        "SpanishName": "Paquete de Expulsión",
+        "description": "null"
+    },
+
+    {
+        "id": "690",
+        "EnglishName": "Safety Goggles",
+        "SpanishName": "Gafas Protectoras",
+        "description": "null"
+    },
+    {
+        "id": "897",
+        "EnglishName": "Protective Pads",
+        "SpanishName": "Almohadillas Protectoras",
+        "description": "null"
+    },
+    {
+        "id": "Clear Amulet",
+        "EnglishName": "Clear Amulet",
+        "SpanishName": "Amuleto Puro",
+        "description": "null"
+    },
+    {
+        "id": "1178",
+        "EnglishName": "Heavy-Duty Boots",
+        "SpanishName": "Botas Reforzadas",
+        "description": "null"
+    },
 ];

@@ -66,10 +66,14 @@ class DamageCalculator {
 
     // Poblar selectores de naturalezas
     populateNatureSelects(natures) {
+        const isSpanish = window.languageManager?.getCurrentLanguage() === 'es';
+        
         [1, 2].forEach(pokemonNum => {
             const select = document.getElementById(`pokemon${pokemonNum}Nature`);
             if (select) {
-                select.innerHTML = '<option value="">Seleccionar...</option>';
+                const currentValue = select.value; // Guardar selección actual
+                
+                select.innerHTML = `<option value="">${isSpanish ? 'Seleccionar...' : 'Select...'}</option>`;
                 natures.forEach(nature => {
                     const option = document.createElement('option');
                     option.value = nature.name;
@@ -78,8 +82,23 @@ class DamageCalculator {
                     option.dataset.decreased = nature.decreased_stat || '';
                     select.appendChild(option);
                 });
+                
+                // Restaurar selección
+                if (currentValue) select.value = currentValue;
             }
         });
+    }
+    
+    // Actualizar selectores de naturalezas con nuevas traducciones
+    async updateNatureSelects() {
+        if (!window.pvpTeamData) return;
+        
+        // Actualizar traducciones de naturalezas
+        window.pvpTeamData.updateNatureTranslations();
+        
+        // Re-cargar naturalezas con nuevas traducciones
+        const natures = await window.pvpTeamData.loadNatures();
+        this.populateNatureSelects(natures);
     }
 
     // Cargar tabla de tipos
@@ -325,7 +344,21 @@ class DamageCalculator {
         pokemonList.forEach(pokemon => {
             const item = document.createElement('div');
             item.className = 'pokemon-dropdown-item';
-            item.textContent = pokemon.name;
+            
+            // Formatear nombre para variantes de Rotom
+            let displayName = pokemon.name;
+            if (pokemon.id >= 10008 && pokemon.id <= 10012) {
+                const rotomForms = {
+                    10008: 'Heat',
+                    10009: 'Wash',
+                    10010: 'Frost',
+                    10011: 'Fan',
+                    10012: 'Mow'
+                };
+                displayName = `Rotom [${rotomForms[pokemon.id]}]`;
+            }
+            
+            item.textContent = displayName;
             item.addEventListener('click', () => {
                 this.selectPokemon(pokemon, pokemonNum);
                 dropdown.classList.remove('show');
@@ -352,7 +385,8 @@ class DamageCalculator {
             }
             
             const pokemonIdNum = parseInt(localData.id);
-            const spriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemonIdNum}.png`;
+            // Usar artwork oficial (imagen artística) en lugar del sprite
+            const spriteUrl = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonIdNum}.png`;
             
             sprite.src = spriteUrl;
             sprite.alt = pokemon.name;
@@ -402,15 +436,45 @@ class DamageCalculator {
 
     // Poblar selector de habilidades
     populateAbilities(pokemonNum, abilities) {
+        const isSpanish = window.languageManager?.getCurrentLanguage() === 'es';
         const select = document.getElementById(`pokemon${pokemonNum}Ability`);
+        
         if (select) {
-            select.innerHTML = '<option value="">Seleccionar...</option>';
-            abilities.forEach(ability => {
+            const currentValue = select.value; // Guardar selección actual
+            
+            select.innerHTML = `<option value="">${isSpanish ? 'Seleccionar...' : 'Select...'}</option>`;
+            
+            abilities.forEach(abilityName => {
                 const option = document.createElement('option');
-                option.value = ability;
-                option.textContent = ability;
+                option.value = abilityName;
+                
+                // Buscar traducción de la habilidad
+                if (typeof abilitiesData !== 'undefined') {
+                    const abilityData = abilitiesData.find(a => 
+                        a.EnglishName.toLowerCase() === abilityName.toLowerCase()
+                    );
+                    option.textContent = isSpanish && abilityData 
+                        ? abilityData.SpanishName 
+                        : abilityName;
+                } else {
+                    option.textContent = abilityName;
+                }
+                
                 select.appendChild(option);
             });
+            
+            // Restaurar selección
+            if (currentValue) select.value = currentValue;
+        }
+    }
+    
+    // Actualizar habilidades de ambos Pokémon con nuevas traducciones
+    updateAbilitySelects() {
+        if (this.currentPokemon1) {
+            this.populateAbilities(1, this.currentPokemon1.abilities);
+        }
+        if (this.currentPokemon2) {
+            this.populateAbilities(2, this.currentPokemon2.abilities);
         }
     }
 
@@ -457,18 +521,15 @@ class DamageCalculator {
     
     // Configurar listener GLOBAL para actualizar movimientos en el panel central
     setupGlobalMoveUpdateListener() {
-        // Escuchar eventos de cambio de movimiento (GLOBAL, solo una vez)
+        // Escuchar eventos de cambio de movimiento
         window.addEventListener('damageCalcMoveChanged', (event) => {
             const { pokemonNum, moveNum, moveId } = event.detail;
-            console.log(`🎯 Movimiento cambiado: Pokemon ${pokemonNum}, Move ${moveNum}, ID: ${moveId}`);
             this.updateMoveSelectionButton(pokemonNum, moveNum, moveId);
             this.saveToCache();
         });
         
-        // Escuchar eventos de cambio de item (GLOBAL, solo una vez)
+        // Escuchar eventos de cambio de item
         window.addEventListener('damageCalcItemChanged', (event) => {
-            const { pokemonNum } = event.detail;
-            console.log(`📦 Objeto cambiado: Pokemon ${pokemonNum}`);
             this.saveToCache();
         });
     }
@@ -481,18 +542,33 @@ class DamageCalculator {
         const moveNameSpan = button.querySelector('.move-name');
         if (!moveNameSpan) return;
         
+        const currentLang = window.languageManager?.getCurrentLanguage() || 'es';
+        const noMoveText = currentLang === 'es' ? '(Sin movimiento)' : '(No move)';
+        
         if (moveId && window.pokemonDataLoader?.movesCache) {
             const move = window.pokemonDataLoader.movesCache.find(m => m.id == moveId);
             if (move) {
-                const currentLang = window.languageManager?.getCurrentLanguage() || 'es';
                 const displayName = currentLang === 'es' ? move.spanishName : move.name;
                 moveNameSpan.textContent = displayName;
             } else {
-                moveNameSpan.textContent = '(Sin movimiento)';
+                moveNameSpan.textContent = noMoveText;
             }
         } else {
-            moveNameSpan.textContent = '(Sin movimiento)';
+            moveNameSpan.textContent = noMoveText;
         }
+    }
+
+    // Convertir nombre de stat a key de API
+    getStatKey(stat) {
+        const statMap = {
+            'Hp': 'hp',
+            'Atk': 'attack',
+            'Def': 'defense',
+            'SpAtk': 'special-attack',
+            'SpDef': 'special-defense',
+            'Spe': 'speed'
+        };
+        return statMap[stat] || stat.toLowerCase();
     }
 
     // Actualizar stats base
@@ -502,12 +578,7 @@ class DamageCalculator {
         stats.forEach(stat => {
             const baseElement = document.getElementById(`pokemon${pokemonNum}${stat}Base`);
             if (baseElement) {
-                const statKey = stat === 'Hp' ? 'hp' : 
-                               stat === 'Atk' ? 'attack' :
-                               stat === 'Def' ? 'defense' :
-                               stat === 'SpAtk' ? 'special-attack' :
-                               stat === 'SpDef' ? 'special-defense' : 'speed';
-                baseElement.textContent = baseStats[statKey];
+                baseElement.textContent = baseStats[this.getStatKey(stat)];
             }
         });
     }
@@ -544,12 +615,7 @@ class DamageCalculator {
             const base = parseInt(document.getElementById(`pokemon${pokemonNum}${stat}Base`).textContent);
             const evs = parseInt(document.getElementById(`pokemon${pokemonNum}${stat}Ev`).value) || 0;
             const ivs = parseInt(document.getElementById(`pokemon${pokemonNum}${stat}Iv`).value) || 31;
-            
-            const statKey = stat === 'Hp' ? 'hp' : 
-                           stat === 'Atk' ? 'attack' :
-                           stat === 'Def' ? 'defense' :
-                           stat === 'SpAtk' ? 'special-attack' :
-                           stat === 'SpDef' ? 'special-defense' : 'speed';
+            const statKey = this.getStatKey(stat);
             
             let finalStat;
             if (stat === 'Hp') {
@@ -696,9 +762,6 @@ class DamageCalculator {
                     }
                 }
                 
-                console.log('✅ Estado restaurado desde caché');
-            } else {
-                console.log('ℹ️ Iniciando damage calculator vacío (sin caché)');
             }
         } catch (error) {
             console.error('Error loading from cache:', error);
@@ -774,8 +837,12 @@ class DamageCalculator {
 
     // Calcular daño
     calculateDamage() {
+        const isSpanish = window.languageManager?.getCurrentLanguage() === 'es';
+        
         if (!this.selectedMove) {
-            this.updateDamageResult('Selecciona un movimiento para ver los resultados del daño');
+            this.updateDamageResult(isSpanish 
+                ? 'Selecciona un movimiento para ver los resultados del daño' 
+                : 'Select a move to see damage results');
             return;
         }
 
@@ -783,35 +850,39 @@ class DamageCalculator {
         const defender = this.selectedMove.pokemon === '1' ? this.currentPokemon2 : this.currentPokemon1;
         
         if (!attacker || !defender) {
-            this.updateDamageResult('Error: Pokémon no encontrado');
+            this.updateDamageResult(isSpanish 
+                ? 'Error: Pokémon no encontrado' 
+                : 'Error: Pokémon not found');
             return;
         }
 
         const moveData = this.getMoveData(this.selectedMove.move);
         if (!moveData) {
-            this.updateDamageResult('Error: Movimiento no encontrado');
+            this.updateDamageResult(isSpanish 
+                ? 'Error: Movimiento no encontrado' 
+                : 'Error: Move not found');
             return;
         }
 
         const attackerLevel = parseInt(document.getElementById(`pokemon${this.selectedMove.pokemon}Level`).value) || 100;
-        const defenderLevel = parseInt(document.getElementById(`pokemon${this.selectedMove.pokemon === '1' ? '2' : '1'}Level`).value) || 100;
+        const defenderPokemonNum = this.selectedMove.pokemon === '1' ? '2' : '1';
         
         const attackStat = moveData.category === 'physical' ? 
             parseInt(document.getElementById(`pokemon${this.selectedMove.pokemon}AtkFinal`).textContent) :
             parseInt(document.getElementById(`pokemon${this.selectedMove.pokemon}SpAtkFinal`).textContent);
             
         const defenseStat = moveData.category === 'physical' ?
-            parseInt(document.getElementById(`pokemon${this.selectedMove.pokemon === '1' ? '2' : '1'}DefFinal`).textContent) :
-            parseInt(document.getElementById(`pokemon${this.selectedMove.pokemon === '1' ? '2' : '1'}SpDefFinal`).textContent);
+            parseInt(document.getElementById(`pokemon${defenderPokemonNum}DefFinal`).textContent) :
+            parseInt(document.getElementById(`pokemon${defenderPokemonNum}SpDefFinal`).textContent);
 
         const baseDamage = this.calculateBaseDamage(attackerLevel, moveData.power, attackStat, defenseStat);
         const modifiers = this.calculateModifiers(attacker, defender, moveData);
         const finalDamage = Math.floor(baseDamage * modifiers);
 
         const minDamage = Math.floor(finalDamage * 0.85);
-        const maxDamage = Math.floor(finalDamage * 1.0);
+        const maxDamage = finalDamage;
 
-        const defenderHp = parseInt(document.getElementById(`pokemon${this.selectedMove.pokemon === '1' ? '2' : '1'}HpFinal`).textContent);
+        const defenderHp = parseInt(document.getElementById(`pokemon${defenderPokemonNum}HpFinal`).textContent);
         const minPercentage = ((minDamage / defenderHp) * 100).toFixed(1);
         const maxPercentage = ((maxDamage / defenderHp) * 100).toFixed(1);
 
@@ -825,8 +896,7 @@ class DamageCalculator {
             maxPercentage,
             attackerLevel,
             attackStat,
-            defenderLevel,
-            defenseStat
+            moveData.category
         );
 
         this.updateDamageResult(result);
@@ -895,48 +965,53 @@ class DamageCalculator {
     getActiveFieldEffects() {
         const effects = {
             reflect: false,
-            lightScreen: false,
-            helpingHand: false
+            lightScreen: false
         };
 
         document.querySelectorAll('.field-effect-btn.active').forEach(button => {
             const effect = button.dataset.effect;
             if (effect === 'reflect') effects.reflect = true;
             if (effect === 'light-screen') effects.lightScreen = true;
-            if (effect === 'helping-hand') effects.helpingHand = true;
         });
 
         return effects;
     }
 
     getMoveData(moveNum) {
-        const moveInput = document.getElementById(`pokemon${this.selectedMove.pokemon}Move${moveNum}`);
-        const moveName = moveInput?.value || '';
+        const slotIndex = parseInt(this.selectedMove.pokemon) - 1;
+        const moveIndex = parseInt(moveNum) - 1;
+        const moveId = window.damageCalcData?.pokemons?.[slotIndex]?.moves?.[moveIndex];
         
-        const moves = {
-            'Belly Drum': { name: 'Belly Drum', type: 'normal', category: 'status', power: 0 },
-            'Leaf Storm': { name: 'Leaf Storm', type: 'grass', category: 'special', power: 130 },
-            'Aurora Veil': { name: 'Aurora Veil', type: 'ice', category: 'status', power: 0 },
-            'Earth Power': { name: 'Earth Power', type: 'ground', category: 'special', power: 90 },
-            'Absorb': { name: 'Absorb', type: 'grass', category: 'special', power: 20 }
+        if (!moveId || !window.pokemonDataLoader?.movesCache) {
+            return null;
+        }
+        
+        const move = window.pokemonDataLoader.movesCache.find(m => m.id == moveId);
+        if (!move) return null;
+        
+        return {
+            name: move.spanishName || move.name,
+            type: move.type || 'normal',
+            category: move.damageClass || 'physical',
+            power: move.power || 0
         };
-
-        return moves[moveName] || { name: moveName, type: 'normal', category: 'physical', power: 0 };
     }
 
-    formatDamageResult(attacker, defender, move, minDmg, maxDmg, minPct, maxPct, attLevel, attStat, defLevel, defStat) {
-        const moveData = this.getMoveData(this.selectedMove.move);
-        const statName = moveData.category === 'physical' ? 'Atk' : 'SpA';
+    formatDamageResult(attacker, defender, move, minDmg, maxDmg, minPct, maxPct, attLevel, attStat, category) {
+        const statName = category === 'physical' ? 'Atk' : 'SpA';
+        const defStatName = category === 'physical' ? 'Def' : 'SpD';
         
-        return `Lv. ${attLevel} ${attStat}+ ${statName} ${attacker} ${move} vs. ${defLevel} HP / ${defStat} ${moveData.category === 'physical' ? 'Def' : 'SpD'} ${defender}: ${minDmg}-${maxDmg} (${minPct} - ${maxPct}%) -- ${this.getDamageDescription(minPct)}`;
+        return `Lv. ${attLevel} ${attStat} ${statName} ${attacker} ${move} vs. 0 ${defStatName} ${defender}: ${minDmg}-${maxDmg} (${minPct} - ${maxPct}%) -- ${this.getDamageDescription(parseFloat(minPct), parseFloat(maxPct))}`;
     }
 
-    getDamageDescription(percentage) {
-        const pct = parseFloat(percentage);
-        if (pct >= 100) return 'guaranteed OHKO';
-        if (pct >= 75) return '75% chance to OHKO';
-        if (pct >= 50) return '2HKO';
-        if (pct >= 25) return '4HKO';
+    getDamageDescription(minPct, maxPct) {
+        if (maxPct >= 100) return 'guaranteed OHKO';
+        if (minPct >= 100) return 'OHKO';
+        if (maxPct >= 75) return 'possible OHKO';
+        if (minPct >= 50) return 'guaranteed 2HKO';
+        if (maxPct >= 50) return 'possible 2HKO';
+        if (minPct >= 33.4) return 'guaranteed 3HKO';
+        if (minPct >= 25) return 'guaranteed 4HKO';
         return 'minimal damage';
     }
 
@@ -944,6 +1019,231 @@ class DamageCalculator {
         const resultContent = document.getElementById('damageResultContent');
         if (resultContent) {
             resultContent.innerHTML = `<pre style="margin: 0; font-family: 'Courier New', monospace; font-size: 0.875rem;">${result}</pre>`;
+        }
+    }
+
+    // Actualizar traducciones cuando se cambia el idioma
+    updateTranslations() {
+        const lm = window.languageManager;
+        if (!lm) return;
+        
+        const isSpanish = lm.getCurrentLanguage() === 'es';
+        
+        // Actualizar labels de búsqueda de Pokémon
+        const search1 = document.getElementById('pokemon1Search');
+        const search2 = document.getElementById('pokemon2Search');
+        if (search1) search1.placeholder = isSpanish ? 'Buscar Pokémon...' : 'Search Pokémon...';
+        if (search2) search2.placeholder = isSpanish ? 'Buscar Pokémon...' : 'Search Pokémon...';
+        
+        // Actualizar labels de nivel
+        const levelLabels = document.querySelectorAll('.pokemon-level .form-label');
+        levelLabels.forEach(label => {
+            label.textContent = isSpanish ? 'Nivel' : 'Level';
+        });
+        
+        // Actualizar labels de vida actual
+        const hpLabels = document.querySelectorAll('.pokemon-hp-bar .form-label');
+        hpLabels.forEach(label => {
+            label.textContent = isSpanish ? 'Vida Actual' : 'Current HP';
+        });
+        
+        // Actualizar headers de tabla de stats
+        const statsHeaders = document.querySelectorAll('.pokemon-stats-table th');
+        if (statsHeaders.length >= 5) {
+            statsHeaders[0].textContent = 'Stat';
+            statsHeaders[1].textContent = 'Base';
+            statsHeaders[2].textContent = 'EVs';
+            statsHeaders[3].textContent = 'IVs';
+            statsHeaders[4].textContent = isSpanish ? 'Final' : 'Final';
+        }
+        
+        // Actualizar nombres de stats en las tablas
+        this.updateStatsTableLabels(1, isSpanish);
+        this.updateStatsTableLabels(2, isSpanish);
+        
+        // Actualizar labels de naturaleza, habilidad y objeto
+        const natureLabels = document.querySelectorAll('.pokemon-details .form-label');
+        if (natureLabels[0]) natureLabels[0].textContent = isSpanish ? 'Naturaleza' : 'Nature';
+        if (natureLabels[1]) natureLabels[1].textContent = isSpanish ? 'Habilidad' : 'Ability';
+        if (natureLabels[2]) natureLabels[2].textContent = isSpanish ? 'Objeto' : 'Item';
+        
+        // Actualizar opciones de naturaleza (re-cargar con traducciones actualizadas)
+        this.updateNatureSelects();
+        
+        // Actualizar habilidades con traducciones
+        this.updateAbilitySelects();
+        
+        // Actualizar label de movimientos
+        const movesLabels = document.querySelectorAll('.pokemon-moves .form-label');
+        movesLabels.forEach(label => {
+            label.textContent = isSpanish ? 'Movimientos' : 'Moves';
+        });
+        
+        // Actualizar campo central
+        this.updateFieldConditionsLabels(isSpanish);
+        
+        // Actualizar nombres de movimientos en panel central
+        this.refreshMoveSelectionButtons();
+        
+        // Actualizar resultado de daño si existe
+        if (this.selectedMove) {
+            this.calculateDamage();
+        }
+    }
+    
+    // Actualizar labels de stats en tabla
+    updateStatsTableLabels(pokemonNum, isSpanish) {
+        const statNames = isSpanish 
+            ? ['PS', 'ATAQUE', 'DEFENSA', 'AT. ESP.', 'DEF. ESP.', 'VELOCIDAD']
+            : ['HP', 'ATTACK', 'DEFENSE', 'SP. ATK', 'SP. DEF', 'SPEED'];
+        
+        const rows = document.querySelectorAll(`#pokemon${pokemonNum}HpBase`).length > 0 
+            ? document.querySelectorAll(`.pokemon-panel:nth-child(${pokemonNum === 1 ? 1 : 3}) .pokemon-stats-table tbody tr`)
+            : [];
+        
+        rows.forEach((row, index) => {
+            const firstCell = row.querySelector('td:first-child');
+            if (firstCell && statNames[index]) {
+                firstCell.textContent = statNames[index];
+            }
+        });
+        
+        // Actualizar total de EVs
+        const evTotalLabel = document.querySelector(`#pokemon${pokemonNum}EvTotal`)?.parentElement;
+        if (evTotalLabel) {
+            const totalValue = document.getElementById(`pokemon${pokemonNum}EvTotal`).textContent;
+            evTotalLabel.innerHTML = isSpanish 
+                ? `Total EVs: <span id="pokemon${pokemonNum}EvTotal">${totalValue}</span> / 510`
+                : `Total EVs: <span id="pokemon${pokemonNum}EvTotal">${totalValue}</span> / 510`;
+        }
+    }
+    
+    // Actualizar labels del campo de batalla
+    updateFieldConditionsLabels(isSpanish) {
+        // Título del panel
+        const fieldTitle = document.querySelector('.field-title');
+        if (fieldTitle) {
+            fieldTitle.textContent = isSpanish ? 'Estado del Campo' : 'Field Conditions';
+        }
+        
+        // Tipo de combate
+        const battleTypeLabel = document.querySelector('.field-section:nth-child(1) .form-label');
+        if (battleTypeLabel) {
+            battleTypeLabel.textContent = isSpanish ? 'Tipo de Combate' : 'Battle Type';
+        }
+        
+        const battleTypeButtons = [
+            { id: 'singles', es: 'Individual', en: 'Singles' },
+            { id: 'doubles', es: 'Doble', en: 'Doubles' },
+            { id: 'triples', es: 'Triple', en: 'Triples' }
+        ];
+        
+        battleTypeButtons.forEach(btn => {
+            const label = document.querySelector(`label[for="${btn.id}"]`);
+            if (label) label.textContent = isSpanish ? btn.es : btn.en;
+        });
+        
+        // Meteorología
+        const weatherLabel = document.querySelector('.field-section:nth-child(2) .form-label');
+        if (weatherLabel) {
+            weatherLabel.textContent = isSpanish ? 'Meteorología' : 'Weather';
+        }
+        
+        const weatherButtons = [
+            { id: 'weather-none', es: 'Ninguno', en: 'None' },
+            { id: 'weather-sun', es: 'Sol', en: 'Sun' },
+            { id: 'weather-rain', es: 'Lluvia', en: 'Rain' },
+            { id: 'weather-sandstorm', es: 'Tormenta Arena', en: 'Sandstorm' },
+            { id: 'weather-hail', es: 'Granizo', en: 'Hail' }
+        ];
+        
+        weatherButtons.forEach(btn => {
+            const label = document.querySelector(`label[for="${btn.id}"]`);
+            if (label) label.textContent = isSpanish ? btn.es : btn.en;
+        });
+        
+        // Espacio Raro
+        const rareSpaceLabel = document.querySelector('.field-section:nth-child(3) .form-label');
+        if (rareSpaceLabel) {
+            rareSpaceLabel.textContent = isSpanish ? 'Espacio Raro' : 'Trick Room';
+        }
+        
+        const rareSpaceToggle = document.querySelector('label[for="rareSpaceToggle"]');
+        if (rareSpaceToggle) {
+            rareSpaceToggle.textContent = isSpanish ? 'Espacio Raro' : 'Trick Room';
+        }
+        
+        // Estados de campo
+        const fieldEffectsLabel = document.querySelector('.field-section:nth-child(4) .form-label');
+        if (fieldEffectsLabel) {
+            fieldEffectsLabel.textContent = isSpanish ? 'Estados de Campo' : 'Field Effects';
+        }
+        
+        // Títulos de efectos por lado
+        const leftTitle = document.querySelector('.field-effects-left .field-effects-title');
+        const rightTitle = document.querySelector('.field-effects-right .field-effects-title');
+        if (leftTitle) leftTitle.textContent = isSpanish ? 'Pokémon 1' : 'Pokémon 1';
+        if (rightTitle) rightTitle.textContent = isSpanish ? 'Pokémon 2' : 'Pokémon 2';
+        
+        // Traducir botones de efectos de campo
+        const fieldEffectTranslations = {
+            'helping-hand': { es: 'Refuerzo', en: 'Helping Hand' },
+            'reflect': { es: 'Reflejo', en: 'Reflect' },
+            'light-screen': { es: 'Pantalla Luz', en: 'Light Screen' },
+            'tailwind': { es: 'Viento Afín', en: 'Tailwind' },
+            'sea-of-fire': { es: 'Mar de Fuego', en: 'Sea of Fire' },
+            'swamp': { es: 'Pantano', en: 'Swamp' },
+            'friend-guard': { es: 'Compiescolta', en: 'Friend Guard' },
+            'stealth-rock': { es: 'Trampa Rocas', en: 'Stealth Rock' }
+        };
+        
+        document.querySelectorAll('.field-effect-btn').forEach(btn => {
+            const effect = btn.dataset.effect;
+            if (fieldEffectTranslations[effect]) {
+                btn.textContent = isSpanish 
+                    ? fieldEffectTranslations[effect].es 
+                    : fieldEffectTranslations[effect].en;
+            }
+        });
+        
+        // Traducir labels de Spikes
+        const spikesLabels = document.querySelectorAll('.spikes-selector .form-label');
+        spikesLabels.forEach(label => {
+            label.textContent = isSpanish ? 'Púas' : 'Spikes';
+        });
+        
+        // Movimientos seleccionados
+        const movesSelectionLabel = document.querySelector('.field-section:last-child .form-label');
+        if (movesSelectionLabel) {
+            movesSelectionLabel.textContent = isSpanish ? 'Movimientos Seleccionados' : 'Selected Moves';
+        }
+        
+        const leftMovesTitle = document.querySelector('.moves-selection-left .moves-selection-title');
+        const rightMovesTitle = document.querySelector('.moves-selection-right .moves-selection-title');
+        if (leftMovesTitle) leftMovesTitle.textContent = isSpanish ? 'Pokémon 1' : 'Pokémon 1';
+        if (rightMovesTitle) rightMovesTitle.textContent = isSpanish ? 'Pokémon 2' : 'Pokémon 2';
+        
+        // Resultado de daño
+        const resultHeader = document.querySelector('.damage-result-header h5');
+        if (resultHeader) {
+            resultHeader.textContent = isSpanish ? 'Resultado del Daño' : 'Damage Result';
+        }
+    }
+    
+    // Refrescar botones de movimientos con nombres traducidos
+    refreshMoveSelectionButtons() {
+        if (!window.damageCalcData) return;
+        
+        for (let p = 0; p < 2; p++) {
+            const pokemonData = window.damageCalcData.pokemons[p];
+            if (!pokemonData) continue;
+            
+            for (let m = 0; m < 4; m++) {
+                const moveId = pokemonData.moves[m];
+                if (moveId) {
+                    this.updateMoveSelectionButton(p + 1, m + 1, moveId);
+                }
+            }
         }
     }
 }

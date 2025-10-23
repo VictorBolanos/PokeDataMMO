@@ -5752,12 +5752,17 @@ body.light-theme .pokemon-search::placeholder {
 .pokemon-sprite-container {
     text-align: center;
     margin-bottom: 1rem;
+    min-height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .pokemon-sprite {
-    width: 80px;
-    height: 80px;
+    width: 160px;
+    height: 160px;
     object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
 }
 
 .pokemon-level {
@@ -6230,8 +6235,8 @@ body.light-theme .hp-bar {
     }
     
     .pokemon-sprite {
-        width: 60px;
-        height: 60px;
+        width: 90px;
+        height: 90px;
     }
     
     .move-slot {

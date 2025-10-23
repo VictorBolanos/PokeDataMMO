@@ -369,6 +369,11 @@ function translatePokeCalcTab() {
     if (!tab) return;
     
     updateCalculatorTitles(lm);
+    
+    // Actualizar traducciones del damage calculator
+    if (window.damageCalculator && window.damageCalculator.updateTranslations) {
+        window.damageCalculator.updateTranslations();
+    }
 }
 
 function updateCalculatorTitles(lm) {
