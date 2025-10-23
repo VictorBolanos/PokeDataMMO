@@ -10,11 +10,8 @@ class Pokedex {
     
     async init() {
         // Wait for search to be ready
-        if (window.pokemonSearch) {
-        } else {
-            // Wait a bit for search to initialize
-            setTimeout(() => {
-            }, 1000);
+        if (!window.pokemonSearch) {
+            setTimeout(() => this.init(), 1000);
         }
     }
     
@@ -91,10 +88,7 @@ class Pokedex {
             await pokemonCard.render();
             
             // Initialize async components after render
-            setTimeout(() => {
-                pokemonCard.initializeEvolution();
-                // Type effectiveness is already initialized in PokemonCard.render()
-            }, 100);
+            pokemonCard.initializeEvolution();
             
         } catch (error) {
             this.showError('Error rendering Pokémon card');

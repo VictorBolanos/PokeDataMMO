@@ -3,123 +3,78 @@ class PokemonAPI {
     static baseURL = 'https://pokeapi.co/api/v2';
     static maxPokemon = 649; // Gen I-V for PokeMMO
     
+    // Generic fetch method to reduce code duplication
+    static async fetchData(url) {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Data not found');
+        return await response.json();
+    }
+    
     // Get Pokemon by ID or name
     static async getPokemon(idOrName) {
-        try {
-            const response = await fetch(`${this.baseURL}/pokemon/${idOrName}`);
-            if (!response.ok) throw new Error('Pokémon not found');
-            return await response.json();
-        } catch (error) {
-            throw error;
-        }
+        return this.fetchData(`${this.baseURL}/pokemon/${idOrName}`);
     }
     
     // Get Pokemon species (for evolution chain and description)
     static async getPokemonSpecies(idOrName) {
-        try {
-            const response = await fetch(`${this.baseURL}/pokemon-species/${idOrName}`);
-            if (!response.ok) throw new Error('Pokémon species not found');
-            return await response.json();
-        } catch (error) {
-            throw error;
-        }
+        return this.fetchData(`${this.baseURL}/pokemon-species/${idOrName}`);
     }
     
     // Get evolution chain
     static async getEvolutionChain(chainId) {
-        try {
-            const response = await fetch(`${this.baseURL}/evolution-chain/${chainId}`);
-            if (!response.ok) throw new Error('Evolution chain not found');
-            return await response.json();
-        } catch (error) {
-            throw error;
-        }
+        return this.fetchData(`${this.baseURL}/evolution-chain/${chainId}`);
     }
     
     // Get type data
     static async getType(typeName) {
-        try {
-            const response = await fetch(`${this.baseURL}/type/${typeName}`);
-            if (!response.ok) throw new Error('Type not found');
-            return await response.json();
-        } catch (error) {
-            throw error;
-        }
+        return this.fetchData(`${this.baseURL}/type/${typeName}`);
     }
     
     // Get ability data
     static async getAbility(abilityName) {
-        try {
-            const response = await fetch(`${this.baseURL}/ability/${abilityName}`);
-            if (!response.ok) throw new Error('Ability not found');
-            return await response.json();
-        } catch (error) {
-            throw error;
-        }
+        return this.fetchData(`${this.baseURL}/ability/${abilityName}`);
     }
     
     // Get move data
     static async getMove(moveName) {
-        try {
-            const response = await fetch(`${this.baseURL}/move/${moveName}`);
-            if (!response.ok) throw new Error('Move not found');
-            return await response.json();
-        } catch (error) {
-            throw error;
-        }
+        return this.fetchData(`${this.baseURL}/move/${moveName}`);
     }
 
     // Get item data
     static async getItem(idOrName) {
-        try {
-            const response = await fetch(`${this.baseURL}/item/${idOrName}/`);
-            if (!response.ok) throw new Error('Item not found');
-            return await response.json();
-        } catch (error) {
-            throw error;
-        }
+        return this.fetchData(`${this.baseURL}/item/${idOrName}/`);
     }
     
     // Search Pokemon by name (for autocomplete)
     static async searchPokemon(query, limit = 10) {
-        try {
-            // For now, we'll use a predefined list since PokeAPI doesn't have a search endpoint
-            // In a real implementation, we'd cache all Pokemon names
-            const pokemonList = await this.getAllPokemonNames();
-            return pokemonList
-                .filter(pokemon => 
-                    pokemon.name.toLowerCase().includes(query.toLowerCase()) ||
-                    pokemon.id.toString().includes(query)
-                )
-                .slice(0, limit);
-        } catch (error) {
-            return [];
-        }
+        const pokemonList = await this.getAllPokemonNames();
+        return pokemonList
+            .filter(pokemon => 
+                pokemon.name.toLowerCase().includes(query.toLowerCase()) ||
+                pokemon.id.toString().includes(query)
+            )
+            .slice(0, limit);
     }
     
     // Get all Pokemon names (cached)
     static async getAllPokemonNames() {
         const cacheKey = 'pokemon_names_list';
-        let cached = localStorage.getItem(cacheKey);
+        const cached = localStorage.getItem(cacheKey);
         
         if (cached) {
             return JSON.parse(cached);
         }
         
-        try {
-            const response = await fetch(`${this.baseURL}/pokemon?limit=${this.maxPokemon}`);
-            const data = await response.json();
-            const pokemonList = data.results.map((pokemon, index) => ({
-                id: index + 1,
-                name: pokemon.name,
-                url: pokemon.url
-            }));
-            
-            localStorage.setItem(cacheKey, JSON.stringify(pokemonList));
-            return pokemonList;
-        } catch (error) {
-            return [];
-        }
+        const response = await fetch(`${this.baseURL}/pokemon?limit=${this.maxPokemon}`);
+        const data = await response.json();
+        const pokemonList = data.results.map((pokemon, index) => ({
+            id: index + 1,
+            name: pokemon.name,
+            url: pokemon.url
+        }));
+        
+        localStorage.setItem(cacheKey, JSON.stringify(pokemonList));
+        return pokemonList;
     }
     
     // Helper to get generation from Pokemon ID

@@ -43,9 +43,7 @@ class PokemonDataLoader {
      * Cargar todos los movimientos (Gen 1-5)
      */
     async loadAllMoves() {
-        if (this.movesCache) {
-            return this.movesCache;
-        }
+        if (this.movesCache) return this.movesCache;
 
         if (this.isLoadingMoves) {
             while (this.isLoadingMoves) {
@@ -57,32 +55,18 @@ class PokemonDataLoader {
         this.isLoadingMoves = true;
 
         try {
-            // Verificar que movesData esté disponible
             if (typeof movesData === 'undefined') {
                 console.error('❌ ERROR CRÍTICO: movesData NO está definido');
-                console.error('❌ Asegúrate de que data/moves.js está cargado en index.html');
                 this.isLoadingMoves = false;
                 return [];
             }
 
-            // Obtener idioma actual
             const currentLang = window.languageManager?.getCurrentLanguage() || 'es';
 
-            // Filtrar y mapear movimientos (excluir id "000" y tipo Fairy)
             this.movesCache = movesData
-                .filter(move => {
-                    // Excluir movimiento de selección
-                    if (move.id === "000") return false;
-                    
-                    // Excluir tipo Fairy (Gen VI+, no en PokeMMO)
-                    if (move.type && move.type.toLowerCase() === 'fairy') {
-                        return false;
-                    }
-                    
-                    return true;
-                })
+                .filter(move => move.id !== "000" && move.type?.toLowerCase() !== 'fairy')
                 .map(move => ({
-                    id: move.id, // Mantener como string para soportar IDs alfanuméricos (ej: "237a" para Hidden Power)
+                    id: move.id,
                     name: move.EnglishName,
                     spanishName: move.SpanishName,
                     displayName: currentLang === 'es' ? move.SpanishName : move.EnglishName,
@@ -113,9 +97,7 @@ class PokemonDataLoader {
      * Cargar todos los objetos (solo holdables)
      */
     async loadAllItems() {
-        if (this.itemsCache) {
-            return this.itemsCache;
-        }
+        if (this.itemsCache) return this.itemsCache;
 
         if (this.isLoadingItems) {
             while (this.isLoadingItems) {
@@ -127,68 +109,38 @@ class PokemonDataLoader {
         this.isLoadingItems = true;
 
         try {
-            // Verificar que itemsData esté disponible
             if (typeof itemsData === 'undefined') {
                 console.error('❌ ERROR CRÍTICO: itemsData NO está definido');
-                console.error('❌ Asegúrate de que data/items.js está cargado en index.html');
                 this.isLoadingItems = false;
                 return [];
             }
 
-            // Filtrar items válidos (excluir id "000")
             const validItems = itemsData.filter(item => item.id !== "000");
-
-            // Obtener idioma actual
             const currentLang = window.languageManager?.getCurrentLanguage() || 'es';
-
-            // Cargar sprites desde PokeAPI en paralelo (lotes de 30)
             const itemsWithSprites = [];
             const batchSize = 30;
             
             for (let i = 0; i < validItems.length; i += batchSize) {
                 const batch = validItems.slice(i, i + batchSize);
-                const batchEnd = Math.min(i + batchSize, validItems.length);
-                
                 const batchPromises = batch.map(async (item) => {
-                    // Convertir nombre inglés a formato API: "Covert Cloak" -> "covert-cloak"
-                    // Normalizar caracteres especiales: é -> e, etc.
                     const apiName = item.EnglishName
-                        .normalize('NFD')  // Descomponer caracteres acentuados
-                        .replace(/[\u0300-\u036f]/g, '')  // Eliminar marcas de acento
+                        .normalize('NFD')
+                        .replace(/[\u0300-\u036f]/g, '')
                         .toLowerCase()
                         .replace(/\s+/g, '-')
                         .replace(/[^a-z0-9-]/g, '');
                     
                     try {
                         const response = await fetch(`https://pokeapi.co/api/v2/item/${apiName}`);
+                        const apiData = response.ok ? await response.json() : null;
                         
-                        if (!response.ok) {
-                            // Si falla, usar datos locales sin sprite de la API
-                            return {
-                                id: parseInt(item.id),
-                                name: item.EnglishName,
-                                spanishName: item.SpanishName,
-                                displayName: currentLang === 'es' ? item.SpanishName : item.EnglishName,
-                                sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${apiName}.png`,
-                                spriteName: apiName,
-                                description: item.description || '',
-                                names: [
-                                    { language: { name: 'en' }, name: item.EnglishName },
-                                    { language: { name: 'es' }, name: item.SpanishName }
-                                ]
-                            };
-                        }
-                        
-                        const apiData = await response.json();
-                        
-                        // SOLO tomar el sprite de la API, todo lo demás de items.js
                         return {
                             id: parseInt(item.id),
                             name: item.EnglishName,
                             spanishName: item.SpanishName,
                             displayName: currentLang === 'es' ? item.SpanishName : item.EnglishName,
-                            sprite: apiData.sprites?.default || `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${apiName}.png`,
-                            spriteName: apiData.name || apiName,
+                            sprite: apiData?.sprites?.default || `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${apiName}.png`,
+                            spriteName: apiData?.name || apiName,
                             description: item.description || '',
                             names: [
                                 { language: { name: 'en' }, name: item.EnglishName },
@@ -196,7 +148,6 @@ class PokemonDataLoader {
                             ]
                         };
                     } catch (error) {
-                        // En caso de error, usar datos locales
                         return {
                             id: parseInt(item.id),
                             name: item.EnglishName,
@@ -214,12 +165,10 @@ class PokemonDataLoader {
                 });
                 
                 const batchResults = await Promise.all(batchPromises);
-                const validResults = batchResults.filter(item => item !== null);
-                itemsWithSprites.push(...validResults);
+                itemsWithSprites.push(...batchResults.filter(item => item !== null));
             }
 
             this.itemsCache = itemsWithSprites.sort((a, b) => a.displayName.localeCompare(b.displayName));
-            
             this.isLoadingItems = false;
             return this.itemsCache;
             
@@ -333,28 +282,17 @@ class PokemonDataLoader {
      * Actualizar traducciones de movimientos cacheados
      */
     updateMoveTranslations() {
-        if (!this.movesCache) {
-            console.log('⚠️ [TRANSLATE] No hay movimientos en caché para traducir');
-            return;
-        }
+        if (!this.movesCache) return;
         
         const currentLang = window.languageManager?.getCurrentLanguage() || 'es';
-        console.log(`🌐 [TRANSLATE] Actualizando ${this.movesCache.length} movimientos a idioma: ${currentLang}`);
         
         this.movesCache.forEach(move => {
-            const oldDisplayName = move.displayName;
             // Usar directamente spanishName o name según el idioma
             move.displayName = currentLang === 'es' ? (move.spanishName || move.name) : move.name;
-            
-            // Log solo para los primeros 3 movimientos como ejemplo
-            if (this.movesCache.indexOf(move) < 3) {
-                console.log(`🌐 [TRANSLATE] "${oldDisplayName}" → "${move.displayName}"`);
-            }
         });
         
         // Re-ordenar alfabéticamente
         this.movesCache.sort((a, b) => a.displayName.localeCompare(b.displayName));
-        console.log(`✅ [TRANSLATE] Movimientos actualizados y reordenados`);
     }
 
     /**

@@ -273,8 +273,16 @@ class PokemonBuilder {
         const cacheKey = 'pvp_pokemon_names_list';
         let cached = localStorage.getItem(cacheKey);
         
+        // Limpiar cache si no contiene variantes de Rotom
         if (cached) {
-            return JSON.parse(cached);
+            const parsedCache = JSON.parse(cached);
+            const hasRotomVariants = parsedCache.some(p => p.id >= 10008 && p.id <= 10012);
+            if (!hasRotomVariants) {
+                localStorage.removeItem(cacheKey);
+                cached = null;
+            } else {
+                return parsedCache;
+            }
         }
         
         try {
@@ -286,6 +294,24 @@ class PokemonBuilder {
                 name: pokemon.name,
                 url: pokemon.url
             }));
+            
+            // Añadir variantes de Rotom (todas con nombre "Rotom" para simplificar)
+            const rotomVariants = [
+                { id: 10008, name: 'rotom', url: 'https://pokeapi.co/api/v2/pokemon/10008/', variant: 'heat' },
+                { id: 10009, name: 'rotom', url: 'https://pokeapi.co/api/v2/pokemon/10009/', variant: 'wash' },
+                { id: 10010, name: 'rotom', url: 'https://pokeapi.co/api/v2/pokemon/10010/', variant: 'frost' },
+                { id: 10011, name: 'rotom', url: 'https://pokeapi.co/api/v2/pokemon/10011/', variant: 'fan' },
+                { id: 10012, name: 'rotom', url: 'https://pokeapi.co/api/v2/pokemon/10012/', variant: 'mow' }
+            ];
+            
+            // Insertar variantes de Rotom después del Rotom normal (ID 479)
+            const rotomIndex = pokemonList.findIndex(p => p.id === 479);
+            if (rotomIndex !== -1) {
+                pokemonList.splice(rotomIndex + 1, 0, ...rotomVariants);
+            } else {
+                // Si no se encuentra Rotom, añadir al final
+                pokemonList.push(...rotomVariants);
+            }
             
             localStorage.setItem(cacheKey, JSON.stringify(pokemonList));
             return pokemonList;
@@ -305,19 +331,30 @@ class PokemonBuilder {
         suggestionsContainer.style.display = 'none';
         
         // Renderizar grid de resultados
-        resultsGrid.innerHTML = pokemonList.map(pokemon => `
-            <div class="pokemon-result-card" onclick="window.pokemonBuilder.selectPokemonFromSearch('${pokemon.name}', ${slotIndex})">
-                <div class="pokemon-result-sprite">
-                    <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png" 
-                         alt="${pokemon.name}" 
-                         onerror="this.src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png'">
+        resultsGrid.innerHTML = pokemonList.map(pokemon => {
+            // Determinar si es una variante de Rotom
+            const isRotomVariant = pokemon.id >= 10008 && pokemon.id <= 10012;
+            let displayName = this.safeFormatName(pokemon.name);
+            
+            // Si es una variante de Rotom, mostrar solo "Rotom"
+            if (isRotomVariant) {
+                displayName = 'Rotom';
+            }
+            
+            return `
+                <div class="pokemon-result-card" onclick="window.pokemonBuilder.selectPokemonFromSearch(${pokemon.id}, ${slotIndex})">
+                    <div class="pokemon-result-sprite">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png" 
+                             alt="${pokemon.name}" 
+                             onerror="this.src='https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png'">
+                    </div>
+                    <div class="pokemon-result-info">
+                        <div class="pokemon-result-name">${displayName}</div>
+                        <div class="pokemon-result-id">#${pokemon.id}</div>
+                    </div>
                 </div>
-                <div class="pokemon-result-info">
-                    <div class="pokemon-result-name">${this.safeFormatName(pokemon.name)}</div>
-                    <div class="pokemon-result-id">#${pokemon.id}</div>
-                </div>
-            </div>
-        `).join('');
+            `;
+        }).join('');
         
         resultsGrid.style.display = 'grid';
     }
@@ -347,9 +384,9 @@ class PokemonBuilder {
     /**
      * Seleccionar Pokémon desde búsqueda (SIMPLIFICADO - usa selectPokemon)
      */
-    async selectPokemonFromSearch(pokemonName, slotIndex) {
+    async selectPokemonFromSearch(pokemonIdOrName, slotIndex) {
         try {
-            await this.selectPokemon(pokemonName, slotIndex);
+            await this.selectPokemon(pokemonIdOrName, slotIndex);
         } catch (error) {
             console.error('❌ Error seleccionando Pokémon desde búsqueda:', error);
         }
@@ -361,8 +398,6 @@ class PokemonBuilder {
      * Seleccionar Pokémon y agregarlo al slot
      */
     async selectPokemon(pokemonId, slotIndex) {
-        console.log(`🆕 [NEW] Creando nuevo Pokémon en slot ${slotIndex}: ${pokemonId}`);
-        
         try {
             // Obtener datos de pokemon.js (para habilidades, movimientos y stats base)
             const localData = window.pokemonDataLoader.getPokemonData(pokemonId);
@@ -389,7 +424,7 @@ class PokemonBuilder {
             // Crear objeto Pokémon usando SOLO datos locales
             const pokemon = {
                 id: pokemonIdNum,
-                name: localData.name,
+                name: pokemonIdNum >= 10008 && pokemonIdNum <= 10012 ? 'Rotom' : localData.name,
                 sprite: sprite,
                 baseStats: baseStats,  // 👈 De pokemon.js (local)
                 evs: {
@@ -435,12 +470,6 @@ class PokemonBuilder {
                 pokemon.ivs,
                 null
             );
-            
-            console.log(`✅ [NEW] Pokémon creado:`, {
-                name: pokemon.name,
-                ability: pokemon.ability,
-                availableAbilities: pokemon.availableAbilities
-            });
             
             // Cerrar modal
             document.querySelector('.pokemon-search-modal')?.remove();

@@ -374,7 +374,6 @@ class CustomDropdowns {
         
         // Actualizar datos en PVP Teams UI - GUARDAR EL ID
         if (window.pvpTeamsUI && move) {
-            console.log(`🎯 [MOVE] Movimiento seleccionado: ${move.displayName} (ID: ${moveId}, Tipo: ${move.type})`);
             window.pvpTeamsUI.currentTeam.pokemons[slotIndex].moves[moveIndex] = moveId;
             window.pvpTeams.scheduleAutoSave();
         } else {
@@ -602,6 +601,13 @@ class CustomDropdowns {
             
             // 🎯 MOVER DROPDOWN AL BODY para evitar overflow: hidden
             if (dropdown.parentNode !== document.body) {
+                // Aplicar clase de tema antes de añadir al body
+                const isLightTheme = document.body.classList.contains('light-theme');
+                if (isLightTheme) {
+                    dropdown.classList.add('light-theme');
+                } else {
+                    dropdown.classList.remove('light-theme');
+                }
                 document.body.appendChild(dropdown);
             }
             
@@ -758,8 +764,6 @@ class CustomDropdowns {
         const itemWrappers = document.querySelectorAll('.custom-item-select-wrapper');
         const moveWrappers = document.querySelectorAll('.custom-move-select-wrapper');
         
-        console.log(`🔄 [DROPDOWN] Actualizando ${itemWrappers.length} dropdowns de items y ${moveWrappers.length} dropdowns de movimientos`);
-        
         // Re-renderizar dropdowns de items
         itemWrappers.forEach(async wrapper => {
             const slotIndex = parseInt(wrapper.dataset.slot);
@@ -772,8 +776,6 @@ class CustomDropdowns {
             const moveIndex = parseInt(wrapper.dataset.moveIndex);
             await this.updateMoveDropdownTranslation(slotIndex, moveIndex);
         });
-        
-        console.log(`✅ [DROPDOWN] Actualización de dropdowns completada`);
     }
 
     /**

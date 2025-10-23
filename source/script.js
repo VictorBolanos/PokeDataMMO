@@ -1,19 +1,15 @@
-// PokeDataMMO - Ultra Optimized JavaScript
+// PokeDataMMO - Main Application Controller
 
-// ===== INITIALIZATION =====
 document.addEventListener('DOMContentLoaded', initializeApp);
 
 async function initializeApp() {
-    if (!window.authManager) {
-        return;
-    }
+    if (!window.authManager) return;
     
     await window.authManager.init();
     checkAuthenticationAndRender();
     
-    // Precargar datos de movimientos y objetos de PokeAPI
     if (window.pokemonDataLoader) {
-        window.pokemonDataLoader.preloadData().catch(err => {});
+        window.pokemonDataLoader.preloadData().catch(() => {});
     }
     
     initializeTabs();
@@ -25,49 +21,37 @@ async function initializeApp() {
     initializeAuth();
     loadSavedWallpaper();
     loadSavedTheme();
-    translateUI(); // Initial translation
+    translateUI();
     initializeBerryCalculator();
     initializePVPTeams();
     initializeHomePage();
     initializeHamburgerMenu();
 }
 
-// ===== TAB SYSTEM =====
+// TAB SYSTEM
 function initializeTabs() {
     const tabs = document.querySelectorAll('.nav-tab');
     
-    // Add click event listeners
     tabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            switchTab(this.getAttribute('data-tab'));
-        });
+        tab.addEventListener('click', () => switchTab(tab.getAttribute('data-tab')));
     });
     
-    // Keyboard navigation (Ctrl + Arrow keys)
     document.addEventListener('keydown', handleKeyboardNavigation);
-    
-    // Handle browser back/forward buttons
-    window.addEventListener('popstate', handlePopState);
-    
-    // Check for initial hash on page load
-    window.addEventListener('load', handleInitialHash);
+    window.addEventListener('popstate', handleHashNavigation);
+    window.addEventListener('load', handleHashNavigation);
 }
 
 function switchTab(targetTabId) {
     const tabs = document.querySelectorAll('.nav-tab');
     const tabPanes = document.querySelectorAll('.tab-pane');
     
-    // Remove active class from all tabs and panes
     tabs.forEach(tab => {
         tab.classList.remove('active');
         tab.setAttribute('aria-selected', 'false');
     });
     
-    tabPanes.forEach(pane => {
-        pane.classList.remove('active');
-    });
+    tabPanes.forEach(pane => pane.classList.remove('active'));
     
-    // Add active class to target tab and pane
     const targetTab = document.querySelector(`[data-tab="${targetTabId}"]`);
     const targetPane = document.getElementById(targetTabId);
     
@@ -76,13 +60,9 @@ function switchTab(targetTabId) {
         targetTab.setAttribute('aria-selected', 'true');
         targetPane.classList.add('active');
         
-        // Smooth transition effect
         targetPane.style.opacity = '0';
-        setTimeout(() => {
-            targetPane.style.opacity = '1';
-        }, 50);
+        setTimeout(() => targetPane.style.opacity = '1', 50);
         
-        // Update URL hash for bookmarking
         window.history.pushState(null, null, `#${targetTabId}`);
     }
 }
@@ -105,14 +85,6 @@ function handleKeyboardNavigation(e) {
     }
 }
 
-function handlePopState() {
-    handleHashNavigation();
-}
-
-function handleInitialHash() {
-    handleHashNavigation();
-}
-
 function handleHashNavigation() {
     const hash = window.location.hash.substring(1);
     if (hash && document.getElementById(hash)) {
@@ -120,65 +92,28 @@ function handleHashNavigation() {
     }
 }
 
-// ===== WALLPAPER SYSTEM =====
+// WALLPAPER SYSTEM
 function initializeWallpaper() {
     const wallpaperBtn = document.getElementById('wallpaperBtn');
     const wallpaperDropdown = document.getElementById('wallpaperDropdown');
     const closeBtn = document.getElementById('closeWallpaper');
     
-    // Load wallpapers
     loadWallpapers();
     
-    // Toggle dropdown
-    wallpaperBtn.addEventListener('click', function(e) {
+    wallpaperBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        closeDropdown('musicDropdown');
-        closeDropdown('fontDropdown');
-        closeDropdown('colorDropdown');
-        
-        const isShowing = wallpaperDropdown.classList.contains('show');
-        if (isShowing) {
-            wallpaperDropdown.classList.remove('show');
-            hideMobileOverlay();
-        } else {
-            wallpaperDropdown.classList.add('show');
-            showMobileOverlay();
-        }
+        closeOtherDropdowns(['musicDropdown', 'fontDropdown', 'colorDropdown']);
+        toggleDropdown(wallpaperDropdown);
     });
     
-    // Close dropdown
-    closeBtn.addEventListener('click', () => {
-        wallpaperDropdown.classList.remove('show');
-        hideMobileOverlay();
-    });
-    
-    // Close on outside click
+    closeBtn.addEventListener('click', () => closeDropdown(wallpaperDropdown));
     setupOutsideClickHandler(wallpaperDropdown, wallpaperBtn);
 }
 
 function loadWallpapers() {
     const wallpaperGrid = document.getElementById('wallpaperGrid');
     
-    // Add "Without Background" option first
-    const noBackgroundItem = document.createElement('div');
-    noBackgroundItem.className = 'wallpaper-item no-background-item';
-    noBackgroundItem.dataset.wallpaper = 'none';
-    
-    noBackgroundItem.innerHTML = `
-        <div class="no-background-preview">
-            <svg width="40" height="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path fill="rgba(255,255,255,0.5)" d="M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h10v10H7V7zm2 2v6h6V9H9z"/>
-            </svg>
-            <span>No BG</span>
-        </div>
-        <div class="pokemon-name">Without Background</div>
-    `;
-    
-    noBackgroundItem.addEventListener('click', function() {
-        selectWallpaper('none', this);
-    });
-    
-    wallpaperGrid.appendChild(noBackgroundItem);
+    addNoBackgroundOption(wallpaperGrid);
     
     const wallpapers = [
         '3 venusaur', '6 charizard', '9 blastoise', '17 pidgeotto', '25 pikachu', '39 jigglypuff',
@@ -197,22 +132,40 @@ function loadWallpapers() {
         '609 chandelure', '612 haxorus', '637 volcarona', '643 reshiram', '644 zekrom', '646 kyurem'
     ];
     
-    wallpapers.forEach(wallpaper => {
-        const wallpaperItem = document.createElement('div');
-        wallpaperItem.className = 'wallpaper-item';
-        wallpaperItem.dataset.wallpaper = wallpaper;
-        
-        wallpaperItem.innerHTML = `
-            <img src="img/bg/${wallpaper}.jpg" alt="${wallpaper}" loading="lazy">
-            <div class="pokemon-name">${wallpaper}</div>
-        `;
-        
-        wallpaperItem.addEventListener('click', function() {
-            selectWallpaper(wallpaper, this);
-        });
-        
-        wallpaperGrid.appendChild(wallpaperItem);
-    });
+    wallpapers.forEach(wallpaper => addWallpaperItem(wallpaperGrid, wallpaper));
+}
+
+function addNoBackgroundOption(container) {
+    const noBackgroundItem = document.createElement('div');
+    noBackgroundItem.className = 'wallpaper-item no-background-item';
+    noBackgroundItem.dataset.wallpaper = 'none';
+    
+    noBackgroundItem.innerHTML = `
+        <div class="no-background-preview">
+            <svg width="40" height="40" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path fill="rgba(255,255,255,0.5)" d="M3 3h18v18H3V3zm2 2v14h14V5H5zm2 2h10v10H7V7zm2 2v6h6V9H9z"/>
+            </svg>
+            <span>No BG</span>
+        </div>
+        <div class="pokemon-name">Without Background</div>
+    `;
+    
+    noBackgroundItem.addEventListener('click', () => selectWallpaper('none', noBackgroundItem));
+    container.appendChild(noBackgroundItem);
+}
+
+function addWallpaperItem(container, wallpaper) {
+    const wallpaperItem = document.createElement('div');
+    wallpaperItem.className = 'wallpaper-item';
+    wallpaperItem.dataset.wallpaper = wallpaper;
+    
+    wallpaperItem.innerHTML = `
+        <img src="img/bg/${wallpaper}.jpg" alt="${wallpaper}" loading="lazy">
+        <div class="pokemon-name">${wallpaper}</div>
+    `;
+    
+    wallpaperItem.addEventListener('click', () => selectWallpaper(wallpaper, wallpaperItem));
+    container.appendChild(wallpaperItem);
 }
 
 function selectWallpaper(wallpaperName, element) {
@@ -222,7 +175,6 @@ function selectWallpaper(wallpaperName, element) {
 
 function setWallpaper(wallpaperName) {
     if (wallpaperName === 'none') {
-        // Remove background
         document.body.style.backgroundImage = 'none';
     } else {
         const wallpaperPath = `img/bg/${wallpaperName}.jpg`;
@@ -232,10 +184,7 @@ function setWallpaper(wallpaperName) {
         document.body.style.backgroundAttachment = 'fixed';
     }
     
-    // Save to localStorage
     localStorage.setItem('selectedWallpaper', wallpaperName);
-    
-    // Close dropdown
     document.getElementById('wallpaperDropdown').classList.remove('show');
     hideMobileOverlay();
 }
@@ -244,33 +193,24 @@ function loadSavedWallpaper() {
     const savedWallpaper = localStorage.getItem('selectedWallpaper');
     if (savedWallpaper) {
         setWallpaper(savedWallpaper);
-        // Mark as selected in grid
         setTimeout(() => {
             const selectedItem = document.querySelector(`[data-wallpaper="${savedWallpaper}"]`);
-            if (selectedItem) {
-                selectedItem.classList.add('selected');
-            }
+            if (selectedItem) selectedItem.classList.add('selected');
         }, 100);
     } else {
-        // Default: no background
         setTimeout(() => {
             const noBackgroundItem = document.querySelector('[data-wallpaper="none"]');
-            if (noBackgroundItem) {
-                noBackgroundItem.classList.add('selected');
-            }
+            if (noBackgroundItem) noBackgroundItem.classList.add('selected');
         }, 100);
     }
 }
 
-// ===== LANGUAGE SYSTEM =====
+// LANGUAGE SYSTEM
 function initializeLanguage() {
     const languageBtn = document.getElementById('languageBtn');
     languageBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        closeDropdown('musicDropdown');
-        closeDropdown('wallpaperDropdown');
-        closeDropdown('fontDropdown');
-        closeDropdown('colorDropdown');
+        closeOtherDropdowns(['musicDropdown', 'wallpaperDropdown', 'fontDropdown', 'colorDropdown']);
         toggleLanguage();
     });
     updateLanguageIcon();
@@ -280,14 +220,11 @@ async function toggleLanguage() {
     window.languageManager.toggleLanguage();
     updateLanguageIcon();
     
-    // Actualizar traducciones de movimientos e items
     if (window.pokemonDataLoader) {
         window.pokemonDataLoader.updateAllTranslations();
     }
     
-    // ✅ SOLUCIÓN: Disparar evento para cerrar dropdowns abiertos
     window.dispatchEvent(new CustomEvent('languageChanged'));
-    
     await translateUI();
 }
 
@@ -307,37 +244,13 @@ function updateLanguageIcon() {
 async function translateUI() {
     const lm = window.languageManager;
     
-    // Update page title
     document.title = lm.t('title');
+    updateTabNames(lm);
+    updateFooter(lm);
+    updateMusicPlayerHeader(lm);
+    updateWallpaperHeader(lm);
     
-    // Update tab names
-    document.querySelector('[data-tab="leagues"] .tab-text').textContent = lm.t('tabs.leagues');
-    document.querySelector('[data-tab="farming"] .tab-text').textContent = lm.t('tabs.farming');
-    document.querySelector('[data-tab="breeding"] .tab-text').textContent = lm.t('tabs.breeding');
-    document.querySelector('[data-tab="pokecalc"] .tab-text').textContent = lm.t('tabs.pokecalc');
-    document.querySelector('[data-tab="pvp"] .tab-text').textContent = lm.t('tabs.pvp');
-    document.querySelector('[data-tab="pokedex"] .tab-text').textContent = lm.t('tabs.pokedex');
-    document.querySelector('[data-tab="typechart"] .tab-text').textContent = lm.t('tabs.typechart');
-    
-    // Update footer
-    document.querySelector('.footer-text').textContent = lm.t('footer');
-    
-    // Translate home page
     translateHomePage();
-    
-    // Update Music Player header
-    const musicHeaderTitle = document.querySelector('#musicDropdown .music-header h6');
-    if (musicHeaderTitle) {
-        musicHeaderTitle.textContent = lm.t('musicPlayer.title');
-    }
-    
-    // Update Wallpaper header
-    const wallpaperHeaderTitle = document.querySelector('#wallpaperDropdown .wallpaper-header h6');
-    if (wallpaperHeaderTitle) {
-        wallpaperHeaderTitle.textContent = lm.t('wallpaper.title');
-    }
-    
-    // Translate all tabs content
     translateLeaguesTab();
     translateFarmingTab();
     translateBreedingTab();
@@ -348,45 +261,46 @@ async function translateUI() {
     translateAuthUI();
 }
 
+function updateTabNames(lm) {
+    const tabSelectors = [
+        '[data-tab="leagues"] .tab-text',
+        '[data-tab="farming"] .tab-text',
+        '[data-tab="breeding"] .tab-text',
+        '[data-tab="pokecalc"] .tab-text',
+        '[data-tab="pvp"] .tab-text',
+        '[data-tab="pokedex"] .tab-text',
+        '[data-tab="typechart"] .tab-text'
+    ];
+    
+    const tabKeys = ['leagues', 'farming', 'breeding', 'pokecalc', 'pvp', 'pokedex', 'typechart'];
+    
+    tabSelectors.forEach((selector, index) => {
+        const element = document.querySelector(selector);
+        if (element) element.textContent = lm.t(`tabs.${tabKeys[index]}`);
+    });
+}
+
+function updateFooter(lm) {
+    const footer = document.querySelector('.footer-text');
+    if (footer) footer.textContent = lm.t('footer');
+}
+
+function updateMusicPlayerHeader(lm) {
+    const musicHeaderTitle = document.querySelector('#musicDropdown .music-header h6');
+    if (musicHeaderTitle) musicHeaderTitle.textContent = lm.t('musicPlayer.title');
+}
+
+function updateWallpaperHeader(lm) {
+    const wallpaperHeaderTitle = document.querySelector('#wallpaperDropdown .wallpaper-header h6');
+    if (wallpaperHeaderTitle) wallpaperHeaderTitle.textContent = lm.t('wallpaper.title');
+}
+
 function translateLeaguesTab() {
     const lm = window.languageManager;
     const tab = document.getElementById('leagues');
     if (!tab) return;
     
-    const h2 = tab.querySelector('h2');
-    const lead = tab.querySelector('.lead');
-    const h4 = tab.querySelector('h4');
-    const p = tab.querySelectorAll('p')[0];
-    
-    if (h2) h2.innerHTML = lm.t('leagues.title');
-    if (lead) lead.textContent = lm.t('leagues.subtitle');
-    if (h4) h4.textContent = lm.t('leagues.whatsComingTitle');
-    if (p) p.textContent = lm.t('leagues.description');
-    
-    const featureItems = tab.querySelectorAll('.feature-list li');
-    if (featureItems[0]) featureItems[0].innerHTML = `<strong>${lm.t('leagues.features.strategies').split(' ')[0]}</strong> ${lm.t('leagues.features.strategies').split(' ').slice(1).join(' ')}`;
-    if (featureItems[1]) featureItems[1].innerHTML = `<strong>${lm.t('leagues.features.teams').split(' ')[0]}</strong> ${lm.t('leagues.features.teams').split(' ').slice(1).join(' ')}`;
-    if (featureItems[2]) featureItems[2].innerHTML = `<strong>${lm.t('leagues.features.levels').split(' ')[0]}</strong> ${lm.t('leagues.features.levels').split(' ').slice(1).join(' ')}`;
-    if (featureItems[3]) featureItems[3].innerHTML = `<strong>${lm.t('leagues.features.items').split(' ')[0]}</strong> ${lm.t('leagues.features.items').split(' ').slice(1).join(' ')}`;
-    
-    const alertStrong = tab.querySelector('.alert strong');
-    const alert = tab.querySelector('.alert');
-    if (alertStrong) alertStrong.textContent = lm.t('leagues.ambitiousProject');
-    if (alert) alert.innerHTML = `<strong>${lm.t('leagues.ambitiousProject')}</strong> ${lm.t('leagues.ambitiousDescription')}`;
-    
-    const statusH5 = tab.querySelector('.status-card h5');
-    const statusBadge = tab.querySelector('.status-card .badge');
-    const statusP = tab.querySelector('.status-card p');
-    if (statusH5) statusH5.textContent = lm.t('leagues.developmentStatus');
-    if (statusBadge) statusBadge.textContent = lm.t('leagues.statusPlanning');
-    if (statusP) statusP.textContent = lm.t('leagues.researchPhase');
-}
-
-function translateFarmingTab() {
-    // Actualizar calculadora de bayas si está activa
-    if (window.berryUI && window.berryUI.updateTranslations) {
-        window.berryUI.updateTranslations();
-    }
+    updateTabContent(tab, lm, 'leagues');
 }
 
 function translateBreedingTab() {
@@ -394,31 +308,59 @@ function translateBreedingTab() {
     const tab = document.getElementById('breeding');
     if (!tab) return;
     
-    const h2 = tab.querySelector('h2');
-    const lead = tab.querySelector('.lead');
-    const h4 = tab.querySelector('h4');
-    const p = tab.querySelectorAll('p')[0];
+    updateTabContent(tab, lm, 'breeding');
+}
+
+function updateTabContent(tab, lm, section) {
+    const elements = {
+        h2: tab.querySelector('h2'),
+        lead: tab.querySelector('.lead'),
+        h4: tab.querySelector('h4'),
+        p: tab.querySelectorAll('p')[0],
+        alertStrong: tab.querySelector('.alert strong'),
+        alert: tab.querySelector('.alert'),
+        statusH5: tab.querySelector('.status-card h5'),
+        statusBadge: tab.querySelector('.status-card .badge'),
+        statusP: tab.querySelector('.status-card p')
+    };
     
-    if (h2) h2.innerHTML = lm.t('breeding.title');
-    if (lead) lead.textContent = lm.t('breeding.subtitle');
-    if (h4) h4.textContent = lm.t('breeding.whatsComingTitle');
-    if (p) p.textContent = lm.t('breeding.description');
+    if (elements.h2) elements.h2.innerHTML = lm.t(`${section}.title`);
+    if (elements.lead) elements.lead.textContent = lm.t(`${section}.subtitle`);
+    if (elements.h4) elements.h4.textContent = lm.t(`${section}.whatsComingTitle`);
+    if (elements.p) elements.p.textContent = lm.t(`${section}.description`);
     
+    updateFeatureList(tab, lm, section);
+    
+    if (elements.alertStrong) elements.alertStrong.textContent = lm.t(`${section}.ambitiousProject`);
+    if (elements.alert) elements.alert.innerHTML = `<strong>${lm.t(`${section}.ambitiousProject`)}</strong> ${lm.t(`${section}.ambitiousDescription`)}`;
+    
+    if (elements.statusH5) elements.statusH5.textContent = lm.t(`${section}.developmentStatus`);
+    if (elements.statusBadge) elements.statusBadge.textContent = lm.t(`${section}.statusPlanning`);
+    if (elements.statusP) elements.statusP.textContent = lm.t(`${section}.researchPhase`);
+}
+
+function updateFeatureList(tab, lm, section) {
     const featureItems = tab.querySelectorAll('.feature-list li');
-    if (featureItems[0]) featureItems[0].innerHTML = `<strong>${lm.t('breeding.features.target').split(' - ')[0]}</strong> - ${lm.t('breeding.features.target').split(' - ')[1]}`;
-    if (featureItems[1]) featureItems[1].innerHTML = `<strong>${lm.t('breeding.features.path').split(' - ')[0]}</strong> - ${lm.t('breeding.features.path').split(' - ')[1]}`;
-    if (featureItems[2]) featureItems[2].innerHTML = `<strong>${lm.t('breeding.features.dualMode')}</strong>`;
-    if (featureItems[3]) featureItems[3].textContent = lm.t('breeding.features.withNatu');
-    if (featureItems[4]) featureItems[4].textContent = lm.t('breeding.features.withoutNatu');
-    if (featureItems[5]) featureItems[5].innerHTML = `<strong>${lm.t('breeding.features.ivNature').split(' ')[0]}</strong> ${lm.t('breeding.features.ivNature').split(' ').slice(1).join(' ')}`;
-    if (featureItems[6]) featureItems[6].innerHTML = `<strong>${lm.t('breeding.features.eggMoves').split(' ').slice(0, 3).join(' ')}</strong> ${lm.t('breeding.features.eggMoves').split(' ').slice(3).join(' ')}`;
+    const features = lm.t(`${section}.features`);
     
-    const statusH5 = tab.querySelector('.status-card h5');
-    const statusBadge = tab.querySelector('.status-card .badge');
-    const statusP = tab.querySelector('.status-card p');
-    if (statusH5) statusH5.textContent = lm.t('breeding.developmentStatus');
-    if (statusBadge) statusBadge.textContent = lm.t('breeding.statusPriority');
-    if (statusP) statusP.textContent = lm.t('breeding.algorithmProgress');
+    featureItems.forEach((item, index) => {
+        const featureKeys = Object.keys(features);
+        if (featureKeys[index]) {
+            const featureText = features[featureKeys[index]];
+            const parts = featureText.split(' ');
+            if (parts.length > 1) {
+                item.innerHTML = `<strong>${parts[0]}</strong> ${parts.slice(1).join(' ')}`;
+            } else {
+                item.textContent = featureText;
+            }
+        }
+    });
+}
+
+function translateFarmingTab() {
+    if (window.berryUI && window.berryUI.updateTranslations) {
+        window.berryUI.updateTranslations();
+    }
 }
 
 function translatePokeCalcTab() {
@@ -426,9 +368,14 @@ function translatePokeCalcTab() {
     const tab = document.getElementById('pokecalc');
     if (!tab) return;
     
-    // Stats Calculator
+    updateCalculatorTitles(lm);
+}
+
+function updateCalculatorTitles(lm) {
     const statsTitle = document.getElementById('statsCalcTitle');
     const statsSubtitle = document.getElementById('statsCalcSubtitle');
+    const damageTitle = document.getElementById('damageCalcTitle');
+    const damageSubtitle = document.getElementById('damageCalcSubtitle');
     
     if (statsTitle) {
         statsTitle.innerHTML = lm.getCurrentLanguage() === 'es' 
@@ -441,10 +388,6 @@ function translatePokeCalcTab() {
             ? 'Calcula stats finales basados en Stats Base, EVs, IVs y Naturaleza' 
             : 'Calculate final stats based on Base Stats, EVs, IVs, and Nature';
     }
-    
-    // Damage Calculator
-    const damageTitle = document.getElementById('damageCalcTitle');
-    const damageSubtitle = document.getElementById('damageCalcSubtitle');
     
     if (damageTitle) {
         damageTitle.innerHTML = lm.getCurrentLanguage() === 'es' 
@@ -460,7 +403,6 @@ function translatePokeCalcTab() {
 }
 
 function translatePVPTab() {
-    // Actualizar PVP Teams UI si está activa
     if (window.pvpTeamsUI && window.pvpTeamsUI.updateTranslations) {
         window.pvpTeamsUI.updateTranslations();
     }
@@ -470,20 +412,14 @@ async function translatePokedexTab() {
     const lm = window.languageManager;
     const tab = document.getElementById('pokedex');
     
-    // Actualizar título y subtítulo usando los nuevos IDs
     const title = document.getElementById('pokedexTitle');
     const subtitle = document.getElementById('pokedexSubtitle');
+    const searchInput = document.getElementById('pokemonSearch');
     
     if (title) title.innerHTML = lm.t('pokedex.title');
     if (subtitle) subtitle.textContent = lm.t('pokedex.subtitle');
+    if (searchInput) searchInput.placeholder = lm.t('pokedex.searchPlaceholder');
     
-    // Actualizar placeholder de búsqueda
-    const searchInput = document.getElementById('pokemonSearch');
-    if (searchInput) {
-        searchInput.placeholder = lm.t('pokedex.searchPlaceholder');
-    }
-    
-    // Actualizar estado vacío si está presente
     const emptyState = tab.querySelector('.text-center.text-muted');
     if (emptyState && !window.pokedex?.currentPokemon) {
         const h4 = emptyState.querySelector('h4');
@@ -492,7 +428,6 @@ async function translatePokedexTab() {
         if (p) p.textContent = lm.t('pokedex.emptyStateSubtitle');
     }
     
-    // Si hay un Pokémon actualmente mostrado, re-renderizarlo con el nuevo idioma
     if (window.pokedex && window.pokedex.currentPokemon) {
         await window.pokedex.renderPokemonCard();
     }
@@ -502,7 +437,6 @@ function translateTypeChartTab() {
     const lm = window.languageManager;
     const tab = document.getElementById('typechart');
     
-    // Actualizar título y subtítulo usando los nuevos IDs
     const title = document.getElementById('typeTableTitle');
     const subtitle = document.getElementById('typeTableSubtitle');
     const formLabel = tab.querySelector('.form-label');
@@ -511,26 +445,22 @@ function translateTypeChartTab() {
     if (subtitle) subtitle.textContent = lm.t('typeChart.subtitle');
     if (formLabel) formLabel.textContent = lm.t('typeChart.selectTypes');
     
-    // Actualizar headers de efectividad si están presentes
     const effectivenessHeaders = tab.querySelectorAll('.effectiveness-card h5');
-    if (effectivenessHeaders.length >= 5) {
-        effectivenessHeaders[0].textContent = lm.t('typeChart.ultraEffective');
-        effectivenessHeaders[1].textContent = lm.t('typeChart.superEffective');
-        effectivenessHeaders[2].textContent = lm.t('typeChart.resistant');
-        effectivenessHeaders[3].textContent = lm.t('typeChart.superResistant');
-        effectivenessHeaders[4].textContent = lm.t('typeChart.noEffect');
-    }
+    const effectivenessKeys = ['ultraEffective', 'superEffective', 'resistant', 'superResistant', 'noEffect'];
+    
+    effectivenessHeaders.forEach((header, index) => {
+        if (effectivenessKeys[index]) {
+            header.textContent = lm.t(`typeChart.${effectivenessKeys[index]}`);
+        }
+    });
 }
 
-// ===== THEME SYSTEM =====
+// THEME SYSTEM
 function initializeTheme() {
     const themeBtn = document.getElementById('themeBtn');
     themeBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        closeDropdown('musicDropdown');
-        closeDropdown('wallpaperDropdown');
-        closeDropdown('fontDropdown');
-        closeDropdown('colorDropdown');
+        closeOtherDropdowns(['musicDropdown', 'wallpaperDropdown', 'fontDropdown', 'colorDropdown']);
         toggleTheme();
     });
 }
@@ -539,8 +469,6 @@ function toggleTheme() {
     const isLight = document.body.classList.toggle('light-theme');
     updateThemeIcons(isLight);
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
-    
-    // Actualizar tablas dinámicamente
     updateTablesTheme(isLight);
 }
 
@@ -552,8 +480,6 @@ function loadSavedTheme() {
         document.body.classList.add('light-theme');
     }
     updateThemeIcons(isLight);
-    
-    // Actualizar tablas si ya existen en el DOM
     updateTablesTheme(isLight);
 }
 
@@ -565,36 +491,26 @@ function updateThemeIcons(isLight) {
     moonIcon.style.display = isLight ? 'block' : 'none';
 }
 
-/**
- * Actualizar clases de tablas dinámicamente cuando cambia el tema
- */
 function updateTablesTheme(isLight) {
-    // Actualizar TODAS las tablas con clase table-dark o table-light
     document.querySelectorAll('table').forEach(table => {
         if (isLight) {
-            // Cambiar a tema claro
             table.classList.remove('table-dark');
             table.classList.add('table-light');
         } else {
-            // Cambiar a tema oscuro
             table.classList.remove('table-light');
             table.classList.add('table-dark');
         }
     });
 }
 
-// ===== MOBILE OVERLAY SYSTEM =====
+// MOBILE OVERLAY SYSTEM
 function createMobileOverlay() {
     let overlay = document.querySelector('.dropdown-overlay');
     if (!overlay) {
         overlay = document.createElement('div');
         overlay.className = 'dropdown-overlay';
         document.body.appendChild(overlay);
-        
-        // Cerrar dropdowns al hacer click en overlay
-        overlay.addEventListener('click', () => {
-            closeAllDropdowns();
-        });
+        overlay.addEventListener('click', closeAllDropdowns);
     }
     return overlay;
 }
@@ -614,12 +530,12 @@ function hideMobileOverlay() {
 }
 
 function closeAllDropdowns() {
-    const dropdowns = [
+    const dropdownIds = [
         'colorDropdown', 'fontDropdown', 'wallpaperDropdown', 
         'musicDropdown', 'userDropdown', 'hamburgerMenuDropdown'
     ];
     
-    dropdowns.forEach(id => {
+    dropdownIds.forEach(id => {
         const dropdown = document.getElementById(id);
         if (dropdown) {
             dropdown.classList.remove('show');
@@ -1540,27 +1456,33 @@ function closeHamburgerMenu() {
 }
 
 function showHomePage() {
-    // Ocultar todos los tab-panes
     const tabPanes = document.querySelectorAll('.tab-pane');
-    tabPanes.forEach(pane => {
-        pane.classList.remove('active');
-    });
+    tabPanes.forEach(pane => pane.classList.remove('active'));
     
-    // Mostrar el tab-pane de home
     const homePane = document.getElementById('home');
-    if (homePane) {
-        homePane.classList.add('active');
-    }
+    if (homePane) homePane.classList.add('active');
     
-    // Remover clase active de todos los tabs
     const tabs = document.querySelectorAll('.nav-tab');
     tabs.forEach(tab => {
         tab.classList.remove('active');
         tab.setAttribute('aria-selected', 'false');
     });
     
-    // Actualizar URL sin hash
     if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.pathname);
+    }
+}
+
+// HELPER FUNCTIONS
+function closeOtherDropdowns(dropdownIds) {
+    dropdownIds.forEach(id => closeDropdown(id));
+}
+
+function toggleDropdown(dropdown) {
+    dropdown.classList.toggle('show');
+    if (dropdown.classList.contains('show')) {
+        showMobileOverlay();
+    } else {
+        hideMobileOverlay();
     }
 }

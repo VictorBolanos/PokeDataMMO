@@ -15,11 +15,8 @@ class PVPTeams {
     async init() {
         if (this.isInitialized) return;
 
-        try {
-            await window.pvpTeamsUI.renderInitialUI();
-            this.isInitialized = true;
-        } catch (error) {
-        }
+        await window.pvpTeamsUI.renderInitialUI();
+        this.isInitialized = true;
     }
 
     /**
@@ -96,41 +93,20 @@ class PVPTeams {
      * Ejecutar auto-guardado
      */
     async performAutoSave() {
-        // Validaciones múltiples antes de guardar
-        if (this.isSaving) {
-            return;
-        }
+        if (this.isSaving || !this.currentTeam?.trim()) return;
         
-        if (!this.currentTeam || !this.currentTeam.trim()) {
-            return;
-        }
-        
-        // Verificar que el nombre en el input sigue siendo válido
         const nameInput = document.getElementById('teamNameInput');
-        if (nameInput && (!nameInput.value || !nameInput.value.trim())) {
-            return;
-        }
+        if (nameInput && !nameInput.value?.trim()) return;
         
         this.isSaving = true;
         
         try {
             const teamData = window.pvpTeamsUI.collectTeamData();
             
-            // Validación final: asegurar que el nombre está en los datos
-            if (!teamData.teamName || !teamData.teamName.trim()) {
-                return;
-            }
+            if (!teamData.teamName?.trim()) return;
             
-            const result = await window.authManager.savePVPTeam(
-                this.currentTeam, 
-                teamData
-            );
-            
-            if (result.success) {
-                window.pvpTeamsUI.showSaveIndicator('success');
-            } else {
-                window.pvpTeamsUI.showSaveIndicator('error');
-            }
+            const result = await window.authManager.savePVPTeam(this.currentTeam, teamData);
+            window.pvpTeamsUI.showSaveIndicator(result.success ? 'success' : 'error');
             
         } catch (error) {
             window.pvpTeamsUI.showSaveIndicator('error');
@@ -143,9 +119,7 @@ class PVPTeams {
      * Eliminar equipo actual
      */
     async deleteCurrentTeam() {
-        if (!this.currentTeam) {
-            return false;
-        }
+        if (!this.currentTeam) return false;
         
         const result = await window.authManager.deletePVPTeam(this.currentTeam);
         
@@ -153,10 +127,9 @@ class PVPTeams {
             this.currentTeam = null;
             this.isNewTeam = false;
             await window.pvpTeamsUI.renderInitialUI();
-            return true;
         }
         
-        return false;
+        return result.success;
     }
 }
 

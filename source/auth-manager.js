@@ -57,7 +57,7 @@ class AuthManager {
             try {
                 this.currentUser = JSON.parse(session);
                 return true;
-            } catch (error) {
+            } catch {
                 this.logout();
                 return false;
             }
@@ -68,23 +68,18 @@ class AuthManager {
 
     // Validar formato de email (opcional pero si se proporciona debe ser válido)
     validateEmail(email) {
-        if (!email || email.trim() === '') return true; // Email es opcional
-        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return regex.test(email);
+        if (!email?.trim()) return true; // Email es opcional
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
     }
 
     // Validar username (alfanumérico, 3-20 caracteres)
     validateUsername(username) {
-        if (!username || username.length < 3 || username.length > 20) {
-            return false;
-        }
-        const regex = /^[a-zA-Z0-9_-]+$/;
-        return regex.test(username);
+        return username?.length >= 3 && username.length <= 20 && /^[a-zA-Z0-9_-]+$/.test(username);
     }
 
     // Validar password (mínimo 4 caracteres)
     validatePassword(password) {
-        return password && password.length >= 4;
+        return password?.length >= 4;
     }
 
     // Codificar password (base64 básico - en producción usar bcrypt)
@@ -96,7 +91,7 @@ class AuthManager {
     decodePassword(encoded) {
         try {
             return atob(encoded);
-        } catch (error) {
+        } catch {
             return null;
         }
     }

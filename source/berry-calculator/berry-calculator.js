@@ -13,11 +13,8 @@ class BerryCalculator {
     async init() {
         if (this.isInitialized) return;
 
-        try {
-            await window.berryUI.renderInitialUI();
-            this.isInitialized = true;
-        } catch (error) {
-        }
+        await window.berryUI.renderInitialUI();
+        this.isInitialized = true;
     }
 
     // Crear nuevo cálculo
@@ -68,20 +65,11 @@ class BerryCalculator {
 
     // Ejecutar auto-guardado
     async performAutoSave() {
-        // Validaciones múltiples antes de guardar
-        if (this.isSaving) {
-            return;
-        }
-        
-        if (!this.currentCalculation || !this.currentCalculation.trim()) {
-            return;
-        }
+        if (this.isSaving || !this.currentCalculation?.trim()) return;
         
         // Verificar que el nombre en el input sigue siendo válido
         const nameInput = document.getElementById('calculationNameInput');
-        if (nameInput && (!nameInput.value || !nameInput.value.trim())) {
-            return;
-        }
+        if (!nameInput?.value?.trim()) return;
         
         this.isSaving = true;
         
@@ -89,20 +77,14 @@ class BerryCalculator {
             const calculationData = window.berryUI.collectCalculationData();
             
             // Validación final: asegurar que el nombre está en los datos
-            if (!calculationData.calculationName || !calculationData.calculationName.trim()) {
-                return;
-            }
+            if (!calculationData.calculationName?.trim()) return;
             
             const result = await window.authManager.saveBerryCalculation(
                 this.currentCalculation, 
                 calculationData
             );
             
-            if (result.success) {
-                window.berryUI.showSaveIndicator('success');
-            } else {
-                window.berryUI.showSaveIndicator('error');
-            }
+            window.berryUI.showSaveIndicator(result.success ? 'success' : 'error');
             
         } catch (error) {
             window.berryUI.showSaveIndicator('error');
@@ -113,13 +95,11 @@ class BerryCalculator {
 
     // Forzar guardado inmediato
     async forceSave() {
-        // Cancelar auto-save programado
         if (this.autoSaveTimeout) {
             clearTimeout(this.autoSaveTimeout);
             this.autoSaveTimeout = null;
         }
         
-        // Guardar inmediatamente
         await this.performAutoSave();
     }
 
@@ -144,9 +124,7 @@ class BerryCalculator {
 
     // Eliminar cálculo actual
     async deleteCurrentCalculation() {
-        if (!this.currentCalculation) {
-            return false;
-        }
+        if (!this.currentCalculation) return false;
         
         const result = await window.authManager.deleteBerryCalculation(this.currentCalculation);
         
@@ -154,10 +132,9 @@ class BerryCalculator {
             this.currentCalculation = null;
             this.isNewCalculation = false;
             await window.berryUI.renderInitialUI();
-            return true;
         }
         
-        return false;
+        return result.success;
     }
 }
 

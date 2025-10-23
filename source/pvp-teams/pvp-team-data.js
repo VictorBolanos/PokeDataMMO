@@ -78,13 +78,7 @@ class PVPTeamData {
      * Actualizar traducciones de naturalezas
      */
     updateNatureTranslations() {
-        if (!this.naturesCache) {
-            console.log('⚠️ [TRANSLATE] No hay naturalezas en caché para traducir');
-            return;
-        }
-        
-        const currentLang = window.languageManager?.getCurrentLanguage() || 'es';
-        console.log(`🌐 [TRANSLATE] Actualizando ${this.naturesCache.length} naturalezas a idioma: ${currentLang}`);
+        if (!this.naturesCache) return;
         
         this.naturesCache.forEach(nature => {
             nature.displayName = this.getTranslatedNatureName(nature);
@@ -92,7 +86,6 @@ class PVPTeamData {
         
         // Re-ordenar alfabéticamente
         this.naturesCache.sort((a, b) => a.displayName.localeCompare(b.displayName));
-        console.log(`✅ [TRANSLATE] Naturalezas actualizadas y reordenadas`);
     }
 
 

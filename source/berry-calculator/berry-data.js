@@ -127,20 +127,16 @@ class BerryData {
 
     // Calcular semillas necesarias para conservar
     calculateConservationSeeds(berryType, plantCount) {
-        const config = this.getBerryConfig(berryType);
-        const conservation = {};
+        if (berryType !== 'zanamas') return {};
 
-        if (berryType === 'zanamas') {
-            // Para el ciclo completo de zanamas
-            conservation['dulce'] = plantCount * 1; // 1 para meloc + 1 para zanamas
-            conservation['muy-dulce'] = plantCount * 1; // 1 para meloc
-            conservation['amarga'] = plantCount * 1; // 1 para safre + 1 para zanamas
-            conservation['muy-amarga'] = plantCount * 1; // 1 para safre
-            conservation['picante'] = plantCount * 3; // 3 para zreza
-            conservation['muy-picante'] = 0; // NO se conservan, solo se usan para zanamas
-        }
-
-        return conservation;
+        return {
+            'dulce': plantCount * 1, // 1 para meloc + 1 para zanamas
+            'muy-dulce': plantCount * 1, // 1 para meloc
+            'amarga': plantCount * 1, // 1 para safre + 1 para zanamas
+            'muy-amarga': plantCount * 1, // 1 para safre
+            'picante': plantCount * 3, // 3 para zreza
+            'muy-picante': 0 // NO se conservan, solo se usan para zanamas
+        };
     }
 
     // Calcular semillas para zanamas específicamente
@@ -154,17 +150,16 @@ class BerryData {
 
     // Obtener semillas necesarias para un cultivo específico
     getRequiredSeedsForCultivation(berryType) {
+        if (berryType !== 'zanamas') return [];
+
         const config = this.getBerryConfig(berryType);
         const requiredSeeds = new Set();
 
-        if (berryType === 'zanamas') {
-            // Recopilar todas las semillas necesarias para el ciclo completo
-            config.phases.forEach(phase => {
-                phase.seeds.forEach(seedReq => {
-                    requiredSeeds.add(seedReq.type);
-                });
+        config.phases.forEach(phase => {
+            phase.seeds.forEach(seedReq => {
+                requiredSeeds.add(seedReq.type);
             });
-        }
+        });
 
         return Array.from(requiredSeeds);
     }

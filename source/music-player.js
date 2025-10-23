@@ -172,13 +172,11 @@ class MusicPlayer {
     
     toggleDropdown() {
         // Close other dropdowns if open
-        const wallpaperDropdown = document.getElementById('wallpaperDropdown');
-        const fontDropdown = document.getElementById('fontDropdown');
-        const colorDropdown = document.getElementById('colorDropdown');
-        
-        if (wallpaperDropdown) wallpaperDropdown.classList.remove('show');
-        if (fontDropdown) fontDropdown.classList.remove('show');
-        if (colorDropdown) colorDropdown.classList.remove('show');
+        const dropdowns = ['wallpaperDropdown', 'fontDropdown', 'colorDropdown'];
+        dropdowns.forEach(id => {
+            const dropdown = document.getElementById(id);
+            if (dropdown) dropdown.classList.remove('show');
+        });
         
         this.elements.musicDropdown.classList.toggle('show');
     }

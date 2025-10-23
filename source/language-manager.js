@@ -738,8 +738,7 @@ class LanguageManager {
     
     // Load saved language from localStorage
     loadLanguage() {
-        const saved = localStorage.getItem('pokedatammo_language');
-        return saved || 'es'; // Default to Spanish
+        return localStorage.getItem('pokedatammo_language') || 'es'; // Default to Spanish
     }
     
     // Save language to localStorage
