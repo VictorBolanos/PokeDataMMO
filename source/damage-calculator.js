@@ -39,6 +39,7 @@ class DamageCalculator {
         this.setupEventListeners();
         this.setupGlobalMoveUpdateListener();
         this.initPokemonSlots();
+        this.setupAutoSaveListeners();
         await this.loadFromCache();
     }
 
@@ -1565,6 +1566,9 @@ class DamageCalculator {
     selectSlot(slotIndex) {
         if (slotIndex >= this.pokemonSlots.length) return;
         
+        // IMPORTANTE: Guardar datos del slot actual ANTES de cambiar
+        this.saveCurrentSlotData();
+        
         this.activeSlotIndex = slotIndex;
         this.renderPokemonSlots();
         
@@ -1574,6 +1578,49 @@ class DamageCalculator {
             this.loadPokemonFromSlot(slot);
         } else {
             this.clearPokemon1();
+        }
+    }
+    
+    /**
+     * Guardar datos del slot actual antes de cambiar
+     */
+    saveCurrentSlotData() {
+        if (this.activeSlotIndex >= this.pokemonSlots.length) return;
+        
+        const slot = this.pokemonSlots[this.activeSlotIndex];
+        if (slot && slot.pokemon && this.currentPokemon1) {
+            // Guardar TODOS los datos actuales del Pokémon 1 en el slot activo
+            slot.data = {
+                // Datos básicos del Pokémon
+                pokemon: this.currentPokemon1,
+                
+                // Stats completos (EVs e IVs)
+                stats: this.getStatsValues(1),
+                
+                // Movimientos (IDs)
+                moves: [...window.damageCalcData.pokemons[0].moves],
+                
+                // Item
+                item: window.damageCalcData.pokemons[0].item,
+                
+                // Nivel
+                level: document.getElementById('pokemon1Level')?.value || '100',
+                
+                // HP actual
+                hp: document.getElementById('pokemon1HpSlider')?.value || '100',
+                
+                // Naturaleza
+                nature: document.getElementById('pokemon1Nature')?.value || null,
+                
+                // Habilidad
+                ability: document.getElementById('pokemon1Ability')?.value || null,
+                
+                // Timestamp para debugging
+                timestamp: Date.now()
+            };
+            
+            // Guardar en caché inmediatamente
+            this.saveSlotsToCache();
         }
     }
     
@@ -1640,7 +1687,7 @@ class DamageCalculator {
         await this.selectPokemon(slotData.pokemon, 1);
         
         // Esperar un poco para que se cargue el Pokémon
-        await new Promise(resolve => setTimeout(resolve, 100));
+        await new Promise(resolve => setTimeout(resolve, 200));
         
         // Restaurar TODOS los datos guardados
         if (slotData.data) {
@@ -1698,6 +1745,9 @@ class DamageCalculator {
             
             // Recalcular stats finales
             this.updateStats(1);
+            
+            // Actualizar el slot con los datos restaurados
+            slotData.data.timestamp = Date.now();
         }
     }
     
@@ -1837,11 +1887,11 @@ class DamageCalculator {
         if (this.activeSlotIndex >= this.pokemonSlots.length) return;
         
         const slot = this.pokemonSlots[this.activeSlotIndex];
-        if (slot && slot.pokemon) {
+        if (slot && slot.pokemon && this.currentPokemon1) {
             // Actualizar solo los datos, no el Pokémon básico
             slot.data = {
                 // Datos básicos del Pokémon
-                pokemon: slot.pokemon,
+                pokemon: this.currentPokemon1,
                 
                 // Stats completos (EVs e IVs)
                 stats: this.getStatsValues(1),
@@ -1870,6 +1920,28 @@ class DamageCalculator {
             
             this.saveSlotsToCache();
         }
+    }
+    
+    /**
+     * Configurar listeners para guardado automático
+     */
+    setupAutoSaveListeners() {
+        // Guardar datos antes de cerrar la página
+        window.addEventListener('beforeunload', () => {
+            this.saveCurrentSlotData();
+        });
+        
+        // Guardar datos cuando se cambia de pestaña
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                this.saveCurrentSlotData();
+            }
+        });
+        
+        // Guardar datos periódicamente cada 30 segundos
+        setInterval(() => {
+            this.saveCurrentSlotData();
+        }, 30000);
     }
     
     /**
