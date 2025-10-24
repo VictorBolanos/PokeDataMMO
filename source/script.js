@@ -26,6 +26,7 @@ async function initializeApp() {
     initializePVPTeams();
     initializeHomePage();
     initializeHamburgerMenu();
+    initializeMusicPlayer();
 }
 
 // TAB SYSTEM
@@ -102,8 +103,31 @@ function initializeWallpaper() {
     
     wallpaperBtn.addEventListener('click', (e) => {
         e.stopPropagation();
+        console.log('Wallpaper button clicked, toggling dropdown...');
         closeOtherDropdowns(['musicDropdown', 'fontDropdown', 'colorDropdown']);
         toggleDropdown(wallpaperDropdown);
+        console.log('Wallpaper dropdown classes:', wallpaperDropdown.classList.toString());
+        console.log('Wallpaper dropdown visible:', wallpaperDropdown.classList.contains('show'));
+        
+        // Debug: Verificar posición y estilos
+        if (wallpaperDropdown.classList.contains('show')) {
+            setTimeout(() => {
+                const rect = wallpaperDropdown.getBoundingClientRect();
+                const styles = window.getComputedStyle(wallpaperDropdown);
+                console.log('Wallpaper dropdown position:', {
+                    top: rect.top,
+                    left: rect.left,
+                    width: rect.width,
+                    height: rect.height,
+                    position: styles.position,
+                    display: styles.display,
+                    opacity: styles.opacity,
+                    visibility: styles.visibility,
+                    zIndex: styles.zIndex,
+                    transform: styles.transform
+                });
+            }, 50);
+        }
     });
     
     closeBtn.addEventListener('click', () => closeDropdown(wallpaperDropdown));
@@ -655,8 +679,31 @@ function initializeFont() {
     // Toggle dropdown
     fontBtn.addEventListener('click', (e) => {
         e.stopPropagation();
+        console.log('Font button clicked, toggling dropdown...');
         closeOtherDropdowns(['colorDropdown', 'wallpaperDropdown', 'musicDropdown']);
         fontDropdown.classList.toggle('show');
+        console.log('Font dropdown classes:', fontDropdown.classList.toString());
+        console.log('Font dropdown visible:', fontDropdown.classList.contains('show'));
+        
+        // Debug: Verificar posición y estilos
+        if (fontDropdown.classList.contains('show')) {
+            setTimeout(() => {
+                const rect = fontDropdown.getBoundingClientRect();
+                const styles = window.getComputedStyle(fontDropdown);
+                console.log('Font dropdown position:', {
+                    top: rect.top,
+                    left: rect.left,
+                    width: rect.width,
+                    height: rect.height,
+                    position: styles.position,
+                    display: styles.display,
+                    opacity: styles.opacity,
+                    visibility: styles.visibility,
+                    zIndex: styles.zIndex,
+                    transform: styles.transform
+                });
+            }, 50);
+        }
     });
     
     // Close dropdown
@@ -703,8 +750,35 @@ function initializeColor() {
     // Toggle dropdown
     colorBtn.addEventListener('click', (e) => {
         e.stopPropagation();
+        console.log('Color button clicked, toggling dropdown...');
         closeOtherDropdowns(['fontDropdown', 'wallpaperDropdown', 'musicDropdown']);
         colorDropdown.classList.toggle('show');
+        console.log('Color dropdown classes:', colorDropdown.classList.toString());
+        console.log('Color dropdown visible:', colorDropdown.classList.contains('show'));
+        
+        // Debug: Verificar posición y estilos
+        if (colorDropdown.classList.contains('show')) {
+            setTimeout(() => {
+                const rect = colorDropdown.getBoundingClientRect();
+                const styles = window.getComputedStyle(colorDropdown);
+                console.log('Color dropdown position:', {
+                    top: rect.top,
+                    left: rect.left,
+                    width: rect.width,
+                    height: rect.height,
+                    position: styles.position,
+                    display: styles.display,
+                    opacity: styles.opacity,
+                    visibility: styles.visibility,
+                    zIndex: styles.zIndex,
+                    transform: styles.transform
+                });
+                console.log('Viewport size:', {
+                    width: window.innerWidth,
+                    height: window.innerHeight
+                });
+            }, 50);
+        }
     });
     
     // Close dropdown
@@ -1615,12 +1689,31 @@ function initializeHomePage() {
     // La página home ya está como tab-pane activo por defecto
 }
 
+// ===== MUSIC PLAYER INITIALIZATION =====
+function initializeMusicPlayer() {
+    console.log('Initializing music player...');
+    // El music player se inicializa automáticamente en music-player.js
+    // Solo verificamos que esté disponible
+    if (window.MusicPlayer) {
+        console.log('Music player class available');
+    } else {
+        console.error('Music player class not available!');
+    }
+}
+
 // ===== MENÚ HAMBURGUESA =====
 function initializeHamburgerMenu() {
+    console.log('Initializing hamburger menu...');
     const hamburgerBtn = document.getElementById('hamburgerMenuBtn');
     const hamburgerDropdown = document.getElementById('hamburgerMenuDropdown');
     
-    if (!hamburgerBtn || !hamburgerDropdown) return;
+    console.log('Hamburger button found:', hamburgerBtn);
+    console.log('Hamburger dropdown found:', hamburgerDropdown);
+    
+    if (!hamburgerBtn || !hamburgerDropdown) {
+        console.error('Hamburger menu elements not found!');
+        return;
+    }
     
     // Clonar user pill al contenedor móvil
     cloneUserPillToMobile();
@@ -1693,10 +1786,14 @@ function syncHamburgerMenu() {
 }
 
 function setupHamburgerMenuListeners() {
+    console.log('Setting up hamburger menu listeners...');
+    
     // Language - SÍ cerrar menú (no abre dropdown)
     const hamburgerLanguageBtn = document.getElementById('hamburgerLanguageBtn');
+    console.log('Hamburger Language button found:', hamburgerLanguageBtn);
     if (hamburgerLanguageBtn) {
         hamburgerLanguageBtn.addEventListener('click', () => {
+            console.log('Hamburger Language clicked');
             toggleLanguage();
             syncHamburgerMenu();
             translateHamburgerMenu();
@@ -1704,25 +1801,55 @@ function setupHamburgerMenuListeners() {
         });
     }
     
-    // Color - NO cerrar menú (abre dropdown)
+    // Color - CERRAR menú y abrir dropdown
     const hamburgerColorBtn = document.getElementById('hamburgerColorBtn');
+    console.log('Hamburger Color button found:', hamburgerColorBtn);
     if (hamburgerColorBtn) {
         hamburgerColorBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            const colorBtn = document.getElementById('colorSelectorBtn');
-            if (colorBtn) colorBtn.click();
-            // NO cerrar menú
+            console.log('Hamburger Color clicked');
+            
+            // Cerrar menú hamburguesa primero
+            closeHamburgerMenu();
+            
+            // Pequeño delay para que el menú se cierre antes de abrir el dropdown
+            setTimeout(() => {
+                const colorBtn = document.getElementById('colorSelectorBtn');
+                console.log('Color button found:', colorBtn);
+                if (colorBtn) {
+                    console.log('Clicking color button...');
+                    console.log('Window width:', window.innerWidth);
+                    console.log('Is mobile view:', window.innerWidth <= 450);
+                    colorBtn.click();
+                } else {
+                    console.error('Color button not found!');
+                }
+            }, 100);
         });
     }
     
-    // Font - NO cerrar menú (abre dropdown)
+    // Font - CERRAR menú y abrir dropdown
     const hamburgerFontBtn = document.getElementById('hamburgerFontBtn');
+    console.log('Hamburger Font button found:', hamburgerFontBtn);
     if (hamburgerFontBtn) {
         hamburgerFontBtn.addEventListener('click', (e) => {
             e.stopPropagation();
+            console.log('Hamburger Font clicked');
+            
+            // Cerrar menú hamburguesa primero
+            closeHamburgerMenu();
+            
+            // Pequeño delay para que el menú se cierre antes de abrir el dropdown
+            setTimeout(() => {
             const fontBtn = document.getElementById('fontSelectorBtn');
-            if (fontBtn) fontBtn.click();
-            // NO cerrar menú
+                console.log('Font button found:', fontBtn);
+                if (fontBtn) {
+                    console.log('Clicking font button...');
+                    fontBtn.click();
+                } else {
+                    console.error('Font button not found!');
+                }
+            }, 100);
         });
     }
     
@@ -1737,25 +1864,53 @@ function setupHamburgerMenuListeners() {
         });
     }
     
-    // Wallpaper - NO cerrar menú (abre dropdown)
+    // Wallpaper - CERRAR menú y abrir dropdown
     const hamburgerWallpaperBtn = document.getElementById('hamburgerWallpaperBtn');
+    console.log('Hamburger Wallpaper button found:', hamburgerWallpaperBtn);
     if (hamburgerWallpaperBtn) {
         hamburgerWallpaperBtn.addEventListener('click', (e) => {
             e.stopPropagation();
+            console.log('Hamburger Wallpaper clicked');
+            
+            // Cerrar menú hamburguesa primero
+            closeHamburgerMenu();
+            
+            // Pequeño delay para que el menú se cierre antes de abrir el dropdown
+            setTimeout(() => {
             const wallpaperBtn = document.getElementById('wallpaperBtn');
-            if (wallpaperBtn) wallpaperBtn.click();
-            // NO cerrar menú
+                console.log('Wallpaper button found:', wallpaperBtn);
+                if (wallpaperBtn) {
+                    console.log('Clicking wallpaper button...');
+                    wallpaperBtn.click();
+                } else {
+                    console.error('Wallpaper button not found!');
+                }
+            }, 100);
         });
     }
     
-    // Music - NO cerrar menú (abre dropdown)
+    // Music - CERRAR menú y abrir dropdown
     const hamburgerMusicBtn = document.getElementById('hamburgerMusicBtn');
+    console.log('Hamburger Music button found:', hamburgerMusicBtn);
     if (hamburgerMusicBtn) {
         hamburgerMusicBtn.addEventListener('click', (e) => {
             e.stopPropagation();
+            console.log('Hamburger Music clicked');
+            
+            // Cerrar menú hamburguesa primero
+            closeHamburgerMenu();
+            
+            // Pequeño delay para que el menú se cierre antes de abrir el dropdown
+            setTimeout(() => {
             const musicBtn = document.getElementById('musicBtn');
-            if (musicBtn) musicBtn.click();
-            // NO cerrar menú
+                console.log('Music button found:', musicBtn);
+                if (musicBtn) {
+                    console.log('Clicking music button...');
+                    musicBtn.click();
+                } else {
+                    console.error('Music button not found!');
+                }
+            }, 100);
         });
     }
 }

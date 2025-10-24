@@ -790,6 +790,11 @@ class DamageCalculator {
 
     // Manejar cambio en slider de HP
     handleHpSliderChange(event, sliderId) {
+        // Validar que sliderId sea una cadena
+        if (typeof sliderId !== 'string') {
+            sliderId = String(sliderId);
+        }
+        
         const pokemonNum = sliderId.includes('1') ? 1 : 2;
         const currentHp = parseInt(event.target.value);
         const maxHp = parseInt(document.getElementById(`pokemon${pokemonNum}HpFinal`).textContent);
@@ -1702,7 +1707,7 @@ class DamageCalculator {
                 const hpSlider = document.getElementById('pokemon1HpSlider');
                 if (hpSlider) {
                     hpSlider.value = slotData.data.hp;
-                    this.handleHpSliderChange({ target: hpSlider }, 1);
+                    this.handleHpSliderChange({ target: hpSlider }, 'pokemon1HpSlider');
                 }
             }
             
