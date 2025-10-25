@@ -146,9 +146,9 @@ function loadWallpapers() {
         '131 lapras', '132 ditto', '133 eevee', '134 vaporeon', '135 jolteon', '136 flareon',
         '137 porygon', '143 snorlax', '144 articuno', '145 zapdos', '146 moltres', '149 dragonite',
         '150 mewtwo', '151 mew', '154 meganium', '157 typhlosion', '160 feraligatr', '169 crobat',
-        '196 espeon', '197 umbreon', '201 unown', '224 octillery', '227 skarmory', '243 raikou', '244 entei', '245 suicune',
+        '196 espeon', '197 umbreon', '201 unown', '224 octillery', '227 skarmory', '242 blissey', '243 raikou', '244 entei', '245 suicune',
         '248 tyranitar', '249 lugia', '250 ho-oh', '251 celebi', '254 sceptile', '257 blaziken', '260 swampert',
-        '282 gardevoir', '291 ninjask', '303 mawile', '321 wailord', '330 flygon', '337 lunatone', '359 absol', '350 milotic', '373 salamence', '376 metagross', '380 latias',
+        '282 gardevoir', '291 ninjask', '302 sableye', '303 mawile', '321 wailord', '330 flygon', '337 lunatone', '338 solrock', '359 absol', '350 milotic', '373 salamence', '376 metagross', '380 latias',
         '381 latios', '382 kyogre', '383 groudon', '384 rayquaza', '386 deoxys-n', '389 torterra',
         '392 infernape', '395 empoleon', '442 spiritomb', '445 garchomp', '448 lucario', '468 togekiss', '470 leafeon',
         '471 glaceon', '472 gliscor', '479 rotom-normal', '483 dialga', '484 palkia', '485 heatran', '487 giratina-origin', '491 darkrai', '493 arceus', '494 victini',
@@ -810,15 +810,13 @@ class CustomColorPicker {
             colorRgbDisplay: null,
             presetColorsGrid: null,
             resetBtn: null,
-            applyBtn: null
         };
         
         this.presetColors = [
-            '#ffffff', '#f3f4f6', '#e5e7eb', '#d1d5db', '#9ca3af', '#6b7280',
-            '#ef4444', '#f97316', '#eab308', '#22c55e', '#06b6d4', '#3b82f6',
-            '#8b5cf6', '#ec4899', '#000000', '#374151', '#4b5563', '#6b7280',
-            '#dc2626', '#ea580c', '#ca8a04', '#16a34a', '#0891b2', '#2563eb',
-            '#7c3aed', '#db2777', '#111827', '#1f2937', '#374151', '#4b5563'
+            // Primera fila (6 colores)
+            '#ffffff', '#000000', '#ef4444', '#f97316', '#eab308', '#90ee90',
+            // Segunda fila (6 colores)  
+            '#22c55e', '#40e0d0', '#06b6d4', '#1e3a8a', '#8b5cf6', '#ec4899'
         ];
     }
     
@@ -843,7 +841,6 @@ class CustomColorPicker {
         this.elements.colorRgbDisplay = document.getElementById('colorRgbDisplay');
         this.elements.presetColorsGrid = document.getElementById('presetColorsGrid');
         this.elements.resetBtn = document.getElementById('resetColorBtn');
-        this.elements.applyBtn = document.getElementById('applyColorBtn');
     }
     
     setupEventListeners() {
@@ -870,10 +867,6 @@ class CustomColorPicker {
             this.resetToDefault();
         });
         
-        // Apply button
-        this.elements.applyBtn.addEventListener('click', () => {
-            this.applyColor();
-        });
     }
     
     renderPresetColors() {
@@ -1017,33 +1010,6 @@ class CustomColorPicker {
         }
     }
     
-    applyColor() {
-        // Apply the color theme (this is now just for the button, but real-time is already working)
-        applyCustomColorTheme(this.currentColor);
-        
-        // Close dropdown
-        document.getElementById('colorDropdown').classList.remove('show');
-        hideMobileOverlay();
-        
-        // Show success feedback
-        this.showApplyFeedback();
-    }
-    
-    showApplyFeedback() {
-        const applyBtn = this.elements.applyBtn;
-        const originalText = applyBtn.innerHTML;
-        
-        applyBtn.innerHTML = `
-            <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-            </svg>
-            Saved!
-        `;
-        
-        setTimeout(() => {
-            applyBtn.innerHTML = originalText;
-        }, 1500);
-    }
     
     setColorFromHex(hex) {
         const hsl = this.hexToHsl(hex);

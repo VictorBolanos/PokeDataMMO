@@ -1511,18 +1511,6 @@ footer.footer-custom {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-.apply-btn {
-    background: var(--primary-color);
-    color: white;
-    border: 1px solid var(--primary-color);
-}
-
-.apply-btn:hover {
-    background: var(--primary-hover);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
-
 /* Light Theme Adjustments */
 body.light-theme .color-preview-section {
     background: rgba(0, 0, 0, 0.05);
