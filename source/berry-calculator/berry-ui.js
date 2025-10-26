@@ -1392,8 +1392,8 @@ class BerryUI {
         document.getElementById(`harvestTime_${berryType}`).value = 
             harvestTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
 
-        // Tiempo de pérdida (6 horas después de la cosecha)
-        const lossTime = new Date(harvestTime.getTime() + (6 * 60 * 60 * 1000));
+        // Tiempo de pérdida (16h para Meloc/Safre/Zreza, 20h para Zanamas desde la plantación)
+        const lossTime = new Date(plantDate.getTime() + (phase.cycle * 60 * 60 * 1000));
         document.getElementById(`lossTime_${berryType}`).textContent = 
             lossTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
     }
@@ -1415,8 +1415,8 @@ class BerryUI {
             document.getElementById(`harvestTime_${berryType}`).value = 
                 harvestTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
 
-            // Tiempo de pérdida (6 horas después de la cosecha)
-            const lossTime = new Date(harvestTime.getTime() + (6 * 60 * 60 * 1000));
+            // Tiempo de pérdida (16h para Meloc/Safre/Zreza, 20h para Zanamas desde la plantación)
+            const lossTime = new Date(plantDate.getTime() + (phase.cycle * 60 * 60 * 1000));
             document.getElementById(`lossTime_${berryType}`).textContent = 
                 lossTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
         }
@@ -1432,8 +1432,8 @@ class BerryUI {
             document.getElementById(`harvestTime_${berryType}`).value = 
                 harvestTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
 
-            // Tiempo de pérdida (6 horas después de la cosecha)
-            const lossTime = new Date(harvestTime.getTime() + (6 * 60 * 60 * 1000));
+            // Tiempo de pérdida (16h para Meloc/Safre/Zreza, 20h para Zanamas desde la plantación)
+            const lossTime = new Date(plantDate.getTime() + (phase.cycle * 60 * 60 * 1000));
             document.getElementById(`lossTime_${berryType}`).textContent = 
                 lossTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
         }
@@ -1441,10 +1441,15 @@ class BerryUI {
 
     // Calcular desde cosecha
     calculateFromHarvestTime(berryType, harvestDate, phase) {
-        // Tiempo de pérdida (6 horas después de la cosecha)
-        const lossTime = new Date(harvestDate.getTime() + (6 * 60 * 60 * 1000));
-        document.getElementById(`lossTime_${berryType}`).textContent = 
-            lossTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
+        // Tiempo de pérdida se calcula desde la hora de plantación
+        const plantTime = document.getElementById(`plantTime_${berryType}`).value;
+        if (plantTime) {
+            const plantDate = new Date(`2000-01-01T${plantTime}:00`);
+            // Tiempo de pérdida (16h para Meloc/Safre/Zreza, 20h para Zanamas desde la plantación)
+            const lossTime = new Date(plantDate.getTime() + (phase.cycle * 60 * 60 * 1000));
+            document.getElementById(`lossTime_${berryType}`).textContent = 
+                lossTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
+        }
     }
 
     // Calcular y renderizar resultados
