@@ -43,19 +43,8 @@ class CustomDropdowns {
         const prefix = type === 'move' ? `moveSelect` : `itemSelect`;
         const suffix = type === 'move' ? `_${slotIndex}_${moveIndex}` : `_${slotIndex}`;
         
-        // Remover listeners específicos de este dropdown
-        const trigger = document.getElementById(`${prefix}Trigger${suffix}`);
-        const dropdown = document.getElementById(`${prefix}Dropdown${suffix}`);
-        
-        if (trigger) {
-            const newTrigger = trigger.cloneNode(true);
-            trigger.parentNode.replaceChild(newTrigger, trigger);
-        }
-        
-        if (dropdown) {
-            const newDropdown = dropdown.cloneNode(true);
-            dropdown.parentNode.replaceChild(newDropdown, dropdown);
-        }
+        // ⚠️ **CRÍTICO**: NO LIMPIAR dropdowns nuevos o iniciales
+        // Solo limpiar si ya existen listeners previos (evitar re-inicializaciones infinitas)
         
         // Limpiar del body si existe
         const existingDropdown = document.querySelector(`#${prefix}Dropdown${suffix}`);
@@ -203,19 +192,30 @@ class CustomDropdowns {
      * Inicializar dropdown de movimientos
      */
     async initMoveSelect(slotIndex, moveIndex, selectedMove = '') {
-        const trigger = document.getElementById(`moveSelectTrigger_${slotIndex}_${moveIndex}`);
-        const dropdown = document.getElementById(`moveSelectDropdown_${slotIndex}_${moveIndex}`);
+        const triggerId = `moveSelectTrigger_${slotIndex}_${moveIndex}`;
+        const dropdownId = `moveSelectDropdown_${slotIndex}_${moveIndex}`;
+        
+        const trigger = document.getElementById(triggerId);
+        const dropdown = document.getElementById(dropdownId);
         const searchInput = document.getElementById(`moveSearch_${slotIndex}_${moveIndex}`);
         const optionsContainer = document.getElementById(`moveOptions_${slotIndex}_${moveIndex}`);
 
-        if (!trigger || !dropdown) return;
+        if (!trigger || !dropdown) {
+            return;
+        }
 
-        // ✅ SOLUCIÓN: Limpiar listeners existentes y elementos
-        this.cleanupDropdown(slotIndex, moveIndex, 'move');
+        // ⚠️ Verificar si ya tiene listener (evitar duplicados)
+        const hasListener = trigger.hasAttribute('data-listener-attached');
         
-        // Actualizar referencias
-        const finalTrigger = document.getElementById(`moveSelectTrigger_${slotIndex}_${moveIndex}`);
-        const finalDropdown = document.getElementById(`moveSelectDropdown_${slotIndex}_${moveIndex}`);
+        // Limpiar listeners existentes si ya fueron agregados
+        if (hasListener) {
+            const newTrigger = trigger.cloneNode(true);
+            trigger.parentNode.replaceChild(newTrigger, trigger);
+        }
+        
+        // Actualizar referencias después de limpiar
+        const finalTrigger = document.getElementById(triggerId);
+        const finalDropdown = document.getElementById(dropdownId);
         const finalSearchInput = document.getElementById(`moveSearch_${slotIndex}_${moveIndex}`);
         const finalOptionsContainer = document.getElementById(`moveOptions_${slotIndex}_${moveIndex}`);
 
@@ -250,6 +250,7 @@ class CustomDropdowns {
             e.stopPropagation();
             this.toggleDropdown(finalDropdown);
         });
+        finalTrigger.setAttribute('data-listener-attached', 'true');
 
         // Búsqueda - Solo en los movimientos del Pokémon
         if (finalSearchInput) {
@@ -414,8 +415,11 @@ class CustomDropdowns {
      * Inicializar dropdown de objetos
      */
     async initItemSelect(slotIndex, selectedItem = '') {
-        const trigger = document.getElementById(`itemSelectTrigger_${slotIndex}`);
-        const dropdown = document.getElementById(`itemSelectDropdown_${slotIndex}`);
+        const triggerId = `itemSelectTrigger_${slotIndex}`;
+        const dropdownId = `itemSelectDropdown_${slotIndex}`;
+        
+        const trigger = document.getElementById(triggerId);
+        const dropdown = document.getElementById(dropdownId);
         const searchInput = document.getElementById(`itemSearch_${slotIndex}`);
         const optionsContainer = document.getElementById(`itemOptions_${slotIndex}`);
 
@@ -423,12 +427,18 @@ class CustomDropdowns {
             return;
         }
 
-        // ✅ SOLUCIÓN: Limpiar listeners existentes y elementos
-        this.cleanupDropdown(slotIndex, null, 'item');
+        // ⚠️ Verificar si ya tiene listener (evitar duplicados)
+        const hasListener = trigger.hasAttribute('data-listener-attached');
         
-        // Actualizar referencias
-        const finalTrigger = document.getElementById(`itemSelectTrigger_${slotIndex}`);
-        const finalDropdown = document.getElementById(`itemSelectDropdown_${slotIndex}`);
+        // Limpiar listeners existentes si ya fueron agregados
+        if (hasListener) {
+            const newTrigger = trigger.cloneNode(true);
+            trigger.parentNode.replaceChild(newTrigger, trigger);
+        }
+        
+        // Actualizar referencias después de limpiar
+        const finalTrigger = document.getElementById(triggerId);
+        const finalDropdown = document.getElementById(dropdownId);
         const finalSearchInput = document.getElementById(`itemSearch_${slotIndex}`);
         const finalOptionsContainer = document.getElementById(`itemOptions_${slotIndex}`);
 
@@ -470,6 +480,7 @@ class CustomDropdowns {
             }
             this.toggleDropdown(finalDropdown);
         });
+        finalTrigger.setAttribute('data-listener-attached', 'true');
 
         // Búsqueda
         if (finalSearchInput) {

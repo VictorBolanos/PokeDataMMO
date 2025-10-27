@@ -359,9 +359,17 @@ class BerryUI {
                 if (schedule.harvestTime && schedule.harvestTime !== '-') {
                     const harvestInput = document.getElementById(`harvestTime_${berryName}`);
                     if (harvestInput) harvestInput.value = schedule.harvestTime;
+                    
+                    // Calcular tiempo de pérdida (6 horas después de la cosecha)
+                    const harvestDate = new Date(`2000-01-01T${schedule.harvestTime}:00`);
+                    const lossTime = new Date(harvestDate.getTime() + (6 * 60 * 60 * 1000));
+                    const lossDisplay = document.getElementById(`lossTime_${berryName}`);
+                    if (lossDisplay) {
+                        lossDisplay.textContent = lossTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
+                    }
                 }
                 
-                if (schedule.harvestUnits && schedule.harvestUnits !== 0) {
+                if (schedule.harvestUnits && schedule.harvestUnits > 0) {
                     const unitsInput = document.getElementById(`harvestUnits_${berryName}`);
                     if (unitsInput) unitsInput.value = schedule.harvestUnits;
                 }
@@ -373,12 +381,12 @@ class BerryUI {
             data.seedsProfits.forEach(seed => {
                 const seedName = seed.seedName;
                 
-                if (seed.harvest !== undefined) {
+                if (seed.harvest !== undefined && seed.harvest > 0) {
                     const harvestInput = document.getElementById(`harvest_${seedName}`);
                     if (harvestInput) harvestInput.value = seed.harvest;
                 }
                 
-                if (seed.sellingPrice !== undefined) {
+                if (seed.sellingPrice !== undefined && seed.sellingPrice > 0) {
                     const priceInput = document.getElementById(`price_${seedName}`);
                     if (priceInput) priceInput.value = seed.sellingPrice;
                 }
@@ -392,15 +400,24 @@ class BerryUI {
                 // Limpiar inputs existentes
                 container.innerHTML = '';
                 
+                // Filtrar solo costos mayores a 0
+                const validCosts = data.purchaseCosts.filter(cost => cost > 0);
+                
+                // Si no hay costos, crear un input vacío con botón +
+                if (validCosts.length === 0) {
+                    validCosts.push('');
+                }
+                
                 // Crear inputs para cada costo
-                data.purchaseCosts.forEach((cost, index) => {
+                validCosts.forEach((cost, index) => {
                     const inputGroup = document.createElement('div');
                     inputGroup.className = 'cost-input-group';
+                    const value = cost > 0 ? cost : '';
                     inputGroup.innerHTML = `
                         <div class="currency-input-group">
                             <span class="currency-symbol">₽</span>
                             <input type="number" class="form-control form-control-sm purchase-cost-input currency-input" 
-                                   placeholder="0" min="0" step="1" value="${cost}">
+                                   placeholder="0" min="0" step="1" value="${value}">
                         </div>
                         <button class="btn btn-sm btn-outline-${index === 0 ? 'primary add-purchase-cost-btn' : 'danger remove-purchase-cost-btn'}">
                             ${index === 0 ? '+' : '-'}
@@ -425,6 +442,7 @@ class BerryUI {
                 // Manejar diferentes formatos de managementCosts
                 let costsArray = [];
                 if (Array.isArray(data.managementCosts)) {
+                    // Solo agregar costos mayores a 0
                     costsArray = data.managementCosts.filter(cost => cost > 0);
                 } else if (typeof data.managementCosts === 'object') {
                     // Si es un objeto, extraer valores numéricos
@@ -435,20 +453,21 @@ class BerryUI {
                     });
                 }
                 
-                // Si no hay costos, crear un input vacío
+                // Si no hay costos, crear un input vacío con botón +
                 if (costsArray.length === 0) {
-                    costsArray = [0];
+                    costsArray.push('');
                 }
                 
                 // Crear inputs para cada costo
                 costsArray.forEach((cost, index) => {
                     const inputGroup = document.createElement('div');
                     inputGroup.className = 'cost-input-group';
+                    const value = cost > 0 ? cost : '';
                     inputGroup.innerHTML = `
                         <div class="currency-input-group">
                             <span class="currency-symbol">₽</span>
                             <input type="number" class="form-control form-control-sm management-cost-input currency-input" 
-                                   placeholder="0" min="0" step="1" value="${cost}">
+                                   placeholder="0" min="0" step="1" value="${value}">
                         </div>
                         <button class="btn btn-sm btn-outline-${index === 0 ? 'primary add-management-cost-btn' : 'danger remove-management-cost-btn'}">
                             ${index === 0 ? '+' : '-'}
@@ -691,14 +710,16 @@ class BerryUI {
         // Costos de compra
         data.purchaseCosts = [];
         document.querySelectorAll('.purchase-cost-input').forEach(input => {
-            const value = parseInt(input.value) || 0;
+            const rawValue = input.value.replace(/\./g, '').replace(/₽/g, '').trim();
+            const value = parseInt(rawValue) || 0;
             if (value > 0) data.purchaseCosts.push(value);
         });
 
         // Costos de gestión
         data.managementCosts = [];
         document.querySelectorAll('.management-cost-input').forEach(input => {
-            const value = parseInt(input.value) || 0;
+            const rawValue = input.value.replace(/\./g, '').replace(/₽/g, '').trim();
+            const value = parseInt(rawValue) || 0;
             if (value > 0) data.managementCosts.push(value);
         });
 
@@ -1392,8 +1413,8 @@ class BerryUI {
         document.getElementById(`harvestTime_${berryType}`).value = 
             harvestTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
 
-        // Tiempo de pérdida (16h para Meloc/Safre/Zreza, 20h para Zanamas desde la plantación)
-        const lossTime = new Date(plantDate.getTime() + (phase.cycle * 60 * 60 * 1000));
+        // Tiempo de pérdida (SIEMPRE 6 horas después de la cosecha)
+        const lossTime = new Date(harvestTime.getTime() + (6 * 60 * 60 * 1000));
         document.getElementById(`lossTime_${berryType}`).textContent = 
             lossTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
     }
@@ -1415,8 +1436,8 @@ class BerryUI {
             document.getElementById(`harvestTime_${berryType}`).value = 
                 harvestTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
 
-            // Tiempo de pérdida (16h para Meloc/Safre/Zreza, 20h para Zanamas desde la plantación)
-            const lossTime = new Date(plantDate.getTime() + (phase.cycle * 60 * 60 * 1000));
+            // Tiempo de pérdida (SIEMPRE 6 horas después de la cosecha)
+            const lossTime = new Date(harvestTime.getTime() + (6 * 60 * 60 * 1000));
             document.getElementById(`lossTime_${berryType}`).textContent = 
                 lossTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
         }
@@ -1432,8 +1453,8 @@ class BerryUI {
             document.getElementById(`harvestTime_${berryType}`).value = 
                 harvestTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
 
-            // Tiempo de pérdida (16h para Meloc/Safre/Zreza, 20h para Zanamas desde la plantación)
-            const lossTime = new Date(plantDate.getTime() + (phase.cycle * 60 * 60 * 1000));
+            // Tiempo de pérdida (SIEMPRE 6 horas después de la cosecha)
+            const lossTime = new Date(harvestTime.getTime() + (6 * 60 * 60 * 1000));
             document.getElementById(`lossTime_${berryType}`).textContent = 
                 lossTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
         }
@@ -1441,15 +1462,10 @@ class BerryUI {
 
     // Calcular desde cosecha
     calculateFromHarvestTime(berryType, harvestDate, phase) {
-        // Tiempo de pérdida se calcula desde la hora de plantación
-        const plantTime = document.getElementById(`plantTime_${berryType}`).value;
-        if (plantTime) {
-            const plantDate = new Date(`2000-01-01T${plantTime}:00`);
-            // Tiempo de pérdida (16h para Meloc/Safre/Zreza, 20h para Zanamas desde la plantación)
-            const lossTime = new Date(plantDate.getTime() + (phase.cycle * 60 * 60 * 1000));
-            document.getElementById(`lossTime_${berryType}`).textContent = 
-                lossTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
-        }
+        // Tiempo de pérdida (SIEMPRE 6 horas después de la cosecha)
+        const lossTime = new Date(harvestDate.getTime() + (6 * 60 * 60 * 1000));
+        document.getElementById(`lossTime_${berryType}`).textContent = 
+            lossTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
     }
 
     // Calcular y renderizar resultados
@@ -1551,12 +1567,12 @@ class BerryUI {
         Object.keys(profits).forEach(seedType => {
             const element = document.getElementById(`profit_${seedType}`);
             if (element) {
-                element.textContent = `₽${Math.round(profits[seedType]).toLocaleString('es-ES', {maximumFractionDigits: 0})}`;
+                element.textContent = `₽${Math.round(profits[seedType]).toLocaleString('es-ES', {maximumFractionDigits: 0, useGrouping: true})}`;
             }
         });
 
         // Actualizar total de ventas
-        document.getElementById('totalSales').textContent = `₽${Math.round(totalProfits).toLocaleString('es-ES', {maximumFractionDigits: 0})}`;
+        document.getElementById('totalSales').textContent = `₽${Math.round(totalProfits).toLocaleString('es-ES', {maximumFractionDigits: 0, useGrouping: true})}`;
     }
 
     // Calcular gastos
@@ -1581,29 +1597,29 @@ class BerryUI {
                     <img src="" alt="${berryType}" class="berry-sprite-small" data-berry="${berryType}">
                     <span class="berry-name">${this.getBerryDisplayName(berryType)}</span>
                 </div>
-                <span>₽${Math.round(costs[berryType]).toLocaleString('es-ES', {maximumFractionDigits: 0})}</span>
+                <span>₽${Math.round(costs[berryType]).toLocaleString('es-ES', {maximumFractionDigits: 0, useGrouping: true})}</span>
             </div>
         `).join('');
 
         // Cargar sprites de bayas en gastos de extracción
         this.loadExtractionBerrySprites();
 
-        document.getElementById('totalExtraction').textContent = `₽${Math.round(totalCost).toLocaleString('es-ES', {maximumFractionDigits: 0})}`;
+        document.getElementById('totalExtraction').textContent = `₽${Math.round(totalCost).toLocaleString('es-ES', {maximumFractionDigits: 0, useGrouping: true})}`;
 
         // Calcular totales de gastos manuales
         const purchaseCosts = this.calculateTotalPurchaseCosts();
         const managementCostsTotal = this.calculateTotalManagementCosts();
         
         // Actualizar totales en UI
-        document.getElementById('purchaseCosts').textContent = `₽${Math.round(purchaseCosts).toLocaleString('es-ES', {maximumFractionDigits: 0})}`;
-        document.getElementById('managementCosts').textContent = `₽${Math.round(managementCostsTotal).toLocaleString('es-ES', {maximumFractionDigits: 0})}`;
+        document.getElementById('purchaseCosts').textContent = `₽${Math.round(purchaseCosts).toLocaleString('es-ES', {maximumFractionDigits: 0, useGrouping: true})}`;
+        document.getElementById('managementCosts').textContent = `₽${Math.round(managementCostsTotal).toLocaleString('es-ES', {maximumFractionDigits: 0, useGrouping: true})}`;
 
         // Calcular total final (Total Ventas - Total Extracción - Total Compras - Total Gestión)
         const totalSales = parseInt(document.getElementById('totalSales').textContent.replace(/[₽,.]/g, '')) || 0;
         const totalExtraction = parseInt(document.getElementById('totalExtraction').textContent.replace(/[₽,.]/g, '')) || 0;
         const finalTotal = totalSales - totalExtraction - purchaseCosts - managementCostsTotal;
         
-        document.getElementById('finalTotal').textContent = `₽${Math.round(finalTotal).toLocaleString('es-ES', {maximumFractionDigits: 0})}`;
+        document.getElementById('finalTotal').textContent = `₽${Math.round(finalTotal).toLocaleString('es-ES', {maximumFractionDigits: 0, useGrouping: true})}`;
     }
 
     // Obtener nombre de baya para mostrar
@@ -1639,7 +1655,9 @@ class BerryUI {
         const purchaseInputs = document.querySelectorAll('.purchase-cost-input');
         let total = 0;
         purchaseInputs.forEach(input => {
-            total += parseInt(input.value) || 0;
+            // Remover puntos y obtener valor numérico
+            const rawValue = input.value.replace(/\./g, '').replace(/₽/g, '').trim();
+            total += parseInt(rawValue) || 0;
         });
         return total;
     }
@@ -1649,16 +1667,31 @@ class BerryUI {
         const managementInputs = document.querySelectorAll('.management-cost-input');
         let total = 0;
         managementInputs.forEach(input => {
-            total += parseInt(input.value) || 0;
+            // Remover puntos y obtener valor numérico
+            const rawValue = input.value.replace(/\./g, '').replace(/₽/g, '').trim();
+            total += parseInt(rawValue) || 0;
         });
         return total;
     }
 
     // Configurar event listeners para inputs de gastos
     setupExpenseInputListeners() {
-        // Event listeners para gastos de compra
+        // Event listeners para gastos de compra con formato de miles
         document.querySelectorAll('.purchase-cost-input').forEach(input => {
             input.addEventListener('input', () => {
+                // Obtener valor sin formato
+                const rawValue = input.value.replace(/\./g, '');
+                const numValue = parseInt(rawValue) || 0;
+                
+                // Si el usuario no está borrando, formatear con puntos
+                if (rawValue.length > 3 && numValue > 0) {
+                    const formatted = numValue.toLocaleString('es-ES');
+                    if (formatted !== input.value && formatted !== '0') {
+                        // Crear un input temporal para mantener el cursor
+                        input.value = formatted;
+                    }
+                }
+                
                 this.updatePurchaseCostsTotal();
                 this.calculateAndRender();
                 // Programar auto-save
@@ -1666,9 +1699,21 @@ class BerryUI {
             });
         });
 
-        // Event listeners para gastos de gestión
+        // Event listeners para gastos de gestión con formato de miles
         document.querySelectorAll('.management-cost-input').forEach(input => {
             input.addEventListener('input', () => {
+                // Obtener valor sin formato
+                const rawValue = input.value.replace(/\./g, '');
+                const numValue = parseInt(rawValue) || 0;
+                
+                // Si el usuario no está borrando, formatear con puntos
+                if (rawValue.length > 3 && numValue > 0) {
+                    const formatted = numValue.toLocaleString('es-ES');
+                    if (formatted !== input.value && formatted !== '0') {
+                        input.value = formatted;
+                    }
+                }
+                
                 this.updateManagementCostsTotal();
                 this.calculateAndRender();
                 // Programar auto-save
@@ -1805,13 +1850,13 @@ class BerryUI {
     // Actualizar total de gastos de compra
     updatePurchaseCostsTotal() {
         const total = this.calculateTotalPurchaseCosts();
-        document.getElementById('purchaseCosts').textContent = `₽${Math.round(total).toLocaleString('es-ES', {maximumFractionDigits: 0})}`;
+        document.getElementById('purchaseCosts').textContent = `₽${Math.round(total).toLocaleString('es-ES', {maximumFractionDigits: 0, useGrouping: true})}`;
     }
 
     // Actualizar total de gastos de gestión
     updateManagementCostsTotal() {
         const total = this.calculateTotalManagementCosts();
-        document.getElementById('managementCosts').textContent = `₽${Math.round(total).toLocaleString('es-ES', {maximumFractionDigits: 0})}`;
+        document.getElementById('managementCosts').textContent = `₽${Math.round(total).toLocaleString('es-ES', {maximumFractionDigits: 0, useGrouping: true})}`;
     }
 
     // ========================================

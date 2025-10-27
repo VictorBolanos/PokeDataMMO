@@ -20,10 +20,14 @@ class DamageCalculator {
         this.customDropdowns = null;
         this.isRestoring = false; // Flag para saber si estamos restaurando
         
-        // Sistema de slots de Pokémon
-        this.pokemonSlots = [];
-        this.maxSlots = 6;
-        this.activeSlotIndex = 0;
+        // Sistema de slots de comparación (LIMPIO)
+        this.comparisonSlots = []; // Array de slots [{pokemon, data}]
+        this.activeSlotIndex = 0; // Índice del slot activo (0-5)
+        this.MAX_SLOTS = 6;
+        this.MIN_SLOTS = 1;
+        
+        // Flag para evitar actualizar slot durante carga
+        this.isLoadingSlot = false;
         
         // Constantes de límites (igual que PVP Teams)
         this.MAX_EV_INDIVIDUAL = 252;
@@ -38,9 +42,19 @@ class DamageCalculator {
         await this.waitForDependencies();
         this.setupEventListeners();
         this.setupGlobalMoveUpdateListener();
-        this.initPokemonSlots();
-        this.setupAutoSaveListeners();
+        await this.initComparisonSlots(); // NUEVO: Inicializar slots y cargar slot activo
+        
+        // NO cargar desde caché genérico si tenemos slots
+        // Los slots ya tienen toda la info del Pokémon 1
+        // Solo cargar Pokémon 2 si existe en caché
+        const cached = localStorage.getItem('damageCalculatorState');
+        if (cached && !this.comparisonSlots.find(s => s.pokemon)) {
+            // Solo cargar cache si NO hay ningún slot con Pokémon
         await this.loadFromCache();
+        } else if (cached) {
+            // Cargar solo Pokémon 2 desde caché
+            await this.loadPokemon2FromCache();
+        }
     }
 
     // Esperar a que todas las dependencias estén cargadas
@@ -174,7 +188,7 @@ class DamageCalculator {
         document.getElementById('pokemon1Nature')?.addEventListener('change', () => {
             this.updateStats(1);
             this.saveToCache();
-            this.updateActiveSlotData(); // Actualizar slot activo
+            this.updateCurrentSlot(); // 🆕 Guardar en slot
         });
         
         document.getElementById('pokemon2Nature')?.addEventListener('change', () => {
@@ -185,7 +199,7 @@ class DamageCalculator {
         // Ability selects
         document.getElementById('pokemon1Ability')?.addEventListener('change', () => {
             this.saveToCache();
-            this.updateActiveSlotData(); // Actualizar slot activo
+            this.updateCurrentSlot(); // 🆕 Guardar en slot
         });
         
         document.getElementById('pokemon2Ability')?.addEventListener('change', () => {
@@ -222,7 +236,7 @@ class DamageCalculator {
                     this.handleEVChange(e, pokemonNum, stat);
                     this.updateStats(pokemonNum);
                     this.saveToCache();
-                    if (pokemonNum === 1) this.updateActiveSlotData(); // Actualizar slot activo
+                    if (pokemonNum === 1) this.updateCurrentSlot(); // 🆕 Guardar en slot
                 });
             }
             if (ivInput) {
@@ -230,7 +244,7 @@ class DamageCalculator {
                     this.handleIVChange(e, pokemonNum, stat);
                     this.updateStats(pokemonNum);
                     this.saveToCache();
-                    if (pokemonNum === 1) this.updateActiveSlotData(); // Actualizar slot activo
+                    if (pokemonNum === 1) this.updateCurrentSlot(); // 🆕 Guardar en slot
                 });
             }
         });
@@ -241,7 +255,7 @@ class DamageCalculator {
             levelInput.addEventListener('input', () => {
                 this.updateStats(pokemonNum);
                 this.saveToCache();
-                if (pokemonNum === 1) this.updateActiveSlotData(); // Actualizar slot activo
+                if (pokemonNum === 1) this.updateCurrentSlot(); // 🆕 Guardar en slot
             });
         }
     }
@@ -332,7 +346,7 @@ class DamageCalculator {
                 slider.addEventListener('input', (e) => {
                     this.handleHpSliderChange(e, sliderId);
                     this.saveToCache();
-                    if (sliderId === 'pokemon1HpSlider') this.updateActiveSlotData(); // Actualizar slot activo
+                    if (sliderId === 'pokemon1HpSlider') this.updateCurrentSlot(); // 🆕 Guardar en slot
                 });
             }
         });
@@ -543,8 +557,6 @@ class DamageCalculator {
             
             if (pokemonNum === 1) {
                 this.currentPokemon1 = pokemonObj;
-                // Actualizar slot activo cuando se selecciona Pokémon 1
-                this.updateActiveSlot(pokemonObj);
             } else {
                 this.currentPokemon2 = pokemonObj;
             }
@@ -561,6 +573,11 @@ class DamageCalculator {
             // Solo guardar si NO estamos restaurando
             if (!this.isRestoring) {
                 this.saveToCache();
+            }
+            
+            // 🆕 NUEVO: Actualizar slot si es Pokémon 1 (SOLO si NO estamos cargando desde slot)
+            if (pokemonNum === 1 && !this.isLoadingSlot) {
+                this.updateCurrentSlot();
             }
             
         } catch (error) {
@@ -665,11 +682,22 @@ class DamageCalculator {
             const { pokemonNum, moveNum, moveId } = event.detail;
             this.updateMoveSelectionButton(pokemonNum, moveNum, moveId);
             this.saveToCache();
+            
+            // 🆕 Guardar en slot si es Pokémon 1
+            if (pokemonNum === 1) {
+                this.updateCurrentSlot();
+            }
         });
         
         // Escuchar eventos de cambio de item
         window.addEventListener('damageCalcItemChanged', (event) => {
             this.saveToCache();
+            
+            // 🆕 Guardar en slot si es Pokémon 1
+            const { pokemonNum } = event.detail;
+            if (pokemonNum === 1) {
+                this.updateCurrentSlot();
+            }
         });
     }
     
@@ -838,12 +866,31 @@ class DamageCalculator {
         this.calculateDamage();
     }
 
+    // Cargar solo Pokémon 2 desde caché
+    async loadPokemon2FromCache() {
+        try {
+            const cached = localStorage.getItem('damageCalculatorState');
+            if (cached) {
+                const state = JSON.parse(cached);
+                
+                // Solo cargar Pokémon 2
+                if (state.pokemon2) {
+                    this.isRestoring = true;
+                    await this.selectPokemon({ id: state.pokemon2.id, name: state.pokemon2.name }, 2);
+                    await new Promise(resolve => setTimeout(resolve, 300));
+                    await this.restoreFullPokemonState(2, state.pokemon2);
+                    this.isRestoring = false;
+                }
+            }
+        } catch (error) {
+            console.error('❌ Error loading Pokémon 2 from cache:', error);
+            this.isRestoring = false;
+        }
+    }
+
     // Cargar desde caché o iniciar vacío
     async loadFromCache() {
         try {
-            // PRIMERO: Cargar slots desde caché
-            this.loadSlotsFromCache();
-            
             const cached = localStorage.getItem('damageCalculatorState');
             if (cached) {
                 const state = JSON.parse(cached);
@@ -851,20 +898,8 @@ class DamageCalculator {
                 // ACTIVAR FLAG DE RESTAURACIÓN
                 this.isRestoring = true;
                 
-                // Si hay slots guardados, usar el slot activo en lugar del caché directo
-                if (this.pokemonSlots.length > 0 && this.activeSlotIndex < this.pokemonSlots.length) {
-                    const activeSlot = this.pokemonSlots[this.activeSlotIndex];
-                    if (activeSlot && activeSlot.pokemon) {
-                        // Cargar desde el slot activo
-                        await this.loadPokemonFromSlot(activeSlot);
-                    } else if (state.pokemon1) {
-                        // Si el slot activo está vacío pero hay caché, restaurar desde caché
-                        await this.selectPokemon({ id: state.pokemon1.id, name: state.pokemon1.name }, 1);
-                        await new Promise(resolve => setTimeout(resolve, 300));
-                        await this.restoreFullPokemonState(1, state.pokemon1);
-                    }
-                } else if (state.pokemon1) {
-                    // Si no hay slots, restaurar desde caché normal
+                // RESTAURAR POKÉMON 1
+                if (state.pokemon1) {
                     await this.selectPokemon({ id: state.pokemon1.id, name: state.pokemon1.name }, 1);
                     await new Promise(resolve => setTimeout(resolve, 300));
                     await this.restoreFullPokemonState(1, state.pokemon1);
@@ -882,9 +917,6 @@ class DamageCalculator {
                 
                 // GUARDAR UNA VEZ AL FINAL para confirmar
                 this.saveToCache();
-            } else {
-                // Si no hay caché, cargar slots vacíos
-                this.loadSlotsFromCache();
             }
         } catch (error) {
             console.error('❌ Error loading from cache:', error);
@@ -1252,12 +1284,6 @@ class DamageCalculator {
         // Actualizar campo central
         this.updateFieldConditionsLabels(isSpanish);
         
-        // Actualizar título de slots
-        const slotsTitle = document.querySelector('.slots-title');
-        if (slotsTitle) {
-            slotsTitle.textContent = isSpanish ? 'Equipo de Comparación' : 'Comparison Team';
-        }
-        
         // Actualizar nombres de movimientos en panel central
         this.refreshMoveSelectionButtons();
         
@@ -1453,83 +1479,100 @@ class DamageCalculator {
         }
     }
     
-    // ===== SISTEMA DE SLOTS DE POKÉMON =====
+    // ===== SISTEMA DE SLOTS DE COMPARACIÓN (NUEVO Y LIMPIO) =====
     
     /**
-     * Inicializar el sistema de slots de Pokémon
+     * Inicializar sistema de slots de comparación
      */
-    initPokemonSlots() {
-        this.renderPokemonSlots();
-        this.setupSlotEventListeners();
+    async initComparisonSlots() {
+        // Cargar slots desde caché si existen
+        this.loadSlotsFromCache();
+        
+        // Si no hay slots, crear uno vacío
+        if (this.comparisonSlots.length === 0) {
+            this.comparisonSlots.push({ pokemon: null, data: null });
+            this.activeSlotIndex = 0;
+            this.saveSlotsToCache();
+        } else {
+            // Asegurar que el slot activo existe
+            if (this.activeSlotIndex >= this.comparisonSlots.length) {
+                this.activeSlotIndex = 0;
+            }
+        }
+        
+        // Renderizar slots
+        this.renderComparisonSlots();
+        
+        // 🆕 Cargar el slot activo si tiene datos
+        const activeSlot = this.comparisonSlots[this.activeSlotIndex];
+        if (activeSlot && activeSlot.pokemon && activeSlot.data) {
+            console.log(`[INIT] Cargando slot activo ${this.activeSlotIndex} tras recarga`);
+            this.isLoadingSlot = true;
+            await this.loadSlotIntoPokemon1(activeSlot);
+        }
     }
     
     /**
-     * Renderizar los slots de Pokémon en el DOM
+     * Renderizar slots de comparación en el DOM
      */
-    renderPokemonSlots() {
-        const slotsGrid = document.getElementById('pokemonSlotsGrid');
-        if (!slotsGrid) return;
+    renderComparisonSlots() {
+        const container = document.getElementById('pokemonSlotsGrid');
+        if (!container) return;
         
-        slotsGrid.innerHTML = '';
+        container.innerHTML = '';
         
-        // Si no hay slots, crear el primer slot vacío
-        if (this.pokemonSlots.length === 0) {
-            this.pokemonSlots.push({
-                pokemon: null,
-                data: null
-            });
-        }
-        
-        // Renderizar slots existentes
-        this.pokemonSlots.forEach((slot, index) => {
+        // Renderizar cada slot
+        this.comparisonSlots.forEach((slot, index) => {
             const slotElement = this.createSlotElement(slot, index);
-            slotsGrid.appendChild(slotElement);
+            container.appendChild(slotElement);
         });
         
-        // Agregar botón + solo si:
-        // 1. No hemos alcanzado el máximo (6)
-        // 2. El último slot tiene un Pokémon (no puede haber slots vacíos seguidos)
-        const lastSlot = this.pokemonSlots[this.pokemonSlots.length - 1];
-        if (this.pokemonSlots.length < this.maxSlots && lastSlot && lastSlot.pokemon) {
-            const addButton = this.createAddSlotButton();
-            slotsGrid.appendChild(addButton);
+        // Mostrar botón + SOLO si el último slot tiene un Pokémon y no hemos alcanzado el máximo
+        const lastSlot = this.comparisonSlots[this.comparisonSlots.length - 1];
+        if (this.comparisonSlots.length < this.MAX_SLOTS && lastSlot && lastSlot.pokemon) {
+            const addButton = this.createAddButton();
+            container.appendChild(addButton);
         }
     }
     
     /**
-     * Crear elemento de slot de Pokémon
+     * Crear elemento de slot individual
      */
     createSlotElement(slot, index) {
         const slotDiv = document.createElement('div');
-        slotDiv.className = `pokemon-slot ${slot.pokemon ? 'filled' : ''} ${index === this.activeSlotIndex ? 'active' : ''}`;
+        slotDiv.className = `pokemon-slot ${slot.pokemon ? 'filled' : 'empty'} ${index === this.activeSlotIndex ? 'active' : ''}`;
         slotDiv.dataset.slotIndex = index;
         
         if (slot.pokemon) {
-            const sprite = document.createElement('img');
-            sprite.className = 'pokemon-slot-sprite';
-            sprite.src = slot.pokemon.sprite;
-            sprite.alt = slot.pokemon.name;
+            // Slot con Pokémon
+            slotDiv.innerHTML = `
+                <img src="${slot.pokemon.sprite}" alt="${slot.pokemon.name}" class="pokemon-slot-sprite">
+                <span class="pokemon-slot-name">${slot.pokemon.name}</span>
+                <button class="slot-clear-btn" data-slot-index="${index}" title="Limpiar slot">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="m19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                </button>
+            `;
             
-            const nameSpan = document.createElement('span');
-            nameSpan.className = 'pokemon-slot-name';
-            nameSpan.textContent = slot.pokemon.name;
-            
-            // Botón de eliminar
-            const deleteBtn = document.createElement('button');
-            deleteBtn.className = 'pokemon-slot-delete';
-            deleteBtn.innerHTML = '×';
-            deleteBtn.title = 'Eliminar Pokémon del equipo';
-            deleteBtn.dataset.slotIndex = index;
-            deleteBtn.addEventListener('click', (e) => {
+            // Listener para seleccionar slot
+            slotDiv.addEventListener('click', (e) => {
+                if (e.target.closest('.slot-clear-btn')) {
                 e.stopPropagation();
-                this.deleteSlot(index);
+                    this.clearSlot(index);
+                } else {
+                    this.selectSlot(index);
+                }
             });
-            
-            slotDiv.appendChild(sprite);
-            slotDiv.appendChild(nameSpan);
-            slotDiv.appendChild(deleteBtn);
         } else {
-            slotDiv.innerHTML = '<span style="color: rgba(255,255,255,0.5); font-size: 0.8rem;">Vacío</span>';
+            // Slot vacío
+            slotDiv.innerHTML = `
+                <div style="font-size: 2rem; color: rgba(255,255,255,0.3);">+</div>
+            `;
+            
+            // Listener para agregar Pokémon
+            slotDiv.addEventListener('click', () => this.selectSlot(index));
         }
         
         return slotDiv;
@@ -1538,71 +1581,75 @@ class DamageCalculator {
     /**
      * Crear botón de agregar slot
      */
-    createAddSlotButton() {
-        const addButton = document.createElement('div');
-        addButton.className = 'add-slot-btn';
-        addButton.innerHTML = '+';
-        addButton.title = 'Agregar Pokémon al equipo';
-        return addButton;
-    }
-    
-    /**
-     * Configurar event listeners para los slots
-     */
-    setupSlotEventListeners() {
-        const slotsGrid = document.getElementById('pokemonSlotsGrid');
-        if (!slotsGrid) return;
+    createAddButton() {
+        const addBtn = document.createElement('div');
+        addBtn.className = 'pokemon-slot add-slot-button empty';
+        addBtn.innerHTML = `
+            <div style="font-size: 2.5rem; color: var(--primary-color); font-weight: bold;">+</div>
+        `;
         
-        // Event delegation para slots y botón +
-        slotsGrid.addEventListener('click', (e) => {
-            if (e.target.closest('.pokemon-slot')) {
-                const slotElement = e.target.closest('.pokemon-slot');
-                const slotIndex = parseInt(slotElement.dataset.slotIndex);
-                this.selectSlot(slotIndex);
-            } else if (e.target.closest('.add-slot-btn')) {
-                this.addNewSlot();
-            }
-        });
+        addBtn.addEventListener('click', () => this.addNewSlot());
+        
+        return addBtn;
     }
     
     /**
      * Seleccionar un slot activo
      */
-    selectSlot(slotIndex) {
-        if (slotIndex >= this.pokemonSlots.length) return;
+    async selectSlot(slotIndex) {
+        console.log(`[SWITCH] Slot ${this.activeSlotIndex} → ${slotIndex}`);
         
-        // IMPORTANTE: Guardar datos del slot actual ANTES de cambiar
-        this.saveCurrentSlotData();
+        // Guardar el slot actual ANTES de cambiar
+        if (this.currentPokemon1) {
+            this.saveSlotData(this.activeSlotIndex);
+        }
         
+        // Cambiar al nuevo slot
         this.activeSlotIndex = slotIndex;
-        this.renderPokemonSlots();
+        this.renderComparisonSlots();
         
-        // Si el slot tiene un Pokémon, cargarlo en Pokémon 1 con TODOS sus datos
-        const slot = this.pokemonSlots[slotIndex];
-        if (slot && slot.pokemon) {
-            this.loadPokemonFromSlot(slot);
+        // Activar flag durante carga
+        this.isLoadingSlot = true;
+        
+        const slot = this.comparisonSlots[slotIndex];
+        
+        if (slot && slot.pokemon && slot.data) {
+            console.log(`[LOAD] Slot ${slotIndex} → ${slot.pokemon.name}`);
+            await this.loadSlotIntoPokemon1(slot);
         } else {
-            this.clearPokemon1();
+            console.log(`[CLEAR] Slot ${slotIndex} vacío`);
+            this.clearPokemon1Panel();
+            this.isLoadingSlot = false;
         }
     }
     
     /**
-     * Guardar datos del slot actual antes de cambiar
+     * Guardar datos en un slot específico
      */
-    saveCurrentSlotData() {
-        if (this.activeSlotIndex >= this.pokemonSlots.length) return;
+    saveSlotData(slotIndex) {
+        if (!this.currentPokemon1) return;
         
-        const slot = this.pokemonSlots[this.activeSlotIndex];
-        if (slot && slot.pokemon && this.currentPokemon1) {
-            // Guardar TODOS los datos actuales del Pokémon 1 en el slot activo
-            slot.data = {
-                // Datos básicos del Pokémon
-                pokemon: this.currentPokemon1,
-                
-                // Stats completos (EVs e IVs)
-                stats: this.getStatsValues(1),
-                
-                // Movimientos (IDs)
+        const slot = this.comparisonSlots[slotIndex];
+        if (!slot) return;
+        
+        const data = this.collectPokemon1Data();
+        console.log(`[SAVE] Slot ${slotIndex} → ${this.currentPokemon1.name}`, data.evs);
+        
+        slot.pokemon = this.currentPokemon1;
+        slot.data = data;
+        this.saveSlotsToCache();
+    }
+    
+    /**
+     * Recolectar todos los datos del Pokémon 1
+     */
+    collectPokemon1Data() {
+        return {
+            // Stats (EVs e IVs)
+            evs: this.getStatsValues(1, 'Ev'),
+            ivs: this.getStatsValues(1, 'Iv'),
+            
+            // Movimientos
                 moves: [...window.damageCalcData.pokemons[0].moves],
                 
                 // Item
@@ -1620,333 +1667,140 @@ class DamageCalculator {
                 // Habilidad
                 ability: document.getElementById('pokemon1Ability')?.value || null,
                 
-                // Timestamp para debugging
+            // Timestamp
                 timestamp: Date.now()
             };
-            
-            // Guardar en caché inmediatamente
-            this.saveSlotsToCache();
-        }
     }
     
     /**
-     * Agregar nuevo slot vacío
+     * Cargar un slot en el panel de Pokémon 1
+     */
+    async loadSlotIntoPokemon1(slot) {
+        if (!slot.pokemon || !slot.data) return;
+        
+        await this.selectPokemon(slot.pokemon, 1);
+        await new Promise(resolve => setTimeout(resolve, 500));
+        
+        const data = slot.data;
+        
+            // Restaurar nivel
+        if (data.level) {
+            const levelInput = document.getElementById('pokemon1Level');
+            if (levelInput) levelInput.value = data.level;
+            }
+            
+            // Restaurar naturaleza
+        if (data.nature) {
+                const natureSelect = document.getElementById('pokemon1Nature');
+            if (natureSelect) natureSelect.value = data.nature;
+            }
+            
+            // Restaurar habilidad
+        if (data.ability) {
+                const abilitySelect = document.getElementById('pokemon1Ability');
+            if (abilitySelect) abilitySelect.value = data.ability;
+        }
+        
+        // Restaurar EVs e IVs
+        if (data.evs && data.ivs) {
+            const stats = ['Hp', 'Atk', 'Def', 'SpAtk', 'SpDef', 'Spe'];
+            stats.forEach(stat => {
+                const evInput = document.getElementById(`pokemon1${stat}Ev`);
+                const ivInput = document.getElementById(`pokemon1${stat}Iv`);
+                if (evInput) evInput.value = data.evs[stat] || 0;
+                if (ivInput) ivInput.value = data.ivs[stat] || 31;
+            });
+            }
+            
+        // Restaurar movimientos
+        if (data.moves) {
+            console.log(`[LOAD] Restaurando movimientos:`, data.moves);
+            for (let i = 0; i < 4; i++) {
+                const moveId = data.moves[i];
+                if (moveId) {
+                    window.damageCalcData.pokemons[0].moves[i] = moveId;
+                    this.updateMoveSelectionButton(1, i + 1, moveId);
+                    await this.updateMoveDropdown(0, i, moveId);
+                }
+            }
+        }
+            
+            // Restaurar item
+        if (data.item) {
+            window.damageCalcData.pokemons[0].item = data.item;
+            await this.updateItemDropdown(0, data.item);
+        }
+        
+        await new Promise(resolve => setTimeout(resolve, 200));
+        
+        // Restaurar HP
+        if (data.hp) {
+            const hpSlider = document.getElementById('pokemon1HpSlider');
+            if (hpSlider) {
+                hpSlider.value = data.hp;
+                this.handleHpSliderChange({ target: hpSlider }, 'pokemon1HpSlider');
+            }
+        }
+        
+        this.updateStats(1);
+        this.isLoadingSlot = false;
+    }
+    
+    /**
+     * Agregar nuevo slot
      */
     addNewSlot() {
-        if (this.pokemonSlots.length >= this.maxSlots) return;
+        if (this.comparisonSlots.length >= this.MAX_SLOTS) return;
         
-        this.pokemonSlots.push({
-            pokemon: null,
-            data: null
-        });
+        this.comparisonSlots.push({ pokemon: null, data: null });
+        this.activeSlotIndex = this.comparisonSlots.length - 1;
         
-        this.activeSlotIndex = this.pokemonSlots.length - 1;
-        this.renderPokemonSlots();
-        this.clearPokemon1();
-    }
-    
-    /**
-     * Eliminar un slot de Pokémon
-     */
-    deleteSlot(slotIndex) {
-        if (slotIndex >= this.pokemonSlots.length) return;
-        
-        // Si es el último slot y está vacío, no hacer nada
-        const slot = this.pokemonSlots[slotIndex];
-        if (!slot || !slot.pokemon) return;
-        
-        // Eliminar el slot
-        this.pokemonSlots.splice(slotIndex, 1);
-        
-        // Ajustar el índice activo si es necesario
-        if (this.activeSlotIndex >= slotIndex) {
-            this.activeSlotIndex = Math.max(0, this.activeSlotIndex - 1);
-        }
-        
-        // Si el slot eliminado era el activo, cargar el nuevo slot activo
-        if (this.activeSlotIndex < this.pokemonSlots.length) {
-            const newActiveSlot = this.pokemonSlots[this.activeSlotIndex];
-            if (newActiveSlot && newActiveSlot.pokemon) {
-                this.loadPokemonFromSlot(newActiveSlot);
-            } else {
-                this.clearPokemon1();
-            }
-        } else {
-            this.clearPokemon1();
-        }
-        
-        // Re-renderizar slots
-        this.renderPokemonSlots();
-        
-        // Guardar cambios
+        this.renderComparisonSlots();
+        this.clearPokemon1Panel();
         this.saveSlotsToCache();
     }
     
     /**
-     * Cargar Pokémon desde un slot
+     * Limpiar un slot específico
      */
-    async loadPokemonFromSlot(slotData) {
-        if (!slotData || !slotData.pokemon) return;
+    clearSlot(slotIndex) {
+        if (this.comparisonSlots.length <= this.MIN_SLOTS) return;
+        if (slotIndex >= this.comparisonSlots.length) return;
         
-        // Cargar el Pokémon básico primero
-        await this.selectPokemon(slotData.pokemon, 1);
+        const slot = this.comparisonSlots[slotIndex];
         
-        // Esperar un poco para que se cargue el Pokémon
-        await new Promise(resolve => setTimeout(resolve, 200));
+        // Eliminar el slot
+        this.comparisonSlots.splice(slotIndex, 1);
         
-        // Restaurar TODOS los datos guardados
-        if (slotData.data) {
-            // Restaurar nivel
-            const levelInput = document.getElementById('pokemon1Level');
-            if (levelInput && slotData.data.level) {
-                levelInput.value = slotData.data.level;
-            }
-            
-            // Restaurar HP
-            if (slotData.data.hp) {
-                const hpSlider = document.getElementById('pokemon1HpSlider');
-                if (hpSlider) {
-                    hpSlider.value = slotData.data.hp;
-                    this.handleHpSliderChange({ target: hpSlider }, 'pokemon1HpSlider');
-                }
-            }
-            
-            // Restaurar naturaleza
-            if (slotData.data.nature) {
-                const natureSelect = document.getElementById('pokemon1Nature');
-                if (natureSelect) {
-                    natureSelect.value = slotData.data.nature;
-                }
-            }
-            
-            // Restaurar habilidad
-            if (slotData.data.ability) {
-                const abilitySelect = document.getElementById('pokemon1Ability');
-                if (abilitySelect) {
-                    abilitySelect.value = slotData.data.ability;
-                }
-            }
-            
-            // Restaurar stats (EVs e IVs)
-            if (slotData.data.stats) {
-                this.restoreStatsFromSlot(slotData.data.stats);
-            }
-            
-            // Restaurar movimientos
-            if (slotData.data.moves) {
-                for (let i = 0; i < 4; i++) {
-                    if (slotData.data.moves[i]) {
-                        window.damageCalcData.pokemons[0].moves[i] = slotData.data.moves[i];
-                        this.updateMoveSelectionButton(1, i + 1, slotData.data.moves[i]);
-                    }
-                }
-            }
-            
-            // Restaurar item
-            if (slotData.data.item) {
-                window.damageCalcData.pokemons[0].item = slotData.data.item;
-                await this.updateItemDropdown(0, slotData.data.item);
-            }
-            
-            // Recalcular stats finales
-            this.updateStats(1);
-            
-            // Actualizar el slot con los datos restaurados
-            slotData.data.timestamp = Date.now();
+        // Ajustar índice activo
+        if (this.activeSlotIndex >= slotIndex) {
+            this.activeSlotIndex = Math.max(0, this.activeSlotIndex - 1);
         }
-    }
-    
-    /**
-     * Restaurar stats desde datos de slot
-     */
-    restoreStatsFromSlot(statsData) {
-        const stats = ['Hp', 'Atk', 'Def', 'SpAtk', 'SpDef', 'Spe'];
         
-        stats.forEach(stat => {
-            // Restaurar EVs
-            if (statsData.evs && statsData.evs[stat] !== undefined) {
-                const evInput = document.getElementById(`pokemon1${stat}Ev`);
-                if (evInput) evInput.value = statsData.evs[stat];
-            }
-            
-            // Restaurar IVs
-            if (statsData.ivs && statsData.ivs[stat] !== undefined) {
-                const ivInput = document.getElementById(`pokemon1${stat}Iv`);
-                if (ivInput) ivInput.value = statsData.ivs[stat];
-            }
-        });
+        // Si el slot eliminado era el activo, limpiar Pokémon 1
+        if (this.activeSlotIndex === slotIndex || this.activeSlotIndex >= this.comparisonSlots.length) {
+            this.activeSlotIndex = Math.max(0, this.comparisonSlots.length - 1);
+            this.clearPokemon1Panel();
+        }
+        
+        this.renderComparisonSlots();
+        this.saveSlotsToCache();
     }
     
     /**
-     * Limpiar Pokémon 1
+     * Limpiar panel de Pokémon 1
      */
-    clearPokemon1() {
-        // Limpiar todos los campos de Pokémon 1
+    clearPokemon1Panel() {
         const searchInput = document.getElementById('pokemon1Search');
         const sprite = document.getElementById('pokemon1Sprite');
-        const levelInput = document.getElementById('pokemon1Level');
         
         if (searchInput) searchInput.value = '';
         if (sprite) {
             sprite.src = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/0.png';
             sprite.style.opacity = '0';
         }
-        if (levelInput) levelInput.value = '100';
-        
-        // Limpiar stats
-        this.clearPokemonStats(1);
-        
-        // Limpiar HP
-        this.updateHpBar(1, 1, 1);
-        
-        // Limpiar movimientos e items
-        this.clearPokemonMovesAndItems(1);
         
         this.currentPokemon1 = null;
-    }
-    
-    /**
-     * Limpiar stats de un Pokémon
-     */
-    clearPokemonStats(pokemonNum) {
-        const stats = ['Hp', 'Atk', 'Def', 'SpAtk', 'SpDef', 'Spe'];
-        
-        stats.forEach(stat => {
-            const evInput = document.getElementById(`pokemon${pokemonNum}${stat}Ev`);
-            const ivInput = document.getElementById(`pokemon${pokemonNum}${stat}Iv`);
-            
-            if (evInput) evInput.value = '0';
-            if (ivInput) ivInput.value = '31';
-        });
-        
-        this.updateStats(pokemonNum);
-    }
-    
-    /**
-     * Limpiar movimientos e items de un Pokémon
-     */
-    clearPokemonMovesAndItems(pokemonNum) {
-        const slotIndex = pokemonNum - 1;
-        
-        // Limpiar movimientos
-        for (let i = 0; i < 4; i++) {
-            window.damageCalcData.pokemons[slotIndex].moves[i] = null;
-            this.updateMoveSelectionButton(pokemonNum, i + 1, null);
-        }
-        
-        // Limpiar item
-        window.damageCalcData.pokemons[slotIndex].item = null;
-        
-        // Limpiar dropdowns
-        this.updateMoveDropdown(slotIndex, 0, null);
-        this.updateItemDropdown(slotIndex, null);
-    }
-    
-    /**
-     * Actualizar slot cuando se selecciona un Pokémon
-     */
-    updateActiveSlot(pokemonData) {
-        if (this.activeSlotIndex >= this.pokemonSlots.length) return;
-        
-        const slot = this.pokemonSlots[this.activeSlotIndex];
-        slot.pokemon = pokemonData;
-        
-        // Guardar TODOS los datos del Pokémon editado
-        slot.data = {
-            // Datos básicos del Pokémon
-            pokemon: pokemonData,
-            
-            // Stats completos (EVs e IVs)
-            stats: this.getStatsValues(1),
-            
-            // Movimientos (IDs)
-            moves: [...window.damageCalcData.pokemons[0].moves],
-            
-            // Item
-            item: window.damageCalcData.pokemons[0].item,
-            
-            // Nivel
-            level: document.getElementById('pokemon1Level')?.value || '100',
-            
-            // HP actual
-            hp: document.getElementById('pokemon1HpSlider')?.value || '100',
-            
-            // Naturaleza
-            nature: document.getElementById('pokemon1Nature')?.value || null,
-            
-            // Habilidad
-            ability: document.getElementById('pokemon1Ability')?.value || null,
-            
-            // Timestamp para debugging
-            timestamp: Date.now()
-        };
-        
-        this.renderPokemonSlots();
-        this.saveSlotsToCache();
-    }
-    
-    /**
-     * Actualizar slot activo cuando se modifican datos del Pokémon
-     */
-    updateActiveSlotData() {
-        if (this.activeSlotIndex >= this.pokemonSlots.length) return;
-        
-        const slot = this.pokemonSlots[this.activeSlotIndex];
-        if (slot && slot.pokemon && this.currentPokemon1) {
-            // Actualizar solo los datos, no el Pokémon básico
-            slot.data = {
-                // Datos básicos del Pokémon
-                pokemon: this.currentPokemon1,
-                
-                // Stats completos (EVs e IVs)
-                stats: this.getStatsValues(1),
-                
-                // Movimientos (IDs)
-                moves: [...window.damageCalcData.pokemons[0].moves],
-                
-                // Item
-                item: window.damageCalcData.pokemons[0].item,
-                
-                // Nivel
-                level: document.getElementById('pokemon1Level')?.value || '100',
-                
-                // HP actual
-                hp: document.getElementById('pokemon1HpSlider')?.value || '100',
-                
-                // Naturaleza
-                nature: document.getElementById('pokemon1Nature')?.value || null,
-                
-                // Habilidad
-                ability: document.getElementById('pokemon1Ability')?.value || null,
-                
-                // Timestamp para debugging
-                timestamp: Date.now()
-            };
-            
-            this.saveSlotsToCache();
-        }
-    }
-    
-    /**
-     * Configurar listeners para guardado automático
-     */
-    setupAutoSaveListeners() {
-        // Guardar datos antes de cerrar la página
-        window.addEventListener('beforeunload', () => {
-            this.saveCurrentSlotData();
-        });
-        
-        // Guardar datos cuando se cambia de pestaña
-        document.addEventListener('visibilitychange', () => {
-            if (document.hidden) {
-                this.saveCurrentSlotData();
-            }
-        });
-        
-        // Guardar datos periódicamente cada 30 segundos
-        setInterval(() => {
-            this.saveCurrentSlotData();
-        }, 30000);
     }
     
     /**
@@ -1954,8 +1808,7 @@ class DamageCalculator {
      */
     saveSlotsToCache() {
         try {
-            localStorage.setItem('damageCalcSlots', JSON.stringify(this.pokemonSlots));
-            localStorage.setItem('damageCalcActiveSlot', this.activeSlotIndex.toString());
+            localStorage.setItem('comparisonSlots', JSON.stringify(this.comparisonSlots));
         } catch (error) {
             console.error('Error guardando slots:', error);
         }
@@ -1966,21 +1819,26 @@ class DamageCalculator {
      */
     loadSlotsFromCache() {
         try {
-            const savedSlots = localStorage.getItem('damageCalcSlots');
-            const savedActiveSlot = localStorage.getItem('damageCalcActiveSlot');
+            const saved = localStorage.getItem('comparisonSlots');
             
-            if (savedSlots) {
-                this.pokemonSlots = JSON.parse(savedSlots);
+            if (saved) {
+                this.comparisonSlots = JSON.parse(saved);
             }
             
-            if (savedActiveSlot) {
-                this.activeSlotIndex = parseInt(savedActiveSlot);
-            }
-            
-            this.renderPokemonSlots();
+            // SIEMPRE empezar en slot 0 al recargar
+            this.activeSlotIndex = 0;
         } catch (error) {
             console.error('Error cargando slots:', error);
         }
+    }
+    
+    /**
+     * Actualizar slot cuando se selecciona un Pokémon nuevo
+     */
+    updateCurrentSlot() {
+        if (this.isLoadingSlot) return;
+        this.saveSlotData(this.activeSlotIndex);
+        this.renderComparisonSlots();
     }
 }
 
