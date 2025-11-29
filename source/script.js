@@ -1491,7 +1491,12 @@ async function handleLogin(e) {
         }
     } catch (error) {
         messageEl.className = 'auth-message error';
-        messageEl.textContent = 'Error inesperado. Inténtalo de nuevo.';
+        // Obtener mensaje de error legible
+        const errorMessage = error?.message || String(error) || 'Error desconocido';
+        const isSpanish = window.languageManager?.getCurrentLanguage() === 'es';
+        messageEl.textContent = isSpanish 
+            ? `Error inesperado: ${errorMessage}` 
+            : `Unexpected error: ${errorMessage}`;
     }
 }
 
@@ -1529,7 +1534,12 @@ async function handleRegister(e) {
         }
     } catch (error) {
         messageEl.className = 'auth-message error';
-        messageEl.textContent = 'Error inesperado. Inténtalo de nuevo.';
+        // Obtener mensaje de error legible
+        const errorMessage = error?.message || String(error) || 'Error desconocido';
+        const isSpanish = window.languageManager?.getCurrentLanguage() === 'es';
+        messageEl.textContent = isSpanish 
+            ? `Error inesperado: ${errorMessage}` 
+            : `Unexpected error: ${errorMessage}`;
     }
 }
 

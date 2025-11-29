@@ -96,6 +96,72 @@ class AuthManager {
         }
     }
 
+    // Obtener mensaje de error legible
+    getErrorMessage(error) {
+        if (!error) {
+            return 'Error desconocido';
+        }
+
+        // Si el error tiene un mensaje, usarlo
+        if (error.message) {
+            // Traducir errores comunes de Firebase
+            const errorMsg = error.message.toLowerCase();
+            
+            // Errores de conexión
+            if (errorMsg.includes('network') || errorMsg.includes('failed to fetch')) {
+                return 'Problema de conexión. Verifica tu internet.';
+            }
+            
+            // Errores de permisos
+            if (errorMsg.includes('permission') || errorMsg.includes('permission-denied')) {
+                return 'Sin permisos para realizar esta acción.';
+            }
+            
+            // Errores de Firebase no disponible
+            if (errorMsg.includes('firebase') && errorMsg.includes('not')) {
+                return 'Firebase no está disponible.';
+            }
+            
+            // Errores de base de datos
+            if (errorMsg.includes('database') || errorMsg.includes('firestore')) {
+                return 'Error de base de datos.';
+            }
+            
+            // Si no coincide con ningún patrón conocido, devolver el mensaje original
+            return error.message;
+        }
+
+        // Si el error es un string, devolverlo directamente
+        if (typeof error === 'string') {
+            return error;
+        }
+
+        // Si el error tiene un código, intentar traducirlo
+        if (error.code) {
+            const errorCodes = {
+                'permission-denied': 'Sin permisos',
+                'unavailable': 'Servicio no disponible',
+                'unauthenticated': 'No autenticado',
+                'not-found': 'No encontrado',
+                'already-exists': 'Ya existe',
+                'failed-precondition': 'Condición previa fallida',
+                'aborted': 'Operación cancelada',
+                'out-of-range': 'Fuera de rango',
+                'unimplemented': 'No implementado',
+                'internal': 'Error interno',
+                'deadline-exceeded': 'Tiempo de espera agotado',
+                'cancelled': 'Cancelado',
+                'data-loss': 'Pérdida de datos',
+                'unknown': 'Error desconocido'
+            };
+            
+            return errorCodes[error.code] || error.code;
+        }
+
+        // Último recurso: convertir el error a string
+        return String(error);
+    }
+
     // Registrar nuevo usuario en Firebase
     async register(username, password, email = '') {
         // Validaciones
@@ -195,11 +261,15 @@ class AuthManager {
             };
 
         } catch (error) {
+            // Obtener mensaje de error legible
+            const errorMessage = this.getErrorMessage(error);
+            const isSpanish = window.languageManager.getCurrentLanguage() === 'es';
+            
             return {
                 success: false,
-                message: window.languageManager.getCurrentLanguage() === 'es' 
-                    ? 'Error al crear la cuenta. Inténtalo de nuevo.' 
-                    : 'Error creating account. Please try again.'
+                message: isSpanish 
+                    ? `Error al crear la cuenta: ${errorMessage}` 
+                    : `Error creating account: ${errorMessage}`
             };
         }
     }
@@ -262,11 +332,15 @@ class AuthManager {
             };
 
         } catch (error) {
+            // Obtener mensaje de error legible
+            const errorMessage = this.getErrorMessage(error);
+            const isSpanish = window.languageManager.getCurrentLanguage() === 'es';
+            
             return {
                 success: false,
-                message: window.languageManager.getCurrentLanguage() === 'es' 
-                    ? 'Error al iniciar sesión. Inténtalo de nuevo.' 
-                    : 'Error logging in. Please try again.'
+                message: isSpanish 
+                    ? `Error al iniciar sesión: ${errorMessage}` 
+                    : `Error logging in: ${errorMessage}`
             };
         }
     }
