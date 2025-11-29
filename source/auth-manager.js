@@ -115,28 +115,26 @@ class AuthManager {
             }, 30000); // 30 segundos timeout para conexiones muy lentas
             
             try {
-                // Usar get() con source: 'server' para forzar conexión real
-                // Si falla, intentar con source: 'cache' como fallback
-                this.db.collection('users').limit(1).get({ source: 'server' })
+                // Usar get() SIN especificar source para que Firebase intente automáticamente
+                // Primero servidor, luego cache si está disponible
+                // Esto evita el error de "document may exist on server" cuando el cache está vacío
+                this.db.collection('users').limit(1).get()
                     .then(() => {
                         clearTimeout(timeout);
                         resolve(true);
                     })
                     .catch((error) => {
-                        // Si falla con server, intentar con cache
-                        if (error.message && (error.message.includes('offline') || error.message.includes('Timeout'))) {
-                            this.db.collection('users').limit(1).get({ source: 'cache' })
-                                .then(() => {
-                                    clearTimeout(timeout);
-                                    resolve(true); // Cache disponible, continuar
-                                })
-                                .catch(() => {
-                                    clearTimeout(timeout);
-                                    // Aún así resolver para permitir intentar operaciones
-                                    resolve(true);
-                                });
+                        clearTimeout(timeout);
+                        // Si es error de offline, aún así resolver para permitir intentar operaciones
+                        // Firebase puede estar en modo offline pero aún funcional
+                        if (error.message && (
+                            error.message.includes('offline') || 
+                            error.message.includes('Timeout') ||
+                            error.message.includes('Failed to get document')
+                        )) {
+                            // Resolver de todas formas - Firebase puede funcionar en modo offline
+                            resolve(true);
                         } else {
-                            clearTimeout(timeout);
                             reject(error);
                         }
                     });
@@ -272,6 +270,12 @@ class AuthManager {
             // Traducir errores comunes de Firebase
             const errorMsg = error.message.toLowerCase();
             
+            // Errores de cache vacío (documento no existe en cache pero puede existir en servidor)
+            if (errorMsg.includes('failed to get document from cache') || 
+                errorMsg.includes('document may exist on the server')) {
+                return 'El documento no está en cache. Intentando obtener desde el servidor...';
+            }
+            
             // Errores de conexión/offline
             if (errorMsg.includes('offline') || errorMsg.includes('client is offline')) {
                 return 'Conexión lenta detectada. Firebase está intentando conectarse. Por favor espera...';
@@ -285,6 +289,11 @@ class AuthManager {
             // Errores de timeout
             if (errorMsg.includes('timeout') || errorMsg.includes('deadline') || errorMsg.includes('tardó demasiado')) {
                 return 'La conexión es muy lenta. Se están realizando reintentos automáticos. Por favor espera...';
+            }
+            
+            // Error de que se requiere servidor
+            if (errorMsg.includes('requiere conexión al servidor')) {
+                return 'Se requiere conexión al servidor. Verificando conexión...';
             }
             
             // Errores de permisos
@@ -484,21 +493,30 @@ class AuthManager {
 
         try {
             // Ejecutar login con reintentos
+            // IMPORTANTE: Login SIEMPRE requiere servidor (no usar cache) porque las contraseñas pueden cambiar
             return await this.executeWithRetry(async () => {
-                // Buscar usuario en Firebase (intentar primero desde servidor, luego cache)
+                // Buscar usuario en Firebase
+                // NO especificar source para que Firebase intente automáticamente servidor primero
+                // Si está offline, Firebase intentará cache automáticamente, pero login requiere servidor
                 const userRef = this.db.collection('users').doc(username);
                 let userDoc;
                 
                 try {
-                    // Intentar obtener desde servidor primero
+                    // Intentar obtener desde servidor (sin especificar source, Firebase lo maneja)
+                    // Si está offline, Firebase lanzará error que manejaremos
                     userDoc = await userRef.get({ source: 'server' });
                 } catch (serverError) {
-                    // Si falla por offline, intentar desde cache
-                    if (serverError.message && serverError.message.includes('offline')) {
-                        userDoc = await userRef.get({ source: 'cache' });
-                    } else {
-                        throw serverError;
+                    // Si es error de offline, NO intentar cache para login
+                    // Login requiere datos actuales del servidor (contraseñas pueden haber cambiado)
+                    if (serverError.message && (
+                        serverError.message.includes('offline') || 
+                        serverError.message.includes('Failed to get document')
+                    )) {
+                        // Lanzar error específico para que se reintente
+                        throw new Error('Se requiere conexión al servidor para iniciar sesión. Verificando conexión...');
                     }
+                    // Otros errores, lanzar directamente
+                    throw serverError;
                 }
 
                 if (!userDoc.exists) {
