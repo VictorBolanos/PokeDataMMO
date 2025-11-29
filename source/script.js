@@ -1468,12 +1468,26 @@ async function handleLogin(e) {
     const username = document.getElementById('loginUsername').value.trim();
     const password = document.getElementById('loginPassword').value;
     const messageEl = document.getElementById('loginMessage');
+    const submitBtn = document.getElementById('loginSubmitBtn');
+    const originalBtnText = submitBtn.innerHTML;
     
     messageEl.textContent = '';
     messageEl.className = 'auth-message';
     
+    // Mostrar indicador de carga (importante para conexiones lentas)
+    const isSpanish = window.languageManager?.getCurrentLanguage() === 'es';
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = isSpanish ? '⏳ Conectando...' : '⏳ Connecting...';
+    messageEl.className = 'auth-message';
+    messageEl.textContent = isSpanish 
+        ? '⏳ Conectando con el servidor (esto puede tardar con conexiones lentas)...' 
+        : '⏳ Connecting to server (this may take a while with slow connections)...';
+    
     try {
         const result = await window.authManager.login(username, password);
+        
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
         
         if (result.success) {
             messageEl.className = 'auth-message success';
@@ -1490,10 +1504,11 @@ async function handleLogin(e) {
             messageEl.textContent = result.message;
         }
     } catch (error) {
+        submitBtn.disabled = false;
+        submitBtn.innerHTML = originalBtnText;
         messageEl.className = 'auth-message error';
         // Obtener mensaje de error legible
         const errorMessage = error?.message || String(error) || 'Error desconocido';
-        const isSpanish = window.languageManager?.getCurrentLanguage() === 'es';
         messageEl.textContent = isSpanish 
             ? `Error inesperado: ${errorMessage}` 
             : `Unexpected error: ${errorMessage}`;
@@ -1511,12 +1526,30 @@ async function handleRegister(e) {
     const password = document.getElementById('registerPassword').value;
     const email = document.getElementById('registerEmail').value.trim();
     const messageEl = document.getElementById('registerMessage');
+    const submitBtn = document.getElementById('registerSubmitBtn');
+    const originalBtnText = submitBtn ? submitBtn.innerHTML : '';
     
     messageEl.textContent = '';
     messageEl.className = 'auth-message';
     
+    // Mostrar indicador de carga (importante para conexiones lentas)
+    const isSpanish = window.languageManager?.getCurrentLanguage() === 'es';
+    if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = isSpanish ? '⏳ Creando cuenta...' : '⏳ Creating account...';
+    }
+    messageEl.className = 'auth-message';
+    messageEl.textContent = isSpanish 
+        ? '⏳ Creando cuenta (esto puede tardar con conexiones lentas)...' 
+        : '⏳ Creating account (this may take a while with slow connections)...';
+    
     try {
         const result = await window.authManager.register(username, password, email);
+        
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+        }
         
         if (result.success) {
             messageEl.className = 'auth-message success';
@@ -1533,10 +1566,13 @@ async function handleRegister(e) {
             messageEl.textContent = result.message;
         }
     } catch (error) {
+        if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = originalBtnText;
+        }
         messageEl.className = 'auth-message error';
         // Obtener mensaje de error legible
         const errorMessage = error?.message || String(error) || 'Error desconocido';
-        const isSpanish = window.languageManager?.getCurrentLanguage() === 'es';
         messageEl.textContent = isSpanish 
             ? `Error inesperado: ${errorMessage}` 
             : `Unexpected error: ${errorMessage}`;

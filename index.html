@@ -1346,8 +1346,32 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         
-        // Initialize Firestore
+        // Initialize Firestore with offline persistence
         const db = firebase.firestore();
+        
+        // Habilitar persistencia offline para mejor manejo de conexiones intermitentes
+        // Esto permite que Firebase funcione incluso con conexiones lentas o intermitentes
+        db.enablePersistence({
+            synchronizeTabs: true
+        }).catch((err) => {
+            // Si falla (por ejemplo, en modo incógnito), continuar sin persistencia
+            if (err.code === 'failed-precondition') {
+                console.warn('Firebase persistence no disponible (múltiples pestañas o modo incógnito)');
+            } else if (err.code === 'unimplemented') {
+                console.warn('Firebase persistence no soportado en este navegador');
+            } else {
+                console.warn('Error al habilitar persistencia:', err);
+            }
+        });
+        
+        // Configurar timeouts más largos para conexiones muy lentas (72 kbps+)
+        db.settings({
+            cacheSizeBytes: firebase.firestore.CACHE_SIZE_UNLIMITED,
+            ignoreUndefinedProperties: true
+        });
+        
+        // Nota: Los timeouts y reintentos están configurados en auth-manager.js
+        // para manejar conexiones muy lentas (hasta 72 kbps)
     </script>
     
     <!-- Shared Utilities -->
