@@ -187,8 +187,7 @@ class DamageCalculator {
         // Nature selects
         document.getElementById('pokemon1Nature')?.addEventListener('change', () => {
             this.updateStats(1);
-            this.saveToCache();
-            this.updateCurrentSlot(); // 🆕 Guardar en slot
+            this.updateCurrentSlot(); // Guardar en slot (incluye saveToCache)
         });
         
         document.getElementById('pokemon2Nature')?.addEventListener('change', () => {
@@ -198,8 +197,7 @@ class DamageCalculator {
         
         // Ability selects
         document.getElementById('pokemon1Ability')?.addEventListener('change', () => {
-            this.saveToCache();
-            this.updateCurrentSlot(); // 🆕 Guardar en slot
+            this.updateCurrentSlot(); // Guardar en slot (incluye saveToCache)
         });
         
         document.getElementById('pokemon2Ability')?.addEventListener('change', () => {
@@ -235,16 +233,14 @@ class DamageCalculator {
                 evInput.addEventListener('input', (e) => {
                     this.handleEVChange(e, pokemonNum, stat);
                     this.updateStats(pokemonNum);
-                    this.saveToCache();
-                    if (pokemonNum === 1) this.updateCurrentSlot(); // 🆕 Guardar en slot
+                    if (pokemonNum === 1) this.updateCurrentSlot(); // Incluye saveToCache
                 });
             }
             if (ivInput) {
                 ivInput.addEventListener('input', (e) => {
                     this.handleIVChange(e, pokemonNum, stat);
                     this.updateStats(pokemonNum);
-                    this.saveToCache();
-                    if (pokemonNum === 1) this.updateCurrentSlot(); // 🆕 Guardar en slot
+                    if (pokemonNum === 1) this.updateCurrentSlot(); // Incluye saveToCache
                 });
             }
         });
@@ -254,8 +250,7 @@ class DamageCalculator {
         if (levelInput) {
             levelInput.addEventListener('input', () => {
                 this.updateStats(pokemonNum);
-                this.saveToCache();
-                if (pokemonNum === 1) this.updateCurrentSlot(); // 🆕 Guardar en slot
+                if (pokemonNum === 1) this.updateCurrentSlot(); // Incluye saveToCache
             });
         }
     }
@@ -274,17 +269,13 @@ class DamageCalculator {
         // Validar total de EVs (510)
         const totalEVs = this.getTotalEVs(pokemonNum);
         if (totalEVs > this.MAX_EV_TOTAL) {
-            // Revertir cambio si excede el total
             const currentValue = parseInt(input.value) || 0;
             const excess = totalEVs - this.MAX_EV_TOTAL;
             const newValue = Math.max(0, currentValue - excess);
             input.value = newValue;
         }
 
-        // Actualizar stats y total EVs
-        this.updateStats(pokemonNum);
         this.updateEVTotal(pokemonNum);
-        this.saveToCache();
     }
 
     // Manejar cambio de IV con validación
@@ -297,10 +288,6 @@ class DamageCalculator {
             value = this.MAX_IV;
             input.value = value;
         }
-
-        // Actualizar stats
-        this.updateStats(pokemonNum);
-        this.saveToCache();
     }
 
     // Obtener total de EVs de un Pokémon
