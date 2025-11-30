@@ -360,9 +360,9 @@ class BerryUI {
                     const harvestInput = document.getElementById(`harvestTime_${berryName}`);
                     if (harvestInput) harvestInput.value = schedule.harvestTime;
                     
-                    // Calcular tiempo de pérdida (6 horas después de la cosecha)
+                    // Calcular tiempo de pérdida (7 horas después de la cosecha)
                     const harvestDate = new Date(`2000-01-01T${schedule.harvestTime}:00`);
-                    const lossTime = new Date(harvestDate.getTime() + (6 * 60 * 60 * 1000));
+                    const lossTime = new Date(harvestDate.getTime() + (7 * 60 * 60 * 1000));
                     const lossDisplay = document.getElementById(`lossTime_${berryName}`);
                     if (lossDisplay) {
                         lossDisplay.textContent = lossTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
@@ -1413,8 +1413,8 @@ class BerryUI {
         document.getElementById(`harvestTime_${berryType}`).value = 
             harvestTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
 
-        // Tiempo de pérdida (SIEMPRE 6 horas después de la cosecha)
-        const lossTime = new Date(harvestTime.getTime() + (6 * 60 * 60 * 1000));
+        // Tiempo de pérdida (SIEMPRE 7 horas después de la cosecha)
+        const lossTime = new Date(harvestTime.getTime() + (7 * 60 * 60 * 1000));
         document.getElementById(`lossTime_${berryType}`).textContent = 
             lossTime.toLocaleTimeString('es-ES', { hour: '2-digit', minute: '2-digit', hour12: false });
     }
